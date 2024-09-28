@@ -1,1 +1,1 @@
-This is me master thesis.
+This is my master thesis REPO.

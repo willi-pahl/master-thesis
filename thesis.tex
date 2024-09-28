@@ -1,0 +1,42 @@
+\documentclass[12pt]{book}
+\usepackage[plainpages=false,hypertexnames=TRUE]{hyperref}
+
+\input{includes/table_settings.tex}
+% Globale Dokumentendefinitionen.
+\input{includes/global_definitions.tex}
+\input{includes/language_settings.tex}
+\input{includes/page_settings.tex}
+\input{includes/font_settings.tex}
+\input{includes/document_structure_settings.tex}
+\input{includes/quotes_settings.tex}
+\input{includes/watermark_setting.tex}
+\input{includes/bibliography_settings.tex}
+\input{includes/listings_settings.tex}
+\input{includes/image_settings.tex}
+
+% include/glossary_settings.tex
+\usepackage[acronym]{glossaries}
+\makeglossaries
+\input{includes/glossary}
+\input{includes/acronym}
+
+\usepackage[most]{tcolorbox}
+
+\usepackage{makeidx}
+\makeindex
+
+% Zeielenabstand
+\usepackage {setspace}
+
+\begin{document}
+	\input{content/frontmatter.tex}
+
+	\newpage
+	\onehalfspacing
+	\pagestyle{fancy}
+	\setcounter{page}{1}
+	\input{content/mainmatter.tex}
+
+	\newpage
+	\input{content/backmatter.tex}
+\end{document}

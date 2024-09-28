@@ -1,0 +1,32 @@
+%--------------------------------------------------------
+% Seiten Layout
+% Maße
+%--------------------------------------------------
+\usepackage[
+includehead,
+includefoot,
+left=2cm,
+right=2cm,
+top=2.5cm,
+bottom=2.5cm,
+bindingoffset=1cm,
+]{geometry}
+%--------------------------------------------------------
+
+\usepackage{fancyhdr}
+
+\fancyhead{}
+\fancyfoot{}
+
+\fancyhead[C]{\color{BhtPrimaryColor} \leftmark}
+
+\fancyfoot[RO]{\textsc{\color{BhtPrimaryColor}{Seite}} | \thepage}
+\fancyfoot[LE]{\thepage\:| \textsc{\color{BhtPrimaryColor} Seite}}
+
+%\renewcommand\headrule
+%{{\color{BhtPrimaryColor}%
+%		\hrule height 2pt
+%		width\headwidth
+%}}
+\renewcommand\headrulewidth{2pt}
+\renewcommand\footrulewidth{1pt}

@@ -1,0 +1,47 @@
+%--------------------------------------------------
+% Kapitelformatierung
+%--------------------------------------------------
+\usepackage[explicit]{titlesec}
+\usepackage{tikz}
+
+% Kapitelformatierung
+%\titleformat
+%{\chapter}[hang]
+%{\Huge\bfseries}
+%{\color{PrimaryColor}{\thechapter}}
+%{10pt}
+%{\color{PrimaryColor}{\Huge\bfseries}#1}
+\titleformat
+{name=\chapter}
+{\gdef\chapterlabel{}\normalfont\Large\scshape}
+{\gdef\chapterlabel{\thechapter\ }}
+{0pt}
+{\color{BhtPrimaryColor}{
+		\begin{tikzpicture}[remember picture,overlay]
+			\node[draw=none, yshift=-7cm] at (current page.north west) {
+				\begin{tikzpicture}[remember picture, overlay]
+					\draw[draw=none, fill=white] (0,0) rectangle (\paperwidth,3cm);
+					\node[draw=none, anchor=west,yshift=1.5cm,xshift=1in+\hoffset+\oddsidemargin, text width=\textwidth, inner sep=0, outer sep=0]{\huge{#1}};
+					\node[draw=none, anchor=south east,rectangle, xshift=\paperwidth, inner sep=6pt, fill=BhtPrimaryColor, minimum height=3cm, minimum width=2.5cm]{\Huge \color{white}{\chapterlabel}};
+				\end{tikzpicture}
+			};
+		\end{tikzpicture}
+	}
+	\vspace{1cm}
+}
+
+% Abschnittsformatierung
+\titleformat
+{\section}[hang]
+{\Large\bfseries}
+{\color{BhtPrimaryColor}{\thesection}}
+{10pt}
+{\color{BhtPrimaryColor}{\LARGE\bfseries}#1}
+
+% Unterabschnittsformatierung
+\titleformat
+{\subsection}[hang]
+{\large\bfseries}
+{\color{BhtPrimaryColor}{\thesubsection}}
+{10pt}
+{\color{BhtPrimaryColor}{\large\bfseries}#1}

@@ -1,6 +1,6 @@
 # Master Thesis
 
-Das ist meine master thesis REPO.
+Master thesis REPO.
 
 ## Thema
 

@@ -1,0 +1,64 @@
+\section{Modelle lokal aufsetzen}
+Als Server dient ein Debian 12 System.
+
+\subsection{Install Ollama}
+Ein Skript ausführen
+\begin{verbatim}
+	curl -fsSL https://ollama.com/install.sh | sh
+\end{verbatim}
+
+Ein Model laden und im Anschluss starten, Beispiel
+\begin{verbatim}
+	ollama pull deepseek-coder-v2:16b \
+	ollama run deepseek-coder-v2:16b
+\end{verbatim}
+
+
+Config Ollama\\
+Set correct IP and Post in \texttt{/etc/systemd/system/ollama.service}
+
+\begin{lstlisting}[language=diff,caption={Ollama Hostanpasssng für Netzwerkbetrieb}]
+	diff --git a/ollama.service b/ollama.service
+	--- a/ollama.service
+	+++ b/ollama.service
+	@@ -10,3 +10,4 @@
+	RestartSec=3
+	Environment="PATH=/usr/local/bin:/usr/bin"
+-   
++   Environment="OLLAMA_HOST=0.0.0.0"
++   
+\end{lstlisting}
+
+
+
+\subsection{Open WebUI}
+Optional kann ein grafisches Tool, zum Testen und verwalten vom Ollama-Server im Netzwerk installiert werden. Der Aufruf der UI, kann mittel Browser erfolgen. Hier wird die IP und der Port 8080 angegeben. Beispiel \texttt{http://192.168.2.45:8080}.
+
+\begin{verbatim}
+	sudo apt-get install ca-certificates curl
+	sudo install -m 0755 -d /etc/apt/keyrings
+	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+	-o /etc/apt/keyrings/docker.asc
+	sudo chmod a+r /etc/apt/keyrings/docker.asc
+	
+	echo \
+	"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+	https://download.docker.com/linux/ubuntu \
+	$(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+	sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	sudo apt-get update
+	
+	sudo apt-get install docker-ce docker-ce-cli containerd.io \
+	docker-buildx-plugin docker-compose-plugin
+	docker run -d --network=host -v open-webui:/app/backend/data \
+	-e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name open-webui \
+	--restart always ghcr.io/open-webui/open-webui:main
+\end{verbatim}
+
+\subsection{Python Client}
+
+\begin{verbatim}
+	pip3 install langchain
+	pip3 install ollama
+	pip3 install mistral
+\end{verbatim}

@@ -30,6 +30,27 @@
 	morestring=[b]"
 }
 
+\definecolor{dkgreen}{rgb}{0,.6,0}
+\definecolor{dkblue}{rgb}{0,0,.6}
+\definecolor{dkyellow}{cmyk}{0,0,.8,.3}
+
+\lstset{
+	language        = php,
+	basicstyle      = \small\ttfamily,
+	keywordstyle    = \color{dkblue},
+	stringstyle     = \color{red},
+	identifierstyle = \color{dkgreen},
+	commentstyle    = \color{gray},
+	emph            =[1]{php},
+	emphstyle       =[1]\color{black},
+	emph            =[2]{if,and,or,else},
+	emphstyle       =[2]\color{dkyellow},
+	frameround=ffff,
+	frame=single,
+	numbers=left,
+	stepnumber=5
+}
+
 \lstset{
 %	language=JavaScript,
 	backgroundcolor=\color{lightgray},
@@ -44,4 +65,14 @@
 	breaklines=true,
 	showtabs=false,
 	captionpos=b
+}
+
+\newcommand{\lstbg}[3][0pt]{{\fboxsep#1\colorbox{#2}{\strut #3}}}
+\lstdefinelanguage{diff}{
+	basicstyle=\ttfamily\small,
+	morecomment=[f][\lstbg{red!20}]-,
+	morecomment=[f][\lstbg{green!20}]+,
+	morecomment=[f][\textit]{@@},
+	%morecomment=[f][\textit]{---},
+	%morecomment=[f][\textit]{+++},
 }

@@ -167,8 +167,109 @@ Orchestrierung
 \section{Multi-Agenten-Systeme}
 Multi-Agent-System
 
+
+%----------------------------------------------------------------
+
 \section{Prompt Engineering}
-Prompt
+Prompt Engineering optimiert die Antworten große Sprachmodelle, ohne Parameter, wie Bias und Gewichte des Models ändern zu müssen. Dieser Bereich hat in den letzten Jahren enorm an Bedeutung gewonnen und sich zu einer eigenen Disziplin im Bereich der Künstlichen Intelligenz entwickelt.\vspace{0.2cm}
+
+Ein Prompt oder Anweisung muss entweder als Anweisung oder als Frage gestellt werden. Dies kann, wie in \cite{amatriain-2024} beschrieben, in Form von einer einfachen Anweisung bis hin zu detaillierten Beschreibungen oder spezifischen Aufgaben erfolgen.\vspace{0.2cm}
+
+[Hier Beispiel von ChatGPT oder Gemini einfügen, kann als Bild]
+
+
+\subsection{Prompt-Techniken}
+Siehe Prompting Techniques Hinweise für die Optimierung von Prompts.
+Die folgenden Techniken dienen dazu die Abfragen zu optimieren und somit eine bessere Antwort von den Sprachmodellen zu erhalten.
+
+
+\subsubsection{Zero-shot Prompting}
+Bei diesen Anweisungen handelt es sich um einfache Anweisungen, ohne Angabe von Beispielen und sonstigen zusätzlichen Informationen.\vspace{0.2cm}
+
+[Beispiel Zero-shot]\vspace{0.2cm}
+
+In \cite{wei-2021} wird eine Methode vorgeschlagen, zur Verbesserung der Zero-shot Anweisungen.
+
+
+\subsubsection{Few-shot Prompting}
+Bei komplexen Aufgaben liefert die Verwendung von Zero-shot Anweisungen oft unzureichende Ergebnisse. Hierfür finden Few-shot Prompts Verwendung. Bei dieser Technik werden ein oder mehrere Beispiele einer Antwort der Anweisung beigefügt, die als eine Art Antwortvorlage für das Modell dienen.\vspace{0.2cm}
+
+[Beispiel Few-shot]\vspace{0.2cm}
+
+Wie erfolgreich diese Technik ist, wird in \cite{brown-2020} beschrieben. Wie wichtig bei der Formulierung der Anweisungen das Format und die Beschriftung ist, zeigt \cite{min-2022} in seiner Studie. Wird ein Beispiel angegeben, kann dazu kommen, dass das Modell nicht die richtige Antwort findet. Dann sollten mehrere Beispiele an das Modell übergeben werden.
+
+
+\subsubsection{Chain-of-Thought Prompting}
+Wenn mit den Zero-shot und Few-shot Techniken nicht das gewünschte Ergebnis von den Modellen erzielt wird, könnte die Chain-of-Thought Technik Verwendung finden. Bei dieser Technik wird das Modell aufgefordert, sein Vorgehen zu belegen.\vspace{0.2cm}
+
+[Beispiel chain of thought]\vspace{0.2cm}
+
+Wie gut die Technik bei Modellen funktioniert, wird in \cite{wei-2022} untersucht.
+
+
+\subsubsection{Meta Prompting}
+Für Meta Prompting, sind nach \cite{zhang-2023} die wichtigsten Merkmale wie folgt,
+
+\begin{itemize}
+	\item \textit{Strukturierung} der Prompts beispielsweise bestimmen der Denkweise oder Reihenfolge vorgeben.
+	\item \textit{Syntax fokussiert}, dadurch wird die Syntax als Leitvorlage für die erwartete Antwort verwendet.
+	\item \textit{abstrakte Beispiele} die sich mit der Struktur des Prompt befassen, nicht mit der expliziten Lösung, wie die inhaltsgesteuert Few-Shot-Prompts.
+	\item \textit{vielseitig} lässt es zu, das der Prompt in vielen Bereichen anwendbar ist und geben Antwort auf eine Vielzahl von Problemen, sodass der Prompt nicht jedes Mal neu geschrieben werden muss.
+	\item \textit{kategorischer Ansatz} strukturiert den Aufbau der Prompts in logische Anordnung und Kategorisierung 
+\end{itemize}
+
+[Beispiel für Meta-Prompt]\vspace{0.2cm}
+
+Meta-Prompts sind Token-Effizient und verringern die benötigte Anzahl an Token, da der Schwerpunkt wie beschrieben auf der Struktur liegt, nicht auf den expliziten Inhalt.
+
+
+\subsubsection{Prompt Chaining}
+Hierbei wird eine komplexe Aufgabe in Unteraufgaben zerlegt. Die Antwort einer Unteraufgabe dient als Eingabe für die nächste Unteraufgabe. Diese Zerlegung ist hilfreich, um Komplexität einer Aufgabe zu verringern und eine Überforderung der Modelle zu verhindern.
+
+
+\subsubsection{Tree of Thoughts}
+%https://www.promptingguide.ai/techniques/tot
+Diese Technik wurde von \cite{long-2023} und \cite{yao-2023} vorgeschlagen.
+
+\epigraph{Erstelle drei verschiedene Methoden in PHP, die eine HTML Zeichenkette in ein PDF umwandeln und es als Datei, mit angegebenen Namen speichern.}%{Nutzereingabe}
+
+\lstinputlisting[label={code:tot_php_dompdf},caption={Ausgabe für DOMPDF Bibliothek},language=PHP]{content/chapter_basics/codes/dompdf.php}
+
+\lstinputlisting[label={code:tot_php_mpdf},caption={Ausgabe für MPDF Bibliothek},language=PHP]{content/chapter_basics/codes/mpdf.php}
+
+Als dritte Ausgabe liefert coder,
+
+\lstinputlisting[label={content/chapter_basics/code:tot_php_tcpdf},caption={Ausgabe für TCPDF Bibliothek},language=PHP]{content/chapter_basics/codes/tcpdf.php}
+
+%\subsubsection{Retrieval Augmented Generation}
+
+%\subsubsection{Automatic Prompt Engineer}
+
+%\subsubsection{Directional Stimulus Prompting}
+
+%\subsubsection{ReAct}
+
+%\subsubsection{Multimodal CoT}
+
+%\subsubsection{Automatic Reasoning and Tool-use}
+
+%\subsubsection{Active-Prompt}
+
+%\subsubsection{Program-Aided Language Models}
+
+%\subsubsection{Reflexion}
+
+%\subsubsection{Graph Prompting}
+
+
+\subsection{Grenzen beim Prompt-Engineering für LLMs}
+Trotz der bemerkenswerten linguistischen Leistung, stoßen große Sprachmodelle an ihre Grenzen, unter anderem wie in \cite{amatriain-2024} beschrieben,
+
+%\section{Relevante Arbeiten}
+%In \cite{zhou-2022} wird der Prompt-Optimierungsprozess als Black-Box interpretiert. Der mit minimalen Eingaben ein menschenähnliches Niveau erreichen soll.
+
+%----------------------------------------------------------------
+
 
 \section{Grundlagen bei der Entwicklung von Webanwendungen}
 Webanwendung

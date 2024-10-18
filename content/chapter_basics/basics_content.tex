@@ -184,25 +184,38 @@ Die folgenden Techniken dienen dazu die Abfragen zu optimieren und somit eine be
 
 
 \subsubsection{Zero-shot Prompting}
-Bei diesen Anweisungen handelt es sich um einfache Anweisungen, ohne Angabe von Beispielen und sonstigen zusätzlichen Informationen.\vspace{0.2cm}
+Bei dieser Technik handelt es sich um das Senden einer einfache, klare und präzise Anweisungen, ohne Angabe von Beispielen und sonstigen zusätzlichen Informationen an die Modelle. Hierbei handelt es sich meistens um eine Domain-spezifische Anweisung. Es findet kein explizites Training vorher statt. Die Anweisung sollte ein klar definiertes Ziel haben\vspace{0.2cm}
 
-[Beispiel Zero-shot]\vspace{0.2cm}
+\lstinputlisting[label={code:prompt_zero_shot},caption={Zero-Shot Prompt als Python-String},language=Python]{content/chapter_basics/codes/zero-shot-prompt-string.py}
 
-In \cite{wei-2021} wird eine Methode vorgeschlagen, zur Verbesserung der Zero-shot Anweisungen.
+Im Folgenden die Antwort vom Modell. Hierbei wurde das Modell \textit{deepseek-coder-v2} verwendet und über die API abgefragt.
+
+\lstinputlisting[label={code:answer_zero_shot_prompt},caption={Antwort des Zero-Shot-Prompts},language=text]{content/chapter_basics/codes/answer-zero-shot-prompt.md}
+
+Um bessere Lösungen von den Modellen zu bekommen, kann es sinnvoll sein, weitere Angaben, zum Beispiel zur Arbeitsweise oder die Definition, der zu verwendenden Bibliotheken hinzuzufügen. In \cite{wei-2021} wird eine Methode vorgeschlagen, zur Verbesserung der Zero-shot Anweisungen.
 
 
 \subsubsection{Few-shot Prompting}
-Bei komplexen Aufgaben liefert die Verwendung von Zero-shot Anweisungen oft unzureichende Ergebnisse. Hierfür finden Few-shot Prompts Verwendung. Bei dieser Technik werden ein oder mehrere Beispiele einer Antwort der Anweisung beigefügt, die als eine Art Antwortvorlage für das Modell dienen.\vspace{0.2cm}
+Bei komplexen Aufgaben liefert die Verwendung von Zero-shot Anweisungen oft unzureichende Ergebnisse. Hierfür finden Few-shot Prompts Verwendung. Bei dieser Technik werden ein oder mehrere Beispiele einer Antwort der Anweisung beigefügt, die als eine Art Antwortvorlage für das Modell dienen. Das Listings \ref{code:few-shot-prompt-as-python-string} zeigt beispielhaft den Prompt als Python-String, welcher an das Modell übertragen wurde.\vspace{0.2cm}
 
-[Beispiel Few-shot]\vspace{0.2cm}
+
+\lstinputlisting[label={code:prompt_few_shot},caption={Few-Shot Prompt als Python-String},language=Python]{content/chapter_basics/codes/few-shot-prompt-string.py}
+
+Das Ergebnis vom Modell \textit{deepseek-coder-va:latest} ist in Listing \ref{code:answer_few_shot_prompt} zu sehen.
+
+\lstinputlisting[label={code:answer_few_shot_prompt},caption={Antwort des Few-Shot-Prompts},language=text]{content/chapter_basics/codes/answer-few-shot-promt.md}
 
 Wie erfolgreich diese Technik ist, wird in \cite{brown-2020} beschrieben. Wie wichtig bei der Formulierung der Anweisungen das Format und die Beschriftung ist, zeigt \cite{min-2022} in seiner Studie. Wird ein Beispiel angegeben, kann dazu kommen, dass das Modell nicht die richtige Antwort findet. Dann sollten mehrere Beispiele an das Modell übergeben werden.
 
 
-\subsubsection{Chain-of-Thought Prompting}
-Wenn mit den Zero-shot und Few-shot Techniken nicht das gewünschte Ergebnis von den Modellen erzielt wird, könnte die Chain-of-Thought Technik Verwendung finden. Bei dieser Technik wird das Modell aufgefordert, sein Vorgehen zu belegen.\vspace{0.2cm}
+\subsubsection{Chain-of-Thought Prompting (CoT)}
+Wenn mit den Zero-shot und Few-shot Techniken nicht das gewünschte Ergebnis von den Modellen erzielt wird, könnte die Chain-of-Thought \acrshort{CoT} Technik Verwendung finden. Bei dieser Technik wird das Modell aufgefordert, sein Vorgehen zu belegen. Mit dieser Technik kann besser nachvollzogen werden, wie im Modell der Lösungsversuch abläuft.\vspace{0.2cm}
 
-[Beispiel chain of thought]\vspace{0.2cm}
+\lstinputlisting[label={code:prompt_cot},caption={CoT Prompt als Python-String},language=Python]{content/chapter_basics/codes/cot-prompt-string.py}
+
+Die Antwort.
+
+\lstinputlisting[label={code:answer_cot_prompt},caption={Antwort des CoT-Prompts},language=text]{content/chapter_basics/codes/answer-cot-promt.md}
 
 Wie gut die Technik bei Modellen funktioniert, wird in \cite{wei-2022} untersucht.
 
@@ -218,20 +231,54 @@ Für Meta Prompting, sind nach \cite{zhang-2023} die wichtigsten Merkmale wie fo
 	\item \textit{kategorischer Ansatz} strukturiert den Aufbau der Prompts in logische Anordnung und Kategorisierung 
 \end{itemize}
 
-[Beispiel für Meta-Prompt]\vspace{0.2cm}
+Dem Modell wird wie bei der CoT Technik angewiesen, sein Vorgehen offen zulegen. Neben dem Ergebnis, wie beim CoT, soll hierbei auch der Ablauf und die Planung der Ergebnisfindung dargestellt werden. Ein Beispiel einer Anweisung könnte folgendermaßen aussehen und wird in Listing \ref{code:prompt_meta} gezeigt.
+
+\lstinputlisting[label={code:prompt_meta},caption={Meta Prompt als Python-String},language=Python]{content/chapter_basics/codes/meta-prompt-string.py}
+
+Das Listing \ref{code:answer_meta_prompt} zeigt die ausführliche Antwort. Ebenfalls wurde hier das \textit{deepseek-code-v2:latest} Modell angewandt.
+
+\lstinputlisting[label={code:answer_meta_prompt},caption={Antwort des Meta-Prompts},language=text]{content/chapter_basics/codes/answer-meta-promt.md}
 
 Meta-Prompts sind Token-Effizient und verringern die benötigte Anzahl an Token, da der Schwerpunkt wie beschrieben auf der Struktur liegt, nicht auf den expliziten Inhalt.
 
 
 \subsubsection{Prompt Chaining}
-Hierbei wird eine komplexe Aufgabe in Unteraufgaben zerlegt. Die Antwort einer Unteraufgabe dient als Eingabe für die nächste Unteraufgabe. Diese Zerlegung ist hilfreich, um Komplexität einer Aufgabe zu verringern und eine Überforderung der Modelle zu verhindern.
+Hierbei wird eine komplexe Aufgabe in Unteraufgaben zerlegt. Die Antwort einer Unteraufgabe dient als Eingabe für die nächste Unteraufgabe. Diese Zerlegung ist hilfreich, um Komplexität einer Aufgabe zu verringern und eine Überforderung der Modelle zu verhindern. Durch diese Technik ist eine schrittweise Näherung an die Gesamtlösung der Aufgabe möglich.\vspace{0.2cm}
+
+Im Beispiel soll das Sprachmodell wieder eine PHP Funktion schreiben, die eine HTML Zeichenkette als PDF speichert.
 
 
-\subsubsection{Tree of Thoughts}
+\lstinputlisting[label={code:prompt_chain_1},caption={Chain Prompt Nr. 1 als Python-String},language=Python]{content/chapter_basics/codes/chain-prompt-string-1.py}
+
+\lstinputlisting[label={code:answer_chain_1_prompt},caption={Antwort des Chain-1-Prompts},language=text]{content/chapter_basics/codes/answer-chain-prompt-1.md}
+
+
+\lstinputlisting[label={code:prompt_chain_2},caption={Chain Prompt Nr. 2 als Python-String},language=Python]{content/chapter_basics/codes/chain-prompt-string-2.py}
+
+\lstinputlisting[label={code:answer_chain_2_prompt},caption={Antwort des Chain-2-Prompts},language=text]{content/chapter_basics/codes/answer-chain-prompt-2.md}
+
+
+\lstinputlisting[label={code:prompt_chain_3},caption={Chain Prompt Nr. 3 als Python-String},language=Python]{content/chapter_basics/codes/chain-prompt-string-3.py}
+
+\lstinputlisting[label={code:answer_chain_3_prompt},caption={Antwort des Chain-3-Prompts},language=text]{content/chapter_basics/codes/answer-chain-prompt-3.md}
+
+
+\subsubsection{Tree of Thoughts (ToT)}
 %https://www.promptingguide.ai/techniques/tot
-Diese Technik wurde von \cite{long-2023} und \cite{yao-2023} vorgeschlagen.
+Diese Technik wurde von \cite{long-2023} und \cite{yao-2023} vorgeschlagen. (\acrshort{ToT}) kommt bei komplexen Anforderungen zum Einsatz, wenn einfache Techniken, die zuvor genannt wurden, nicht mehr ausreichen. Auch bei dieser Technik wird die Anforderung in keine Aufgaben zerlegt. Dann werden mehrere Lösungen pro Aufgabe erstellt und im Anschluss bewertet. Dabei entsteht eine Baustruktur, von der die besten Lösungen ausgesucht werden.
 
-\epigraph{Erstelle drei verschiedene Methoden in PHP, die eine HTML Zeichenkette in ein PDF umwandeln und es als Datei, mit angegebenen Namen speichern.}%{Nutzereingabe}
+\begin{figure}[!ht]
+	\includegraphics[width=0.4\textwidth]{content/chapter_basics/images/tot_schema.eps}
+	\centering
+	\caption{Baumstruktur der \glqq Tree of Thoughts\grqq \ Technik}
+	\label{img:tot_schema}
+\end{figure}
+
+Im Folgenden ein Beispiel einer Teilaufgabe, bei der drei mögliche Lösungsvorschläge vom Modell erstellt wurden. Die Listings \ref{code:tot_php_dompdf}, \ref{code:tot_php_mpdf} und \ref{code:tot_php_tcpdf} zeigen die Ergebnisse des Modells. Es wurden jeweils andere PHP Bibliotheken für die Lösung vorgeschlagen. Als Modell wurde \textit{deepseek-coder-v2} verwendet. Als Nutzereingabe wurde folgendes an das Modell übergeben,
+
+\epigraph{Erstelle drei verschiedene Methoden in PHP, die eine HTML Zeichenkette in ein PDF umwandeln und es als Datei, mit angegebenen Namen speichern.}
+
+Die erste Lösung beinhaltet die Bibliothek \textit{Dompdf}.
 
 \lstinputlisting[label={code:tot_php_dompdf},caption={Ausgabe für DOMPDF Bibliothek},language=PHP]{content/chapter_basics/codes/dompdf.php}
 
@@ -239,7 +286,7 @@ Diese Technik wurde von \cite{long-2023} und \cite{yao-2023} vorgeschlagen.
 
 Als dritte Ausgabe liefert coder,
 
-\lstinputlisting[label={content/chapter_basics/code:tot_php_tcpdf},caption={Ausgabe für TCPDF Bibliothek},language=PHP]{content/chapter_basics/codes/tcpdf.php}
+\lstinputlisting[label={code:tot_php_tcpdf},caption={Ausgabe für TCPDF Bibliothek},language=PHP]{content/chapter_basics/codes/tcpdf.php}
 
 %\subsubsection{Retrieval Augmented Generation}
 

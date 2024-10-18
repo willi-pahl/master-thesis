@@ -1,4 +1,17 @@
 \usepackage{listings}
+
+\lstdefinelanguage{text}{
+	keywords={},
+%	keywordstyle=\color{blue}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+%	comment=[l]{\#},
+%	commentstyle=\color{purple}\ttfamily,
+%	stringstyle=\color{red}\ttfamily,
+%	morestring=[b]',
+%	morestring=[b]"
+}
+
 \lstdefinelanguage{docker}{
 	keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER, HEALTHCHECK},
 	keywordstyle=\color{blue}\bfseries,
@@ -11,12 +24,11 @@
 	morestring=[b]"
 }
 
-\definecolor{lightgray}{rgb}{.95,.95,.95}
 \definecolor{darkgray}{rgb}{.4,.4,.4}
 \definecolor{purple}{rgb}{0.65, 0.12, 0.82}
 
 \lstdefinelanguage{JavaScript}{
-	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, let},
 	keywordstyle=\color{blue}\bfseries,
 	ndkeywords={class, export, boolean, throw, implements, import, this},
 	ndkeywordstyle=\color{darkgray}\bfseries,
@@ -43,16 +55,25 @@
 	commentstyle    = \color{gray},
 	emph            =[1]{php},
 	emphstyle       =[1]\color{black},
-	emph            =[2]{if,and,or,else},
+%	emph            =[2]{if,and,or,else}, % hier nicht, gilt für alle auch für Text.
 	emphstyle       =[2]\color{dkyellow},
 	frameround=ffff,
 	frame=single,
-	numbers=left,
-	stepnumber=5
 }
 
+
+\newcommand{\lstbg}[3][0pt]{{\fboxsep#1\colorbox{#2}{\strut #3}}}
+\lstdefinelanguage{diff}{
+	basicstyle=\ttfamily\small,
+	morecomment=[f][\lstbg{red!20}]-,
+	morecomment=[f][\lstbg{green!20}]+,
+	morecomment=[f][\textit]{@@},
+	%morecomment=[f][\textit]{---},
+	%morecomment=[f][\textit]{+++},
+}
+
+\definecolor{lightgray}{rgb}{.98,.98,.98}
 \lstset{
-%	language=JavaScript,
 	backgroundcolor=\color{lightgray},
 	extendedchars=true,
 	basicstyle=\footnotesize\ttfamily,
@@ -64,15 +85,14 @@
 	tabsize=2,
 	breaklines=true,
 	showtabs=false,
-	captionpos=b
-}
-
-\newcommand{\lstbg}[3][0pt]{{\fboxsep#1\colorbox{#2}{\strut #3}}}
-\lstdefinelanguage{diff}{
-	basicstyle=\ttfamily\small,
-	morecomment=[f][\lstbg{red!20}]-,
-	morecomment=[f][\lstbg{green!20}]+,
-	morecomment=[f][\textit]{@@},
-	%morecomment=[f][\textit]{---},
-	%morecomment=[f][\textit]{+++},
+	captionpos=b,
+	stepnumber=5,
+	literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}2
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
 }

@@ -1,3 +1,253 @@
 \section{Einfache HTML Seite}
 
 \subsection{ChatGPT 3.5}
+
+% https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtColorYellow!5!white,
+	colframe=BhtColorYellow!75!black,
+	title= Python Funktion
+]
+	Schreibe eine Python Funktion die FPDF Dokument als Eingabe erhält und eine Zeichenkette zurückliefert.\\
+	(engl.: Write a Python function that takes FPDF document as input and returns a string.)
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtGrey!5!white,
+	colframe=BhtGrey!75!black!50,
+	title= Antwort ChatGPT
+	]
+	Antwort.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtGrey!5!white,
+	colframe=BhtGrey!75!black!50,
+	title= Copilot
+	]
+	Klar, ich kann dir dabei helfen! Hier ist ein Beispiel für eine Python-Funktion, die ein FPDF-Dokument als Eingabe erhält und den Textinhalt als Zeichenkette zurückliefert. Dafür verwenden wir die Bibliothek PyMuPDF (auch bekannt als fitz), um das PDF zu lesen:\\
+	\begin{verbatim}
+		import fitz  # PyMuPDF
+		
+		def pdf_to_string(pdf_path):
+		    # Öffne das PDF-Dokument
+		    document = fitz.open(pdf_path)
+		    text = ""
+		
+		    # Iteriere durch jede Seite und extrahiere den Text
+		    for page_num in range(len(document)):
+		        page = document.load_page(page_num)
+		        text += page.get_text()
+
+		    return text
+		
+		# Beispielverwendung
+		pdf_path = "dein_dokument.pdf"
+		text_inhalt = pdf_to_string(pdf_path)
+		print(text_inhalt)
+	\end{verbatim}
+	Stelle sicher, dass du die PyMuPDF-Bibliothek installiert hast. Du kannst sie mit folgendem Befehl installieren:
+	\begin{verbatim}
+		pip install pymupdf
+	\end{verbatim}
+	Diese Funktion öffnet das PDF-Dokument, iteriert durch jede Seite und extrahiert den Text. Wenn du Fragen hast oder weitere Anpassungen benötigst, lass es mich wissen!
+\end{tcolorbox}
+
+\newpage
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtColorYellow!5!white,
+	colframe=BhtColorYellow!75!black,
+	title= Python Funktion
+	]
+	Schreibe eine Python Funktion die FPDF Dokument als Eingabe erhält und eine Zeichenkette zurückliefert. Verwende dafür die Python Bibliothek FPDF.\\
+	(engl.: Write a Python function that takes FPDF document as input and returns a string.)
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtGrey!5!white,
+	colframe=BhtGrey!75!black!50,
+	title= Copilot
+	]
+	Die Bibliothek FPDF wird hauptsächlich zum Erstellen von PDF-Dokumenten verwendet und bietet keine direkte Methode zum Extrahieren von Text aus einem PDF. Um Text aus einem PDF-Dokument zu extrahieren, könntest du eine andere Bibliothek wie PyMuPDF oder PyPDF2 verwenden.
+	
+	Falls du jedoch darauf bestehst, FPDF zu verwenden, um ein PDF zu erstellen und dann den Text aus diesem PDF zu extrahieren, könntest du den Text während des Erstellungsprozesses speichern und später zurückgeben. Hier ist ein Beispiel, wie du das machen könntest:
+	\begin{verbatim}
+		from fpdf import FPDF
+		
+		class PDF(FPDF):
+		    def __init__(self):
+		        super().__init__()
+		        self.text_content = ""
+		
+		    def add_text(self, text):
+		        self.text_content += text + "\n"
+		        self.set_xy(10, 10)
+		        self.set_font('Arial', 'B', 12)
+		        self.multi_cell(0, 10, text)
+		
+		    def get_text(self):
+		        return self.text_content
+		
+		    def create_pdf_with_text(text):
+		        pdf = PDF()
+	            pdf.add_page()
+		        pdf.add_text(text)
+		        pdf.output("output.pdf")
+		        return pdf.get_text()
+		
+		# Beispielverwendung
+		text = "Dies ist ein Beispieltext für das PDF."
+		text_inhalt = create_pdf_with_text(text)
+		print(text_inhalt)
+	\end{verbatim}
+	In diesem Beispiel wird der Text während des Erstellungsprozesses des PDFs in einer Zeichenkette gespeichert und kann später abgerufen werden. Wenn du Fragen hast oder weitere Anpassungen benötigst, lass es mich wissen!
+\end{tcolorbox}
+
+\newpage
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtColorYellow!5!white,
+	colframe=BhtColorYellow!75!black,
+	title= Python Funktion
+	]
+	Schreibe eine Python Funktion die FPDF Dokument als Eingabe erhält und eine Zeichenkette zurückliefert. Verwende dafür die Python Bibliothek FPDF und speicher das Ergebnis nicht als Datei zwischendurch ab.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtGrey!5!white,
+	colframe=BhtGrey!75!black!50,
+	title= Copilot
+	]
+	Die Bibliothek FPDF ist hauptsächlich zum Erstellen von PDF-Dokumenten gedacht und bietet keine direkte Methode zum Extrahieren von Text aus einem PDF. Um Text aus einem PDF-Dokument zu extrahieren, könntest du eine andere Bibliothek wie PyMuPDF oder PyPDF2 verwenden.
+	
+	Falls du jedoch darauf bestehst, FPDF zu verwenden, um ein PDF zu erstellen und dann den Text aus diesem PDF zu extrahieren, könntest du den Text während des Erstellungsprozesses speichern und später zurückgeben. Hier ist ein Beispiel, wie du das machen könntest:
+	\begin{verbatim}
+		from fpdf import FPDF
+		
+		class PDF(FPDF):
+		    def __init__(self):
+		        super().__init__()
+		        self.text_content = ""
+		
+		    def add_text(self, text):
+		        self.text_content += text + "\n"
+		        self.set_xy(10, 10)
+		        self.set_font('Arial', 'B', 12)
+		        self.multi_cell(0, 10, text)
+		
+		    def get_text(self):
+		        return self.text_content
+		
+		    def create_pdf_with_text(text):
+		        pdf = PDF()
+		        pdf.add_page()
+		        pdf.add_text(text)
+		        return pdf.get_text()
+		
+		# Beispielverwendung
+		text = "Dies ist ein Beispieltext für das PDF."
+		text_inhalt = create_pdf_with_text(text)
+		print(text_inhalt)
+	\end{verbatim}
+	In diesem Beispiel wird der Text während des Erstellungsprozesses des PDFs in einer Zeichenkette gespeichert und kann später abgerufen werden. Wenn du Fragen hast oder weitere Anpassungen benötigst, lass es mich wissen!
+\end{tcolorbox}
+
+\section{Einfache HTML Seite}
+\subsection{ChatGPT 3.5}
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtColorYellow!5!white,
+	colframe=BhtColorYellow!75!black,
+	title= HTML Startseite
+	]
+	Schreibe eine einfache HTML Seite für die Startseite eines Blogs.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtGrey!5!white,
+	colframe=BhtGrey!75!black!50,
+	title= ChatGPT 3.5
+	]
+	\begin{verbatim}
+		<!DOCTYPE html>
+		<html lang="de">
+		<head>
+		  <meta charset="UTF-8">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  <title>Mein Blog</title>
+		  <style>
+		    // styles.
+		  </style>
+		</head>
+		<body>
+		  <header>
+		    <h1>Willkommen auf meinem Blog</h1>
+		  </header>
+		  <nav>
+		    <a href="#">Startseite</a>
+		    <a href="#">Über mich</a>
+		    <a href="#">Blog</a>
+		    <a href="#">Kontakt</a>
+		  </nav>
+		  <div class="container">
+		    <article>
+		      <h2>Erster Blogbeitrag</h2>
+		      <p>Willkommen zu meinem ersten Blogbeitrag!</p>
+		    </article>
+		  <footer>
+		    <p>&copy; 2024 Mein Blog. Alle Rechte vorbehalten.</p>
+		  </footer>
+		</body>
+		</html>
+	\end{verbatim}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=BhtGrey!5!white,
+	colframe=BhtGrey!75!black!50,
+	title= ChatGPT 3.5
+	]
+	\begin{verbatim}
+		<!DOCTYPE html>
+		<html lang="de">
+		<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Mein Blog</title>
+		<style>
+		// styles.
+		</style>
+		</head>
+		<body>
+		<header>
+		<h1>Willkommen auf meinem Blog</h1>
+		</header>
+		<nav>
+		<a href="#">Startseite</a>
+		<a href="#">Über mich</a>
+		<a href="#">Blog</a>
+		<a href="#">Kontakt</a>
+		</nav>
+		<div class="container">
+		<article>
+		<h2>Erster Blogbeitrag</h2>
+		<p>Willkommen zu meinem ersten Blogbeitrag!</p>
+		</article>
+		<footer>
+		<p>&copy; 2024 Mein Blog. Alle Rechte vorbehalten.</p>
+		</footer>
+		</body>
+		</html>
+	\end{verbatim}
+\end{tcolorbox}

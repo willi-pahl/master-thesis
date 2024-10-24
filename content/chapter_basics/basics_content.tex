@@ -1,7 +1,7 @@
 Die hier besprochenen Grundlagen gehen nicht in eine Tiefe, um alle evtl. Fragen zu klären. Jedes einzelne Gebiet könnte eine Arbeit füllen. Stattdessen soll hier lediglich ein kleiner Einblick geben werden.
 
 \section{Künstliche Intelligenz}
-Die Grafik \ref{img:classification_of_terms} soll die Einordnung der besprochenen Begriffe im Bereich der künstlichen Intelligenz zeigen.
+Die Grafik \ref{img:classification_of_terms} soll die Einordnung der besprochenen Begriffe im Bereich der Künstlichen Intelligenz (\acrshort{KI}) zeigen.
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.8\textwidth]{content/chapter_basics/images/einordnung_bezeichnungen.eps}
@@ -12,13 +12,21 @@ Die Grafik \ref{img:classification_of_terms} soll die Einordnung der besprochene
 
 In den folgenden Kapiteln werden die wichtigsten Begriffe und Technologien erläutert.\vspace{0.2cm}
 
-Eine explizite Definition für \textit{künstliche Intelligenz} ist zurzeit noch nicht einheitlich erfolgt. Geschuldet ist diese Tatsache, dass der Begriff \textit{Intelligenz} nicht eindeutig definiert ist. Somit finden sich viele Versuche eine Definition für künstliche Intelligenz herzuleiten. In dieser Arbeit wird die Definition aus \cite[6 ff.]{definition_ki2019} verwendet.
+Eine explizite Definition für \textit{künstliche Intelligenz} ist zurzeit noch nicht einheitlich erfolgt. Geschuldet ist diese Tatsache, dass der Begriff \textit{Intelligenz} nicht eindeutig definiert ist. Somit finden sich viele Versuche eine Definition für künstliche Intelligenz herzuleiten. Ein Ansatz Intelligenz zu erklären und definieren kommt von Jean Piaget\footnote{Jean Piaget war ein Schweizer Biologe und Pionier der kognitiven Entwicklungspsychologie. Er lebte von 9.Aug. 1896 bis 16. Sep. 1980}, welche in dieser Arbeit verwendet wird,
+
+\epigraph[
+author={Jean Piaget},
+text indent=0.5cm,
+after skip=0.0cm
+]{Intelligenz ist ein Zustand der Balance oder des Gleichgewichts, der durch eine Person erreicht wird, wenn sie dazu fähig ist, angemessen mit den ihr vorliegenden Daten umzugehen. Aber sie [d.h. Intelligenz] ist kein statischer Zustand, sondern in dem Sinne dynamisch, dass sie sich selbst kontinuierlich an neue Umweltreize anpasst}
+
+In dieser Arbeit wird als Definition für die Künstliche Intelligenz, die Definition aus \cite[6 ff.]{definition_ki2019} verwendet.
 
 \epigraph[text indent=0.5cm]{
-	Systeme der künstlichen Intelligenz (KI-Systeme) sind vom Menschen entwickelte Softwaresysteme (und gegebenenfalls auch Hardwaresysteme)3, die in Bezug auf ein komplexes Ziel auf physischer oder digitaler Ebene handeln, indem sie ihre Umgebung durch Datenerfassung wahrnehmen, die gesammelten strukturierten oder unstrukturierten Daten interpretieren, Schlussfolgerungen daraus ziehen oder die aus diesen Daten abgeleiteten Informationen verarbeiten, und über das bestmögliche Handeln zur Erreichung des vorgegebenen Ziels entscheiden. KI-Systeme können entweder symbolische Regeln verwenden oder ein numerisches Modell erlernen, und sind auch in der Lage, die Auswirkungen ihrer früheren Handlungen auf die Umgebung zu analysieren und ihr Verhalten entsprechend anzupassen.
+	Systeme der künstlichen Intelligenz (KI-Systeme) sind vom Menschen entwickelte Softwaresysteme (und gegebenenfalls auch Hardwaresysteme), die in Bezug auf ein komplexes Ziel auf physischer oder digitaler Ebene handeln, indem sie ihre Umgebung durch Datenerfassung wahrnehmen, die gesammelten strukturierten oder unstrukturierten Daten interpretieren, Schlussfolgerungen daraus ziehen oder die aus diesen Daten abgeleiteten Informationen verarbeiten, und über das bestmögliche Handeln zur Erreichung des vorgegebenen Ziels entscheiden. KI-Systeme können entweder symbolische Regeln verwenden oder ein numerisches Modell erlernen, und sind auch in der Lage, die Auswirkungen ihrer früheren Handlungen auf die Umgebung zu analysieren und ihr Verhalten entsprechend anzupassen.
 }
 
-(\href{https://www.bitkom.org/sites/main/files/file/import/171012-KI-Gipfelpapier-online.pdf}{Wirtschaftliche Bedeutung ...}, 26 ff.).
+%(\href{https://www.bitkom.org/sites/main/files/file/import/171012-KI-Gipfelpapier-online.pdf}{Wirtschaftliche Bedeutung ...}, 26 ff.).
 
 \subsection{Historisches}
 % aus: https://www.perplexity.ai/page/a-historical-overview-of-ai-wi-A8daV1D9Qr2STQ6tgLEOtg
@@ -32,30 +40,25 @@ An dieser Stelle eine kleine historische Exkursion in der Entwicklung der künst
 	\label{img:ai_winter_cycles}
 \end{figure}
 
-\textbf{1966: Rückschläge bei der maschinellen Übersetzung}\vspace{0.2cm}
+\textbf{1966: Rückschläge bei der maschinellen Übersetzung} brachten die Entwicklung nahezu zum Erliegen, lediglich einige wenige Gruppen. Durch die Bedrohungsszenarien des \textit{Kalten Krieges} wurden von der US-Regierung und Militär Unsummen von Geldern bereitgestellt, um die Forschung von maschinellen Übersetzungen voran zutreiben. Durch die ausbleibenden Erfolge wurden diese Gelder jedoch gestrichen.\vspace{0.2cm}
 
-\textbf{1969: Auswirkungen der Perzeptron-Kritik}\vspace{0.2cm}
+Frank Rosenblatt führte 1958 das Perzeptron ein, das in der Lage war einfache logische Operationen in Neuronalen Netzen auszuführen. Ein Problem was diese Netzwerke nicht lösen konnten war die \textit{nicht lineare Trennbarkeit}, wie beispielsweise das XOR-Problem. Dieses Problem wurde in der Arbeit von Marvin Minskys und Seymour Papert gezeigt. Diese Arbeit beeinflusste die Entwicklung so massiv, dass \textbf{1969: die Auswirkungen der Perzeptron-Kritik} dazu betrugen den ersten KI-Winter auszulösen.\vspace{0.2cm}
 
-\textbf{1971-75: Die Finanzierungsherausforderungen der DARPA}\vspace{0.2cm}
+\textbf{1971-75: Die Finanzierungskürzung der DARPA (Defense Advanced Research Projects Agency)}, die aufgrund der Unzufriedenheit, bei den Fortschritten natürliche Sprache in realen Szenarien, effektiv durch Systeme verarbeiten zu können, trug ebenfalls zur Auslösung des ersten KI-Winters bei. Diese Entscheidung übertrug sich auch auf andere Bereiche in der KI Entwicklung.\vspace{0.2cm}
 
-\textbf{1973: Der Fallout des Lighthill-Berichts}\vspace{0.2cm}
+\textbf{1973: Der Fallout des Lighthill-Berichts} war der entscheidende Faktor, das den KI-Winter auslöste. Dieser Bericht bewertet die wies auf erhebliche Mängel in den Bereichen Robotik und Sprachverarbeitung hin. Der Bericht führte zu einer erheblichen Skepsis gegenüber der KI und in vielen Projekten zur Kürzung der Fördermittel. Er wirkte sich auch auf die Moral und das Vertrauen der Community aus, welche aus diesem Grund nur sehr kleine und vorsichtige Fortschritte in der KI Forschung erzielte.\vspace{0.2cm}
 
-\textbf{1973-74: Kürzung der DARPA-Mittel}\vspace{0.2cm}
+Der \textbf{1987: Zusammenbruch der LISP-Maschine} markierte den Beginn des \textit{zweiten KI-Winters}. Die spezialisierten LISP-Maschinen, erfuhren einen Nachfragerückgang, ausgelöst durch neu entwickelten Allzweckcomputer von IBM und Apple. Dieses Ereignis zeigt auch beispielhaft wie technologische und wirtschaftliche Faktoren zur Neubewertung und Neuausrichtung ganzer Fachrichtungen führen können.\vspace{0.2cm}
 
-\textbf{1987: Zusammenbruch der LISP-Maschine}\vspace{0.2cm}
+Die \textbf{1988: Strategischen Kürzungen im Computerbereich} durch die US-Regierung trugen ebenfalls zum Ausbruch des \textit{zweiten KI-Winters} bei. Auslöser waren die enttäuschenden Ergebnisse und unerfüllten Erwartungen der Forschung in verschiedenen KI Projekten. Dadurch erfolgte eine Neubewertung der Investitionspriorisierung und führte zu einer deutlichen Kürzung der Gelder. Diese Bewertung wirkte sich auch auf viele weitere Projekte der KI-Entwicklung aus, sodass diese ganz aufgegeben und neue Technologien erforscht und entwickelt wurden.\vspace{0.2cm}
 
-\textbf{1988: Kürzungen bei der strategischen Datenverarbeitung}\vspace{0.2cm}
+In den \textbf{1990er Jahre: war der Niedergang von Expertensystemen} ebenfalls ein Auslöser, der dazu betrug, dass die Entwicklung von KI-Systemen stagnierte. Deren Wartung war sehr kosten- und arbeitsintensiv, ebenfalls wurden die ständig aktuell benötigten Datenbanken nicht automatisiert aktualisiert. Auch erfüllten sie nicht die in ihnen gesetzten Erwartungen. \vspace{0.2cm}
 
-\textbf{1990er Jahre: Niedergang von Expertensystemen}\vspace{0.2cm}
-
-\textbf{1990er Jahre: Ende des Projekts der fünften Generation}\vspace{0.2cm}
-
-\textbf{KI-Frühling des frühen 21. Jahrhunderts}\vspace{0.2cm}
-
+In den Jahren nach 2000 bis 2020 trat ein bedeutender Wandel bei den KI-Technologien ein, der als \textbf{KI-Frühling des frühen 21. Jahrhunderts} gesehen wird. Besonders die Fortschritte im Bereich \textit{maschinelles Lernen}, \textit{Deep Learning}, und \textit{neuronale Netze} sorgten für neue Investitionen in diesen Bereichen. Besonders namhafte Tech-Firmen, wie IBM, Google und Microsoft stellten große Budges für die Forschung. Gefördert wurde die Entwicklung durch neue leistungsfähigere Rechner und Daten die in großen Mengen zur Verfügung standen. Hinzu kam, dass KI in die Mainstream-Technologie integriert und in viele Geschäftsprozesse Einzug hielt.\vspace{0.2cm}
 
 
 \subsection{Maschinelles Lernen}
-Das Gebiet um maschinelles Lernen (eng. Machine Learning) ist ein Teilgebiet der Künstlichen Intelligenz. Für das maschinelle Lernen wird in dieser Arbeit die allgemein gültige Definition nach Tom M. Mitchell verwendet.\vspace{0.2cm}
+Das Gebiet um das Maschinelle Lernen (\acrshort{ML}) ist ein Teilgebiet der Künstlichen Intelligenz. Für das maschinelle Lernen wird in dieser Arbeit die allgemein gültige Definition nach Tom M. Mitchell verwendet.\vspace{0.2cm}
 
 \epigraph[
 author={Mitchell, Tom M},
@@ -71,7 +74,7 @@ Bei dieser Definition ist,\\
 \textbf{P} ist die \textbf{Leistungskennzahl} an dem der Erfolg des Systems die Aufgabe zu lösen gemessen wird.\vspace{0.2cm}
 %Da es mehrere Definitionen maschinellen Lernens gibt definieren WITTEN ET AL. (2001:6) eine operationale Definition von Lernen: „Etwas lernt, wenn es sein Verhalten so ändert, dass es in Zukunft eine bessere Leistung aufweist.“
 
-Maschinelles Lernen (\acrshort{ML}) und Künstliche Intelligenz (\acrshort{KI}) sind nicht wirklich in der Lage selbstständig zu lernen oder denken, sie imitieren dies lediglich nach. Das maschinelle Lernen ist aber wohl in der Lage komplexe Muster und Funktionen in großen Datenmengen zu erkennen. Durch die Unfähigkeit zu lernen kann KI keine neuen Inhalte schaffen.\vspace{0.3cm}
+\acrshort{ML} und \acrshort{KI} sind nicht wirklich in der Lage selbstständig zu lernen oder denken, sie imitieren dies lediglich. \acrshort{ML} ist aber wohl in der Lage komplexe Muster und Funktionen in großen Datenmengen zu erkennen. Durch die Unfähigkeit zu lernen sind KI Technologie nicht in der Lage neuen Inhalte zu schaffen.\vspace{0.2cm}
 
 Es ist auch egal wie gut die Modelle trainiert werden, eine 100\% Fehlerfreiheit gibt es nicht. Für die Praxis bedeutet dies, die Ausgaben von Modellen müssen durch Menschen immer wieder evaluiert werden, um dessen Richtigkeit sicherzustellen. Zudem sollten keine Modelle verwendet werden, wenn die Lösung eines Problems durch einen konkreten Algorithmus erfolgen kann. Hier können die Ergebnisse nachvollzogen werden und sind für den Menschen besser zu verstehen.\vspace{0.2cm}
 
@@ -84,7 +87,7 @@ Es ist auch egal wie gut die Modelle trainiert werden, eine 100\% Fehlerfreiheit
 
 
 \subsection{Lernparadigmen des ML}
-Das maschinelle Lernen wird in zwei wichtige Formen der Lernparadigmen unterteilt. Dem überwachten und dem unüberwachten Lernen. Abbildung \ref{img:learning_paradigms_of_ml} zeigt die wichtigsten Lernparadigmen des maschinellen Lernens.
+Das maschinelle Lernen wird in zwei wichtige Formen der Lernparadigmen unterteilt. Dem überwachten (supervised Learning) und unüberwachten Lernen (unsupervised Learning). Abbildung \ref{img:learning_paradigms_of_ml} zeigt die wichtigsten Lernparadigmen des maschinellen Lernens und dessen Methodiken.
 
 \subsubsection{Überwachtes Lernen}
 Bei überwachten Lernen sind für die Eingaben der Trainingsdaten dazugehörige Ausgaben (Labels) definiert. Das Ziel ist es eine Funktion zu trainieren um künftige Eingaben korrekt klassifizieren oder vorhersagen zu können.
@@ -93,15 +96,20 @@ Bei überwachten Lernen sind für die Eingaben der Trainingsdaten dazugehörige 
 Bei unüberwachten Lernen sind die gelabelten Ausgaben nicht vorhanden. Hierbei wird beispielsweise durch Clustering oder Dimensionsreduktion versucht Muster und Strukturen zu erkennen.
 
 
-\subsection{Theoretische Grundlagen}
+\subsection{Theoretische Grundlagen des Lernens}
 In den folgenden Kapiteln werden vier wichtige Konzepte zum maschinellen Lernen besprochen. 
 
-\subsubsection{Stochastik und Bayessche Verfahren}
-Als Teilgebiet der Mathematik befasst sich die Stochastik mit Wahrscheinlichkeiten und zufälligen Prozessen. Auf dem Gebiet des maschinellen Lernens werden mithilfe der Stochastik Prognosen erstellt.\vspace{0.2cm}
+\subsubsection{Stochastik und Bayessches Theorem}
+Als Teilgebiet der Mathematik befasst sich die Stochastik mit Wahrscheinlichkeitsverteilung und zufälligen Prozessen. Auf dem Gebiet des maschinellen Lernens werden mithilfe der Stochastik Prognosen erstellt. Es wird versucht auf der Basis vorhandener Daten, bei neuen Daten eine Wahrscheinlichkeitsverteilung vorherzusagen. Durch geeignete Modellierung wird versucht einen kontrollierten Umgang mit Unsicherheiten zu erlangen.\vspace{0.2cm}
 
-Bei den Bayesschen Verfahren handelt es sich um stochastische Methoden, die auf dem Bayes-Theorem basieren. Hierbei werden neue Daten berücksichtigt, um die Wahrscheinlichkeit zu aktualisieren.\vspace{0.2cm}
+Bei den Bayesschen Theorem handelt es sich um stochastische Methoden, die auf dem Bayessches Theorem basieren. Mit dessen Hilfe soll auf Basis der vorliegenden Daten das beste Modell, für die Vorhersage gefunden werden. Das Verfahren berücksichtigt immer die neusten Daten, um die Wahrscheinlichkeitsverteilung zu aktualisieren. Siehe Formel \ref{eq:bayessches_theorem}
 
-Beide Methoden finden im überwachten und unüberwachtes Lernen Anwendung.
+\xequation{Bayessches Theorme}{
+	\label{eq:bayessches_theorem}
+	P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+}
+
+%Beide Methoden finden im überwachten und unüberwachtes Lernen Anwendung.
 
 \subsubsection{Analogismus}
 Dieser Lernansatz sucht nach Ähnlichkeiten in den Daten. Er basiert auf der Annahme, dass ähnliche Daten ähnliche Vorhersagen oder Klassifizierungen besitzen. Dieses Modell lernt, indem neue Daten mit bekannten vergleicht und nach ähnlichen Strukturen und Mustern sucht. Ein bekanntes Verfahren für diesen Lernansatz ist der k-Nearest Neighbors (\acrshort{k-NN}).\vspace{0.2cm}
@@ -147,9 +155,13 @@ Die kleinste Einheit in künstlichen neuronalen Netzen sind die Neuronen. Sie si
 
 Sie haben als Eingangswert einen Vektor und als Ausgangssignal ein Skalar. Außer in der Eingabe Schicht ist jedes Eingangssignal $x_n$ ein Ausgangssignal $y_{out}$ eines anderen Neuron. Die Wichtungen der Eingangssignale modellieren den synaptischen Spalt zwischen zwei biologischen Nervenzellen. Dieser kann ebenfalls verstärkten oder hemmend wirken. Alle Eingangssignale zusammen mit den Wichtungen, werden durch die Summenfunktion aufaddiert. Im Anschluss wird das \gls{bias} mit eingerechnet. Die Formel \ref{eq:sum_function} zeigt die Summenfunktion für $n$ Eingangssignale mit Beachtung des Bias Wert.
 
-\begin{equation} \label{eq:sum_function}
+%\begin{equation} \label{eq:sum_function}
+%	y = x_{1} + x_{2} + \dots + x_{n} + b
+%\end{equation}
+\xequation{Summenfunktion}{
+	\label{eq:sum_function}
 	y = x_{1} + x_{2} + \dots + x_{n} + b
-\end{equation}
+}
 
 Durch das Bias wird die Berechnung in der Summenfunktion flexibler, eine Verschiebung in Richtung der y-Achse ist möglich, ohne die Wichtungen anzupassen und es ermöglicht eine Ausgabe auch, wenn alle Eingänge $Null$ sind.\vspace{0.2cm}
 
@@ -177,9 +189,11 @@ Die Gleichung der Identity Funktion ist in Formel \ref{eq:identity_activation_fu
 
 Einsatz findet die Identity Funktion beispielsweise in der Ausgabeschicht, wenn die Ausgabe lineare oder direkt proportionale zur Eingabe geben soll. Dies kann bei Regressionsaufgaben der Fall sein. Eine weitere Möglichkeit ist der Einsatz in den Stellen im neuronalen Netz bei der die Ausgabe einfach nur weiter gegeben werden muss, ohne diese zu ändern. Ebenfalls kann die Identity Funktion als Grundlage für kombinierte Aktivierungsfunktionen dienen.
 
-\begin{equation}\label{eq:identity_activation_function}
-	\sigma (x) = x
-\end{equation}
+%\begin{equation}\label{eq:identity_activation_function}
+%	\sigma (x) = x
+%\end{equation}
+\xequation{Identitätsfunktion}{\label{eq:identity_activation_function}
+	\sigma (x) = x}
 
 Der Graph der Identity Funktion und dessen Ableitung ist in Abbildung \ref{img:identity_func_graph} dargestellt. 
 
@@ -201,14 +215,22 @@ Wie in \cite[311-312]{sharma-2020} beschrieben, kann die binäre Step-Aktivierun
 
 Der Funktionswert der Gleichung kann entweder $eins$ oder $null$ annehmen. Die Formel \ref{eq:binary_step_activation_function} zeigt diese Definition.
 
-\begin{equation}\label{eq:binary_step_activation_function}
+%\begin{equation}\label{eq:binary_step_activation_function}
+%	\sigma (x) = \left\{
+%	\begin{array}{cl}
+%		1 & : \ x \geq 0 \\
+%		0 & : \ x < 0
+%	\end{array}
+%	\right.
+%\end{equation}
+\xequation{Binary Step Funktion}{\label{eq:binary_step_activation_function}
 	\sigma (x) = \left\{
 	\begin{array}{cl}
 		1 & : \ x \geq 0 \\
 		0 & : \ x < 0
 	\end{array}
 	\right.
-\end{equation}
+}
 
 Die Abbildung \ref{img:binary_step_func_graph} zeigt den Funktionsverlauf und die Ableitung dieser Funktion. Die Funktion liefert entweder $null$ bei negativen Zahlen oder $eins$ bei positiven Zahlen.
 
@@ -230,13 +252,18 @@ Die Sigmoidfunktion ist eine der bekanntesten Aktivierungsfunktionen und eine So
 
 Die Formel \ref{eq:sigmoid_function} zeigt die Sigmoidfunktion, die Formel \ref{eq:derivative_sigmoid_function} die erste Ableitung der Sigmoidfunktion.
 
-\begin{equation}\label{eq:sigmoid_function}
+%\begin{equation}\label{eq:sigmoid_function}
+%	\sigma (x) = sig(x) = \frac{1}{1 + e^{-x}}
+%\end{equation}
+\xequation{Sigmoid Funktion}{\label{eq:sigmoid_function}
 	\sigma (x) = sig(x) = \frac{1}{1 + e^{-x}}
-\end{equation}
+}
 
-\begin{equation}\label{eq:derivative_sigmoid_function}
-	\sigma' (x) = sig(x) * (1 - sig(x))
-\end{equation}
+%\begin{equation}\label{eq:derivative_sigmoid_function}
+%	\sigma' (x) = sig(x) * (1 - sig(x))
+%\end{equation}
+\xequation{Ableitung: Sigmoid Funktion}{\label{eq:derivative_sigmoid_function}
+	\sigma' (x) = sig(x) * (1 - sig(x))}
 
 Der Graph der Sigmoidfunktion und ihre Ableitung ist in Abbildung \ref{img:sig_func_graph} dargestellt. Hierbei ist zu erkennen, dass die Ableitung eine Symmetrie im Ursprung zeigt. Im Ursprung die maximale Steigung zu finden ist und für kleine und große $x$-Werte gegen $null$ konvergiert.
 
@@ -256,13 +283,19 @@ Diese Funktion hat zwei Nachteile. Zum einen bei kleinen und großen Werten, kon
 
 Ebenso wie die Sigmoidfunktion ist auch die Tangens Hyperbolicus eine monoton stetig steigende Funktion, die symmetrisch zum Ursprung ist. Der Ausgabewert liegt garantiert hier zwischen $-1$ und $1$, was dazu beiträgt, dass die Ausgabe der Schicht um eins zentriert bleibt, welches ein Vorteil bei Normalisierung der Ausgabewerte ist. Auch hier haben wir, in tiefen Netzen das \glqq Problem des verschwindenden Gradienten\grqq \ wie bei der Sigmoidfunktion. In flachen Netzen erleichtern die Eigenschaften den Optimierungsprozess.\vspace{0.2cm}
 
-\begin{equation}\label{eq:tanh_function}
+%\begin{equation}\label{eq:tanh_function}
+%	\sigma (x) = tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} - e^{-x}}
+%\end{equation}
+\xequation{Tangenshyperbolicus Funktion}{\label{eq:tanh_function}
 	\sigma (x) = tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} - e^{-x}}
-\end{equation}
+}
 
-\begin{equation}\label{eq:derivative_tanh_function}
+%\begin{equation}\label{eq:derivative_tanh_function}
+%	\sigma' (x) = tanh^2(x)
+%\end{equation}
+\xequation{Ableitung: Tangenshyperbolicus Funktion}{\label{eq:derivative_tanh_function}
 	\sigma' (x) = tanh^2(x)
-\end{equation}
+}
 
 Die Abbildung \ref{eq:tanh_function} zeigt den Graphen der Tangens Hyperbolicus Funktion und deren Ableitung. Deutlich zu erkennen ist die Symmetrie zum Ursprung bei der Ableitung, hier rot dargestellt.
 
@@ -284,29 +317,48 @@ Die Verwendung der Tangens Hyperbolicus als Aktivierungsfunktion kann bei sehr g
 
 Die Rectified Linear Unit (ReLU) ist eine weitere weit verbreitete Aktivierungsfunktion. Bei dieser Funktion handelt es sich um eine gesättigte Funktion, da bei unendlich großen $x$ die Ausgabe gegen unendlich geht, siehe Formel \ref{eq:non_saturating_relu}, hingegen bei Eingaben $x < 0$ die Ausgabe immer $null$ liefert, vgl. mit Formel \ref{eq:relu_function}. Diese Funktion gehört ebenfalls zu den nicht linearen Aktivierungsfunktionen. Laut \cite{yuen_universal_2021} ist die Funktion linear, allerdings nur bei positiven Eingangsignalen.\vspace{0.2cm}
 
-\begin{equation}\label{eq:non_saturating_relu}
+%\begin{equation}\label{eq:non_saturating_relu}
+%	\lim_{z -> \infty} \sigma(x) = + \infty
+%\end{equation}
+\xequation{Nicht sättigende ReLU Funktion}{\label{eq:non_saturating_relu}
 	\lim_{z -> \infty} \sigma(x) = + \infty
-\end{equation}
+}
 
 Wie in \cite{yuen_universal_2021} beschrieben wird diese Funktion bei Quantifizierungs-, Klassifizierungs- und Verstärkungslernproblemen verwendet. Bei Quantisierungsproblemen wird versucht die Ausgaben auf wenige diskrete Stufen zu reduzieren. Da viele Eingaben durch ReLU Funktion eine Ausgabe von $null$ erzeugen (auch bekannt als: Prinzip der geringen Wirkung [engl. Sparsity Effect]), werden auf natürlichem Wege eine Menge an Signalen eliminiert, was ein Vorteil für die Quantisierung darstellt. Durch ihr nicht lineares Verhalten ist diese Funktion auch für Klassifizierungsprobleme effizient. Häufig wird beobachtet das, bei Verstärkungsproblemen ein Rückgang des Gradienten erfolgt. Da die ReLU das \textit{Problem des verschwindenden Gradienten} mildert, schafft sie dadurch eine stabile Lernumgebung. Zudem werden unnötige Aktionen durch das \textit{Prinzip der geringen Wirkung} vermieden.
 
-\begin{equation}\label{eq:relu_function}
+%\begin{equation}\label{eq:relu_function}
+%	\sigma (x) = \left\{
+%	\begin{array}{cl}
+%		x & : \ x > 0 \\
+%		0 & : \ x \leq 0
+%	\end{array}
+%	\right.
+%\end{equation}
+\xequation{ReLU Funktion}{\label{eq:relu_function}
 	\sigma (x) = \left\{
 	\begin{array}{cl}
 		x & : \ x > 0 \\
 		0 & : \ x \leq 0
 	\end{array}
 	\right.
-\end{equation}
+}
 
-\begin{equation}\label{eq:derivative_relu_function}
+%\begin{equation}\label{eq:derivative_relu_function}
+%	\sigma' (x) = \left\{
+%	\begin{array}{cl}
+%		1 & : \ x > 0 \\
+%		0 & : \ x \leq 0
+%	\end{array}
+%	\right.
+%\end{equation}
+\xequation{Ableitung: ReLU Funktion}{\label{eq:derivative_relu_function}
 	\sigma' (x) = \left\{
 	\begin{array}{cl}
 		1 & : \ x > 0 \\
 		0 & : \ x \leq 0
 	\end{array}
 	\right.
-\end{equation}
+}
 
 Die Abbildung \ref{eq:relu_function} zeigt die Graphen der ReLU Funktion und dessen Ableitung. Bei Eingaben kleiner als $null$ liefert die Funktion immer $null$ als Ausgabe.
 
@@ -352,23 +404,39 @@ An dieser Stelle sei noch die parametrische ReLU, PreLU erwähnt. Bei der PReLU 
 
 Da diese Funktion auch bei negativen $x$-Werten einen Gradienten ungleich $null$ besitzt, wird das \glqq Problem der verschwindenden Gradienten\grqq \ umgangen und somit wird auch das Problem der \glqq toten Neuronen\grqq \ verringert. Die Formel \ref{eq:derivative_leaky_relu_function} zeigt diese Eigenschaft. Da Alpha einen sehr geringen Wert hat, kann es dennoch passieren, dass bei sehr tiefen Netzen das Lernen sehr langsam verläuft. Ein weiterer Nachteil der Funktion sind die positiven Werte welche keinerlei Begrenzung besitzen, dieses Problem wird in Formel \ref{eq:leaky_relu_function} deutlich. Bei extrem großen Werten kann es im Netzwerk zu nummerischen Problemen führen.
 
-\begin{equation}\label{eq:leaky_relu_function}
+%\begin{equation}\label{eq:leaky_relu_function}
+%	\sigma (x) = \left\{
+%	\begin{array}{cl}
+%		x & : \ x > 0 \\
+%		\alpha x & : \ x \leq 0
+%	\end{array}
+%	\right.
+%\end{equation}
+\xequation{Leaky ReLU Funktion}{\label{eq:leaky_relu_function}
 	\sigma (x) = \left\{
 	\begin{array}{cl}
 		x & : \ x > 0 \\
 		\alpha x & : \ x \leq 0
 	\end{array}
 	\right.
-\end{equation}
+}
 
-\begin{equation}\label{eq:derivative_leaky_relu_function}
+%\begin{equation}\label{eq:derivative_leaky_relu_function}
+%	\sigma' (x) = \left\{
+%	\begin{array}{cl}
+%		1 & : \ x > 0 \\
+%		\alpha & : \ x \leq 0
+%	\end{array}
+%	\right.
+%\end{equation}
+\xequation{Ableitung: Leaky ReLU Funktion}{\label{eq:derivative_leaky_relu_function}
 	\sigma' (x) = \left\{
 	\begin{array}{cl}
 		1 & : \ x > 0 \\
 		\alpha & : \ x \leq 0
 	\end{array}
 	\right.
-\end{equation}
+}
 
 Die Abbildung \ref{img:leaky_relu_func_graph} zeigt den Graphen der Leaky ReLU Funktion mit einem $\alpha$-Wert von 0,2. Ebenso ist die Ableitung dieser Funktion zu sehen, als roter Graph dargestellt.
 
@@ -390,13 +458,19 @@ Abgeleitet wird diese Aktivierungsfunktion von der Gaußschen Normalverteilung a
 
 Die Gaußfunktion wird in neuronalen Netzen verwendet, die zur Mustererkennung und Klassifikation dienen. Hierbei handelt es sich um eine radiale Aktivierungsfunktion, bekannt als \textit{Radial Basis Function} (\acrshort{RBF}).
 
-\begin{equation}\label{eq:gaussian_function}
+%\begin{equation}\label{eq:gaussian_function}
+%	\sigma (x) = e^{-x^{2}}
+%\end{equation}
+\xequation{Gaussfunktion}{\label{eq:gaussian_function}
 	\sigma (x) = e^{-x^{2}}
-\end{equation}
+}
 
-\begin{equation}\label{eq:derivative_gaussian_function}
+%\begin{equation}\label{eq:derivative_gaussian_function}
+%	\sigma' (x) = -2x e^{-x^{2}}
+%\end{equation}
+\xequation{Ableitung Gaussfunktion}{\label{eq:derivative_gaussian_function}
 	\sigma' (x) = -2x e^{-x^{2}}
-\end{equation}
+}
 
 In der Abbildung \ref{img:gaussian_func_graph} zeigt den Graphen der Gaußfunktion und dessen Ableitung. Hier ist zu erkennen, dass die Ableitung eine Antisymmetrie um den Ursprung aufweist, was mit $f'(-x) = -f'(x)$ ausgedrückt werden kann. Ebenfalls strebt die Ableitung für sehr kleine und sehr große $x$-Werte schnell gegen $null$, was das \glqq Problem der verschwindenden Gradienten \grqq \ begünstigt.
 
@@ -419,19 +493,25 @@ Ein Nachteil der Gaußfunktion kann entsteht bei sehr tiefen neuronalen Netzen. 
 
 Die Softmax Aktivierungsfunktionen wird häufig in der Ausgabeschicht eines neuronalen Netzes eingesetzt. Als Eingang dient nicht ein einzelnes Signal, wie bei den zuvor vorgestellten Funktionen, viel mehr werden alle Ausgaben der vorherigen Schicht verwendet, um Prognosen zu erstellen.
 
-\begin{equation}\label{eq:softmax_function}
+%\begin{equation}\label{eq:softmax_function}
+%	\sigma (x)_{j} = softmax(x_{j}) = \frac{e^{z_{j}}}{\sum_{k=1}^{K} e^{z_{k}}} \text{ für } j = 1, ..., K.
+%\end{equation}
+\xequation{Softmax Funktion}{\label{eq:softmax_function}
 	\sigma (x)_{j} = softmax(x_{j}) = \frac{e^{z_{j}}}{\sum_{k=1}^{K} e^{z_{k}}} \text{ für } j = 1, ..., K.
-\end{equation}
+}
 
 Als Ausgabe wird ein Vektor erstellt der die prozentuale Verteilung der Eingangswerte darstellt. Zusammen ergeben die Ausgaben 1, also 100\%, welches Formel \ref{eq:softmax_result} zeigt.
 
-\begin{equation}\label{eq:softmax_result}
+%\begin{equation}\label{eq:softmax_result}
+%	\sum_{i=1}^{k} softmax(z_{j}) = 1
+%\end{equation}
+\xequation{Ableitung: Softmax Funktion}{\label{eq:softmax_result}
 	\sum_{i=1}^{k} softmax(z_{j}) = 1
-\end{equation}
+}
 
-Die Softmax wird hauptsächlich angewandt, um Klassifizierungsprobleme die aus mehreren Klassen bestehen zu lösen. Für die eine Wahrscheinlichkeitsverteilung errechnet wird. Durch ihre Differenzierbarkeit kann der Backpropagation-Algorithmus angewandt werden um Gewichte zu optimieren.\vspace{0.2cm}
+Die Softmax wird hauptsächlich angewandt, um Klassifizierungsprobleme die aus mehreren Klassen bestehen zu lösen. Für die eine Wahrscheinlichkeitsverteilung errechnet wird. Durch ihre Differenzierbarkeit kann der Backpropagation-Algorithmus angewandt werden, um die Gewichte zu optimieren.\vspace{0.2cm}
 
-Nachteilig auf die Softmax-Funktion wirken sich Ausreißer aus. Eine deutlich größeres Eingangssignal kann dominieren, auch wenn es nicht korrekt ist. Was zu einer Fehlinterpretation der Vorhersage kommen.
+Nachteilig auf die Softmax-Funktion wirken sich Ausreißer aus. Eine deutlich größeres Eingangssignal kann dominieren, auch wenn es nicht korrekt ist. Was zu einer Fehlinterpretation der Vorhersage kommen.\vspace{0.2cm}
 
 %%----------------------------------------------------------------------------
 %   Maxout
@@ -440,11 +520,14 @@ Nachteilig auf die Softmax-Funktion wirken sich Ausreißer aus. Eine deutlich gr
 
 Die Maxout ist ein leistungsstarkes Modell welches in \cite{goodfellow_maxout_2013} vorgestellte wurde und dient zur Ergänzung der Dropout-Technik. Die Funktion verwendet für die Berechnung genau wie die Softmax, die Ausgaben von Neuronen der vorherigen Schicht. Jedes Maxout-Neuron hat mehrere Transformationsvektoren und einen Bias-Vektor. Jede Transformation erhält seinen eigenen Bias-Wert. Aus den Berechnungen sucht der Algorithmus das Maximum aus den Ergebnissen heraus und liefert dieses als Output. Die Formel \ref{eq:maxout_function} zeigt den Maxout.
 
-\begin{equation}\label{eq:maxout_function}
+%\begin{equation}\label{eq:maxout_function}
+%	\sigma (x)_{j} = max(\omega^T_1 x + b_1, \omega^T_2 x + b_2, ..., \omega^T_j x + b_j)
+%\end{equation}
+\xequation{Maxout-Funktion}{\label{eq:maxout_function}
 	\sigma (x)_{j} = max(\omega^T_1 x + b_1, \omega^T_2 x + b_2, ..., \omega^T_j x + b_j)
-\end{equation}
+}
 
-Bei der Dropout Technik handelt es sich um ein Verfahren welches beim Training neuronaler Netze angewandt wird. Es soll das \gls{overfitting} verhindern. Durch das Verfahren sollen Modelle robuster und die Abhängigkeit von einzelnen Neuronen soll vermieden werden. Im Trainer kommt es zum Deaktivieren einzelner zufällig ausgewählter Neuronen. Das Verfahren ist besonders bei tiefen Netzen mit vielen Parametern nützlich.
+Bei der Dropout Technik handelt es sich um ein Verfahren welches beim Training neuronaler Netze angewandt wird. Es soll das \gls{overfitting} verhindern. Durch dieses Verfahren sollen Modelle robuster und die Abhängigkeit von einzelnen Neuronen soll vermieden werden. Im Trainer kommt es zum Deaktivieren einzelner zufällig ausgewählter Neuronen. Das Verfahren ist besonders bei tiefen Netzen mit vielen Parametern nützlich.
 
 
 %\subsubsection{Schichten im neuronalen Netz}

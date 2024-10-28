@@ -32,17 +32,16 @@
 \usepackage{amsmath}  % Für mathematische Symbole und Umgebungen
 \usepackage{tocloft}  % Für die Erstellung eines Verzeichnisses
 
-% Formelverzeichnis-Befehl definieren
-\newcommand{\listequationsname}{Formelverzeichnis}  % Name des Verzeichnisses
-\newlistof{xequations}{equ}{\listequationsname}    % Liste für Formeln erstellen
-\newcommand{\xequation}[2]{
-	\addcontentsline{equ}{xequations}{#1}
-	\begin{equation} #2 \end{equation}
-}
+
+%--------------------------------------------------------------
+% Erzeuge einen neuen Abschnitt für das Formelverzeichnis
+\newlistof{formel}{for}{Formelverzeichnis}
+% Neues Makro, das Formeln mit Label im Formelverzeichnis hinzufügt
+\newcommand{\listequationname}{Formel}    % Bezeichnung für einzelne Formeln
+\newcommand{\formel}[1]{%
+	\addcontentsline{for}{formel}{\protect\numberline{\theequation}#1}\par}
 %
-% Example: \xequation{Pythagoras' Theorem}{a^2 + b^2 = c^2}
-%
-% Ausgabe: \listofxequations
+% view: \listofformel
 %--------------------------------------------------------------
 
 \begin{document}

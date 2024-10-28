@@ -104,10 +104,14 @@ Als Teilgebiet der Mathematik befasst sich die Stochastik mit Wahrscheinlichkeit
 
 Bei den Bayesschen Theorem handelt es sich um stochastische Methoden, die auf dem Bayessches Theorem basieren. Mit dessen Hilfe soll auf Basis der vorliegenden Daten das beste Modell, für die Vorhersage gefunden werden. Das Verfahren berücksichtigt immer die neusten Daten, um die Wahrscheinlichkeitsverteilung zu aktualisieren. Siehe Formel \ref{eq:bayessches_theorem}
 
-\xequation{Bayessches Theorme}{
+%\xequation{Bayessches Theorme}{
+%	\label{eq:bayessches_theorem}
+%	P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+%}
+\begin{equation}
 	\label{eq:bayessches_theorem}
 	P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
-}
+\end{equation}
 
 %Beide Methoden finden im überwachten und unüberwachtes Lernen Anwendung.
 
@@ -155,13 +159,9 @@ Die kleinste Einheit in künstlichen neuronalen Netzen sind die Neuronen. Sie si
 
 Sie haben als Eingangswert einen Vektor und als Ausgangssignal ein Skalar. Außer in der Eingabe Schicht ist jedes Eingangssignal $x_n$ ein Ausgangssignal $y_{out}$ eines anderen Neuron. Die Wichtungen der Eingangssignale modellieren den synaptischen Spalt zwischen zwei biologischen Nervenzellen. Dieser kann ebenfalls verstärkten oder hemmend wirken. Alle Eingangssignale zusammen mit den Wichtungen, werden durch die Summenfunktion aufaddiert. Im Anschluss wird das \gls{bias} mit eingerechnet. Die Formel \ref{eq:sum_function} zeigt die Summenfunktion für $n$ Eingangssignale mit Beachtung des Bias Wert.
 
-%\begin{equation} \label{eq:sum_function}
-%	y = x_{1} + x_{2} + \dots + x_{n} + b
-%\end{equation}
-\xequation{Summenfunktion}{
-	\label{eq:sum_function}
+\begin{equation} \label{eq:sum_function}
 	y = x_{1} + x_{2} + \dots + x_{n} + b
-}
+\end{equation}
 
 Durch das Bias wird die Berechnung in der Summenfunktion flexibler, eine Verschiebung in Richtung der y-Achse ist möglich, ohne die Wichtungen anzupassen und es ermöglicht eine Ausgabe auch, wenn alle Eingänge $Null$ sind.\vspace{0.2cm}
 
@@ -189,11 +189,9 @@ Die Gleichung der Identity Funktion ist in Formel \ref{eq:identity_activation_fu
 
 Einsatz findet die Identity Funktion beispielsweise in der Ausgabeschicht, wenn die Ausgabe lineare oder direkt proportionale zur Eingabe geben soll. Dies kann bei Regressionsaufgaben der Fall sein. Eine weitere Möglichkeit ist der Einsatz in den Stellen im neuronalen Netz bei der die Ausgabe einfach nur weiter gegeben werden muss, ohne diese zu ändern. Ebenfalls kann die Identity Funktion als Grundlage für kombinierte Aktivierungsfunktionen dienen.
 
-%\begin{equation}\label{eq:identity_activation_function}
-%	\sigma (x) = x
-%\end{equation}
-\xequation{Identitätsfunktion}{\label{eq:identity_activation_function}
-	\sigma (x) = x}
+\begin{equation}\label{eq:identity_activation_function}
+	\sigma (x) = x
+\end{equation}
 
 Der Graph der Identity Funktion und dessen Ableitung ist in Abbildung \ref{img:identity_func_graph} dargestellt. 
 
@@ -215,22 +213,14 @@ Wie in \cite[311-312]{sharma-2020} beschrieben, kann die binäre Step-Aktivierun
 
 Der Funktionswert der Gleichung kann entweder $eins$ oder $null$ annehmen. Die Formel \ref{eq:binary_step_activation_function} zeigt diese Definition.
 
-%\begin{equation}\label{eq:binary_step_activation_function}
-%	\sigma (x) = \left\{
-%	\begin{array}{cl}
-%		1 & : \ x \geq 0 \\
-%		0 & : \ x < 0
-%	\end{array}
-%	\right.
-%\end{equation}
-\xequation{Binary Step Funktion}{\label{eq:binary_step_activation_function}
+\begin{equation}\label{eq:binary_step_activation_function}
 	\sigma (x) = \left\{
 	\begin{array}{cl}
 		1 & : \ x \geq 0 \\
 		0 & : \ x < 0
 	\end{array}
 	\right.
-}
+\end{equation}
 
 Die Abbildung \ref{img:binary_step_func_graph} zeigt den Funktionsverlauf und die Ableitung dieser Funktion. Die Funktion liefert entweder $null$ bei negativen Zahlen oder $eins$ bei positiven Zahlen.
 
@@ -252,18 +242,13 @@ Die Sigmoidfunktion ist eine der bekanntesten Aktivierungsfunktionen und eine So
 
 Die Formel \ref{eq:sigmoid_function} zeigt die Sigmoidfunktion, die Formel \ref{eq:derivative_sigmoid_function} die erste Ableitung der Sigmoidfunktion.
 
-%\begin{equation}\label{eq:sigmoid_function}
-%	\sigma (x) = sig(x) = \frac{1}{1 + e^{-x}}
-%\end{equation}
-\xequation{Sigmoid Funktion}{\label{eq:sigmoid_function}
+\begin{equation}\label{eq:sigmoid_function}
 	\sigma (x) = sig(x) = \frac{1}{1 + e^{-x}}
-}
+\end{equation}
 
-%\begin{equation}\label{eq:derivative_sigmoid_function}
-%	\sigma' (x) = sig(x) * (1 - sig(x))
-%\end{equation}
-\xequation{Ableitung: Sigmoid Funktion}{\label{eq:derivative_sigmoid_function}
-	\sigma' (x) = sig(x) * (1 - sig(x))}
+\begin{equation}\label{eq:derivative_sigmoid_function}
+	\sigma' (x) = sig(x) * (1 - sig(x))
+\end{equation}
 
 Der Graph der Sigmoidfunktion und ihre Ableitung ist in Abbildung \ref{img:sig_func_graph} dargestellt. Hierbei ist zu erkennen, dass die Ableitung eine Symmetrie im Ursprung zeigt. Im Ursprung die maximale Steigung zu finden ist und für kleine und große $x$-Werte gegen $null$ konvergiert.
 
@@ -283,19 +268,13 @@ Diese Funktion hat zwei Nachteile. Zum einen bei kleinen und großen Werten, kon
 
 Ebenso wie die Sigmoidfunktion ist auch die Tangens Hyperbolicus eine monoton stetig steigende Funktion, die symmetrisch zum Ursprung ist. Der Ausgabewert liegt garantiert hier zwischen $-1$ und $1$, was dazu beiträgt, dass die Ausgabe der Schicht um eins zentriert bleibt, welches ein Vorteil bei Normalisierung der Ausgabewerte ist. Auch hier haben wir, in tiefen Netzen das \glqq Problem des verschwindenden Gradienten\grqq \ wie bei der Sigmoidfunktion. In flachen Netzen erleichtern die Eigenschaften den Optimierungsprozess.\vspace{0.2cm}
 
-%\begin{equation}\label{eq:tanh_function}
-%	\sigma (x) = tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} - e^{-x}}
-%\end{equation}
-\xequation{Tangenshyperbolicus Funktion}{\label{eq:tanh_function}
+\begin{equation}\label{eq:tanh_function}
 	\sigma (x) = tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} - e^{-x}}
-}
+\end{equation}
 
-%\begin{equation}\label{eq:derivative_tanh_function}
-%	\sigma' (x) = tanh^2(x)
-%\end{equation}
-\xequation{Ableitung: Tangenshyperbolicus Funktion}{\label{eq:derivative_tanh_function}
+\begin{equation}\label{eq:derivative_tanh_function}
 	\sigma' (x) = tanh^2(x)
-}
+\end{equation}
 
 Die Abbildung \ref{eq:tanh_function} zeigt den Graphen der Tangens Hyperbolicus Funktion und deren Ableitung. Deutlich zu erkennen ist die Symmetrie zum Ursprung bei der Ableitung, hier rot dargestellt.
 
@@ -317,48 +296,29 @@ Die Verwendung der Tangens Hyperbolicus als Aktivierungsfunktion kann bei sehr g
 
 Die Rectified Linear Unit (ReLU) ist eine weitere weit verbreitete Aktivierungsfunktion. Bei dieser Funktion handelt es sich um eine gesättigte Funktion, da bei unendlich großen $x$ die Ausgabe gegen unendlich geht, siehe Formel \ref{eq:non_saturating_relu}, hingegen bei Eingaben $x < 0$ die Ausgabe immer $null$ liefert, vgl. mit Formel \ref{eq:relu_function}. Diese Funktion gehört ebenfalls zu den nicht linearen Aktivierungsfunktionen. Laut \cite{yuen_universal_2021} ist die Funktion linear, allerdings nur bei positiven Eingangsignalen.\vspace{0.2cm}
 
-%\begin{equation}\label{eq:non_saturating_relu}
-%	\lim_{z -> \infty} \sigma(x) = + \infty
-%\end{equation}
-\xequation{Nicht sättigende ReLU Funktion}{\label{eq:non_saturating_relu}
+\begin{equation}\label{eq:non_saturating_relu}
 	\lim_{z -> \infty} \sigma(x) = + \infty
-}
+\end{equation}
 
 Wie in \cite{yuen_universal_2021} beschrieben wird diese Funktion bei Quantifizierungs-, Klassifizierungs- und Verstärkungslernproblemen verwendet. Bei Quantisierungsproblemen wird versucht die Ausgaben auf wenige diskrete Stufen zu reduzieren. Da viele Eingaben durch ReLU Funktion eine Ausgabe von $null$ erzeugen (auch bekannt als: Prinzip der geringen Wirkung [engl. Sparsity Effect]), werden auf natürlichem Wege eine Menge an Signalen eliminiert, was ein Vorteil für die Quantisierung darstellt. Durch ihr nicht lineares Verhalten ist diese Funktion auch für Klassifizierungsprobleme effizient. Häufig wird beobachtet das, bei Verstärkungsproblemen ein Rückgang des Gradienten erfolgt. Da die ReLU das \textit{Problem des verschwindenden Gradienten} mildert, schafft sie dadurch eine stabile Lernumgebung. Zudem werden unnötige Aktionen durch das \textit{Prinzip der geringen Wirkung} vermieden.
 
-%\begin{equation}\label{eq:relu_function}
-%	\sigma (x) = \left\{
-%	\begin{array}{cl}
-%		x & : \ x > 0 \\
-%		0 & : \ x \leq 0
-%	\end{array}
-%	\right.
-%\end{equation}
-\xequation{ReLU Funktion}{\label{eq:relu_function}
+\begin{equation}\label{eq:relu_function}
 	\sigma (x) = \left\{
 	\begin{array}{cl}
 		x & : \ x > 0 \\
 		0 & : \ x \leq 0
 	\end{array}
 	\right.
-}
+\end{equation}
 
-%\begin{equation}\label{eq:derivative_relu_function}
-%	\sigma' (x) = \left\{
-%	\begin{array}{cl}
-%		1 & : \ x > 0 \\
-%		0 & : \ x \leq 0
-%	\end{array}
-%	\right.
-%\end{equation}
-\xequation{Ableitung: ReLU Funktion}{\label{eq:derivative_relu_function}
+\begin{equation}\label{eq:derivative_relu_function}
 	\sigma' (x) = \left\{
 	\begin{array}{cl}
 		1 & : \ x > 0 \\
 		0 & : \ x \leq 0
 	\end{array}
 	\right.
-}
+\end{equation}
 
 Die Abbildung \ref{eq:relu_function} zeigt die Graphen der ReLU Funktion und dessen Ableitung. Bei Eingaben kleiner als $null$ liefert die Funktion immer $null$ als Ausgabe.
 
@@ -404,39 +364,23 @@ An dieser Stelle sei noch die parametrische ReLU, PreLU erwähnt. Bei der PReLU 
 
 Da diese Funktion auch bei negativen $x$-Werten einen Gradienten ungleich $null$ besitzt, wird das \glqq Problem der verschwindenden Gradienten\grqq \ umgangen und somit wird auch das Problem der \glqq toten Neuronen\grqq \ verringert. Die Formel \ref{eq:derivative_leaky_relu_function} zeigt diese Eigenschaft. Da Alpha einen sehr geringen Wert hat, kann es dennoch passieren, dass bei sehr tiefen Netzen das Lernen sehr langsam verläuft. Ein weiterer Nachteil der Funktion sind die positiven Werte welche keinerlei Begrenzung besitzen, dieses Problem wird in Formel \ref{eq:leaky_relu_function} deutlich. Bei extrem großen Werten kann es im Netzwerk zu nummerischen Problemen führen.
 
-%\begin{equation}\label{eq:leaky_relu_function}
-%	\sigma (x) = \left\{
-%	\begin{array}{cl}
-%		x & : \ x > 0 \\
-%		\alpha x & : \ x \leq 0
-%	\end{array}
-%	\right.
-%\end{equation}
-\xequation{Leaky ReLU Funktion}{\label{eq:leaky_relu_function}
+\begin{equation}\label{eq:leaky_relu_function}
 	\sigma (x) = \left\{
 	\begin{array}{cl}
 		x & : \ x > 0 \\
 		\alpha x & : \ x \leq 0
 	\end{array}
 	\right.
-}
+\end{equation}
 
-%\begin{equation}\label{eq:derivative_leaky_relu_function}
-%	\sigma' (x) = \left\{
-%	\begin{array}{cl}
-%		1 & : \ x > 0 \\
-%		\alpha & : \ x \leq 0
-%	\end{array}
-%	\right.
-%\end{equation}
-\xequation{Ableitung: Leaky ReLU Funktion}{\label{eq:derivative_leaky_relu_function}
+\begin{equation}\label{eq:derivative_leaky_relu_function}
 	\sigma' (x) = \left\{
 	\begin{array}{cl}
 		1 & : \ x > 0 \\
 		\alpha & : \ x \leq 0
 	\end{array}
 	\right.
-}
+\end{equation}
 
 Die Abbildung \ref{img:leaky_relu_func_graph} zeigt den Graphen der Leaky ReLU Funktion mit einem $\alpha$-Wert von 0,2. Ebenso ist die Ableitung dieser Funktion zu sehen, als roter Graph dargestellt.
 
@@ -458,19 +402,13 @@ Abgeleitet wird diese Aktivierungsfunktion von der Gaußschen Normalverteilung a
 
 Die Gaußfunktion wird in neuronalen Netzen verwendet, die zur Mustererkennung und Klassifikation dienen. Hierbei handelt es sich um eine radiale Aktivierungsfunktion, bekannt als \textit{Radial Basis Function} (\acrshort{RBF}).
 
-%\begin{equation}\label{eq:gaussian_function}
-%	\sigma (x) = e^{-x^{2}}
-%\end{equation}
-\xequation{Gaussfunktion}{\label{eq:gaussian_function}
+\begin{equation}\label{eq:gaussian_function}
 	\sigma (x) = e^{-x^{2}}
-}
+\end{equation}
 
-%\begin{equation}\label{eq:derivative_gaussian_function}
-%	\sigma' (x) = -2x e^{-x^{2}}
-%\end{equation}
-\xequation{Ableitung Gaussfunktion}{\label{eq:derivative_gaussian_function}
+\begin{equation}\label{eq:derivative_gaussian_function}
 	\sigma' (x) = -2x e^{-x^{2}}
-}
+\end{equation}
 
 In der Abbildung \ref{img:gaussian_func_graph} zeigt den Graphen der Gaußfunktion und dessen Ableitung. Hier ist zu erkennen, dass die Ableitung eine Antisymmetrie um den Ursprung aufweist, was mit $f'(-x) = -f'(x)$ ausgedrückt werden kann. Ebenfalls strebt die Ableitung für sehr kleine und sehr große $x$-Werte schnell gegen $null$, was das \glqq Problem der verschwindenden Gradienten \grqq \ begünstigt.
 
@@ -493,21 +431,15 @@ Ein Nachteil der Gaußfunktion kann entsteht bei sehr tiefen neuronalen Netzen. 
 
 Die Softmax Aktivierungsfunktionen wird häufig in der Ausgabeschicht eines neuronalen Netzes eingesetzt. Als Eingang dient nicht ein einzelnes Signal, wie bei den zuvor vorgestellten Funktionen, viel mehr werden alle Ausgaben der vorherigen Schicht verwendet, um Prognosen zu erstellen.
 
-%\begin{equation}\label{eq:softmax_function}
-%	\sigma (x)_{j} = softmax(x_{j}) = \frac{e^{z_{j}}}{\sum_{k=1}^{K} e^{z_{k}}} \text{ für } j = 1, ..., K.
-%\end{equation}
-\xequation{Softmax Funktion}{\label{eq:softmax_function}
+\begin{equation}\label{eq:softmax_function}
 	\sigma (x)_{j} = softmax(x_{j}) = \frac{e^{z_{j}}}{\sum_{k=1}^{K} e^{z_{k}}} \text{ für } j = 1, ..., K.
-}
+\end{equation}
 
 Als Ausgabe wird ein Vektor erstellt der die prozentuale Verteilung der Eingangswerte darstellt. Zusammen ergeben die Ausgaben 1, also 100\%, welches Formel \ref{eq:softmax_result} zeigt.
 
-%\begin{equation}\label{eq:softmax_result}
-%	\sum_{i=1}^{k} softmax(z_{j}) = 1
-%\end{equation}
-\xequation{Ableitung: Softmax Funktion}{\label{eq:softmax_result}
+\begin{equation}\label{eq:softmax_result}
 	\sum_{i=1}^{k} softmax(z_{j}) = 1
-}
+\end{equation}
 
 Die Softmax wird hauptsächlich angewandt, um Klassifizierungsprobleme die aus mehreren Klassen bestehen zu lösen. Für die eine Wahrscheinlichkeitsverteilung errechnet wird. Durch ihre Differenzierbarkeit kann der Backpropagation-Algorithmus angewandt werden, um die Gewichte zu optimieren.\vspace{0.2cm}
 
@@ -520,12 +452,9 @@ Nachteilig auf die Softmax-Funktion wirken sich Ausreißer aus. Eine deutlich gr
 
 Die Maxout ist ein leistungsstarkes Modell welches in \cite{goodfellow_maxout_2013} vorgestellte wurde und dient zur Ergänzung der Dropout-Technik. Die Funktion verwendet für die Berechnung genau wie die Softmax, die Ausgaben von Neuronen der vorherigen Schicht. Jedes Maxout-Neuron hat mehrere Transformationsvektoren und einen Bias-Vektor. Jede Transformation erhält seinen eigenen Bias-Wert. Aus den Berechnungen sucht der Algorithmus das Maximum aus den Ergebnissen heraus und liefert dieses als Output. Die Formel \ref{eq:maxout_function} zeigt den Maxout.
 
-%\begin{equation}\label{eq:maxout_function}
-%	\sigma (x)_{j} = max(\omega^T_1 x + b_1, \omega^T_2 x + b_2, ..., \omega^T_j x + b_j)
-%\end{equation}
-\xequation{Maxout-Funktion}{\label{eq:maxout_function}
+\begin{equation}\label{eq:maxout_function}
 	\sigma (x)_{j} = max(\omega^T_1 x + b_1, \omega^T_2 x + b_2, ..., \omega^T_j x + b_j)
-}
+\end{equation}
 
 Bei der Dropout Technik handelt es sich um ein Verfahren welches beim Training neuronaler Netze angewandt wird. Es soll das \gls{overfitting} verhindern. Durch dieses Verfahren sollen Modelle robuster und die Abhängigkeit von einzelnen Neuronen soll vermieden werden. Im Trainer kommt es zum Deaktivieren einzelner zufällig ausgewählter Neuronen. Das Verfahren ist besonders bei tiefen Netzen mit vielen Parametern nützlich.
 
@@ -625,10 +554,16 @@ source={Deep Learning}
 	Machine learning describes the capacity of systems to learn from problem-specific training data to automate the process of analytical model building and solve associated tasks. Deep learning is a machine learning concept based on artificial neural networks. For many applications, deep learning models outperform shallow machine learning models and traditional data analysis approaches.
 }
 
-\subsection{Natural Language Processing}
-Das Feld der Natural Language Processing, kurz \acrshort{NLP} ist ein Teilgebiet Künstlichen Intelligenz und ein Teilgebiet in Deep Learning. NLP soll es digitalen Geräten ermöglichen kodierte Texte und Sprachen zu erkennen, zu verstehen und zu generieren. Dabei muss NLP die Bedeutung (Semantik) erkennen. Sie muss Grammatik kennen und Beziehungen zwischen Teilen der Sprache herstellen. Sie Wortarten wie Verben, Adjektive und Nomen spezifizieren. Sie muss verschiedene Formen der Sprache Prosa beherrschen wie Prosa oder wissenschaftliches Schreiben.\vspace{0.2cm}
 
-Erste große Erfolge haben NLP mit neuronalen Netzen wie den \textit{Feedforward Neural Networks} und \textit{Convolutional Neural Networks}, wie in \cite{goldberg-2016} zeigt. Mit der Einführung von GPT und BERT, wurde bei dem NLP die neuen Transformer Modellen verwendet.
+\subsection{Natural Language Processing}
+Natural Language Processing, kurz \acrshort{NLP} ist ein Teilgebiet der Informatik und nutzt Deep Learning. NLP soll es digitalen Systemen in die Lage versetzen Texte und Sprachen zu erkennen, um diese zu verstehen und verarbeiten zu können. Dabei muss NLP die Bedeutung (Semantik) der Texte erkennen, die Grammatik und Beziehungen zwischen den Teilen der Sprache herstellen, Wortarten wie Verben, Adjektive und Nomen spezifizieren, sowie verschiedene Formen der Sprache beherrschen wie beispielsweise Prosa oder wissenschaftliches Schreiben.\vspace{0.2cm}
+
+NLP wird aber auch in anderen Bereichen eingesetzt. Mithilfe von NLP können Bilder generiert, Suchmaschinen abgefragt, Chatbots für den Kundenservice betrieben werden und Sprachassistenten wie Amazon Alexa, MS Cortana und Apple Siri nutzen ebenfalls die NLP Techniken.\vspace{0.2cm}
+
+Zunehmend findet NLP Einsatz im unternehmerischen Bereich. Hier werden vor allem Prozesse automatisiert um die Produktivität der Mitarbeiter zu steigern. Neben Aufgaben wie Kundensupport, Datenanalyse oder Dokumentenverwaltung kommt NLP auch in der Entwicklung von Software zum Einsatz. Hierbei werden fast alle Segmente der Entwicklung abgedeckt, von der Codegenerierung über Test und Qualitätsmanagement bis hin zur Bereitstellung.\vspace{0.2cm}
+
+Erste große Erfolge haben NLP mit neuronalen Netzen wie den \textit{Feedforward Neural Networks} und \textit{Convolutional Neural Networks}, wie in \cite{goldberg-2016} zeigt. Mit der Einführung von ChatGPT und BERT, wurde auch hier die neuen Transformer Modellen eingesetzt. NLP hat die großen Sprachmodelle erst ermöglicht.
+
 
 \section{Large Language Model}
 Die Teilgebiete Deep Learning und Natural Language Processing haben es den großen Sprachmodellen \acrshort{LLM} ermöglicht kommunikationsfähig zu werden. Sie verstehen Anfragen und können Antworten generieren. Die LLMs sind in der Lage Bilder und andere Medien wie Video oder Audio zu generieren.\vspace{0.2cm}

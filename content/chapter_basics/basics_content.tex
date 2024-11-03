@@ -480,7 +480,12 @@ Im Folgenden werden einige neuronale Netze vorgestellt.\vspace{0.2cm}
 
 \textbf{Einschichtige Netze (Perzeptrons)}\vspace{0.2cm}
 
+Ein Perzeptron ist die einfachste Form eines neuronalen Netzes und besteht aus nur einem Neuron. Sie ist ein einfaches mathematisches Modell einer biologischen Zelle, welches von Frank Rosenblatt in Jahr 1958 entwickelt wurde. Das Perzeptron besitzt einem Ausgang und mehreren Eingängen. Alle Eingangssignale haben Gewichte, des Weiteren  hat ein Perzeptron einen Bias, sowie einen vorgegebenen Schwellenwert. Ein Perzeptron kann als Ergebnis entweder \textit{Null} oder \textit{Eins} ausgeben, d.h. das Ergebnis ist binär. Wenn das Ergebnis \textit{Eins} ist, wird auch der Begriff das \glqq Neuron feuert\grqq \ verwendet.\vspace{0.2cm}
+
+Das Perzeptron kann zur Datenanalyse eingesetzt werden, wenn die Daten linear Trennbar sind. D.h. in einem Graph sind die Daten durch eine klare Linie trennbar.\vspace{0.2cm}
+
 \textbf{Feedforward Neural Netzwerke (FNN)}\vspace{0.2cm}
+
 %https://artemoppermann.com/de/neuronale-netze-und-ihre-anwendungen/
 Ein FNN besteht aus einer Eingabeschicht, mindestens einer versteckten Schicht und einer Ausgabeschicht. Ein FNN ist in der Struktur und Aufbau vergleichbar mit Abbildung \ref{img:neural_network_fnn}. Ein FNN hat in der Eingabeschicht genau so viele Neuronen wie Eingangswerte der Daten. Alle anderen Schichten können beliebig viele Neuronen enthalten. Da eine Schicht immer nur mit der nachfolgenden verbunden ist, fließen die Daten in diesem Netzwerk nur in eine Richtung. Somit können bereits verarbeitete Daten nicht noch einmal für eine weitere Verarbeitung herangezogen werden.
 
@@ -615,7 +620,7 @@ Der im Listing \ref{lst:javascript_metho_api_call} zu sehen Methodenausschnitt e
 	\end{lstlisting}
 \end{center}
 
-In der Abbildung \ref{img:tokenize_javascript_method} ist die Tokenisierung mittel Wortteilen zu erkennen. Diese Tokenisierung wurde mit \href{https://tiktokenizer.vercel.app/}{https://tiktokenizer.vercel.app/} erstellt und das Model \textit{codellama/CodeLlama-70b-hf} verwendet.
+In der Abbildung \ref{img:tokenize_javascript_method} ist die Tokenisierung mittel Wortteilen farblich gekennzeichnet, wie diese für die LLMs verwendet wird. Diese Tokenisierung wurde mit \href{https://tiktokenizer.vercel.app/}{https://tiktokenizer.vercel.app/} erstellt und \textit{codellama/CodeLlama-70b-hf} als Model verwendet.\vspace{0.2cm}
 
 \begin{center}
 	\begin{figure}[!ht]
@@ -696,7 +701,6 @@ Im Jahr 2017 führte Google Brain die Transfomer-Architektur ein, die bis heute 
 \subsection{Grenzen und Probleme bei LLMs}
 Sind zwar toll können aber nicht alles.
 
-\subsubsection{Halluzinationen}
 % https://www.unite.ai/de/Die-Bek%C3%A4mpfung-von-Halluzinationen-in-gro%C3%9Fen-Sprachmodellen-ist-ein-%C3%9Cberblick-%C3%BCber-modernste-Techniken/
 
 
@@ -713,11 +717,19 @@ Keine innovativen Ideen entwickeln.
 
 
 \subsubsection{Trainingsdaten}
-Shit in shit out.
+Ein besonderes Augenmerk sollte den Trainingsdaten zukommen. Mit einer guten Datenqualität lassen sich unter anderem Halluzinationen verringern. \vspace{0.2cm}
+
+Bevor die Daten zum Training verwendet werden, sollten eine Datenbereinigung erfolgen. Um hochwertige Daten zubekommen, werden ungenaue, inkonsistente, irrelevante und voreingenommene Datensätze entfernt. Anschließend erfolgt eine Datenerweiterung. D.h. unvollständige Daten können mit kontextbezogenen hochwertigen Daten aufgefüllt werden, die bereits geprüft wurden. Zm Schluss sollten sind die Daten zu validieren und überprüfen. Dies kann manuell, durch automatisierte Test oder durch externe Quellen validiert und geprüft werden.\vspace{0.2cm}
+
+Eine weitere Methode die Trainingsdaten zu verbessern ist das Aufzeichnen der Interaktion zwischen Nutzer und Model. An dieser Stelle sei darauf hingewiesen das die Datenschutzrichtlinien für personenbezogene Daten zu beachten sind. Hierbei können die Antworten auf die Fragen validiert werden und beim nächsten Training können diese Daten mit einfließen.
 
 
-\subsubsection{Transparenz}
-Ergebnisse schwer nachvollziehbar.
+\subsubsection{Halluzinationen}
+In großen Sprachmodellen kann es dazu kommen, das Inhalt plausibel erscheinen, aber sachliche Unstimmigkeiten enthalten bis hin zu frei erfundenen Informationen, die nicht der Realität entsprechen. Diese können dazu führen, dass Menschen falsche Entscheidungen treffen. Was besonders im Finanzsektor und wenn es um Entscheidungen geht, die direkt Menschen Betreffen. Bei der Erstellung von Code fallen die Halluzinationen meist schon in der Testphase auf und können behoben werden.\vspace{0.2cm}
+
+Halluzinationen bei großen Sprachmodellen sind das Ergebnis, falscher oder unvollständiger Trainingsdaten. Ein weiterer schon zuvor genanntes Problem, dass Halluzinationen entstehen lässt, ist das fehlende Verständnis des ganzen, das fehlende Verständnis der Welt, da LLMs nicht die richtige Antwort geben, sondern die wahrscheinlichste, diese selbst aber nicht validieren können. Halluzinationen können aber auch durch veraltete Daten, Verallgemeinerung in Trainingsdaten, Mehrdeutigkeit in den Datensätzen und kognitive Vorurteile entstehen.\vspace{0.2cm}
+
+Um Halluzinationen zu verhindert können unter anderem verschiedene Prompt-Techniken, wie Kapitel \ref{subsec:prompt_technics} beschrieben, Anwendung finden.
 
 
 \section{Koordinationsstrategien für LLMs}
@@ -772,7 +784,7 @@ Ein Prompt oder Anweisung muss entweder als Anweisung oder als Frage gestellt we
 [Hier Beispiel von ChatGPT oder Gemini einfügen, kann als Bild]
 
 
-\subsection{Prompt-Techniken}
+\subsection{Prompt-Techniken}\label{subsec:prompt_technics}
 Siehe Prompting Techniques Hinweise für die Optimierung von Prompts.
 Die folgenden Techniken dienen dazu die Abfragen zu optimieren und somit eine bessere Antwort von den Sprachmodellen zu erhalten.
 

@@ -699,21 +699,31 @@ Im Jahr 2017 führte Google Brain die Transfomer-Architektur ein, die bis heute 
 
 
 \subsection{Grenzen und Probleme bei LLMs}
-Sind zwar toll können aber nicht alles.
+Auch wenn Künstliche Intelligenz mit ihren großen Sprachmodellen in vielen Bereichen der privaten Nutzer und in den Prozessen von Unternehmen immer präsenter wird, haben die diese auch Grenzen. Im folgen werden kurz die wichtigsten Grenzen und Probleme erläutert.
 
 % https://www.unite.ai/de/Die-Bek%C3%A4mpfung-von-Halluzinationen-in-gro%C3%9Fen-Sprachmodellen-ist-ein-%C3%9Cberblick-%C3%BCber-modernste-Techniken/
 
 
-\subsubsection{Mangel an Verständnis}
-Kennen nicht die ganze Welt, nur ihre Muster von den Trainingsdaten. Ausgaben sind darauf beschränkt.
-
-
 \subsubsection{Ressourcenverbrauch}
-Hohe Rechenleistung für das Training, auch mal mehrere Monate.
+Mit  dem Aufkommen der großen Sprachmodelle ist auch der Verbrauch an Ressourcen enorm angestiegen. Dabei stehen diese nur in einem begrenzten Maß zur Verfügung. Kleine und mittlere Unternehmen kommen hier schnell an ihre Grenzen und nutzen daher die Modelle der Anbieter wie OpenAI, Google oder Microsoft.
 
+\begin{itemize}
+	\item Speicher
+	\item Rechenleistung
+	\item Netzwerk
+	\item Energie
+	\item Finanzen
+\end{itemize}
 
-\subsubsection{Kreativitätsbegrenzung}
-Keine innovativen Ideen entwickeln.
+Im Lebenszyklus der großen Sprachmodelle werden unterschiedliche Ressourcen mit unterschiedlicher Anzahl benötigen.\vspace{0.2cm}
+
+\textbf{Training}\vspace{0.2cm}
+
+Beim Training und bei der Feinabstimmung wird viel Speicher benötigt. Trainingsdaten werden in Dateien gehalten, Modelle haben sehr viele Parameter, die Platz benötigen und Zwischenstände sind ebenfalls zu sichern. Oft werden Grafikprozessoren verwendet, um das Training mit möglichst vielen parallel arbeitenden Prozessen durchzuführen. Diese Hochleistungshardware benötigt im Allgemeinen eine separate Kühlung. Darüber hinaus werden verteilte Systeme eingesetzt die wiederum immensen Netzwerkverkehr verursachen. Diese Hardware muss durch Kauf oder Leasing finanziert werden. Zu diesen Kosten kommen Energiekosten hinzu und Kosten für Personal.\vspace{0.2cm}
+
+\textbf{Bereitstellung und Betrieb}\vspace{0.2cm}
+
+Die Modelle selbst benötigen riesige Mengen an Speicher. Ebenso werden Chatverläufe und Zwischenresultate im Speicher gehalten. Für das Generieren der Antworten wird viel Rechenleistung benötigt und bei vielen Anfragen müssen leistungsstarke Server skaliert werden. Des Weiteren kommen Netzwerke und evtl. Lizenzen hinzu. Somit benötigt auch der Betrieb sehr viel Energie, was hohe Kosten verursacht genauso wie Kosten für Hardware und Personal.
 
 
 \subsubsection{Trainingsdaten}
@@ -730,6 +740,12 @@ In großen Sprachmodellen kann es dazu kommen, das Inhalt plausibel erscheinen, 
 Halluzinationen bei großen Sprachmodellen sind das Ergebnis, falscher oder unvollständiger Trainingsdaten. Ein weiterer schon zuvor genanntes Problem, dass Halluzinationen entstehen lässt, ist das fehlende Verständnis des ganzen, das fehlende Verständnis der Welt, da LLMs nicht die richtige Antwort geben, sondern die wahrscheinlichste, diese selbst aber nicht validieren können. Halluzinationen können aber auch durch veraltete Daten, Verallgemeinerung in Trainingsdaten, Mehrdeutigkeit in den Datensätzen und kognitive Vorurteile entstehen.\vspace{0.2cm}
 
 Um Halluzinationen zu verhindert können unter anderem verschiedene Prompt-Techniken, wie Kapitel \ref{subsec:prompt_technics} beschrieben, Anwendung finden.
+
+
+\subsection{Verständnis für die LLMs}
+Viele Nutzer (Privatnutzer aber auch Firmen) wissen nicht, was hinter den großen Sprachmodellen steckt oder wie diese funktionieren. Diese Unwissenheit birgt die Gefahr, dass Nutzer nicht korrekte Eingabe in die LLMs übergibt und dann die Ergebnisse der LLMs falsch interpretieren oder die LLMs nicht korrekte Aussagen trifft. Werden aufgrund dieser falschen Ergebnisse Entscheidungen getroffen, können diese enorme finanzielle und personelle Einbußen nach sich ziehen. Zudem kann es weiterhin zu Desinformation, Diskriminierung, juristische Probleme und zum Vertrauensverlust in die Technologie führen.\vspace{0.2cm}
+
+Um diesen Problemen bei Entwicklern entgegenzuwirken, sind vor, während und nach der Einführung einer LLM zur Codeentwicklung, die Nutzer aufzuklären. Sie müssen sich im klaren sein, dass LLMs Fehler produzieren und es erforderlich ist, die Ergebnisse zu validieren. Nur so kann die ein Vertrauensverlust und eine stetige Weiterentwicklung der Modelle erfolgen.
 
 
 \section{Koordinationsstrategien für LLMs}

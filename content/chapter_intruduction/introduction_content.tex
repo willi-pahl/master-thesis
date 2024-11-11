@@ -26,10 +26,19 @@ Viele Entwickler setzen auf Chatbots, wie ChatGPT oder Gemini zur Generierung vo
 %\subsection{Potenzial von LLMs in der Webentwicklung}
 
 
-\section{Zielsetzung und Forschungsfragen}
-Das Ziel in der Softwareentwicklung war und ist die Optimierung des Entwicklungsprozesses, um Ressourcen und Kosten einzusparen und dadurch einen Wettbewerbsvorteil zu erlangen. Die steigende Nachfrage von Cloud-Anwendungen, steigt auch der Optimierungsdruck in diesem Bereich besonders stark.\vspace{0.2cm}
+\section{Stand der Forschung}
+In \cite{jiang-2024} wird eine bis dato fehlende Literaturrecherche zum Thema Codegenerierung durch große Sprachmodelle bemängelt, was in dieser Arbeit nachgeholt wird und haben im Juni 2024 Literatur zusammengetragen, welche sich mit Codegenerierung befasst.\vspace{0.2cm}
 
-Vor diesem Hintergrund lässt sich die Zielsetzung bereits aus dem Titel \glqq \textit{Evaluierung und Optimierung von Large Language Models für die Entwicklung von Webanwendungen}\grqq \ dieser Arbeit herleiten. Diese Arbeit soll eine Auswahl von Modellen evaluieren und dessen Brauchbarkeit für die Softwareentwicklung aufzeigen. Um die Antworten der Modelle zu optimieren, soll eine Evaluation von Methodiken erfolgen, bei der deren Anwendung auf die Modelle eine Verbesserung der Antworten ersichtlich ist. Des Weiteren soll gezeigt werden, ob und wie weit sich der Prozess der Codegenerierung automatisieren lässt und ob einige Programmiersprachen, die in der Webentwicklung Verwendung finden, besser unterstützt und geeignet sind als andere und somit zu bevorzugen sind.\vspace{0.2cm}
+Um die Prompts im Ingenieurswesen zu optimieren, wird in \cite{velasquez-henao-2023} die GPEI Methodik vorgeschlagen, welche aus vier Schritten besteht. Zuerst wird das Ziel definiert, dann ein Entwurf der Anforderung, im Anschluss die Bewertung gefolgt von Iterationen.\vspace{0.2cm}
+
+Es gibt Bestrebungen kleinere Modelle die auf Codegenerierung spezialisiert sind, mit den großen Sprachmodellen zu testen, so auch in \cite{mishra-2024}. Hier werden die Modelle als \glqq Granite Code Models\grqq -Familie zusammengefasst. Eine weitere Arbeit die sich mit kleinen Modellen, die besonders für das Generieren von Code trainiert wurden, befasst sich die Arbeit \cite{lozhkov-2024} mit StarCoder 2 betrachtet.\vspace{0.2cm}
+
+Der wissenschaftlicher Artikel \cite{nataraj-2024} befasst die sich ebenfalls mit der Web-Entwicklung mittel GPT-3. Hierbei wird die Verwendung von Generativ Adversarial Networks (GANs) vorgeschlagen, ein neuer Ansatz, mit der die Nachbearbeitung minimiert und die Codequalität optimiert wird.
+
+\section{Zielsetzung und Forschungsfragen}
+Das Ziel in der Softwareentwicklung war und ist die Optimierung des Entwicklungsprozesses, um Ressourcen und Kosten einzusparen und dadurch einen Wettbewerbsvorteil zu erlangen. Die steigende Nachfrage von Cloud-Anwendungen steigt auch der Optimierungsdruck in diesem Bereich besonders stark.\vspace{0.2cm}
+
+Vor diesem Hintergrund lässt sich die Zielsetzung bereits aus dem Titel \glqq \textit{Evaluierung und Optimierung von Large Language Models für die Entwicklung von Webanwendungen}\grqq \ dieser Arbeit herleiten. Sie untersucht die Möglichkeiten mit natürlicher Sprache Code zu generieren. In dieser Arbeit wird, wie auch in \cite[vgl. Seite 2]{jiang-2024} Language-to-Code, kurz NL2Code verwendet. Diese Arbeit soll eine Auswahl von Modellen evaluieren und dessen Brauchbarkeit für die Softwareentwicklung aufzeigen. Um die Antworten der Modelle zu optimieren, soll eine Evaluation von Methodiken erfolgen, bei der deren Anwendung auf die Modelle eine Verbesserung der Antworten ersichtlich ist. Des Weiteren soll gezeigt werden, ob und wie weit sich der Prozess der Codegenerierung automatisieren lässt und ob einige Programmiersprachen, die in der Webentwicklung Verwendung finden, besser unterstützt und geeignet sind als andere und somit zu bevorzugen sind.\vspace{0.2cm}
 
 Die vier Ziele dieser Arbeit lassen sich in den folgenden kurz formulierten Sätzen zusammenfassen,
 
@@ -41,7 +50,7 @@ Die vier Ziele dieser Arbeit lassen sich in den folgenden kurz formulierten Sät
 \end{itemize}
 
 
-\subsection{Auswahl der LLM}
+\subsection{Auswahl der LLMs}
 \begin{tcolorbox}[
 	enhanced,
 	colback=yellow!5!white,
@@ -52,7 +61,9 @@ Die vier Ziele dieser Arbeit lassen sich in den folgenden kurz formulierten Sät
 
 	Als lokale Modelle werden zurzeit deepseek-coder-v2, llama3.1-claude und llama3.2 verwendet. Diese Modelle kommen auch zum Einsatz, für die Orchestrierung und die Multi-Agenten-Systeme.\vspace{0.2cm}
 	
-	Das neue Model Mistral Lage 2 (Links: \href{https://mistral.ai/news/mistral-large-2407/}{Mistral Large 2 | Mistral AI} und \href{https://the-decoder.de/mistral-large-2-soll-meta-llama-3-in-sachen-effizienz-schlagen-und-der-llm-ozean-wird-roter/}{Mistral Large 2 | the-decoder.de} [gelsen am: 03.11.2024]) soll in Sachen Coding mit Modellen wie GPT-4o, Claude 3 Opus und Llama 3 mithalten können. (Gibt es auch von \href{https://ollama.com/library/mistral-large}{mistral-lage | ollama Models})
+	Das neue Model Mistral Lage 2 (Links: \href{https://mistral.ai/news/mistral-large-2407/}{Mistral Large 2 | Mistral AI} und \href{https://the-decoder.de/mistral-large-2-soll-meta-llama-3-in-sachen-effizienz-schlagen-und-der-llm-ozean-wird-roter/}{Mistral Large 2 | the-decoder.de} [gelsen am: 03.11.2024]) soll in Sachen Coding mit Modellen wie GPT-4o, Claude 3 Opus und Llama 3 mithalten können. (Gibt es auch von \href{https://ollama.com/library/mistral-large}{mistral-lage | ollama Models})\vspace{0.2cm}
+	
+	Evtl. werden die Granite Code Models aus \cite{mishra-2024} auch getestet.
 \end{tcolorbox}
 
 
@@ -80,4 +91,14 @@ Bevor in Kapitel \ref{chap:conclusion} auf mögliche Folgearbeiten eingegangen w
 \section{Abgrenzung}
 In dieser Arbeit fokussiert sich die Betrachtung auf den Bereich der Webanwendungsentwicklung und deren verwendete Programmiersprachen. Parallelen zu anderen Anwendungsbereichen, wie beispielsweise Desktop-Anwendungsentwicklung werden hier nicht expliziert betrachtet können aber durchaus vorkommen.\vspace{0.2cm}
 
-Auch wenn rechtliche und ethische Überlegungen einen wichtigen Aspekt in Umgang mit Künstlicher Intelligenz darstellt, wird dies in dieser Arbeit nicht betrachtet. Es gibt hinreichend Literatur zu diesen Themen, die in dieser Arbeit Beachtung finden, es wird aber nicht explizit darauf eingegangen.
+Auch wenn rechtliche und ethische Überlegungen einen wichtigen Aspekt in Umgang mit Künstlicher Intelligenz darstellt, wird dies in dieser Arbeit nicht betrachtet. Es gibt hinreichend Literatur zu diesen Themen, die in dieser Arbeit Beachtung finden, es wird aber nicht explizit darauf eingegangen.\vspace{0.2cm}
+
+\begin{tcolorbox}[
+	enhanced,
+	breakable,
+	colback=red!5!white,
+	colframe=red!75!black!50,
+	title= Mein roter Faden: noch was zum Testen
+	]
+	Ein Tool zur Orchestrierung von Multi-Agenten-Systemen \href{https://community.openai.com/t/introducing-swarm-js-node-js-implementation-of-openai-swarm/977510}{OpenAI Swarm}, gefunden auf \href{https://karrierewelt.golem.de/blogs/karriere-ratgeber/bot-belegschaft-mit-entlastungspotenzial-ki-agenten-fur-den-arbeitsalltag-in-der-testphase-1}{Golem | Karrierrewelt}.
+\end{tcolorbox}

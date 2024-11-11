@@ -705,17 +705,21 @@ Auch wenn Künstliche Intelligenz mit ihren großen Sprachmodellen in vielen Ber
 
 
 \subsubsection{Ressourcenverbrauch}
-Mit  dem Aufkommen der großen Sprachmodelle ist auch der Verbrauch an Ressourcen enorm angestiegen. Dabei stehen diese nur in einem begrenzten Maß zur Verfügung. Kleine und mittlere Unternehmen kommen hier schnell an ihre Grenzen und nutzen daher die Modelle der Anbieter wie OpenAI, Google oder Microsoft.
+Mit  dem Aufkommen der großen Sprachmodelle ist auch der Verbrauch an Ressourcen enorm angestiegen. Dabei stehen diese nur in einem begrenzten Maß zur Verfügung. Kleine und mittlere Unternehmen kommen hier schnell an ihre Grenzen und nutzen daher die Modelle der Anbieter wie OpenAI, Google oder Microsoft. Auch hier gilt Ressourcenbegrenzung, sodass die Modelle nicht unendlich groß werden können. Die folgenden Ressourcen, die hier genannt werden, haben direkten Einfluss auf die Modelle und deren Betrieb,
 
-\begin{itemize}
+\begin{myitemize}
 	\item Speicher
 	\item Rechenleistung
 	\item Netzwerk
 	\item Energie
 	\item Finanzen
-\end{itemize}
+\end{myitemize}
 
-Im Lebenszyklus der großen Sprachmodelle werden unterschiedliche Ressourcen mit unterschiedlicher Anzahl benötigen.\vspace{0.2cm}
+Im Lebenszyklus der großen Sprachmodelle werden Ressourcen in unterschiedlichen Mengen benötigen.\vspace{0.2cm}
+
+\textbf{Entwicklung}\vspace{0.2cm}
+
+Bei der Entwicklung von Modelle ist die Finanz-Ressource die mit dem größten Anteil, für die Gehälter des Entwicklungsteams. Fehlen die finanziellen Ressourcen können die Modelle nicht weiter entwickelt und verbessert werden. Ebenso negativ auf die Modelle wirken sich unzureichender Speicher und Rechenleistung aus, die Grenzen für Modelle aufzeigen.\vspace{0.2cm}
 
 \textbf{Training}\vspace{0.2cm}
 
@@ -937,8 +941,396 @@ Trotz der bemerkenswerten linguistischen Leistung, stoßen große Sprachmodelle 
 %\section{Relevante Arbeiten}
 %In \cite{zhou-2022} wird der Prompt-Optimierungsprozess als Black-Box interpretiert. Der mit minimalen Eingaben ein menschenähnliches Niveau erreichen soll.
 
-%----------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------------------------------------------------
 
 
-\section{Grundlagen bei der Entwicklung von Webanwendungen}
-Webanwendung
+%\section{Grundlagen bei der Entwicklung von Webanwendungen}
+%Webanwendung
+
+\section{Grundlagen der Webentwicklung}
+In diesem Unterkapitel soll kurz auf Anforderungen der Webentwicklung eingegangen werden.
+
+
+\subsection{Hardware und Software}
+Um Webseite ausliefern zu können sind Server notwendig. Häufig sind Metal Bare Server in Verwendung. Mit Aufkommen der Cloud Technologien wird die Auslieferung zunehmend mittels Container realisiert. Diese werden meist mithilfe von Kubernetes-Clustern oder ähnliche Plattformen verwaltet.\vspace{0.2cm}
+
+Des Weiteren wird für die Auslieferung ein Webserver benötigt. Zum einen sind es Apache\footnote{Der \href{https://httpd.apache.org/download.cgi}{Apache HTTP Server} ist der am weit verbreitetste Webserver und als freies Produkt der Apache Software Foundation verfügbar.} oder Nginx\footnote{\href{https://nginx.org/en/}{Nginx} ist leichtgewichtiger Webserver der besonders für Webseiten mit viel Traffic geeignet ist. Der Nginx welcher ebenfalls frei verfügbar ist.} welche die Auslieferung einfacher Webseiten und -Anwendungen übernehmen. Zum anderen sind es Anwendungsserver wie Tomcat\footnote{Der \href{https://tomcat.apache.org/}{Tomcat} ist ein Applikationsserver mit der Jakarta Servlets und Server Pages Spezifikation, der es ermöglicht javabasierende Anwendungen auszuführen.} oder GlassFish\footnote{Der \href{https://glassfish.org/}{GlassFish} ist ein weiterer Applikationsserver der Java-EE Projekte ausführen kann. GlassFish ist ebenfalls OpenSource und unterliegt der Eclipse Foundation.}. Hinzu kommen noch Datenbanken welche die Inhalte und Einstellungen der Webanwendungen persistent speichern.
+
+
+\subsection{Programmiersprachen}
+Grundsätzlich kann jede Programmiersprache verwendet werden. Es gibt jedoch Programmiersprachen, die explizit für Webanwendungen entwickelt wurden und einige Funktionen mitbringen, welche die Entwicklung vereinfachen. Die meisten visuellen Anwendungen erstellen HTML (\textbf{H}yper\textbf{T}ext \textbf{M}arkup \textbf{L}anguage) Code als Grundgerüst und generieren CSS (\textbf{C}ascading \textbf{S}tyle \textbf{S}heets) Dateien für das Layout, die als Standardformatierungssprache gilt. Anwendungen die als RestAPI (\textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface) fungieren liefern meist Ausgaben in Form von JSON (\textbf{J}ava\textbf{S}cript \textbf{O}bject \textbf{N}otation) aus. Neben JSON Format gibt es weitere beispielsweise XML () oder YAML (\textbf{Y}AML \textbf{A}in’t \textbf{M}arkup \textbf{L}anguage).\vspace{0.2cm}
+
+In den folgenden Kapiteln werden wichtigste Programmiersprachen kurz vorgestellt, welche die oben genannten Ausgaben erzeugen und Interpretieren können. Die hier aufgeführten sind bei weitem nicht alle Programmier- und Scriptsprachen die für eine Webanwendung verwendet werden können.
+
+
+\subsubsection{PHP}
+PHP (\textbf{P}HP \textbf{H}ypertext \textbf{P}reprocessor) ist eine serverseitige Script-Sprache. PHP ist eine der beliebtesten und am weit verbreitetsten Sprachen für Webentwicklung. Entwickelt wurde PHP 1995 von Rasmus Lerdorf, was als Perl Ersatz gedacht war. Mit PHP lassen sich HTML Seite für Webanwendungen generieren oder Daten für Schnittstellen erzeugen, welche dann an die aufrufenden Clients gesandt werden.\vspace{0.2cm}
+
+Listing \ref{lst:hello_word_html} zeigt eine einfache PHP Seite mit dem \glqq Hello World\grqq \ Programm.
+
+\begin{lstlisting}[language=PHP,label=lst:hello_word_html,caption={Hello World in HTML}]
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Hallo-Welt-Beispiel</title>
+</head>
+<body>
+  <?php echo 'Hello World!'; ?>
+</body>
+</html>
+\end{lstlisting}
+
+Im Laufe der Zeit haben sich viele Frameworks rund um PHP entwickelt. Zu den bekanntesten zählen u.a. Symfony und Laraval. Diese Frameworks bieten eine Reihe von Funktionen, um Webanwendungen schnell und effektiv zu erstellen und folgen dabei den Codestandards.\vspace{0.2cm}
+
+Weil Webanwendungen immer weiter gewachsen sind, haben sich eine Vielzahl von Content Management Systemen (CMS) auf PHP basierend entwickelt. Hier sind Joomla, WordPress und Drupal als bekannte Namen zu nennen.
+
+
+\subsubsection{Python}
+Python ist wie PHP eine serverseitig Scriptsprache. Auch hier werden entweder HTML Seiten erzeugt oder Daten für Schnittstellen dynamisch auf dem Server generiert und an die Clients gesandt.\vspace{0.2cm}
+
+Frameworks wie Flask und Gunicorn vereinfachen die Bereitstellung von Webanwendungen und RestAPIs. Das Listing \ref{lst:hello_word_python} zeigt eine einfache Python \glqq Hello World\grqq \ Anwendung, welche mit dem Flask Framework umgesetzt wurde.
+
+\begin{lstlisting}[language=Python,label=lst:hello_word_python,caption={Hello World in Python}]
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+if __name__ == '__main__':
+    app.run()
+\end{lstlisting}
+
+
+\subsubsection{Java}
+
+Eines der populärsten Web-Frameworks für Java ist das Spring-Framework.\vspace{0.2cm}
+
+Das Listing \ref{lst:hello_word_java} zeigt die \glqq Hello World!\grqq \ Anwendung als Java Code, was mit dem Framework Spring umgesetzt wurde.
+
+\begin{lstlisting}[language=Java,label=lst:hello_word_java,caption={Hello World in Java}]
+package de.example.helloworld;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class HelloWorldApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(HelloWorldApplication.class, args);
+    }
+}
+
+@RestController
+class HelloWorldController {
+
+    @GetMapping("/")
+    public String hello() {
+        return "Hello, World!";
+    }
+}
+\end{lstlisting}
+
+
+\subsubsection{JavaScript}
+Anwendungen, die mit JavaScript (JS) erstellt wurden, können entweder serverseitig oder clientseitig ausgeführt werden und erstellen die dort die Inhalte dynamisch. Im Jahr 1995 entwickelte das Unternehmen Netscape JavaScript für dynamische Webseiten mit dem Ziel, mit den Nutzern interagieren, Inhalte ändern, nachladen oder generieren und die Seitenstruktur verändern. Ursprünglich sollte JS nur in Webbrowsern laufen\vspace{0.2cm}
+
+Als bekannte Frameworks sind für die serverseitige Anwendungsentwicklung NodeJS zu nennen. Für die clientseitige wären hier die Frameworks jQuery, React und Angular populäre Vertreter.\vspace{0.2cm}
+
+
+Das Listing \ref{lst:hello_word_js_client} zeigt eine clientseitige Anwendung in JavaScript während das Listing \ref{lst:hello_word_js_server} einen serverseitigen JavaScriptcode zeigt, welche mit NodeJS umgesetzt wurde.
+
+\begin{lstlisting}[language=html,label=lst:hello_word_js_client,caption={Hello World in clientseitigen JavaScript}]
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hello, World!</title>
+</head>
+<body>
+  <p id="demo">Ein Absatz</p>
+
+  <script>
+    document.getElementById("demo").innerHTML = "Hello, World!";
+  </script>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{lstlisting}[language=javascript,label=lst:hello_word_js_server,caption={Hello World in serverseitigem JavaScript}]
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+\end{lstlisting}
+
+\subsection{Design}
+Sobald die webbasierten Anwendungen mit Nutzer interagieren müssen, ist UX ein wichtiger Bestandteil in der Konzeption dieser Anwendung.
+
+
+\subsection{Optimierung}
+Wenn es sich um Webanwendungen handelt, wie Onlineshops sind die SEO-Optimierungen wichtig, für das Ranking bei Suchmaschinen. Nur wer bei Suchmaschinen und seit neusten auch bei den großen Sprachmodellen, die Suchmaschinen integrieren, unter den ersten Einträgen gelangt, hat gute Aussichten auf hohe Gewinne durch Verkäufe.
+
+\begin{itemize}
+	\item Fehlerfreies HTML Dokument
+	\item Meta-Tag Angaben im \textit{head}
+	\item einzigartige und unverwechselbare Inhalte
+	\item minimale Dateigrößen und skalierte Bilder
+\end{itemize}
+
+
+\subsection{Entwicklung}
+Bei der Entwicklung von Webseiten werden längst schon die selben Prozesse und Tools verwendet wie bei anderen Softwareprojekten. Auch hier finden Tolls wie GitLab\footnote{\href{https://about.gitlab.com/}{Gitlab} ist eine webbasierte Anwendung die Issue-Traking, CI/CD Pipelines, Dokumentation und mehr für Entwickler anbietet.} und Jenkins\footnote{\href{https://www.jenkins.io/}{Jenkins} ist ein webbasiertes Tool für die kontinuierliche Integration welches viele Build-Tools, wie Ant und Maven integriert, Testtols wie JUnit und Emma bietet, sowie Verwaltungssystem wie CVS, Subversion und Git unterstützt. Jenkins kann durch viele Plugins erweitert werden.} Anwendung. Gerade in der Entwicklung von cloudbasierten Anwendungen kommen Containertools wie Docker\footnote{Durch die Containerisierung mit \href{https://www.docker.com/}{Docker} können Anwendungen und deren Umgebungen einfach bereitgestellt und bei bedarf skaliert werden. Docker bietet eine Vielzahl von einsatzbereiten Container an, die einzeln oder in Clustern laufen können.} in Verbindung mit Kubernetes\footnote{\href{https://kubernetes.io/}{Kubernetes} ist  Orchestrierungstool für Dockercontainer das von Google entwickelt wurde. Neben den Container-Anwendungen verwaltet Kubernetes auch die Umgebung für Container, wie beispielsweise Netzwerke.} zum Einsatz. Diese Tools lassen sich hervorragend in CI/CD Pipelines integrieren. An deren Anfang steht auch hier der Entwickler, welcher durch KI Unterstützung erhalten kann.
+
+
+\subsubsection{Einsatz von KI}
+Der Einsatz von Künstlicher Intelligenz kann in allen Entwicklungsphasen eingesetzt werden, angefangen von der Codegenerierung über die Bereitstellung mittels Pipeline bis zur Inhaltserstellung.\vspace{0.2cm}
+
+Der Einsatz von NL2Code steck hier noch in den Anfängen, bietet aber sehr gute Ansätze viele Aufgaben zu automatisieren oder als Werkzeug um die Entwicklung effizienter zu gestalten.\vspace{0.2cm}
+
+Die Codegenerierung für Designelemente kann ebenso mittels NL2Code erfolgen wie komplexe Backendfunktionalitäten. Ebenso kann die vorherige Konzeption durch eine LLM erfolgen. Im folgenden ein Beispiel für die Implementierung eines Formulars, welches die Adressdaten von Nutzer entgegen nimmt.\vspace{0.2cm}
+
+\begin{tcolorbox}[
+	enhanced,
+	breakable,
+	colback=BhtColorYellow!5!white,
+	colframe=BhtColorYellow!75!black,
+	title= Nutzer Prompt
+	]
+Wie muss ein Formular gestaltet werden, das auf einer Webseite die Adressdaten von Nutzer erfasst?
+\end{tcolorbox}
+
+%-------------------------------
+Antwort Gemini:
+\begin{tcolorbox}[
+	enhanced,
+	breakable,
+	colback=BhtGrey!5!white,
+	colframe=BhtGrey!75!black!50,
+	title= LLM Antwort Gemini
+	]
+\texttt{Die Gestaltung eines Formulars zur Erfassung von Adressdaten auf einer Webseite erfordert eine sorgfältige Planung, um sicherzustellen, dass die Nutzer die In\-for\-ma\-tio\-nen schnell und korrekt angeben können. Hier sind einige wichtige As\-pek\-te zu berücksichtigen:}\vspace{0.2cm}
+
+\texttt{Klare Struktur und übersichtliches Layout:}
+\texttt{
+	\begin{itemize}
+		\item Logische Reihenfolge: Die Felder sollten in einer logischen Reihenfolge an\-ge\-ord\-net sein (z.B. zuerst Name, dann Straße, dann PLZ und Ort).
+		\item Gruppenbildung: Ähnliche Felder können zusammengefasst werden (z.B. Vorname und Nachname in einer Zeile).
+		\item Ausreichend Platz: Jedes Feld sollte ausreichend groß sein, um die Eingabe zu erleichtern.
+		\item Beschriftungen: Jedes Feld muss eine klare und präzise Beschriftung haben.
+		\item Platzhaltertexte: Platzhaltertexte in den Feldern können den Nutzern Hin\-wei\-se geben, was sie eingeben sollen (z.B. "Musterstraße 12").
+	\end{itemize}
+}
+\texttt{Typen von Eingabefeldern:}
+\texttt{
+	\begin{itemize}
+		\item Textfelder: Für Namen, Straßennamen, Orte usw.
+		\item Numerische Felder: Für Postleitzahlen, Telefonnummern.
+		\item Dropdown-Listen: Für Länder, Bundesländer oder bestimmte Aus\-wahl\-mög\-lich\-kei\-ten.
+		\item Checkboxen: Für Mehrfachauswahlen (z.B. Zustelloptionen).
+	\end{itemize}
+}
+\texttt{Pflichtfelder:}
+\texttt{
+	\begin{itemize}
+		\item Kennzeichnung: Machen Sie deutlich, welche Felder zwingend ausgefüllt wer\-den müssen (z.B. durch einen Sternchen).
+		\item Begründung: Erklären Sie kurz, warum bestimmte Informationen benötigt wer\-den.
+	\end{itemize}
+}
+\texttt{Validierung:}
+\texttt{
+	\begin{itemize}
+		\item Echtzeit-Validierung: Überprüfen Sie die Eingaben direkt beim Ausfüllen, um Fehler sofort anzuzeigen.
+		\item Typische Fehler: Überprüfen auf korrekte Formate (z.B. E-Mail-Adresse, Te\-le\-fon\-num\-mer).
+		\item Fehlermeldungen: Geben Sie klare und hilfreiche Fehlermeldungen aus.
+	\end{itemize}
+}
+\texttt{Datenschutzhinweise:}
+\texttt{
+	\begin{itemize}
+		\item Transparenz: Informieren Sie die Nutzer darüber, welche Daten erhoben werden und wie diese genutzt wer\-den.
+		\item Einwilligung: Holen Sie eine ausdrückliche Einwilligung der Nutzer ein, be\-vor Sie die Daten verarbeiten.
+		\item Datenschutzbestimmungen: Verlinken Sie auf Ihre Datenschutzbestimmungen.
+	\end{itemize}
+}
+\texttt{Zusätzliche Tipps:}
+\texttt{
+	\begin{itemize}
+		\item Benutzerfreundlichkeit: Achten Sie auf eine einfache und intuitive Be\-die\-nung.
+		\item Responsive Design: Das Formular sollte auf verschiedenen Geräten (Desktop, Tablet, Smartphone) gut aussehen und funktionieren.
+		\item Barrierefreiheit: Achten Sie auf eine barrierefreie Gestaltung (z.B. aus\-rei\-chen\-de Kontraste, Beschriftungen für Formularelemente).
+		\item Sicherheit: Schützen Sie die übermittelten Daten durch Verschlüsselung.
+	\end{itemize}
+}
+\texttt{Beispiel eines Formulars:}
+
+\texttt{Wird in einem neuen Fenster geöffnet \href{https://formidableforms.com/research-based-tips-improve-contact-form-conversions/}{formidableforms.com}}
+
+\texttt{Tools zur Erstellung von Formularen:}
+\texttt{
+	\begin{itemize}
+		\item Website-Baukästen: Viele Website-Baukästen (z.B. Wix, Squarespace) bieten integrierte Formular-Builder.
+		\item Formular-Plugins: Für WordPress gibt es zahlreiche Plugins (z.B. Gravity Forms, Contact Form 7).
+		\item Programmierung: Für individuelle Lösungen können Sie HTML, CSS und Ja\-va\-Script verwenden.
+	\end{itemize}
+}
+\texttt{Wichtiger Hinweis:}
+
+\texttt{Die konkrete Gestaltung Ihres Formulars hängt von Ihren individuellen An\-for\-der\-ung\-en und den geltenden Datenschutzbestimmungen ab. Es ist ratsam, sich recht\-lich beraten zu lassen, um sicherzustellen, dass Ihr Formular alle ge\-setz\-lich\-en Anforderungen erfüllt.}\vspace{0.2cm}
+\end{tcolorbox}
+
+Daraus wurden die Anforderungen für das Formular abgeleitet und ein weiterer Prompt an die LLM abgesetzt.\vspace{0.2cm}
+
+\begin{tcolorbox}[
+	enhanced,
+	breakable,
+	colback=BhtColorYellow!5!white,
+	colframe=BhtColorYellow!75!black,
+	title= Nutzer Prompt
+	]
+	Erstelle ein Formular das in eine HTML Struktur eingefügt werden kann. Es sollen die Felder Vor- und Zuname, Straße und Nummer, sowie Ort und Postleitzahl abgefragt werden. Dabei sollen die Punkte logische Reihenfolge, Gruppierung von Feldern, Beschriftung und Platzhalter, Kennzeichnung von Pflichtfeldern und responsive Design beachtet werden. Des Weiteren soll eine Echtzeit Validierung mittels JavaScript erfolgen.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+	enhanced,
+	breakable,
+	colback=BhtGrey!5!white,
+	colframe=BhtGrey!75!black!50,
+	title= LLM Antwort Gemini
+	]
+\texttt{Absolut! Hier ist ein HTML-Formular, das die von dir genannten An\-for\-der\-ung\-en er\-füllt und in eine bestehende Webseite eingebunden werden kann:}
+\begin{lstlisting}[language=HTML]
+<!DOCTYPE html>
+<html>
+<head>
+<title>Adressformular</title>
+<style>
+/* Hier kannst du deinen eigenen CSS-Stil definieren */
+form {
+	max-width: 400px;
+	margin: 0 auto;
+}
+label {
+	display: block;
+	margin-bottom: 5px;
+}
+input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+}
+.error {
+	color: red;
+	font-size: 12px;
+}
+</style>
+</head>
+<body>
+  <form id="addressForm">
+  <label for="firstName">Vorname:*</label>
+    <input type="text" id="firstName" name="firstName" required>
+    <label for="lastName">Nachname:*</label>
+    <input type="text" id="lastName" name="lastName" required>
+
+    <label for="street">Straße und Hausnummer:*</label>
+    <input type="text" id="street" name="street" required>
+
+    <label for="postalCode">Postleitzahl:*</label>
+    <input type="text" id="postalCode" name="postalCode" required>
+    <label for="city">Ort:*</label>
+    <input type="text" id="city" name="city" required>
+
+    <div id="error"></div>
+
+    <button type="submit">Absenden</button>
+  </form>
+
+  <script>
+  const form = document.getElementById('addressForm');
+  const errorDiv = document.getElementById('error');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    // Hier kannst du deine eigene Validierungslogik hinzufügen
+    // Zum Beispiel: Prüfen, ob alle Felder ausgefüllt sind, ob die
+    // Postleitzahl numerisch ist, etc.
+
+    // Beispielhafte Validierung:
+    if (!firstName.value
+      || !lastName.value
+      || !street.value
+      || !postalCode.value
+      || !city.value
+    ) {
+      errorDiv.textContent =
+        'Bitte füllen Sie alle Pflichtfelder aus.';
+      return;
+    }
+
+    // Wenn alle Felder gültig sind, kannst du hier die Daten
+    // weiterverarbeiten z.B. an einen Server senden oder lokal speichern
+    console.log('Formulardaten:', {
+    firstName: firstName.value,
+      lastName: lastName.value,
+      street: street.value,
+      postalCode: postalCode.value,
+      city: city.value,
+    });
+  });
+</script>
+</body>
+</html>
+\end{lstlisting}
+\texttt{Erklärung der wichtigsten Punkte:}
+\texttt{
+	\begin{itemize}
+		\item Struktur und Layout: Das Formular ist klar strukturiert und die Felder lo\-gisch gruppiert.
+		\item Beschriftung und Platzhalter: Jedes Feld hat eine klare Beschriftung und teilweise Platzhaltertexte.
+		\item Pflichtfelder: Pflichtfelder sind mit einem Sternchen gekennzeichnet und das required-Attribut sorgt dafür, dass diese Felder ausgefüllt werden müs\-sen.
+		\item Responsive Design: Das CSS sorgt dafür, dass das Formular sich an ver\-schie\-dene Bildschirmgrößen anpasst.
+		\item Echtzeit-Validierung: Das JavaScript-Script prüft bei jedem Versuch, das Formular abzuschicken, ob alle Pflichtfelder ausgefüllt sind. Du kannst die\-se Validierung noch erweitern, um beispielsweise die Eingabeformate zu über\-prü\-fen.
+		\item Datenverarbeitung: Die gesammelten Daten werden im JavaScript-Code aus\-ge\-ge\-ben. Hier kannst du sie an einen Server senden oder anderweitig ver\-ar\-bei\-ten.
+	\end{itemize}
+}
+\texttt{Verbesserungen:}
+\texttt{
+	\begin{itemize}
+		\item Zusätzliche Validierungen: Du kannst weitere Validierungen hinzufügen, z.B. um zu prüfen, ob die Postleitzahl numerisch ist oder ob die E-Mail-Adresse ein gültiges Format hat.
+		\item Benutzerfreundlichkeit: Du kannst die Fehlermeldungen noch genauer gestalten und dem Benutzer Hinweise geben, wie er die Fehler beheben kann.
+		\item Styling: Passe das CSS an, um das Formular optisch ansprechender zu ge\-stal\-ten.
+		\item Barrierefreiheit: Achte darauf, dass das Formular auch für Menschen mit Be\-hin\-der\-ung\-en zugänglich ist (z.B. durch Verwendung von ARIA-Attributen).
+	\end{itemize}
+}
+\texttt{Integration in deine Webseite:}\vspace{0.2cm}
+\texttt{Kopiere den HTML-Code in den entsprechenden Abschnitt deiner Webseite. Passe den CSS-Stil an dein vorhandenes Design an und füge das JavaScript in den <head>-Be\-reich oder vor dem schließenden </body>-Tag ein.}\vspace{0.2cm}
+\texttt{Wichtiger Hinweis:}
+\texttt{
+	\begin{itemize}
+		\item Datenschutz: Achte darauf, dass du die Datenschutzbestimmungen einhältst und die Nutzer darüber informierst, wie ihre Daten verwendet werden.
+		\item Sicherheit: Wenn du die Daten an einen Server sendest, solltest du eine si\-chere Verbindung (HTTPS) verwenden und die Daten verschlüsseln.
+		\item Mit diesem Formular hast du eine solide Grundlage für ein be\-nut\-zer\-freund\-lich\-es und funktionales Adressformular.
+	\end{itemize}
+}
+\end{tcolorbox}
+
+Das Ergebnis ist ein Formular, das die geforderten Felder umsetzt und dies grundlegend validiert. Die Abbildung \ref{img:address_form_create_by_gemini} zeigt das Ergebnis.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.7\textwidth]{content/chapter_basics/images/result_form_gemini.eps}
+	\centering
+	\caption{Erzeugtes Formular mit Gemini}
+	\label{img:address_form_create_by_gemini}
+\end{figure}

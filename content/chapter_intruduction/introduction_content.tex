@@ -78,6 +78,23 @@ Die vier Ziele dieser Arbeit lassen sich in den folgenden kurz formulierten Sät
 	Ob alle in Kap. \ref{subsec:prompt_technics} vorgestellten Prompt-Techniken Verwendung finden, steht zurzeit noch nicht fest. Evtl. kommen andere hinzu.
 \end{tcolorbox}
 
+\textbf{Evaluierung der Ergebnisse}\vspace{0.2cm}
+
+Bei der Evaluierung großer Sprachmodell hinsichtlich des generierten Codes, gibt es einige Herausforderungen. Herkömmliche Methoden, wie BLUE-Score misst die Textähnlichkeiten nicht aber die funktionale Korrektheit des Codes und vernachlässigt auch den Kontext, in dem der Code erstellt wurde. Ein generierter Code kann in seiner Lösung stark von einer vorgegebenen Beispiellösung abweichen, trotzdem aber seine Funktionalität erfüllen. Menschliche Programmierer würden das mit verschiedenen Unit-Tests überprüfen, aus diesem Grund sollte der Code mit einer weiteren Methode geprüft werden.\vspace{0.2cm}
+
+HumanEval-Benchmark and pass@k-Metrik
+
+\href{https://deepgram.com/learn/humaneval-llm-benchmark}{Einstieg}
+
+\href{https://paperswithcode.com/sota/code-generation-on-humaneval}{Modell}
+
+\href{https://huggingface.co/datasets/openai/openai_humaneval}{Huggenface}
+
+\href{https://github.com/openai/human-eval/tree/master}{Github}
+
+\href{https://arxiv.org/abs/2107.03374}{Einführendes Paper}
+
+
 \section{Aufbau der Arbeit}
 Ein paar Worte zum Aufbau dieser Arbeit. Um ein grundlegendes Verständnis für diese Arbeit zubekommen, werden im Kapitel \ref{chap:basics} die Grundlagen besprochen.\vspace{0.2cm}
 

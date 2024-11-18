@@ -44,6 +44,80 @@
 \end{tcolorbox}
 
 
+\section{Bewertung der Modelle}
+Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} beschrieben wir. Dies wird exemplarisch für JavaScript und PHP angepasst. Anfragen an die LLMs und deren Ergebnisse werden in Funktionen gefasst und automatische mit Unit Test geprüft.
+
+\begin{lstlisting}[language=javascript,caption={JavaScript Ergebnise der Modelle (gekürzt)}]
+function gemini_create_solution(numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i += 2) {
+    if (numbers[i] % 2 !== 0) {
+      sum += numbers[i];
+    }
+  }
+  return sum;
+}
+
+function gpt_create_solution(numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i += 2) {  // Only check even positions (0, 2, 4, ...)
+    if (numbers[i] % 2 !== 0) {  // Check if the element is odd
+      sum += numbers[i];
+    }
+  }
+  return sum;
+}
+\end{lstlisting}
+
+Nachdem die Ergebnisse von den Modellen vorliegen, können die Tests in JavaScript erstellt werden. Hierfür wird das JavaScript Framework \href{https://jasmine.github.io/}{Jasmin} verwendet.
+
+\begin{lstlisting}[language=javascript,caption={JavaScript: Unit Test der Ergebnise}]
+describe(
+  'HumanEval: Given a non-empty list of integers, return the sum of all of the odd elements that are in even positions.',
+  () => {
+    it('Gemini create test 1', () => {
+      expect(gemini_create_solution([5, 8, 7, 1])).toBe(12);
+    })
+    it('Gemini create test 2', () => {
+      expect(gemini_create_solution([3, 3, 3, 3, 3])).toBe(9);
+    })
+    it('Gemini create test 3', () => {
+      expect(gemini_create_solution([30, 13, 24, 321])).toBe(0);
+    })
+
+    it('ChatGPT3 create test 1', () => {
+      expect(gpt_create_solution([5, 8, 7, 1])).toBe(12);
+    })
+    it('ChatGPT3 create test 2', () => {
+      expect(gpt_create_solution([3, 3, 3, 3, 3])).toBe(9);
+    })
+    it('ChatGPT3 create test 3', () => {
+      expect(gpt_create_solution([30, 13, 24, 321])).toBe(0);
+    })
+  })
+
+\end{lstlisting}
+
+\begin{lstlisting}[language=html,caption={HTML: Einbindes des Testframeworks}]
+	<!DOCTYPE html>
+	<html lang="en">
+	
+	<head>
+	<title>Testing with Jasmine</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.8.0/jasmine.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.8.0/jasmine.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.8.0/jasmine-html.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.8.0/boot.min.js"></script>
+	<script src="solution.js"></script>
+	<script src="solutionSpec.js"></script>
+	</head>
+	
+	<body>
+	</body>
+	
+	</html>
+\end{lstlisting}
+
 \section{Einfache HTML Seite}
 
 \subsection{ChatGPT 3.5}

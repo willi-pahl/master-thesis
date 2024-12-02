@@ -1,0 +1,28 @@
+\section{Fragenkataloge}
+Die Fragenkataloge enthalten Aufgaben welche an die großen Sprachmodelle gesendet und dessen Antwort evaluiert wurde. Die Struktur der Fragen ähnelt dem Benchmark aus \cite{peng-2024}.
+
+\subsection{PHP}
+Alle Fragen in diesem Katalog sind in der natürlichen Sprache Deutsch verfasst und als Programmiersprache in PHP.
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=white,
+	coltitle=black,
+	colbacktitle=white,
+	title= php/f0 - JSON Informationen in einer MySQL speichern
+	]
+	\textbf{Ziel:}\\
+	Hierbei wird die Fähigkeit geprüft, ob LLM die Konvertierung der JSON Daten in SQL Format korrekt erledigt wird, insbesondere das Datumsformat. Den Verbindungsaufbau zu einer Datenbank, sowie das erstellen und füllen von Tabellen. Ebenso wird ein Test erwartet, der den generierten Code testet.\\
+	\textbf{Aufgabe:}\\
+	Du bist ein PHP Entwickler und hast folgende Aufgabe:\\
+	Erstelle einen Backendservice der Daten aus einem JSON String in einer SQL Datenbank speichert.\\
+	Die Methode convAndSaveData, die die Aufgabe erfüllt, soll sich in der Klasse RestService befinden. Die Datenbankparameter sollen als Klassenattribute vorliegen und die Kommunikation mit der Datenbank in einer privaten Methode gekapselt werden. Die Daten sollen in den Tabellen ,,user'' und ,,address'' gespeichert werden. Die Felder in der Tabelle entsprechen denen aus dem JSON. Prüfe ob die Tabellen vorhanden sind, wenn nicht legt diese an. Verwende kein Framework wie Laravel oder Symfony, sondern nur PHP Funktionen.\\
+	Die Daten im JSON haben folgendes Format:\\
+	\texttt{\{''firstname'':  ''Max'', ''surname'': ''Musterman'',''birthday'': ''20.3.1990'',''address'': \{"street": ''Straße'',''streetnumber'': 3,''streetaddon'': ''A'',''postcode'': ''12345'',''town'': ''Berlin''\}\}}
+
+	\textbf{Erwartetes Ergebnis:}\\
+	Am Testende wurden in der MySQL Datenbank zwei Tabellen \glqq user\grqq \ und \glqq address\grqq \ angelegt, welche mit den Beispieldaten aus der Formatbeschreibung gefüllt wurden.
+\end{tcolorbox}
+
+
+\subsection{JavaScript}

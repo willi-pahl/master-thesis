@@ -1,126 +1,24 @@
-\begin{tcolorbox}[
-	enhanced,
-	breakable,
-	colback=red!5!white,
-	colframe=red!75!black!50,
-	title= Mein roter Faden
-	]
-	Alle Prompts und Ausgaben der LLMs kommen noch in den Anhang.\vspace{0.2cm}
-	
-	Auswertung des erzeugten Codes:
-	\begin{myitemize}
-		\item Korrektheit
-		\begin{myitemize}
-			\item Syntax: Regeln nach Programmiersprache
-			\item Semantik: Funktionalität erfüllen, Aufgabe korrekt lösen
-			\item Fehlerfreiheit: keine Laufzeitfehler/unerwartete Ausgaben
-		\end{myitemize}
-		\item Qualität
-		\begin{myitemize}
-			\item Lesbarkeit: Struktur, einfach
-			\item Effizienz: Ressourcen schonen
-			\item Wartbarkeit: leicht verständlich
-			\item Best Practices: Coding Standards für den Kontext (z.B. WordPress)
-		\end{myitemize}
-		\item Relevanz für Aufgabenstellung
-		\begin{myitemize}
-			\item Vollständig: alle Aspekte der Aufgabenstellung
-			\item Präzision: genaue Lösung d. Aufgabe
-			\item Elemente: keine ungenutzten Elemente
-		\end{myitemize}
-		\item Anpassbarkeit
-		\begin{myitemize}
-			\item Parametrisierung: möglichst flexible, leichte Änderbarkeit für Parameter
-			\item Erweiterbarkeit: leicht erweiterbar
-		\end{myitemize}
-		\item Innovation
-		\begin{myitemize}
-			\item alternative Lösungen: LLMs sollte mehrere anbieten können
-			\item neue Ideen: hat der Code so was?
-		\end{myitemize}
-	\end{myitemize}
+Die Evaluation der Ergebnisse erfolgt im ersten Schritt anhand des HumanEval-XL Benchmarks. Dieser Benchmark wird in \cite{peng-2024} vorgestellt und erweitert den HumanEval \cite{chen-2021}. Der HumanEval-Benchmark evaluiert nur Python während der HumanEval-XL weitere Programmiersprachen unterstützt und in verschiedenen Sprachen erhältlich ist, darunter auch die deutsche Sprache. Neben Python werden auch PHP und JavaScript, welche für die Webentwicklung wichtig sind. Die Datensätze des HumanEval-XL sind unter \href{https://github.com/FloatAI/humaneval-xl}{https://github.com/FloatAI/humaneval-xl} einsehbar und bestehen jeweils aus 80 Tests.\vspace{0.2cm}
 
-	Wie können automatische Test umgesetzt und Code Metriken erstellt werden? Evtl. anderen Entwicklern zeigen und bewerten lassen!
-\end{tcolorbox}
+Diese Tests fordern LLM's auf kleine Problem zu lösen. Aus diesem Grund werden weitere Tests mit größeren Problemblöcken erstellt und evaluiert. Die Evaluierung erfolgt zunächst manuell und anhand folgend genannter Kriterien.\vspace{0.2cm}
+
+Ein Kriterium ist die Funktionalität des generierten Codes. Hierbei wird geprüft, ob alle geforderten Kriterien von der LLM umgesetzt wurden.\vspace{0.2cm}
+
+Des Weiteren ist eine Syntax und Fehlerfreiheit Evaluation vorgesehen. Hier werden die Regeln und Coding-Standards der jeweiligen Programmiersprache und die Fehlerfreiheit während der Laufzeit geprüft. Für die Prüfung der Coding-Standards wird ein SonarQube-Server verwendet. Optional werden einige Tests von zusätzlichen Tools validiert, beispielsweise bei der Validierung von PHP Files sind es Tools wie phpunit\footnote{phpunit kann mit \textit{composer} installiert werden und steht unter \href{https://github.com/sebastianbergmann/phpunit}{https://github.com/sebastianbergmann/phpunit} zum Download bereit.} und Code\_Sniffer\footnote{Code\_Sniffer steht unter \href{https://github.com/squizlabs/PHP_CodeSniffer}{https://github.com/squizlabs/PHP\_CodeSniffer} zum Download zur Verfügung und wird ebenfalls mittels \textit{composer} installiert.}. Für die Validierung von JavaScript findet das Framework Jasmin\footnote{\href{https://jasmine.github.io/}{https://jasmine.github.io}.} Anwendung.
+
+
+Ebenfalls wird die Qualität des Codes evaluiert. Das Augenmerk liegt auf die Lesbarkeit, Effizienz und Wartbarkeit des generierten Codes.\vspace{0.2cm}
+
+Ein letzter Punkt der evaluiert wird, ist die Performance.
+
+
+%Bewertet wird die Korrektheit des generierten Codes. Hierbei liegt das Augenmerk auf die Syntax, Semantik und die Fehlerfreiheit.\vspace{0.2cm}
+
+%Eine weitere Rolle spielt die Codequalität, hier werden Lesbarkeit, Wartbarkeit und Best Practices bewertet.\vspace{0.2cm}
 
 
 \section{Bewertung der Modelle}
-Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} beschrieben wir. Dies wird exemplarisch für JavaScript und PHP angepasst. Anfragen an die LLMs und deren Ergebnisse werden in Funktionen gefasst und automatische mit Unit Test geprüft.
-
-\begin{lstlisting}[language=javascript,caption={JavaScript Ergebnise der Modelle (gekürzt)}]
-function gemini_create_solution(numbers) {
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i += 2) {
-    if (numbers[i] % 2 !== 0) {
-      sum += numbers[i];
-    }
-  }
-  return sum;
-}
-
-function gpt_create_solution(numbers) {
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i += 2) {  // Only check even positions (0, 2, 4, ...)
-    if (numbers[i] % 2 !== 0) {  // Check if the element is odd
-      sum += numbers[i];
-    }
-  }
-  return sum;
-}
-\end{lstlisting}
-
-Nachdem die Ergebnisse von den Modellen vorliegen, können die Tests in JavaScript erstellt werden. Hierfür wird das JavaScript Framework \href{https://jasmine.github.io/}{Jasmin} verwendet.
-
-\begin{lstlisting}[language=javascript,caption={JavaScript: Unit Test der Ergebnise}]
-describe(
-  'HumanEval: Given a non-empty list of integers, return the sum of all of the odd elements that are in even positions.',
-  () => {
-    it('Gemini create test 1', () => {
-      expect(gemini_create_solution([5, 8, 7, 1])).toBe(12);
-    })
-    it('Gemini create test 2', () => {
-      expect(gemini_create_solution([3, 3, 3, 3, 3])).toBe(9);
-    })
-    it('Gemini create test 3', () => {
-      expect(gemini_create_solution([30, 13, 24, 321])).toBe(0);
-    })
-
-    it('ChatGPT3 create test 1', () => {
-      expect(gpt_create_solution([5, 8, 7, 1])).toBe(12);
-    })
-    it('ChatGPT3 create test 2', () => {
-      expect(gpt_create_solution([3, 3, 3, 3, 3])).toBe(9);
-    })
-    it('ChatGPT3 create test 3', () => {
-      expect(gpt_create_solution([30, 13, 24, 321])).toBe(0);
-    })
-  })
-
-\end{lstlisting}
-
-\begin{lstlisting}[language=html,caption={HTML: Einbindes des Testframeworks}]
-	<!DOCTYPE html>
-	<html lang="en">
-	
-	<head>
-	<title>Testing with Jasmine</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.8.0/jasmine.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.8.0/jasmine.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.8.0/jasmine-html.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.8.0/boot.min.js"></script>
-	<script src="solution.js"></script>
-	<script src="solutionSpec.js"></script>
-	</head>
-	
-	<body>
-	</body>
-	
-	</html>
-\end{lstlisting}
-
-\section{Einfache HTML Seite}
-
-\subsection{ChatGPT 3.5}
+Für die Bewertung wird das Vorgehen gewählt, welche in \cite{chen-2021} und \cite{peng-2024} beschrieben sind. Diese werden für die Webentwicklung relevanten Sprachen PHP und JavaScript exemplarisch erweitert. Die Evaluierung der Modelle wird auf den Ebenen \glqq einfache Fragen\grqq , \glqq mittelschwere Fragen\grqq \ und \glqq komplexe Aufgaben\grqq \ erfolgen. Die \glqq einfachen Fragen\grqq \ werden bereits durch die zuvor genannten Benchmarks abgedeckt, sodass der entwickelte Fragenkatalog sich auf beiden Ebenen \glqq mittelschweren Fragen\grqq \ und \glqq komplexen Aufgaben\grqq \ konzentriert.\vspace{0.2cm}
 
 % https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
 
@@ -128,171 +26,9 @@ describe(
 	enhanced,
 	colback=BhtColorYellow!5!white,
 	colframe=BhtColorYellow!75!black,
-	title= Python Funktion
-]
-	Schreibe eine Python Funktion die FPDF Dokument als Eingabe erhält und eine Zeichenkette zurückliefert.\\
-	(engl.: Write a Python function that takes FPDF document as input and returns a string.)
-\end{tcolorbox}
-
-\begin{tcolorbox}[
-	enhanced,
-	colback=BhtGrey!5!white,
-	colframe=BhtGrey!75!black!50,
-	title= Antwort ChatGPT
-	]
-	Antwort.
-\end{tcolorbox}
-
-\begin{tcolorbox}[
-	enhanced,
-	colback=BhtGrey!5!white,
-	colframe=BhtGrey!75!black!50,
-	title= Copilot
-	]
-	Klar, ich kann dir dabei helfen! Hier ist ein Beispiel für eine Python-Funktion, die ein FPDF-Dokument als Eingabe erhält und den Textinhalt als Zeichenkette zurückliefert. Dafür verwenden wir die Bibliothek PyMuPDF (auch bekannt als fitz), um das PDF zu lesen:\\
-	\begin{verbatim}
-		import fitz  # PyMuPDF
-		
-		def pdf_to_string(pdf_path):
-		    # Öffne das PDF-Dokument
-		    document = fitz.open(pdf_path)
-		    text = ""
-		
-		    # Iteriere durch jede Seite und extrahiere den Text
-		    for page_num in range(len(document)):
-		        page = document.load_page(page_num)
-		        text += page.get_text()
-
-		    return text
-		
-		# Beispielverwendung
-		pdf_path = "dein_dokument.pdf"
-		text_inhalt = pdf_to_string(pdf_path)
-		print(text_inhalt)
-	\end{verbatim}
-	Stelle sicher, dass du die PyMuPDF-Bibliothek installiert hast. Du kannst sie mit folgendem Befehl installieren:
-	\begin{verbatim}
-		pip install pymupdf
-	\end{verbatim}
-	Diese Funktion öffnet das PDF-Dokument, iteriert durch jede Seite und extrahiert den Text. Wenn du Fragen hast oder weitere Anpassungen benötigst, lass es mich wissen!
-\end{tcolorbox}
-
-\newpage
-
-\begin{tcolorbox}[
-	enhanced,
-	breakable,
-	colback=BhtColorYellow!5!white,
-	colframe=BhtColorYellow!75!black,
-	title= Python Funktion
-	]
-	Schreibe eine Python Funktion die FPDF Dokument als Eingabe erhält und eine Zeichenkette zurückliefert. Verwende dafür die Python Bibliothek FPDF.\\
-	(engl.: Write a Python function that takes FPDF document as input and returns a string.)
-\end{tcolorbox}
-
-\begin{tcolorbox}[
-	enhanced,
-	breakable,
-	colback=BhtGrey!5!white,
-	colframe=BhtGrey!75!black!50,
-	title= Copilot
-	]
-	Die Bibliothek FPDF wird hauptsächlich zum Erstellen von PDF-Dokumenten verwendet und bietet keine direkte Methode zum Extrahieren von Text aus einem PDF. Um Text aus einem PDF-Dokument zu extrahieren, könntest du eine andere Bibliothek wie PyMuPDF oder PyPDF2 verwenden.
-	
-	Falls du jedoch darauf bestehst, FPDF zu verwenden, um ein PDF zu erstellen und dann den Text aus diesem PDF zu extrahieren, könntest du den Text während des Erstellungsprozesses speichern und später zurückgeben. Hier ist ein Beispiel, wie du das machen könntest:
-	\begin{verbatim}
-		from fpdf import FPDF
-		
-		class PDF(FPDF):
-		    def __init__(self):
-		        super().__init__()
-		        self.text_content = ""
-		
-		    def add_text(self, text):
-		        self.text_content += text + "\n"
-		        self.set_xy(10, 10)
-		        self.set_font('Arial', 'B', 12)
-		        self.multi_cell(0, 10, text)
-		
-		    def get_text(self):
-		        return self.text_content
-		
-		    def create_pdf_with_text(text):
-		        pdf = PDF()
-	            pdf.add_page()
-		        pdf.add_text(text)
-		        pdf.output("output.pdf")
-		        return pdf.get_text()
-		
-		# Beispielverwendung
-		text = "Dies ist ein Beispieltext für das PDF."
-		text_inhalt = create_pdf_with_text(text)
-		print(text_inhalt)
-	\end{verbatim}
-	In diesem Beispiel wird der Text während des Erstellungsprozesses des PDFs in einer Zeichenkette gespeichert und kann später abgerufen werden. Wenn du Fragen hast oder weitere Anpassungen benötigst, lass es mich wissen!
-\end{tcolorbox}
-
-\newpage
-
-\begin{tcolorbox}[
-	enhanced,
-	colback=BhtColorYellow!5!white,
-	colframe=BhtColorYellow!75!black,
-	title= Python Funktion
-	]
-	Schreibe eine Python Funktion die FPDF Dokument als Eingabe erhält und eine Zeichenkette zurückliefert. Verwende dafür die Python Bibliothek FPDF und speicher das Ergebnis nicht als Datei zwischendurch ab.
-\end{tcolorbox}
-
-\begin{tcolorbox}[
-	enhanced,
-	breakable,
-	colback=BhtGrey!5!white,
-	colframe=BhtGrey!75!black!50,
-	title= Copilot
-	]
-	Die Bibliothek FPDF ist hauptsächlich zum Erstellen von PDF-Dokumenten gedacht und bietet keine direkte Methode zum Extrahieren von Text aus einem PDF. Um Text aus einem PDF-Dokument zu extrahieren, könntest du eine andere Bibliothek wie PyMuPDF oder PyPDF2 verwenden.
-	
-	Falls du jedoch darauf bestehst, FPDF zu verwenden, um ein PDF zu erstellen und dann den Text aus diesem PDF zu extrahieren, könntest du den Text während des Erstellungsprozesses speichern und später zurückgeben. Hier ist ein Beispiel, wie du das machen könntest:
-	\begin{verbatim}
-		from fpdf import FPDF
-		
-		class PDF(FPDF):
-		    def __init__(self):
-		        super().__init__()
-		        self.text_content = ""
-		
-		    def add_text(self, text):
-		        self.text_content += text + "\n"
-		        self.set_xy(10, 10)
-		        self.set_font('Arial', 'B', 12)
-		        self.multi_cell(0, 10, text)
-		
-		    def get_text(self):
-		        return self.text_content
-		
-		    def create_pdf_with_text(text):
-		        pdf = PDF()
-		        pdf.add_page()
-		        pdf.add_text(text)
-		        return pdf.get_text()
-		
-		# Beispielverwendung
-		text = "Dies ist ein Beispieltext für das PDF."
-		text_inhalt = create_pdf_with_text(text)
-		print(text_inhalt)
-	\end{verbatim}
-	In diesem Beispiel wird der Text während des Erstellungsprozesses des PDFs in einer Zeichenkette gespeichert und kann später abgerufen werden. Wenn du Fragen hast oder weitere Anpassungen benötigst, lass es mich wissen!
-\end{tcolorbox}
-
-\section{Einfache HTML Seite}
-\subsection{ChatGPT 3.5}
-\begin{tcolorbox}[
-	enhanced,
-	colback=BhtColorYellow!5!white,
-	colframe=BhtColorYellow!75!black,
 	title= HTML Startseite
 	]
-	Schreibe eine einfache HTML Seite für die Startseite eines Blogs.
+	Schreibe eine einfache HTML-Seite für die Startseite eines Blogs.
 \end{tcolorbox}
 
 \begin{tcolorbox}[
@@ -307,69 +43,9 @@ describe(
 		<head>
 		  <meta charset="UTF-8">
 		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		  <title>Mein Blog</title>
-		  <style>
-		    // styles.
-		  </style>
 		</head>
 		<body>
-		  <header>
-		    <h1>Willkommen auf meinem Blog</h1>
-		  </header>
-		  <nav>
-		    <a href="#">Startseite</a>
-		    <a href="#">Über mich</a>
-		    <a href="#">Blog</a>
-		    <a href="#">Kontakt</a>
-		  </nav>
-		  <div class="container">
-		    <article>
-		      <h2>Erster Blogbeitrag</h2>
-		      <p>Willkommen zu meinem ersten Blogbeitrag!</p>
-		    </article>
-		  <footer>
-		    <p>&copy; 2024 Mein Blog. Alle Rechte vorbehalten.</p>
-		  </footer>
-		</body>
-		</html>
-	\end{verbatim}
-\end{tcolorbox}
-
-\begin{tcolorbox}[
-	enhanced,
-	colback=BhtGrey!5!white,
-	colframe=BhtGrey!75!black!50,
-	title= ChatGPT 3.5
-	]
-	\begin{verbatim}
-		<!DOCTYPE html>
-		<html lang="de">
-		<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Mein Blog</title>
-		<style>
-		// styles.
-		</style>
-		</head>
-		<body>
-		<header>
-		<h1>Willkommen auf meinem Blog</h1>
-		</header>
-		<nav>
-		<a href="#">Startseite</a>
-		<a href="#">Über mich</a>
-		<a href="#">Blog</a>
-		<a href="#">Kontakt</a>
-		</nav>
-		<div class="container">
-		<article>
-		<h2>Erster Blogbeitrag</h2>
-		<p>Willkommen zu meinem ersten Blogbeitrag!</p>
-		</article>
-		<footer>
-		<p>&copy; 2024 Mein Blog. Alle Rechte vorbehalten.</p>
-		</footer>
+		  <div class="container"></div>
 		</body>
 		</html>
 	\end{verbatim}

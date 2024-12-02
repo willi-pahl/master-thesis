@@ -1,71 +1,43 @@
+%\section{Online Modelle}
 % Eigenen KI Server \href{https://www.computerweekly.com/de/ratgeber/Einen-KI-Server-mit-Ollama-und-Open-WebUI-einrichte}{Computer Weekly}
 % Orchestrierung mit Python \href{https://pypi.org/project/multillm/}{multillm-Projekt}
 % LangChain Library \href{https://python.langchain.com/api_reference/ollama/chat_models/langchain_ollama.chat_models.ChatOllama.html}{Example}
 % \href{https://pypi.org/project/langchain-ollama/}{Python lib langchain-ollama}
 % YouTube \href{https://www.youtube.com/@AICodeKing}{AICodeKing}
 
-\section{Modelle lokal aufsetzen}
-Als Server dient ein Debian 12 System.
+\section{Lokale Modelle}
+Für das Ausführen von Modellen zum Testen werden in dieser Arbeit zwei Techniken angewandt. Zum einen mittels Ollama Framework, das mit einer Web-GUI erweitert werden kann, zum anderen mit dem Python Framework Langchain.\vspace{0.2cm}
 
-\subsection{Install Ollama}
-Ein Skript ausführen
-\begin{verbatim}
-	curl -fsSL https://ollama.com/install.sh | sh
-\end{verbatim}
+Die Modelle werden auf einem Debian 12 Server mit 32 GB RAM und einem 16 Kernprozessor ausgeführt. Demnach können nur kleine Modelle lokal getestet werden.\vspace{0.2cm}
 
-Ein Model laden und im Anschluss starten, Beispiel
-\begin{verbatim}
-	ollama pull deepseek-coder-v2:16b \
-	ollama run deepseek-coder-v2:16b
-\end{verbatim}
+\textbf{Ollama}\vspace{0.2cm}
 
+Für das Testen der lokalen Modelle wird das Ollama Framework angewandt. Dies ermöglicht eine neben einer Benutzeroberfläche im Browser eine Anbindung an einer API. Diese lässt sich beispielsweise mittels Python abfragen. Auf dieser Weise lassen sich Modelle von der \href{https://ollama.com/search}{Ollama Modell} Seite testen.\vspace{0.2cm}
 
-Config Ollama\\
-Set correct IP and Post in \texttt{/etc/systemd/system/ollama.service}
+Dazu wird Ollama auf dem Server installiert und konfiguriert, siehe Anhang \ref{sec:install_config_ollama_local}. Nach dem Download stehen die Modelle zur Verfügung und es können Interaktionen mit dem Modell erfolgen. Zusätzlich kann ein grafisches Tool zum Testen installiert werden. Hier wird Open WebUI eingesetzt und auf dem Ollama-Server installiert, welches mittels Webbrowser geöffnet wird. Nach der Installation, wie in Anhang \ref{sec:open_webui} beschrieben, ist das Tool einsatzbereit und im Netzwerk erreichbar, unter http://<<server-ip>>:<<webui-port>>.\vspace{0.2cm}
 
-\begin{lstlisting}[language=diff,caption={Ollama Hostanpasssng für Netzwerkbetrieb}]
-	diff --git a/ollama.service b/ollama.service
-	--- a/ollama.service
-	+++ b/ollama.service
-	@@ -10,3 +10,4 @@
-	RestartSec=3
-	Environment="PATH=/usr/local/bin:/usr/bin"
--   
-+   Environment="OLLAMA_HOST=0.0.0.0"
-+   Environment="OLLAMA_MODELS=/home/ai/models"
-+   
-\end{lstlisting}
+\textbf{Python Langchain}\vspace{0.2cm}
+
+Eine zweite Methode zur Bereitstellung von Modellen ist die direkte Nutzung mittels Programmiersprache. In dieser Arbeit wird Python verwendet. Hierbei ist die Nutzung von Hugging Face Modelle vorgesehen. Diese Modelle lassen sich mit dem Python Framework \href{https://pypi.org/project/langchain/}{Longchain} orchestrieren.\vspace{0.2cm}
+
+Zunächst lädt man die Modelle von Hugging Face herunter und lokal abgespeichert. Ein Beispiel für ein Download-Skript ist in Anhang \ref{lst:download_hugging_face_model} zu sehen. Auch hier ist die Speichergröße zu beachten
+
+%\href{https://developer.nvidia.com/cuda-downloads}{Cuda Downloads}.
 
 
 
-\subsection{Open WebUI}
-Optional kann ein grafisches Tool, zum Testen und verwalten vom Ollama-Server im Netzwerk installiert werden. Der Aufruf der UI, kann mittel Browser erfolgen. Hier wird die IP und der Port 8080 angegeben. Beispiel \texttt{http://192.168.2.45:8080}.
+Kontrolle der Daten (Modelle und Datensätze) die von \textit{Hugging Face} geladen wurden.
 
 \begin{verbatim}
-	sudo apt-get install ca-certificates curl
-	sudo install -m 0755 -d /etc/apt/keyrings
-	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
-	-o /etc/apt/keyrings/docker.asc
-	sudo chmod a+r /etc/apt/keyrings/docker.asc
-	
-	echo \
-	"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
-	https://download.docker.com/linux/ubuntu \
-	$(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-	sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-	sudo apt-get update
-	
-	sudo apt-get install docker-ce docker-ce-cli containerd.io \
-	docker-buildx-plugin docker-compose-plugin
-	docker run -d --network=host -v open-webui:/app/backend/data \
-	-e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name open-webui \
-	--restart always ghcr.io/open-webui/open-webui:main
+	huggingface-cli scan-cache
+	huggingface-cli remove-cache
 \end{verbatim}
+
+
+
+
+
 
 \subsection{Python Client}
 
-\begin{verbatim}
-	pip3 install langchain
-	pip3 install ollama
-	pip3 install mistral
-\end{verbatim}
+

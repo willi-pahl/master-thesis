@@ -49,22 +49,45 @@ Die vier Ziele dieser Arbeit lassen sich in den folgenden kurz formulierten Sät
 	\item[Z4] Sind einige Programmiersprachen für die Codegenerierung besser geeignet als andere.
 \end{itemize}
 
+%-------------------------------------------------------------------------------------------------
+
 
 \subsection{Auswahl der LLMs}
-\begin{tcolorbox}[
-	enhanced,
-	colback=yellow!5!white,
-	colframe=yellow!75!black!50,
-	title= Wird noch im Verlauf der Arbeit geändert
-	]
-	Als Referenzen kommen ChatGPT3.5 und das aktuelle Google Sprachmodell der Gemini-Familie zum Einsatz.\vspace{0.2cm}
+Die folgenden Modelle werden getestet und die Ergebnisse anschließend evaluiert.
+\begin{table}
+	\begin{tabular}{|l|c|c|c|c|l|}
+		\hline
+		\textbf{Modell} & \textbf{Parameter} & \textbf{Größe} & \textbf{offen} & \textbf{Ausführung}  & \textbf{Benchmark} \\
+		\hline
+		qwen2.5-coder   & 14B & & & lokal & HumenEval-X \\
+		CodeGeeX        & 9B  & & & lokal & HumenEval-X \\
+		Deepseek-cod-V2 & 16B & & & lokal & HumenEval-X \\
+		Llama3.1-Claude & & & & lokal & HumenEval-X \\
+		Llama3.2        & & & & lokal & HumenEval-X \\
+		ChatGPT3.5      & & & & online & HumenEval-X \\
+		Gemini          & & & & online & HumenEval-X \\
+		Opus            & & & & online & HumenEval-X \\
+		Claude 3        & & & & online & HumenEval-X \\
+		\hline
+	\end{tabular}
+\end{table}
 
-	Als lokale Modelle werden zurzeit deepseek-coder-v2, llama3.1-claude und llama3.2 verwendet. Diese Modelle kommen auch zum Einsatz, für die Orchestrierung und die Multi-Agenten-Systeme.\vspace{0.2cm}
+%\begin{tcolorbox}[
+%	enhanced,
+%	colback=yellow!5!white,
+%	colframe=yellow!75!black!50,
+%	title= Wird noch im Verlauf der Arbeit geändert
+%	]
+%	Als Referenzen kommen ChatGPT3.5 und das aktuelle Google Sprachmodell der Gemini-Familie zum Einsatz.\vspace{0.2cm}
+
+%	Als lokale Modelle werden zurzeit deepseek-coder-v2, llama3.1-claude und llama3.2 verwendet. Diese Modelle kommen auch zum Einsatz, für die Orchestrierung und die Multi-Agenten-Systeme.\vspace{0.2cm}
 	
-	Das neue Model Mistral Lage 2 (Links: \href{https://mistral.ai/news/mistral-large-2407/}{Mistral Large 2 | Mistral AI} und \href{https://the-decoder.de/mistral-large-2-soll-meta-llama-3-in-sachen-effizienz-schlagen-und-der-llm-ozean-wird-roter/}{Mistral Large 2 | the-decoder.de} [gelsen am: 03.11.2024]) soll in Sachen Coding mit Modellen wie GPT-4o, Claude 3 Opus und Llama 3 mithalten können. (Gibt es auch von \href{https://ollama.com/library/mistral-large}{mistral-lage | ollama Models})\vspace{0.2cm}
+%	Das neue Model Mistral Lage 2 (Links: \href{https://mistral.ai/news/mistral-large-2407/}{Mistral Large 2 | Mistral AI} und \href{https://the-decoder.de/mistral-large-2-soll-meta-llama-3-in-sachen-effizienz-schlagen-und-der-llm-ozean-wird-roter/}{Mistral Large 2 | the-decoder.de} [gelsen am: 03.11.2024]) soll in Sachen Coding mit Modellen wie GPT-4o, Claude 3 Opus und Llama 3 mithalten können. (Gibt es auch von \href{https://ollama.com/library/mistral-large}{mistral-lage | ollama Models})\vspace{0.2cm}
 	
-	Evtl. werden die Granite Code Models aus \cite{mishra-2024} auch getestet.
-\end{tcolorbox}
+%	Evtl. werden die Granite Code Models aus \cite{mishra-2024} auch getestet.
+%\end{tcolorbox}
+
+%-------------------------------------------------------------------------------------------------
 
 
 \subsection{Prompt-Engineering}
@@ -93,6 +116,32 @@ HumanEval-Benchmark and pass@k-Metrik
 \href{https://github.com/openai/human-eval/tree/master}{Github}
 
 \href{https://arxiv.org/abs/2107.03374}{Einführendes Paper}
+
+%-------------------------------------------------------------------------------------------------
+
+
+\subsection{Benchmark für LLM}
+Als Benchmark für die Bewertung der großen Sprachmodelle wird der HumanEval-XL verwendet, welche unter \href{https://github.com/FloatAI/humaneval-xl/tree/main}{https://github.com/FloatAI/humaneval-xl/tree/main} heruntergeladen werden können. Der Benchmark besteht aus Prompt, die wie folgt aufgebaut sind,
+
+\begin{itemize}
+	\item \textbf{task\_id}: Kennung der Datenprobe
+	\item \textbf{prompt}: Anfrage für das Modell, Funktionsheader und Docstring
+	\item \textbf{entry\_point}: Einstiegspunkt für den Test
+	\item \textbf{description}: Beschreibung der Aufgabe
+	\item \textbf{language}: Kennung der Programmiersprache
+	\item \textbf{canonical\_solution}: Lösung für das Problem
+	\item \textbf{natural\_language}: Ländersprache in der Datei
+\end{itemize}
+
+Durch diesen Aufbau werden neben dem eigentlichen Prompt ein Test, eine vorgeschlagene Lösung mitgeliefert, sowie weitere Metadaten mit geliefert. Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmark-Tests.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.8\textwidth]{content/chapter_intruduction/images/code_generation_humaneval_x.eps}
+	\centering
+	\caption{Codegeneration}
+	\label{img:code_generation_humaneval}
+\end{figure}
+%-------------------------------------------------------------------------------------------------
 
 
 \section{Aufbau der Arbeit}

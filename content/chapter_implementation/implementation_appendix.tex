@@ -1,0 +1,92 @@
+\section{Installationshinweise}
+\subsection{Python}
+Da in dieser Arbeit Python verwendet wird, sollte zu den grundlegenden Paketen, für die Arbeit mit großen Sprachmodellen folgende Zusatzpakete installiert sein.
+
+\begin{verbatim}
+	pip3 install langchain
+	pip3 install ollama
+	pip3 install transformer
+\end{verbatim}
+
+Im Weiteren wird kein Hinweis auf verwendete Pakete gegeben. Diese sind evtl. den Fehlermeldungen während und nach der Programmausführung zu entnehmen.
+
+\subsection{Installation und Konfiguration von Ollama}\label{sec:install_config_ollama_local}
+Für die Installation von Ollama wird bei Linux folgendes Skript ausgeführt,
+
+\begin{verbatim}
+	curl -fsSL https://ollama.com/install.sh | sh
+\end{verbatim}
+
+Ollama kann in seiner Konfiguration angepasst werden, im Folgenden wurde der Pfad zur den Modellen geändert und die Erreichbarkeit von Ollama über Netzwerk eingestellt. Dazu wird die Datei  \texttt{/etc/systemd/system/ollama.service} angepasst und der korrekte Host und IP-Adresse gesetzt.
+
+\begin{lstlisting}[language=diff,caption={Ollama Hostanpasssng für Netzwerkbetrieb}]
+	diff --git a/ollama.service b/ollama.service
+	--- a/ollama.service
+	+++ b/ollama.service
+	@@ -10,3 +10,4 @@
+	RestartSec=3
+	Environment="PATH=/usr/local/bin:/usr/bin"
+	-   
+	+   Environment="OLLAMA_HOST=0.0.0.0"
+	+   Environment="OLLAMA_MODELS=/home/ai/models"
+	+   
+\end{lstlisting}
+
+Nach der Installation kann die Funktionsfähigkeit geprüft werden, der folgenden Beispielaufruf lädt ein Modell von Ollama und startet dieses.
+
+\begin{verbatim}
+	ollama run deepseek-coder-v2:16b
+\end{verbatim}
+
+Im Anschluss kann über die Konsole mit dem Modell interagiert werden.
+
+%----------------------------------------------------------------------------------------
+\newpage
+
+\subsection{Open WebUI Installationshinweise}\label{sec:open_webui}
+Hier wird Open WebUI als docker Container verwendet, es ist also erforderlich vorher docker zu installieren. Die Installation von Open WebUI, unter Debian kann mit folgendem Skript erfolgen. 
+
+%\begin{verbatim}
+\begin{lstlisting}[language=bash,caption={Open WebUI installieren}]
+# Pull Open WebUI container.
+docker pull ghcr.io/open-webui/open-webui:main
+
+# Run container.
+docker run -d --network=host -v open-webui:/app/backend/data \
+-e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name open-webui \
+--restart always ghcr.io/open-webui/open-webui:main
+\end{lstlisting}
+%\end{verbatim}
+
+Der Aufruf der UI, kann mittel Browser erfolgen. Hier wird die IP und der Port 8080 angegeben. Beispiel \texttt{http://192.168.2.45:8080}.
+
+%----------------------------------------------------------------------------------------
+\newpage
+
+\subsection{Hugging Face Modelle}
+
+Für den Download der Modelle kommt folgendes Python-Skript zur Anwendung. Hier ist zu erwähnen, dass ausreichend RAM zur Verfügung stehen muss, um die Modelle zu speichern.
+
+\begin{lstlisting}[language=python,caption={Laden der Modelle von Hugging Face und lokal speichern},label=lst:download_hugging_face_model]
+from transformers import AutoModelForCausalLM, AutoTokenizer
+	
+access_token = "hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+model_root_name = "Qwen"
+model_vendor_name = "Qwen2.5-Coder-32B-Instruct"
+
+model_path = f"/huggingface/models/{model_vendor_name.replace('-', '_')}"
+
+# Lade Modell und Tokenizer
+tokenizer = AutoTokenizer.from_pretrained(
+    f"{model_root_name}/{model_vendor_name}"
+)
+model = AutoModelForCausalLM.from_pretrained(
+    f"{model_root_name}/{model_vendor_name}",
+    is_decoder=True,
+    token=access_token
+)
+
+tokenizer.save_pretrained(model_path)
+model.save_pretrained(model_path)
+\end{lstlisting}

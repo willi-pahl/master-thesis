@@ -59,15 +59,20 @@ Die folgenden Modelle werden getestet und die Ergebnisse anschließend evaluiert
 		\hline
 		\textbf{Modell} & \textbf{Parameter} & \textbf{Größe} & \textbf{offen} & \textbf{Ausführung}  & \textbf{Benchmark} \\
 		\hline
-		qwen2.5-coder   & 14B & & & lokal & HumenEval-X \\
-		CodeGeeX        & 9B  & & & lokal & HumenEval-X \\
-		Deepseek-cod-V2 & 16B & & & lokal & HumenEval-X \\
-		Llama3.1-Claude & & & & lokal & HumenEval-X \\
-		Llama3.2        & & & & lokal & HumenEval-X \\
-		ChatGPT3.5      & & & & online & HumenEval-X \\
-		Gemini          & & & & online & HumenEval-X \\
-		Opus            & & & & online & HumenEval-X \\
-		Claude 3        & & & & online & HumenEval-X \\
+		Qwen2.5-coder     & 32b &  19 GB & X & lokal  & HumenEval-XL \\
+%		CodeGeeX          &  9B & & & lokal & HumenEval-XL \\
+		Deepseek-coder-V2 & 16B & 8,9 GB & X & lokal  & HumenEval-XL \\
+		Llama3.1-Claude   &  8b & 4,7 GB & X & lokal  & HumenEval-XL \\
+		Llama3.2          &  3b & 2,0 GB & X & lokal  & HumenEval-XL \\
+		Codellama         & 13b & 7,4 GB & X & lokal  & HumanEval-XL \\
+%		ChatGPT3.5        & & & & online & HumenEval-XL \\
+		Gemini Flash 1.5  & k.A.& k.A.   & - & online & HumenEval-XL \\
+%		Opus              & & & & online & HumenEval-XL \\
+%		Claude 3          & & & & online & HumenEval-XL \\
+		\hline
+		\multicolumn{6}{|l|}{In Planung, wenn ich es schaffe} \\
+		\hline
+		Llama3.3          & 70b &  43 GB & X & lokal  & HumanEval-XL \\
 		\hline
 	\end{tabular}
 \end{table}

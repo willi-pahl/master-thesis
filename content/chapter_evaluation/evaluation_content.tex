@@ -27,7 +27,91 @@ Aus Ergebnisse der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkei
 	\text{pass@k} = 1 - \frac{\prod_{i=0}^{n-k} (n - i - c)}{\prod_{i=0}^{n-k} (n - i)}
 \end{equation}
 
-Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösungen unter den $n$ Versuchen und $k$ gibt die Anzahl der Lösungen an die betrachtet wurden.
+Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösungen unter den $n$ Versuchen und $k$ gibt die Anzahl der Lösungen an die betrachtet wurden. Für die Berechnung der $pass@k$ Metrik wird die Python Bibliothek \textit{pass\_at\_k} verwendet. Der PHP Code wurde auf einen Debian 11 mit PHP in der Version 8.2.26 evaluiert.\vspace{0.2cm}
+
+Für alle Probleme wurden jeweils zehn Abfragen erstellt und bewertet. Welche Modelle getestet an der Evaluation beteiligt waren und welche Ergebnisse ermittelt wurden, wird in Tabelle \ref{tab:prompt_results_open_models} gezeigt.
+
+\begin{table}[!ht]
+	\begin{tabular}{l|r|r|r}
+		\textbf{Model} & \textbf{pass@1} & \textbf{pass@5} & \textbf{pass@10} \\
+		\hline
+		Llama3.2 & 0,0325 & 0,427629 & 0,6625 \\
+		llama3.1-claude & 0,0325 & 0,508929 & 0,725 \\
+		codellama & 0,0 & 0,0125 & 0,05 \\
+%		Deepseek-coder-v2 & 0,2 & 0,2 & 0,2 \\
+		codeqwen & 0,0 & 0,0 & 0,0 \\
+		\texttt{(Auswertung fehlt)} &&& \\
+		Gemini Flash 1.5 & 0,0 & 0,0 & 0,0\\
+		\texttt{(Auswertung fehlt)} &&& \\
+		Qwen 2.5-Coder & 0,0 & 0,0 & 0,0 \\
+		\texttt{(Auswertung fehlt)} &&& \\
+		Mistral-small & 0,0125 & 0,346329 & 0,65 \\
+	\end{tabular}
+	\centering
+	\label{tab:prompt_results_open_models}
+\end{table}
+
+Das Modell \texttt{codellama} hat beim Generierung von den Lösungen der PHP Probleme nicht gut abgeschnitten. Viele der Anforderungen wurden in Python erstellt und viele Tests sind als nicht bestanden gewertet wurden.\vspace{0.2cm}
+
+Die Antworten von ChatGPT enthielten bei der ersten Abfrage Programmcode, alle weiteren Abfragen verwiesen auf den ersten Prompt. Eine Antwort ist in ?? dar gestellt, diese wurde in ähnlicher Weise immer wieder generiert.
+
+\hrulefill
+
+Der Code in deinem Kommentar ist identisch mit dem aktuellen Inhalt. Wenn du Än\-der\-ungen vornehmen möchtest, präzisiere bitte, was angepasst werden soll, und ich werde es umsetzen!
+\begin{flushright}
+	\textit{Generiert von ChatGPT 3.5}
+\end{flushright}
+\hrulefill
+
+Im Gegensatz zu ChatGPT bringt Gemini nicht immer nur eine Lösung des Problems, sondern bietet weitere Ansätze die ebenfalls für das jeweilige Problem interessant sein könnten. Im folgenden Beispiel sind die verschiedenen Vorschläge des Modells in den Listings \ref{lst:gemini_result_php-3_1} bis \ref{lst:gemini_result_php-3_4} dargestellt, die beim PHP Problem 3 gefordert wurden. Die Aufgabenstellung in Kurzform war: \texttt{Gib den größten gemeinsamen Teiler von zwei ganzen Zahlen a und b zurück.}
+
+\begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_1,caption={Gemini Ergebnis für das PHP-3 Problem Version 1}]
+function greatestCommonDivisorRecursive($a, $b) {
+  if ($b === 0) {
+    return $a;
+  } else {
+    return greatestCommonDivisorRecursive($b, $a % $b);
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_2,caption={Gemini Ergebnisse für das PHP-3 Problem Version 2}]
+function greatestCommonDivisorBinary($a, b) {
+  if ($a == 0) return $b;
+  if ($b == 0) return $a;
+
+  // Ensure a is odd
+  if ($a % 2 == 0 && $b % 2 == 0)
+    return 2 * greatestCommonDivisorBinary($a / 2, $b / 2);
+  if ($a % 2 == 0) return greatestCommonDivisorBinary($a / 2, $b);
+  if ($b % 2 == 0) return greatestCommonDivisorBinary($a, $b / 2);
+
+  // a and b are odd
+  if ($a > $b) return greatestCommonDivisorBinary($a - $b, b);
+  return greatestCommonDivisorBinary($b - a, a);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_3,caption={Gemini Ergebnisse für das PHP-3 Problem Version 3}]
+function leastCommonMultiple(int $a, int $b): int {
+  // kgV(a, b) = (a * b) / ggT(a, b)
+  return abs($a * $b) / greatestCommonDivisor($a, $b);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_4,caption={Gemini Ergebnisse für das PHP-3 Problem Version 4}]
+function greatestCommonDivisorMultiple(int ...$numbers): int {
+  // ggT von mehreren Zahlen
+  return array_reduce($numbers, 'greatestCommonDivisor');
+}
+\end{lstlisting}
+
+Einige Aufgaben wurden von Gemini aber wie ein Chat behandelt. So sind Ausgaben generiert wurden, die sich auf de
+ie Ausgabe davor beziehen, sodass der Code mit einer Kommentar-Zeile, wie beispielsweise
+
+\texttt{// ... (Rest der Funktion bleibt ähnlich)}
+
+ersetzt wurde.
 
 %--- Optimierung --------------------------------------------------------------------------------
 

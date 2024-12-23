@@ -2,23 +2,12 @@ Die Evaluation der Ergebnisse erfolgt im ersten Schritt anhand des HumanEval-XL 
 
 Diese Tests fordern LLM's auf kleine Problem zu lösen. Aus diesem Grund werden weitere Tests erstellt mit umfangreicheren Anforderungen aus dem Bereich der Webentwicklung. Zu jedem Problem wird eine Musterlösung und ein Unittest erstellt. Der Aufbau für diese Bereitstellung orientiert sich an dem Format aus dem HunamEval-Benchmark.\vspace{0.2cm}
 
-\begin{tcolorbox}[
-	enhanced,
-	colback=red!5!white,
-	colframe=red!75!black!50,
-	title= Mein roter Faden
-	]
-	Der nachfolgende Absatz wird sich noch mal ändern.  Je nachdem wie Aufwendig eine automatisierte Prüfung umsetzbar ist bzw. sich überhaupt automatisieren lässt.\vspace{0.2cm}
-	
-	Evtl. manuelle Auswertung von Stichproben.
-\end{tcolorbox}
-
 Des Weiteren ist die Bewertung der Coding-Standards der jeweiligen Programmiersprache vorgesehen. Für die Prüfung der Standards wird ein SonarQube-Server verwendet, der sowohl PHP als JavaScript unterstützt. Ebenfalls wird die Qualität des Codes evaluiert. Das Augenmerk liegt auf die Lesbarkeit, Effizienz und Wartbarkeit des generierten Codes.\vspace{0.2cm}
 
 %Optional werden einige Tests von zusätzlichen Tools validiert, beispielsweise bei der Validierung von PHP Files sind es Tools wie phpunit\footnote{phpunit steht unter \href{https://github.com/sebastianbergmann/phpunit}{https://github.com/sebastianbergmann/phpunit} zum Download bereit.} und Code\_Sniffer\footnote{Code\_Sniffer steht unter \href{https://github.com/squizlabs/PHP_CodeSniffer}{https://github.com/squizlabs/PHP\_CodeSniffer} zum Download zur Verfügung.} für die Validierung von JavaScript findet das Framework Jasmin\footnote{\href{https://jasmine.github.io/}{https://jasmine.github.io}.} Anwendung.\vspace{0.2cm}
 
 
-\section{Bewertung der Modelle}
+\section{Modellbewertung mit HumanEval Benchmark}
 Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} und \cite{peng-2024} beschrieben ist. Die Tests werden exemplarisch, mit den für die Webentwicklung relevanten Sprachen PHP und JavaScript durchgeführt. Die Evaluierung der Modelle wird auf den Ebenen \glqq einfache Fragen\grqq \ und \glqq komplexe Aufgaben\grqq \ erfolgen. Die \glqq einfachen Fragen\grqq \ werden bereits durch den zuvor genannten Benchmarks abgedeckt, sodass der entwickelte Fragenkatalog sich auf die Ebenen mit den \glqq komplexen Aufgaben\grqq \ konzentriert.\vspace{0.2cm}
 
 Aus Ergebnisse der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkeit der jeweiligen Modelle berechnet. Dieser Wert gibt an, mit welcher Wahrscheinlichkeit mindestens eine richtige Lösung unter $k$ ausgewählten Vorschlägen vorhanden ist. Die Formel \ref{equ:pass_qt_k} zeigt die Berechnung der $pass@k$-Metrik.
@@ -27,7 +16,7 @@ Aus Ergebnisse der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkei
 	\text{pass@k} = 1 - \frac{\prod_{i=0}^{n-k} (n - i - c)}{\prod_{i=0}^{n-k} (n - i)}
 \end{equation}
 
-Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösungen unter den $n$ Versuchen und $k$ gibt die Anzahl der Lösungen an die betrachtet wurden. Für die Berechnung der $pass@k$ Metrik wird die Python Bibliothek \textit{pass\_at\_k} verwendet. Der PHP Code wurde auf einen Debian 11 mit PHP in der Version 8.2.26 evaluiert.\vspace{0.2cm}
+Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösungen unter den $n$ Versuchen und $k$ gibt die Anzahl der Lösungen an die betrachtet wurden. Für die Berechnung der $pass@k$ Metrik wird die Formal \ref{lst:pass_at_k} verwendet, welche in \cite{chen-2021} vorgeschlagen wird.\vspace{0.2cm}
 
 Für alle Probleme wurden jeweils zehn Abfragen erstellt und bewertet. Welche Modelle getestet an der Evaluation beteiligt waren und welche Ergebnisse ermittelt wurden, wird in Tabelle \ref{tab:prompt_results_open_models} gezeigt.
 
@@ -75,7 +64,13 @@ function greatestCommonDivisorRecursive($a, $b) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_2,caption={Gemini Ergebnisse für das PHP-3 Problem Version 2}]
+Text.
+
+\begin{lstlisting}[
+	language=PHP,
+	label=lst:gemini_result_php-3_2,
+	caption={Gemini Ergebnisse für das PHP-3 Problem Version 2}
+]
 function greatestCommonDivisorBinary($a, b) {
   if ($a == 0) return $b;
   if ($b == 0) return $a;
@@ -92,14 +87,24 @@ function greatestCommonDivisorBinary($a, b) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_3,caption={Gemini Ergebnisse für das PHP-3 Problem Version 3}]
+Text.
+
+\begin{lstlisting}[
+	language=PHP,
+	label=lst:gemini_result_php-3_3,
+	caption={Gemini Ergebnisse für das PHP-3 Problem Version 3}
+]
 function leastCommonMultiple(int $a, int $b): int {
   // kgV(a, b) = (a * b) / ggT(a, b)
   return abs($a * $b) / greatestCommonDivisor($a, $b);
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_4,caption={Gemini Ergebnisse für das PHP-3 Problem Version 4}]
+\begin{lstlisting}[
+	language=PHP,
+	label=lst:gemini_result_php-3_4,
+	caption={Gemini Ergebnisse für das PHP-3 Problem Version 4}
+]
 function greatestCommonDivisorMultiple(int ...$numbers): int {
   // ggT von mehreren Zahlen
   return array_reduce($numbers, 'greatestCommonDivisor');
@@ -113,11 +118,16 @@ ie Ausgabe davor beziehen, sodass der Code mit einer Kommentar-Zeile, wie beispi
 
 ersetzt wurde.
 
+\subsection{Nachteile der Evaluierung}
+Es wird geprüft, ob der Code ohne Fehler ausführbar ist und die richtigen Ergebnisse liefert. Was dieser Test nicht evaluiert sind unter anderem vorhandene Codeerklärungen, Doc-Strings oder Code-Smells werden bei diesem Test nicht beachtet. Ebenso wird auch nicht der Codestandard geprüft.\vspace{0.2cm}
+
+
 %--- Optimierung --------------------------------------------------------------------------------
 
 
 \section{Optimierung der Ergebnisse}
-Ein Ansatz zur Optimierung der Ergebnisse ist, ...
+Als Ziel der Optimierung gilt das die LLMs effizienten, präzisen und korrekten Code zu generieren. Ein Ansatz dies zu erreichen ist die Prompts zur Codegenerierung mithilfe einer LLMs zu erstellen oder zu verbessern.
+
 
 % https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
 

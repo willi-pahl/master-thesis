@@ -140,11 +140,44 @@ Mit  dem Aufkommen der großen Sprachmodelle ist auch der Verbrauch an Ressource
 
 Im Lebenszyklus der großen Sprachmodelle werden Ressourcen in unterschiedlichen Mengen benötigen.\vspace{0.2cm}
 
+%-------------------------------------------------------------------------------------------------
+
 
 \subsection{Verständnis für die LLMs}
 Viele Nutzer (Privatnutzer aber auch Firmen) wissen nicht, was hinter den großen Sprachmodellen steckt oder wie diese funktionieren. Diese Unwissenheit birgt die Gefahr, dass Nutzer nicht korrekte Eingabe in die LLMs übergibt und dann die Ergebnisse der LLMs falsch interpretieren oder die LLMs nicht korrekte Aussagen trifft. Werden aufgrund dieser falschen Ergebnisse Entscheidungen getroffen, können diese enorme finanzielle und personelle Einbußen nach sich ziehen. Zudem kann es weiterhin zu Desinformation, Diskriminierung, juristische Probleme und zum Vertrauensverlust in die Technologie führen.\vspace{0.2cm}
 
 Um diesen Problemen bei Entwicklern entgegenzuwirken, sind vor, während und nach der Einführung einer LLM zur Codeentwicklung, die Nutzer aufzuklären. Sie müssen sich im klaren sein, dass LLMs Fehler produzieren und es erforderlich ist, die Ergebnisse zu validieren. Nur so kann die ein Vertrauensverlust und eine stetige Weiterentwicklung der Modelle erfolgen.
+
+%-------------------------------------------------------------------------------------------------
+
+
+\subsection{Auswahl der LLMs}
+Die folgenden Modelle werden getestet und die Ergebnisse anschließend evaluiert.
+
+\begin{table}[!ht]
+	\begin{tabular}{|l|c|c|c|c|c|l|}
+		\hline
+		\textbf{Modell} & \textbf{Parameter} & \textbf{Größe} & \textbf{Sprache} & \textbf{offen} & \textbf{Ausführung}  & \textbf{Benchmark} \\
+		\hline
+		Qwen2.5-coder     & 32b &  19 GB & German & X & lokal  & HumenEval-XL \\
+		%		CodeGeeX          &  9B & German &  & & lokal & HumenEval-XL \\
+		Deepseek-coder-V2 & 16B & 8,9 GB & German &  X & lokal  & HumenEval-XL \\
+		Llama3.1-Claude   &  8b & 4,7 GB & German &  X & lokal  & HumenEval-XL \\
+		Llama3.2          &  3b & 2,0 GB & German &  X & lokal  & HumenEval-XL \\
+		Codellama         & 13b & 7,4 GB & German &  X & lokal  & HumanEval-XL \\
+		%		ChatGPT3.5        & & & German &  & online & HumenEval-XL \\
+		Gemini Flash 1.5  & k.A.& k.A.   & German &  - & online & HumenEval-XL \\
+		%		Opus              & & & German &  & online & HumenEval-XL \\
+		%		Claude 3          & &  German & & & online & HumenEval-XL \\
+		\hline
+		\multicolumn{7}{|l|}{In Planung, wenn ich es schaffe} \\
+		\hline
+		Llama3.3          & 70b &  43 GB & German &  X & lokal  & HumanEval-XL \\
+		\hline
+	\end{tabular}
+\end{table}
+
+%-------------------------------------------------------------------------------------------------
 
 
 \section{Koordinationsstrategien für LLMs}
@@ -181,14 +214,47 @@ Auch hier kann ein NLP-Agent zum Einsatz kommen und die Kommunikation zwischen M
 \section{Prompt Engineering}
 Prompt Engineering optimiert die Antworten große Sprachmodelle, ohne Parameter, wie Bias und Gewichte des Models ändern zu müssen. Dieser Bereich hat in den letzten Jahren enorm an Bedeutung gewonnen und sich zu einer eigenen Disziplin im Bereich der Künstlichen Intelligenz entwickelt.\vspace{0.2cm}
 
-Ein Prompt oder Anweisung muss entweder als Anweisung oder als Frage gestellt werden. Dies kann, wie in \cite{amatriain-2024} beschrieben, in Form von einer einfachen Anweisung bis hin zu detaillierten Beschreibungen oder spezifischen Aufgaben erfolgen.\vspace{0.2cm}
-
-[Hier Beispiel von ChatGPT oder Gemini einfügen, kann als Bild]
-
+Ein Prompt oder Anweisung muss entweder als Anweisung oder als Frage gestellt werden. Dies kann, wie in \cite{amatriain-2024} beschrieben, in Form von einer einfachen Anweisung bis hin zu detaillierten Beschreibungen oder spezifischen Aufgaben erfolgen.
 
 \subsection{Prompt-Techniken}\label{subsec:prompt_technics}
 Siehe Prompting Techniques Hinweise für die Optimierung von Prompts.
 Die folgenden Techniken dienen dazu die Abfragen zu optimieren und somit eine bessere Antwort von den Sprachmodellen zu erhalten.
+
+In dieser Arbeit werden hauptsächlich \textit{contextual augmentation} und \textit{Meta-Prompts} verwendet.\vspace{0.2cm}
+
+\textbf{\textit{Kontextuelle Prompts}} haben neben der eigentlichen Eingabeaufforderung zusätzliche Informationen für die LLMs. Dazu gehören Kontextangaben, anzuwendende Programmiersprache, geforderte Bibliotheken, Angaben der Zielgruppe und Definition über die auszugebende Struktur wie Methoden oder Klassen.\vspace{0.2cm}
+
+Beispiel für einen kontextuellen Prompt:
+
+\textit{Du bist ein Erfahrener PHP Programmierer, hier deine Aufgabe. Erstelle eine PHP-Funktion, die eine Liste von Ganzzahlen sortiert und zugibt.}\vspace{0.2cm}
+
+Ausgabe der LLM:
+
+\begin{lstlisting}[language=PHP]
+	function sortiere_und_gebe_aus($zahlen) {
+		// Die Liste wird nach aufsteigender Reihenfolge sortiert
+		sort($zahlen);
+		
+		// Die sortierte Liste wird ausgegeben
+		foreach ($zahlen as $zahl) {
+			echo $zahl . " ";
+		}
+	}
+\end{lstlisting}
+
+Diese Art der Prompts können hilfreich sein, wenn Erweiterungen oder Änderungen in bestehende Programme erfolgen. Hier sind oft schon Standards oder Bibliotheken definiert.\vspace{0.2cm}
+
+\textbf{\textit{Meta-Prompts}} sind Prompts, die eine LLMs anweisen, einen Prompt zu erstellen.\vspace{0.2cm}
+
+Meta-Prompt Beispiel:
+
+\textit{Du bist eine Prompt-Engineer und hier ist deine Aufgabe. Schreibe einen Prompt, der eine PHP-Funktion generiert, die eine Methode erstellt, die eine Liste von Ganzzahlen sortiert.}\vspace{0.2cm}
+
+Ausgabe der LLM:
+
+\textit{Schreibe eine PHP-Funktion namens} \texttt{sortiereZahlen}\textit{, die ein Array von Ganzzahlen als Parameter entgegennimmt. Die Funktion soll das Array in absteigender Reihenfolge sortieren und das sortierte Array zurückgeben. Nutze eine geeignete PHP-Funktion für die Sortierung.}\vspace{0.2cm}
+
+Es gibt weitere Prompt-Typen, die nicht relevant für diese Arbeit sind. Eine Zusammenfassung von Methodiken und deren Beurteilung kann \cite{chen-2023} entnommen werden.
 
 
 \subsection{Grenzen beim Prompt-Engineering für LLMs}
@@ -197,7 +263,22 @@ Trotz der bemerkenswerten linguistischen Leistung, stoßen große Sprachmodelle 
 %\section{Relevante Arbeiten}
 %In \cite{zhou-2022} wird der Prompt-Optimierungsprozess als Black-Box interpretiert. Der mit minimalen Eingaben ein menschenähnliches Niveau erreichen soll.
 
-%-------------------------------------------------------------------------------------------------------------------------------------------
+
+\subsubsection{Prompttemplates}
+Um die Eingaben für Programmierer oder Nutzer und dessen Anfragen an LLM's zu vereinfachen, können Propmt-Templates verwendet werden. Diese eigenen sich im besonderen Maße für automatisierte Prompts.
+
+\begin{lstlisting}[language=text]
+	Erstelle eine [Programmiersprache] Funktion namens [Funktionsname], die 
+	[Beschreibung der Funktion]
+	. Die Funktion soll folgende Parameter verwenden:
+	[Liste der Parameter]
+	. Die Funktion soll folgende Bedingungen erfüllen:
+	[Liste der Bedingungen: z.B. Fehlerbehandlung, bestimmte Algorithmen]
+	. Die Ausgabe der Funktion soll in folgendem Format sein:
+	[Erwartetes Ausgabeformat]
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------------------------
 
 
 %\section{Grundlagen bei der Entwicklung von Webanwendungen}
@@ -221,6 +302,38 @@ Der Einsatz von Künstlicher Intelligenz kann in allen Entwicklungsphasen einges
 Der Einsatz von NL2Code steck hier noch in den Anfängen, bietet aber sehr gute Ansätze viele Aufgaben zu automatisieren oder als Werkzeug um die Entwicklung effizienter zu gestalten.\vspace{0.2cm}
 
 Die Codegenerierung für Designelemente kann ebenso mittels NL2Code erfolgen wie komplexe Backendfunktionalitäten. Ebenso kann die vorherige Konzeption durch eine LLM erfolgen.
+
+%-------------------------------------------------------------------------------------------------
+
+
+\section{Benchmark für LLM}
+Bei der Evaluierung großer Sprachmodell hinsichtlich des generierten Codes, gibt es einige Herausforderungen. Herkömmliche Methoden, wie BLUE-Score misst die Textähnlichkeiten nicht aber die funktionale Korrektheit des Codes und vernachlässigt auch den Kontext, in dem der Code erstellt wurde. Ein generierter Code kann in seiner Lösung stark von einer vorgegebenen Beispiellösung abweichen, trotzdem aber seine Funktionalität erfüllen. Menschliche Programmierer würden das mit verschiedenen Unit-Tests überprüfen, aus diesem Grund sollte der Code mit einer weiteren Methode geprüft werden.\vspace{0.2cm}
+
+Als Benchmark für die Bewertung der großen Sprachmodelle wird der HumanEval-XL verwendet, welche unter \href{https://github.com/FloatAI/humaneval-xl/tree/main}{https://github.com/FloatAI/humaneval-xl/tree/main} heruntergeladen werden können.\vspace{0.2cm}
+
+Der Benchmark besteht aus Prompt, die wie folgt aufgebaut sind,
+
+\begin{myitemize}
+	\item \textbf{task\_id}: Kennung der Datenprobe
+	\item \textbf{prompt}: Anfrage für das Modell, Funktionsheader und Docstring
+	\item \textbf{entry\_point}: Einstiegspunkt für den Test
+	\item \textbf{description}: Beschreibung der Aufgabe
+	\item \textbf{language}: Kennung der Programmiersprache
+	\item \textbf{canonical\_solution}: Lösung für das Problem
+	\item \textbf{natural\_language}: Ländersprache in der Datei
+\end{myitemize}
+
+Durch diesen Aufbau werden neben dem eigentlichen Prompt ein Test, eine vorgeschlagene Lösung mitgeliefert, sowie weitere Metadaten mit geliefert. Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmark-Tests.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.8\textwidth]{content/chapter_intruduction/images/code_generation_humaneval_x.eps}
+	\centering
+	\caption{Codegeneration}
+	\label{img:code_generation_humaneval}
+\end{figure}
+
+%-------------------------------------------------------------------------------------------------
+
 
 \section{Codeprüfungen}
 Es gibt mehrere Frameworks zur Prüfung der Codequalität unter PHP. Zwei Frameworks die auch in dieser Arbeit Anwendung finden, sind die Frameworks \texttt{phpunit} und \texttt{phpmetrics}. Mit ihnen werden die, durch die LLM's generierten Codes geprüft.

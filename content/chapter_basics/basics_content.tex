@@ -265,7 +265,7 @@ Trotz der bemerkenswerten linguistischen Leistung, stoßen große Sprachmodelle 
 
 
 \subsubsection{Prompttemplates}
-Um die Eingaben für Programmierer oder Nutzer und dessen Anfragen an LLM's zu vereinfachen, können Propmt-Templates verwendet werden. Diese eigenen sich im besonderen Maße für automatisierte Prompts.
+Um die Eingaben für Programmierer oder Nutzer und dessen Anfragen an LLMs zu vereinfachen, können Propmt-Templates verwendet werden. Diese eigenen sich im besonderen Maße für automatisierte Prompts.
 
 \begin{lstlisting}[language=text]
 	Erstelle eine [Programmiersprache] Funktion namens [Funktionsname], die 
@@ -317,6 +317,7 @@ Der Benchmark besteht aus Prompt, die wie folgt aufgebaut sind,
 	\item \textbf{task\_id}: Kennung der Datenprobe
 	\item \textbf{prompt}: Anfrage für das Modell, Funktionsheader und Docstring
 	\item \textbf{entry\_point}: Einstiegspunkt für den Test
+	\item \textbf{test}: Test für die geforderte Funktion
 	\item \textbf{description}: Beschreibung der Aufgabe
 	\item \textbf{language}: Kennung der Programmiersprache
 	\item \textbf{canonical\_solution}: Lösung für das Problem
@@ -333,36 +334,3 @@ Durch diesen Aufbau werden neben dem eigentlichen Prompt ein Test, eine vorgesch
 \end{figure}
 
 %-------------------------------------------------------------------------------------------------
-\newpage
-
-\section{Erweiterte Codeevaluation}
-Bei den vordefinierten Prüfungen der HumanEval Benchmarks, wird geprüft, ob der Code lauffähig ist, nicht aber die Codestruktur oder Kommentare. Dafür müssen Test-Frameworks der jeweiligen Programmiersprache angewandt werden. Es gibt mehrere Frameworks zur Prüfung der Codequalität unter PHP. Zwei bekannte Frameworks die auch in dieser Arbeit Anwendung finden, sind die Frameworks \texttt{phpunit} und \texttt{phpmetrics}. Mit ihnen wird der, durch die LLM's generierten Codes geprüft.\vspace{0.2cm}
-
-Um PHPUnit und PHPMetrics für die Evaluierung zu verwenden, müssen weitere Angaben und Einträge im Benchmark erfolgen. So muss ein Unittest enthalten sein, dieser kann den einfachen SimpleTest ersetzen. Des Weiteren sind die Kriterien für die Metrik Messung, für jeden Test erforderlich. Die Kriterien können wie in Listing \ref{lst:phpmetric_criteria_example} dargestellt, aussehen.
-
-\begin{lstlisting}[language=python,caption={Beispiel für Bewertungskriterien},label=lst:phpmetric_criteria_example]
-criteria = {
-    "Lines of code": lambda x: int(x) > 127,
-    "Logical lines of code by method": lambda x: float(x) > 10,
-    "Lack of cohesion of methods": lambda x: float(x) > 3,
-    "Average Cyclomatic complexity by class": lambda x: float(x) > 10,
-    "Average Weighted method count by class": lambda x: float(x) > 20,
-    "Average bugs by class": lambda x: float(x) > 0.1,
-    "Critical": lambda x: int(x) > 0,
-    "Error": lambda x: int(x) > 0,
-    "Warning": lambda x: int(x) > 0,
-    "Information": lambda x: int(x) > 0,
-}
-\end{lstlisting}
-
-\subsection{PHPUnit}
-Eines der bekanntesten spezielles Framework für Unit-Tests in PHP, was als Industriestandard gilt. Mit diesem Framework können neben der Prüfung auf funktionsfähigen Code auch Randfälle betrachtet und Fehlerbehandlungen im Code getestet werden. Als Grundlage für die Auswahl des Tools wird auf Studie \cite{mohamad-2016} verwiesen.
-
-\subsection{PHPMetrics}
-Ein PHP Framework für die Codeanalyse, welches detaillierte Berichte über die Codequalität, Komplexität des Codes und über dessen Wartbarkeit erzeugt. PHPMetrics wird in verschiedenen Arbeiten eingesetzt, um die Codequalität zu ermitteln. So auch in \cite{anggrain-2016}, bei der verschiedene Open Source LMS verglichen werden.
-
-\subsection{SonarQube}
-Als letztes Tool soll SonarQube zur statischen Codeanalyse und Codeprüfung zum Einsatz kommen. Es werden verschiedene Programmiersprachen unterstützt, darunter auch PHP und JavaScript. In der Arbeit \cite{da-silva-simoes-2024} wird die Prüfung der Codequalität mit SonarQube, ChatGPT3.5 und ChatGPT4 vergleichen. Als Schlussfolgerung aus dem Ergebnis dieser Arbeit, wird auch hier die Codeanalyse durch eine LLM nicht erfolgen, sondern ebenfalls durch SonarQube.
-
-%\subsection{ESLint}
-%JavaScript Tool zur Syntaxfehler-Erkennung, Stil- und Codequalitätsprüfung. Mit diesem Tool kann reines JavaScript als auch Node.js überprüfen. https://arxiv.org/html/2402.14261v1

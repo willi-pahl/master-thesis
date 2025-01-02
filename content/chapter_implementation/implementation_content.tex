@@ -1,22 +1,23 @@
 \section{Lokale Modelle}
-Für das Ausführen von Modellen zum Testen werden in dieser Arbeit zwei Techniken angewandt. Zum einen mittels Ollama Framework, das mit einer Web-GUI erweitert werden kann, zum anderen durch Dateien die beispielsweise mit dem Python Framework Langchain abgefragt werden können.\vspace{0.2cm}
+Für das Ausführen von Modellen zum Testen werden in dieser Arbeit zwei Techniken angewandt. Zum einen mittels Ollama Framework, das mit einer Web-GUI erweitert werden kann, zum anderen durch Dateien, welche beispielsweise mit dem Python Framework Langchain abgefragt werden können.\vspace{0.2cm}
 
-Die Modelle werden auf einem Debian 12 Server mit 32 GB RAM und einem 16 Kernprozessor ausgeführt. Demnach können nur kleine Modelle lokal getestet werden.\vspace{0.2cm}
+Die Modelle werden auf einem Debian 12 Server mit 32 GB RAM und einem 16 Kernprozessor ausgeführt. Um große Modelle zu testen wurde mit einer Swap-Partition von 100 GB gearbeitet, um die Ausführung größerer Modelle zu ermöglichen.\vspace{0.2cm}
 
 \subsection{Modellbereitstellung mit Ollama}
-Für das Testen der lokalen Modelle wird das Ollama Framework angewandt. Dies ermöglicht eine neben einer Benutzeroberfläche im Browser eine Anbindung an einer API. Diese lässt sich beispielsweise mittels Python abfragen. Auf dieser Weise lassen sich Modelle von der \href{https://ollama.com/search}{Ollama Modell} Seite testen.\vspace{0.2cm}
+Für das Testen der lokalen Modelle wird das Ollama Framework angewandt. Dies ermöglicht eine neben einer Benutzeroberfläche im Browser eine Anbindung an einer API. Diese lässt sich beispielsweise mittels Python abfragen. Auf dieser Weise lassen sich Modelle von der \href{https://ollama.com/search}{Ollama Modell} Seite testen. Dazu wird Ollama auf dem Server installiert und konfiguriert, siehe Anhang \ref{sec:install_config_ollama_local}. Nach dem Download stehen die Modelle zur Verfügung und es können Interaktionen mit dem Modell erfolgen.\vspace{0.2cm}
 
-Dazu wird Ollama auf dem Server installiert und konfiguriert, siehe Anhang \ref{sec:install_config_ollama_local}. Nach dem Download stehen die Modelle zur Verfügung und es können Interaktionen mit dem Modell erfolgen. Zusätzlich kann ein grafisches Tool zum Testen installiert werden. Hier wird Open WebUI eingesetzt und auf dem Ollama-Server installiert, welches mittels Webbrowser geöffnet wird. Nach der Installation, wie in Anhang \ref{sec:open_webui} beschrieben, ist das Tool einsatzbereit und im Netzwerk erreichbar, unter http://<<server-ip>>:<<webui-port>>.
+Zusätzlich kann ein grafisches Tool zum Testen installiert werden. Mit deren Hilfe können die Modelle leicht getestet werden. Mit Open WebUI wird ein Browser basierendes Toll eingesetzt, dass auf dem Ollama-Server installiert wird. Nach der Installation ist das Tool einsatzbereit und im lokalen Netzwerk, unter http://<<server-ip>>:<<webui-port>> erreichbar. Die Installation wird im Anhang \ref{sec:open_webui} beschrieben.
+
+%-------------------------------------------------------------------------------------------
+
 
 \subsection{Modellbereitstellung als Datei}
-Eine zweite Methode zur Bereitstellung von Modellen ist die direkte Nutzung mittels Programmiersprache. In dieser Arbeit wird Python verwendet. Hierbei ist die Nutzung von Hugging Face Modelle vorgesehen. Kontrolle der Daten (Modelle und Datensätze) die von \textit{Hugging Face} geladen wurden. Diese Modelle lassen sich mit dem Python Framework \href{https://pypi.org/project/langchain/}{Longchain} orchestrieren.\vspace{0.2cm}
+Eine zweite Methode zur Bereitstellung von Modellen die für diese Arbeit Verwendung findet, ist die direkte Nutzung als lokale Datei. Diese können dann direkt angesprochen werden, in dieser Arbeit wird Python verwendet. Hierbei wurden die Modelle von Hugging Face fokussiert. Diese lassen sich unter anderem mit dem Python Framework \href{https://pypi.org/project/langchain/}{Longchain} orchestrieren.\vspace{0.2cm}
 
-Zunächst lädt man die Modelle von Hugging Face herunter und lokal abgespeichert. Ein Beispiel für ein Download-Skript ist in Anhang \ref{lst:download_hugging_face_model} zu sehen. Auch hier ist die Speichergröße zu beachten.
+Nachdem die Modelle von Hugging Face heruntergeladen und lokal abgespeichert wurden, sind diese ohne größeren Aufwand anwendbar. Ein Beispiel für ein mögliches Download-Skript ist in Anhang \ref{sec:hugging_face_models} im Listing \ref{lst:download_hugging_face_model_by_cache} und \ref{lst:download_hugging_face_model} zu sehen. Hierbei ist zu beachten das genügend freier RAM zur Verfügung steht, um die Modelle abzuspeichern.
 
-\begin{verbatim}
-	huggingface-cli scan-cache
-	huggingface-cli remove-cache
-\end{verbatim}
+%-------------------------------------------------------------------------------------------
+
 
 \subsection{Orchestrierung von Modellen}
 Die Orchestrierung der Modelle erfolgt mithilfe des Python-Frameworks Longchain. Hierbei werden an die Modelle verschiedene Anforderungen gestellt. Zum einen müssen die Modelle Code generieren, zum anderen ist die Anforderung Text zu erstellen oder zu überarbeiten. Die Abbildung \ref{img:orchestration_llms} zeigt schematisch den Aufbau der orchestrierten Modelle. Der Textfilter sucht in der Ausgabe des ersten Modells den Prompt und eliminiert die Anweisungen und Erklärungen.
@@ -28,10 +29,21 @@ Die Orchestrierung der Modelle erfolgt mithilfe des Python-Frameworks Longchain.
 	\label{img:orchestration_llms}
 \end{figure}
 
+%-------------------------------------------------------------------------------------------
+
+
 \section{Online Modelle}
 Text.
 
 \section{Benchmark Codeevaluation}\label{sec:benchmark_evaluation}
+Ausführen des Benchmarks.
+
+
+\subsection{Problemabfragen an die Modelle}
+Nachdem die Modelle bereitstehen, erfolgt Erstellung der Antworten von den Modellen. Mit Prompts welche die Probleme aus dem HumanEval-XL Benchmark enthalten, werden nun die Modelle abgefragt. Die vollständigen Antworten werden, für eine spätere Auswertung als JSONL-Dateiformat gespeichert. Pro Problem erfolgen zehn Abfragen an jedes Modell.
+
+
+\subsection{Auswertung der Modellantworten}
 
 \textbf{Umsetzung der pass@k Metric}\vspace{0.2cm}
 

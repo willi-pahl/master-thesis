@@ -1,6 +1,4 @@
-In diesem Kapitel werden Grundlagen besprochen die eine Relevanz für diese Arbeit haben. Die angesprochenen Bereiche können nur oberflächlich einen kleinen Einstieg in die jeweiligen Teilgebiete geben.\vspace{0.2cm}
-
-Die Forschungsbereiche der großen Sprachmodelle, kurz \acrshort{LLM} [eng. Large Language Model], ist ein Teilgebiet von Deep Learning und der Forschung von der Verarbeitung natürlicher Sprache, kurz \acrshort{NLP} [eng. Natural Language Processing]. Die Grafik \ref{img:classification_of_terms} zeigt die Einordnung der Bereiche.
+In diesem Kapitel werden die grundlegenden Konzepte vorgestellt, die für das Verständnis dieser Arbeit relevant sind. Es wird ein Überblick über die wichtigsten Teilgebiete gegeben, wobei die einzelnen Bereiche nur oberflächlich behandelt werden können, um eine grundlegende Einführung zu bieten.
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.8\textwidth]{content/chapter_basics/images/einordnung_bezeichnungen.eps}
@@ -9,11 +7,15 @@ Die Forschungsbereiche der großen Sprachmodelle, kurz \acrshort{LLM} [eng. Larg
 	\label{img:classification_of_terms}
 \end{figure}
 
+Die Forschungsfelder der großen Sprachmodelle (Large Language Models, \acrshort{LLM}) sind eng mit den Teilbereichen Deep Learning und der Verarbeitung natürlicher Sprache (Natural Language Processing, \acrshort{NLP}) verbunden. Diese Teilgebiete sind wiederum Unterbereiche des maschinellen Lernens, das selbst ein Teil der umfassenderen Disziplin der künstlichen Intelligenz ist. Die Grafik \ref{img:classification_of_terms} veranschaulicht die sprachliche und konzeptionelle Einordnung der Begriffe \glqq künstliche Intelligenz\grqq \, \glqq maschinelles Lernen\grqq \, \glqq neuronale Netze\grqq \, \glqq Deep Learning\grqq \ und \glqq NLP\grqq .
+
+%---------------------------------------------------------------------------------------------------
+
 
 \section{Künstliche Intelligenz}
-Die künstliche Intelligenz hat bereits in viele Unternehmensprozesse Einzug gehalten. Besonders die generative KI, mit ihren großen Sprachmodellen wird in den nächsten Jahren immer weiter in die Unternehmensbereiche vorstoßen und viele Aufgaben übernehmen. Entscheider und Führungspersonal versprechen sich von der Technologie nicht nur effizientere Prozesse, sondern auch Kosteneinsparungen.\vspace{0.2cm}
+Künstliche Intelligenz hat bereits in viele Unternehmensprozesse Einzug gehalten und unterstützt die Nutzer und Systeme. Besonders die generative KI, mit ihren großen Sprachmodellen wird in den nächsten Jahren immer weiter in die Unternehmensbereiche vorstoßen und viele Aufgaben übernehmen. Entscheider und Führungspersonal versprechen sich von der Technologie nicht nur effizientere Prozesse, sondern auch Kosteneinsparungen im Personalbereich.\vspace{0.2cm}
 
-Eine explizite Definition für \textit{künstliche Intelligenz} ist zurzeit noch nicht einheitlich erfolgt. Geschuldet ist diese Tatsache, dass der Begriff \textit{Intelligenz} nicht eindeutig definiert ist. Somit finden sich viele Versuche eine Definition für künstliche Intelligenz herzuleiten. In dieser Arbeit wird als Definition für die Künstliche Intelligenz, die aus \cite[6 ff.]{definition_ki2019} verwendet.
+Eine explizite Definition für \textit{künstliche Intelligenz} ist zurzeit noch nicht einheitlich erfolgt. Geschuldet ist diese Tatsache, dass der Begriff \textit{Intelligenz} nicht eindeutig definiert ist. Somit finden sich viele Versuche eine Definition für künstliche Intelligenz herzuleiten. In dieser Arbeit wird für die künstliche Intelligenz, die Definition aus \cite[6 ff.]{definition_ki2019} verwendet.
 
 \epigraph[
 	author={Bitkom e.V.},
@@ -23,27 +25,25 @@ Eine explizite Definition für \textit{künstliche Intelligenz} ist zurzeit noch
 	Systeme der künstlichen Intelligenz (KI-Systeme) sind vom Menschen entwickelte Softwaresysteme (und gegebenenfalls auch Hardwaresysteme), die in Bezug auf ein komplexes Ziel auf physischer oder digitaler Ebene handeln, indem sie ihre Umgebung durch Datenerfassung wahrnehmen, die gesammelten strukturierten oder unstrukturierten Daten interpretieren, Schlussfolgerungen daraus ziehen oder die aus diesen Daten abgeleiteten Informationen verarbeiten, und über das bestmögliche Handeln zur Erreichung des vorgegebenen Ziels entscheiden. KI-Systeme können entweder symbolische Regeln verwenden oder ein numerisches Modell erlernen, und sind auch in der Lage, die Auswirkungen ihrer früheren Handlungen auf die Umgebung zu analysieren und ihr Verhalten entsprechend anzupassen.
 }
 
-%(\href{https://www.bitkom.org/sites/main/files/file/import/171012-KI-Gipfelpapier-online.pdf}{Wirtschaftliche Bedeutung ...}, 26 ff.).
+Aus den Forschungsgebieten der künstlichen Intelligenz sind für die großen Sprachmodelle der Bereich des \glqq Deep Learning\grqq \ besonders interessant. Hier findet die Überschneidung mit dem Bereich der NLP statt, welche massiv dazu betrug, dass die großen Sprachmodelle diesen Erfolg erfahren. In den folgenden Kapiteln wird auf die Teilgebiete eingegangen, in denen \glqq Deep Learning\grqq \ angesiedelt ist.
 
-%Die folgenden Kapitel werden auf die Teilbereiche der künstlichen Intelligenz eingehen, welche für die Entwicklung der großen Sprachmodelle essenziell sind.
-Aus dem Forschungsgebiet der künstlichen Intelligenz ist für die großen Sprachmodelle der Bereich des \glqq Deep Learning\grqq \ besonders interessant. Hier findet die Überschneidung mit dem Bereich der NLP statt, welche massiv dazu betrug, dass die großen Sprachmodelle diesen Erfolg erfahren.
 
 \subsection{Maschinelles Lernen}
-Als Teilgebiet der künstlichen Intelligenz befasst es sich mit dem Problem wie Maschinen Lernen und Denken können. Wobei hier nicht von selbstständigem Lernen und Denken gesprochen werden kann, sondern lediglich von Imitieren dieser Prozesse. Aber \acrshort{ML} ist sehr wohl in der Lage aus großen Datenmengen komplexe Muster und Funktionen zu erkennen. Für das maschinelle Lernen gibt es mehrere Formen von Lernparadigmen.\vspace{0.2cm}
+Als Teilgebiet der künstlichen Intelligenz befasst sich maschinelles Lernen mit dem Problem wie Maschinen Lernen und Denken können. Wobei hier nicht von selbstständigem Lernen und Denken gesprochen werden kann, sondern lediglich von Imitieren dieser Prozesse. Aber \acrshort{ML} ist sehr wohl in der Lage aus großen Datenmengen komplexe Muster und Funktionen zu erkennen. Für das maschinelle Lernen gibt es mehrere Formen von Lernparadigmen.\vspace{0.2cm}
 
 Beim \textit{überwachten Lernen} sind für die Eingaben der Trainingsdaten dazugehörige Ausgaben, die Labels definiert. Das Ziel ist es eine Funktion zu trainieren um künftige Eingaben korrekt klassifizieren oder vorhersagen zu können. Dieses Lernparadigma wird häufig eingesetzt, wenn es sich um Regressionens- und Klassifizierungsprobleme handelt.\vspace{0.2cm}
 
-Die gelabelten Ausgaben sind beim \textit{unüberwachten Lernen} nicht vorhanden. Hierbei wird beispielsweise durch Clustering oder Dimensionsreduktion versucht Muster und Strukturen zu erkennen. Des Weiteren soll die Methode helfen Anomalien in Daten zuerkennen aber Assoziationen zwischen Datenobjekten zu finden.\vspace{0.2cm}
+Die gelabelten Ausgaben sind beim \textit{unüberwachten Lernen} nicht vorhanden. Hierbei wird beispielsweise durch Clustering oder Dimensionsreduktion versucht Muster und Strukturen zu erkennen. Des Weiteren soll die Methode helfen Anomalien in Daten zuerkennen oder Assoziationen zwischen Datenobjekten zu finden.\vspace{0.2cm}
 
 Das \textit{selbst überwachte Lernen} ermöglicht es Modellen, sich selbst zu überwachen ohne gelabelte Daten. Hierbei lernen die Algorithmen einen Teil der Eingaben von anderen Teilen und generieren automatisch Labels. So werden unüberwachten Problemen in überwachte Probleme überführt. Diese Art des Lernens ist u.a. besonders nützlich bei NLP, da hier die Trainingsdaten in großer Anzahl vorliegen\vspace{0.2cm}
 
 Beim \textit{verstärkten Lernen} (engl. Reinforcement Leraning) werden die Systeme mit Belohnung un Strafe trainiert. Das System wird aufgrund seines Handelns bewertet, dadurch wird es ermutigt gute Praktiken weiterzuverfolgen und schlechte zu verwerfen. Das Lernen wird häufig bei der Videospielentwicklung und in der Robotik eingesetzt.\vspace{0.2cm}
 
-Eine weitere Art ist das \textit{Semi-überwachte Lernen} die eine Kombination aus unüberwachten und überwachten Lernens ist. Bei diesem Lernen steuern kleine gelabelte Datensätze eine große Menge an ungelabelten Datensätzen. Die verwendeten Technologien von GANs (Generative Adversarial Networks) bis zu Diffusionsmodellen sind in der Lage neue Inhalte zu schaffen und sind Voraussetzungen für heutige generative KI.\vspace{0.2cm}
+Das \textit{semi-überwachte Lernen} stellt eine Hybridform aus unüberwachtem und überwachtem Lernen dar. Bei diesem Ansatz werden kleine Mengen gelabelter Datensätze genutzt, um eine große Anzahl ungelabelter Daten effizient zu steuern. Diese Methode ermöglicht es den verwendeten Technologien, neue Inhalte zu generieren und bildet die Grundlage moderner generativer KI-Systeme. Die Bandbreite der Technologien in diesem Bereich reicht von Generative Adversarial Networks (GANs) bis hin zu Diffusionsmodellen, welche wesentliche Fortschritte in der Erzeugung von Texten, Bildern und anderen Inhalten ermöglichen.\vspace{0.2cm}
 
 
 \subsection{Neuronale Netze}
-Neuronale Netze oder auch künstliche neuronale Netze (\acrshort{KNN}) sind spezifische Typen des maschinellen Lernens. Sie sollen die biologischen Neuronen des Gehirns nachempfinden. Die Abbildung \ref{img:biological_neuron} von \cite{pahl-2024} zeigt eine stark vereinfachte biologische Nervenzelle.
+Künstliche neuronale Netze (\acrshort{KNN}) sind spezifische Algorithmen des maschinellen Lernens, die von der Struktur und der Funktionsweise des menschlichen Gehirns inspiriert sind. Die Abbildung \ref{img:biological_neuron} von \cite{pahl-2024} zeigt eine stark vereinfachte biologische Nervenzelle.
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.8\textwidth]{content/chapter_basics/images/biological_neuron.eps}
@@ -52,9 +52,9 @@ Neuronale Netze oder auch künstliche neuronale Netze (\acrshort{KNN}) sind spez
 	\label{img:biological_neuron}
 \end{figure}
 
-Bei Nervenzellen werden elektrische Eingangssignale über Dendriten aufgenommen und in den Zellkern geleitet. Dort werden die eingehenden Signale zusammen geführt und es bildet sich das Aktionspotential. Übersteigt es das Schwellenpotential der Zelle, so wird das Signal über das Axon abgeleitet, die Nervenzelle \glqq \textit{feuert}\grqq.\vspace{0.2cm}
+Biologische Nervenzellen reagieren auf elektrischen Reize, welche von Sinnesorgane oder anderen Nervenzellen stammen. Die Dendriten nehmen die elektrischen Signale auf und leiten diese an den Zellkern weiter. Dort erfolgt die Zusammenführung der eingehenden Signale und bildet das Aktionspotential. Übersteigt es das Schwellenpotential der Zelle, so wird das Signal über das Axon abgeleitet, die Nervenzelle \glqq \textit{feuert}\grqq. Diese Beschreibung ist die grundlegende Ausführung über die Arbeitsweise der biologischen Nervenzellen und erläutert und beachtet keine tiefer gehenden Prozesse.\vspace{0.2cm}
 
-Die kleinste Einheit in künstlichen neuronalen Netzen sind die Neuronen. Sie sind den biologischen Nervenzellen nachempfunden.
+Die nachempfundene Nervenzelle stellt die kleinste Einheit in künstlichen neuronalen Netzen und wird als Neuron bezeichnet. Die Abbildung \ref{img:artificial_neuron} zeigt die generelle Funktionsweise eines einfachen Neurons.
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.8\textwidth]{content/chapter_basics/images/artificial_neuron.eps}
@@ -63,7 +63,7 @@ Die kleinste Einheit in künstlichen neuronalen Netzen sind die Neuronen. Sie si
 	\label{img:artificial_neuron}
 \end{figure}
 
-Sie haben als Eingangswert einen Vektor und als Ausgangssignal ein Skalar. Außer in der Eingabe Schicht ist jedes Eingangssignal $x_n$ ein Ausgangssignal $y_{out}$ eines anderen Neuron. Die Wichtungen der Eingangssignale modellieren den synaptischen Spalt zwischen zwei biologischen Nervenzellen. Dieser kann ebenfalls verstärkten oder hemmend wirken. Alle Eingangssignale zusammen mit den Wichtungen, werden durch die Summenfunktion aufaddiert. Im Anschluss wird das \gls{bias} mit eingerechnet. Die Formel \ref{eq:sum_function} zeigt die Summenfunktion für $n$ Eingangssignale mit Beachtung des Bias Wert.
+Neuronen in neuronalen Netzen erhalten als Eingabewerte typischerweise einen Vektor und liefern ein skalares Ausgangssignal. Abgesehen von der Eingabeschicht, bei der die Eingangssignale direkt aus den Daten stammen, ist jedes Eingangssignal $x_n$ in den verborgenen und Ausgabeschichten das Ausgangssignal $y_{\text{out}}$ eines vorhergehenden Neurons. Die Gewichtungen der Eingangssignale modellieren dabei die synaptischen Verbindungen zwischen biologischen Neuronen, die entweder verstärkend oder hemmend wirken können. Alle gewichteten Eingangssignale werden durch die Summenfunktion aufaddiert, bevor ein \gls{bias} hinzugefügt wird. Die Gleichung \ref{eq:sum_function} zeigt die Summenfunktion für $n$ Eingangssignale unter Berücksichtigung des Bias-Wertes.
 
 \begin{equation} \label{eq:sum_function}
 	y_{sum} = x_{1} + x_{2} + \dots + x_{n} + b
@@ -82,11 +82,18 @@ Nach der Summenfunktion wird das Signal an die Aktivierungsfunktion übergeben. 
 
 Neben dieser einfachen Aktivierungsfunktion wie die \textit{Binary Step} gibt es viele weitere Aktivierungsfunktionen, beispielsweise die \textit{Sigmoidfunktion} oder \textit{ReLU (Rectified Linear Unit)} Funktion. Diese Aktivierungsfunktionen verwenden für die Berechnung immer das Ergebnis der Summenfunktion. Es gibt auch Aktivierungsfunktionen die alle Neuronen einer Schicht zur Berechnung verwenden. Zu diesen Funktionen zählen u.a. die Softmax- und die Maxout-Aktivierungsfunktion.\vspace{0.2cm}
 
-Das eben beschriebene Neuronen-Modell ist ein einfaches Modell, welches oft in Netzen wie \textit{Feedforward Neural Netzwerke (FNN)}, \textit{Rekurrente neuronale Netze (RNNs)} oder \textit{Long Short-Term Memory Networks (LSTM)} Anwendung findet. Andere Neuronen-Modelle wie beispielsweise das \textit{Leaky-Integrate-And-Fire} Modell, finde seine Anwendung in gepulsten Netzwerken. Mit diesen mathematischen Modellen wird versucht das biologische Nervensystem nachzubilden, mit all seinen stärken und schwächen. Die Forschung hat in den letzten Jahren große Fortschritte gemacht, mit immer besser werdender Technik und Verständnis der biologischen ist das Potenzial der neuronalen Netze noch nicht erschöpft.
+Das eben beschriebene Neuronen-Modell ist ein einfaches Modell, welches oft in Netzen wie \textit{Feedforward Neural Netzwerke (FNN)}, \textit{Rekurrente neuronale Netze (RNNs)} oder \textit{Long Short-Term Memory Networks (LSTM)} Anwendung findet. Andere Neuronen-Modelle wie beispielsweise das \textit{Leaky-Integrate-And-Fire} Modell, finde seine Anwendung in gepulsten Netzwerken. Mit diesen mathematischen Modellen wird versucht das biologische Nervensystem nachzubilden, mit all seinen stärken und schwächen. Die Forschung hat in den letzten Jahren bereits große Fortschritte gemacht, aber mit immer besser werdender Technik und verbesserten Verständnis der biologischen Abläufe ist das Potenzial der neuronalen Netze noch nicht erschöpft.
 
 
 \subsection{Deep Learning}
-Das Teilgebiet \textit{Deep Learning} versucht möglichst präzise Vorhersagen und Entscheidungen aus komplexen Daten zutreffen. Hierfür werden tiefe neuronale Netze verwendet. Das sind Netze mit vielen Hidden Layern zwischen der Ein- und Ausgabeschicht. Diese Strukturen erlauben die Verarbeitung und Analyse komplexer Datenmuster.
+Das Teilgebiet \textit{Deep Learning} versucht möglichst präzise Vorhersagen und Entscheidungen aus komplexen Daten zutreffen. Hierfür werden tiefe neuronale Netze verwendet. Das sind Netze mit mehreren versteckten Schichten zwischen der Ein- und Ausgabeschicht. Jede Schicht verarbeitet Daten, extrahiert Merkmale und übergibt diese an die nächste Schicht. Diese Struktur und Arbeitsweise erlauben die Verarbeitung und Analyse komplexer Datenmuster in großen Datenmengen.\vspace{0.2cm}
+
+Durch den Einsatz von Deep Learning Methoden können relevante Merkmale aus Daten extrahiert werden ohne manuelles Feature-Engineering. Auch erreichen die Methoden eine hohe Genauigkeit und können an eine Vielzahl von Aufgaben angepasst werden.\vspace{0.2cm}
+
+Die großen Herausforderungen im Bereich Deep Learning liegen in den riesigen Datenmengen, die hohen Rechenleistungen welche das Training benötigt und die schwierige Nachvollziehbarkeit der durch Deep Learning getroffenen Entscheidungen.\vspace{0.2cm}
+
+Deep Learning hat den vergangenen Jahren viele Anwendungsbereiche erschlossen, darunter auch natürliche Sprachverarbeitung, wie Übersetzung, Textveränderung oder Textgenerierung. 
+%---------------------------------------------------------------------------------------------------
 
 
 \section{Natural Language Processing}
@@ -96,36 +103,36 @@ NLP wird aber auch in anderen Bereichen eingesetzt. Mithilfe von NLP können Bil
 
 Zunehmend findet NLP Einsatz im unternehmerischen Bereich. Hier werden vor allem Prozesse automatisiert um die Produktivität der Mitarbeiter zu steigern. Neben Aufgaben wie Kundensupport, Datenanalyse oder Dokumentenverwaltung kommt NLP auch in der Entwicklung von Software zum Einsatz. Hierbei werden fast alle Segmente der Entwicklung abgedeckt, von der Codegenerierung über Test und Qualitätsmanagement bis hin zur Bereitstellung.\vspace{0.2cm}
 
-Die ersten große Erfolge hatte NLP mit neuronalen Netzen wie \textit{Feedforward Neural Networks} und \textit{Convolutional Neural Networks}, wie \cite{goldberg-2016} zeigt. Mit der Einführung von ChatGPT und BERT, wurde auch hier die neuen Transformer Modellen eingesetzt. Die Forschungen im Bereich NLP haben die großen Sprachmodelle erst ermöglicht.
+Die ersten große Erfolge hatte NLP mit neuronalen Netzen, beispielsweise mit \textit{Feedforward Neural Networks} und \textit{Convolutional Neural Networks}, wie \cite{goldberg-2016} zeigt. Mit der Einführung von ChatGPT und BERT, wurde auch hier die neuen Transformer Modellen eingesetzt. Die Forschungen im Bereich NLP haben die großen Sprachmodelle erst ermöglicht.
+
+%---------------------------------------------------------------------------------------------------
 
 
 \section{Large Language Model}
 Die Teilgebiete Deep Learning und Natural Language Processing haben es den großen Sprachmodellen \acrshort{LLM} ermöglicht kommunikationsfähig zu werden. Sie verstehen Anfragen und können Antworten generieren. Die LLMs sind in der Lage Bilder und andere Medien wie Video oder Audio zu generieren.\vspace{0.2cm}
 
-Die heutigen 
-
 Diese Modelle wurden mit sehr großen Datenmengen trainiert und sind daher in der Lage natürliche Sprache zu verstehen.
 
+
 \subsection{Grundlagen}
-%Die großen Sprachmodelle oder Large Language Models sind darauf ausgelegt menschliche Sprache zu verstehen. Durch Textanalyse und Verarbeitung der Textbausteine durch \textit{Tokenisierung} und Vorhersage kommender Textbausteine.\vspace{0.2cm}
+Die großen Sprachmodelle können menschliche Sprache arbeiten. Sie sind speziell für die Lösung  sprachbezogene Probleme geeignet, wie Textgenerierung, Klassifizierung und Übersetzung. Sie nehmen Anfragen sog. \textit{Prompts} entgegen und errechnen daraus die wahrscheinlichste Antwort. Des Weiteren können Prompts als Anweisung (instruction-tuning) oder in Dialogform (chat fine-tuning) gestellt werden. Die meisten der heutigen großen Sprachmodelle verwenden die Transformer Technik.\vspace{0.2cm}
 
-Die großen Sprachmodelle können menschliche Sprache arbeiten. Sie sind speziell für die Lösung  sprachbezogene Probleme geeignet, wie Textgenerierung, Klassifizierung und Übersetzung. Sie nehmen Anfragen sog. \textit{Prompts} entgegen und errechnen daraus die wahrscheinlichste Antwort. Des Weiteren können Prompts als Anweisung (instruction-tuning) oder in Dialogform (chat fine-tuning) gestellt werden. Die heutigen Sprachmodelle sind Modelle, welche die Transformer Technik verwenden.
-
-Die grundlegende Funktionsweise der Large Language Models kann in vier Hauptkomponenten unterteilt werden,
-
+Die grundlegende Funktionsweise der Large Language Models kann in vier Teilschritte unterteilt werden,
 \begin{enumerate}
-	\item Tokenisierung: zerlegen der Texte in einzelne Token
-	\item Embedding: Vergleiche mit anderen Vektoren und Einordnung in einer Gesamtstruktur
-	\item Vorhersage: Wahrscheinlichkeit des nächsten Tokens berechnen
-	\item Dekodierung: Auswahl der Ausgabestrategie
+	\item Tokenisierung: zerlegen der Texte in einzelne Token.
+	\item Embedding: Vergleiche mit anderen Vektoren und Einordnung in einer Gesamtstruktur.
+	\item Vorhersage: Wahrscheinlichkeit des nächsten Tokens berechnen.
+	\item Decodierung: Auswahl der Ausgabestrategie.
 \end{enumerate}
+
+Durch die mögliche hochgradige Parallelisierung kann in diesen Modellen die Trainingszeit erheblich verkürzt werden, was ihre Effizienz steigert. Des Weiteren sind diese Modelle sehr flexibel und für verschiedene Aufgaben eingesetzt werden.\vspace{0.2cm}
+
+Diese Technik hat die Leistungsfähigkeit der LLMs erheblich gesteigert und versetzt Modelle in der Lage den Kontext von Worten in Sätzen zu verstehen und Abhängigkeiten zu modellieren. Beispiele für Modelle die diese Technik nutzen, sind unter anderem GPT-3, BERT und T5.
 
 
 \subsection{Grenzen und Probleme bei LLMs}
-Auch wenn Künstliche Intelligenz mit ihren großen Sprachmodellen in vielen Bereichen der privaten Nutzer und in den Prozessen von Unternehmen immer präsenter wird, haben die diese auch Grenzen. Im folgen werden kurz die wichtigsten Grenzen und Probleme erläutert.
-
+Auch wenn Künstliche Intelligenz mit ihren großen Sprachmodellen in vielen Bereichen der privaten Nutzung und in den Prozessen von Unternehmen immer präsenter wird, hat diese Technologie auch Grenzen. Im folgen werden kurz die wichtigsten Grenzen und Probleme erläutert.
 % https://www.unite.ai/de/Die-Bek%C3%A4mpfung-von-Halluzinationen-in-gro%C3%9Fen-Sprachmodellen-ist-ein-%C3%9Cberblick-%C3%BCber-modernste-Techniken/
-
 
 \subsubsection{Ressourcenverbrauch}
 Mit  dem Aufkommen der großen Sprachmodelle ist auch der Verbrauch an Ressourcen enorm angestiegen. Dabei stehen diese nur in einem begrenzten Maß zur Verfügung. Kleine und mittlere Unternehmen kommen hier schnell an ihre Grenzen und nutzen daher die Modelle der Anbieter wie OpenAI, Google oder Microsoft. Auch hier gilt Ressourcenbegrenzung, sodass die Modelle nicht unendlich groß werden können. Die folgenden Ressourcen, die hier genannt werden, haben direkten Einfluss auf die Modelle und deren Betrieb,
@@ -138,54 +145,77 @@ Mit  dem Aufkommen der großen Sprachmodelle ist auch der Verbrauch an Ressource
 	\item Finanzen
 \end{myitemize}
 
-Im Lebenszyklus der großen Sprachmodelle werden Ressourcen in unterschiedlichen Mengen benötigen.\vspace{0.2cm}
+Im Lebenszyklus der großen Sprachmodelle werden Ressourcen in unterschiedlichen Mengen benötigen. So ist beispielsweise die Rechenleistung beim Training der Modelle enorm hoch.
 
-%-------------------------------------------------------------------------------------------------
+\subsubsection{Datenmengen}
+Ein weiteres Problem, vor dem die Entwickler der Modelle stehen, sind die riesigen Datenmengen, die große Sprachmodelle für das Training benötigen. Diese Daten müssen zuvor gesammelt, kuratiert und gelabelt werden. Diese Prozesse sind zeitaufwändig und kostspielig.
+
+\subsubsection{Interpretierbarkeit}
+Da die Ergebnisse stark von den Trainingsdaten abhängen, die nicht immer offen liegen und die Modelle hochkomplex sind, ist ein Ergebnis schwer nachvollziehbar. Dies erschwert auch das Aufspüren von Fehlern im Bias und den Modellen.
+
+\subsubsection{Probleme bei der Generierung von Texten}
+Vor allem bei der Generierung von Texten können Halluzinationen auftreten. Dann erzeugen die Modelle falsche oder unsinnige Informationen, die aber plausibel erscheinen. Ein weiteres Problem ist die Erzeugung diskriminierender Informationen. Diese entstehen beispielsweise durch nicht repräsentative Trainingsdaten, fehlerhafte Label in Trainingsdatensätzen und fehlendes Gesamtbild.\vspace{0.2cm}
+
+Die genannten Probleme und Grenzen lassen sich auch bei der Codegenerierung beobachten. Die generierten Codes können plausible erscheinen, funktionieren aber nicht oder werfen Fehler. Fehlenden Informationen über geeignete Frameworks und Funktionen veranlassen die Modelle Klassen und Methoden aus anderen Kontexten abzuleiten oder vermischen Codesegmente.
 
 
 \subsection{Verständnis für die LLMs}
 Viele Nutzer (Privatnutzer aber auch Firmen) wissen nicht, was hinter den großen Sprachmodellen steckt oder wie diese funktionieren. Diese Unwissenheit birgt die Gefahr, dass Nutzer nicht korrekte Eingabe in die LLMs übergibt und dann die Ergebnisse der LLMs falsch interpretieren oder die LLMs nicht korrekte Aussagen trifft. Werden aufgrund dieser falschen Ergebnisse Entscheidungen getroffen, können diese enorme finanzielle und personelle Einbußen nach sich ziehen. Zudem kann es weiterhin zu Desinformation, Diskriminierung, juristische Probleme und zum Vertrauensverlust in die Technologie führen.\vspace{0.2cm}
 
-Um diesen Problemen bei Entwicklern entgegenzuwirken, sind vor, während und nach der Einführung einer LLM zur Codeentwicklung, die Nutzer aufzuklären. Sie müssen sich im klaren sein, dass LLMs Fehler produzieren und es erforderlich ist, die Ergebnisse zu validieren. Nur so kann die ein Vertrauensverlust und eine stetige Weiterentwicklung der Modelle erfolgen.
-
-%-------------------------------------------------------------------------------------------------
+Um diesen Problemen bei Entwicklern entgegenzuwirken, sind vor, während und nach der Einführung einer LLM zur Codeentwicklung, die Nutzer aufzuklären. Sie müssen sich im Klaren sein, dass LLMs Fehler produzieren können und es erforderlich ist, die Ergebnisse zu validieren. Nur so kann einem Vertrauensverlust entgegengewirkt werden und eine stetige Weiterentwicklung der Modelle erfolgen.
 
 
-\subsection{Auswahl der LLMs}
-Die folgenden Modelle werden getestet und die Ergebnisse anschließend evaluiert.
+\subsection{Auswahl der LLMs}\label{subsec:llm_selection}
+Die folgenden Modelle werden getestet und die Ergebnisse anschließend evaluiert. Für die Evaluation werden offene und geschlossene Modelle verwendet. Die Seiten um Hugging Face und Ollama bietet eine Reihe von offenen Modellen, die explizit zur Codegenerierung entwickelt wurden. Als alternative dazu wird der Test auch an geschlossenen Modellen von Google und OpenAI durchgeführt.\vspace{0.2cm}
+
+Alle bekommen die gleichen Fragen aus dem HumanEval-XL Datensatz und werden jeweils zehnmal hintereinander abgefragt. Aus diesen Daten errechnet die \texttt{pass@k} Methodik welche Zuverlässigkeit der Modelle für die Codegenerierung erreichen.
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|c|c|c|c|c|l|}
 		\hline
 		\textbf{Modell} & \textbf{Parameter} & \textbf{Größe} & \textbf{Sprache} & \textbf{offen} & \textbf{Ausführung}  & \textbf{Benchmark} \\
 		\hline
-		Qwen2.5-coder     & 32b &  19 GB & German & X & lokal  & HumenEval-XL \\
-		%		CodeGeeX          &  9B & German &  & & lokal & HumenEval-XL \\
-		Deepseek-coder-V2 & 16B & 8,9 GB & German &  X & lokal  & HumenEval-XL \\
-		Llama3.1-Claude   &  8b & 4,7 GB & German &  X & lokal  & HumenEval-XL \\
-		Llama3.2          &  3b & 2,0 GB & German &  X & lokal  & HumenEval-XL \\
-		Codellama         & 13b & 7,4 GB & German &  X & lokal  & HumanEval-XL \\
-		%		ChatGPT3.5        & & & German &  & online & HumenEval-XL \\
-		Gemini Flash 1.5  & k.A.& k.A.   & German &  - & online & HumenEval-XL \\
-		%		Opus              & & & German &  & online & HumenEval-XL \\
-		%		Claude 3          & &  German & & & online & HumenEval-XL \\
+		Qwen2.5-coder     &  32b &  19 GB & German & X & lokal/HF  & HE-XL \\
+		%		CodeGeeX          &  9B & German &  & & lokal & HE-XL \\
+		Deepseek-coder-V2 &  16b & 8,9 GB & German & X & lokal/Ollama  & HE-XL \\
+		Llama3.1-Claude   &   8b & 4,7 GB & German & X & lokal/Ollama  & HE-XL \\
+		Llama3.2          &   3b & 2,0 GB & German & X & lokal/Ollama  & HE-XL \\
+		Codellama         &  13b & 7,4 GB & German & X & lokal/Ollama  & HE-XL \\
+		Mistral Small     &  22b &  12 GB & German & X & lokal/Ollama & HE-XL \\
 		\hline
-		\multicolumn{7}{|l|}{In Planung, wenn ich es schaffe} \\
+		\multicolumn{7}{|l|}{In Vorbereitung} \\
 		\hline
-		Llama3.3          & 70b &  43 GB & German &  X & lokal  & HumanEval-XL \\
+		ChatGPT3.5-turbo  & k.A. &   k.A. & German & - & online & HE-XL \\
+		ChatGPT4-turbo    & k.A. &   k.A. & German & - & online & HE-XL \\
+		Gemini 1.5 Pro    & k.A. &   k.A. & German & - & online & HE-XL \\
+		Gemini 2 Pro      & k.A. &   k.A. & German & - & online & HE-XL \\
+		%		Opus              & & & German &  & online & HE-XL \\
+		%		Claude 3          & &  German & & & online & HE-XL \\
+		\hline
+%		\multicolumn{7}{|l|}{In Planung, wenn ich es schaffe} \\
+%		\hline
+%		Llama3.3          & 70b &  43 GB & German & X & lokal  & HE-XL \\
+%		\hline
+		\multicolumn{7}{|l|}{HF: Hugging Face} \\
+		\multicolumn{7}{|l|}{HE-XL: HumanEval-XL} \\
 		\hline
 	\end{tabular}
+	\caption{Auswahl der LLMs für die Evaluierung}
 \end{table}
 
 %-------------------------------------------------------------------------------------------------
 
 
 \section{Koordinationsstrategien für LLMs}
-Die Large Languarge Models haben große Leistungen auf dem Gebiet der Verarbeitung natürlicher Sprache gezeigt. Zunehmend arbeiten mehrere LLMs für diese Aufgaben zusammen. In diesem Fall spricht man von Agenten, die jeweils eine LLM darstellen können.\vspace{0.2cm}
+Es gibt mehrere Ansätze, dass LLMs komplexe Probleme gemeinsam bearbeiten. Dabei übernehmen die LLMs unterschiedliche Aufgaben oder Teilaufgaben des Problems und tragen somit zur Gesamtlösung bei. Durch diese modulare Struktur ist es möglich, dass für jedes Teilproblem eine spezialisierte LLM einzusetzen. Ein weiterer Vorteil dieser Methoden ist die Verteilung des Problems auf mehrere Systeme, die voneinander unabhängig sind. Durch diese Zusammenarbeit können die LLMs effizienter und genauer antworten\vspace{0.2cm}
 
-Werden für unterschiedliche Aufgaben verschiedene Modelle verwendet, spricht man von Agenten. Ein Agent ist eine autonome Einheit. Sie ist in der Lage ihre Umwelt wahr zunehmen, Entscheidungen zu treffen und führt ihre Handlungen aus, um ein definiertes Ziel zu erreichen. Dies kann beispielsweise durch die \gls{bdi_architectur} umgesetzt werden. Jeder Agent ist auf unterschiedliche Aufgaben spezialisiert. In \cite{du-2024} werden Multi-Agenten-System mit Team aus der Softwareentwicklung verglichen und gleich gesetzt.\vspace{0.2cm}
+Des Weiteren sind die LLMs in der Lage mit externen Ressourcen zusammenarbeiten und Ergebnisse abfragen. So ist es möglich die Fähigkeiten der LLMs zu erweitern z.B. durch Datenbankabfragen, Web-Suche oder Steuerung von Hardware. Ein wichtiger Aspekt für die Koordination zwischen LLMs ist die Kommunikation. Diese ist entscheidend für die erfolgreiche Bearbeitung des Problems und koordinieren die LLMs.\vspace{0.2cm}
 
-Es gibt einige Methoden Large Language Model miteinander zu kombinieren, beispielsweise \glqq Pipeline-Architektur\grqq \ und \glqq Modular Approaches\grqq . Im Folgen Kapiteln werden die zwei Ansätze für die Zusammenarbeit von mehreren LLMs, \textit{Orchestrierung} und \textit{Multi-Agenten-System (MAS)} kurz erläutert.
+%Die Large Languarge Models haben große Leistungen auf dem Gebiet der Verarbeitung natürlicher Sprache gezeigt. Zunehmend arbeiten mehrere LLMs für diese Aufgaben zusammen. In diesem Fall spricht man von Agenten, die jeweils eine LLM darstellen können.\vspace{0.2cm}
+
+%Werden für unterschiedliche Aufgaben verschiedene Modelle verwendet, spricht man von Agenten. Ein Agent ist eine autonome Einheit. Sie ist in der Lage ihre Umwelt wahr zunehmen, Entscheidungen zu treffen und führt ihre Handlungen aus, um ein definiertes Ziel zu erreichen. Dies kann beispielsweise durch die \gls{bdi_architectur} umgesetzt werden. Jeder Agent ist auf unterschiedliche Aufgaben spezialisiert. In \cite{du-2024} werden Multi-Agenten-System mit Team aus der Softwareentwicklung verglichen und gleich gesetzt.\vspace{0.2cm}
+
+In den folgenden Kapiteln werden zwei Ansätze für die Zusammenarbeit von mehreren LLMs erläutert. Zum einen die \textit{Orchestrierung}, zum anderen die \textit{Multi-Agenten-System (MAS)}.
 
 \subsection{Orchestrierung von LLMs}
 Bei der Orchestrierung von LLMs wird die Steuerung, der Agenten mittels eines zentralisierten Systems umgesetzt, es erfolgt eine koordinierte Nutzung. Meist wird ein Problem in Teilprobleme zerlegt und die Agenten bearbeiten Teilprobleme meist parallel. Die zentrale Steuerung entscheidet welche Teilaufgabe, welcher Agent am besten geeignet ist für die Lösung der Teilaufgabe.\vspace{0.2cm}
@@ -199,9 +229,9 @@ Der Orchestrator übernimmt auch hier die oben beschriebenen Aufgaben. Ein Front
 Ein letzter wichtiger Agent könnte noch der NLP-Agent sein. Dieser Agent nimmt natürliche Sprachanweisungen und Anforderungen entgegen, übersetzt diese in technische Anforderungen als Prompt für die Sprachmodelle. Die Ergebnisse der Bearbeitung werden zum Schluss von dem Agenten in eine vom Menschlichen verständliche Sprache überführt und zurückgegeben.
 
 \subsection{Multi-Agenten-Systeme}
-Multi-Agenten-Systeme (\acrshort{MAS}) bestehen ebenfalls aus mehreren Agenten. Im Gegensatz zur Orchestrierung sind Multi-Agenten-Systeme in ihrer Steuerung dezentralisiert. Alle Agenten haben unterschiedliche Lösungsansätze für ein Problem. Je nach deren Fähigkeit hat dieser auch seine ganz eigenen Ziele, welche zu den anderen Agenten entweder als \gls{collaborative} oder als \gls{competitive} ausgerichtet sind. Die Hauptarbeit zur Lösungsfindung eines Problems übernimmt der Agent, mit dem besten Lösungsansatz für das Problem. Die anderen Agenten können den ausführenden Agenten unterstützen. Um die beste Lösung zu finden, müssen die Agenten untereinander kommunizieren.  Teil der Kommunikation kann es sein, einfache Informationen austauschen, um eine gemeinsame Strategie fest zulegen oder um zu Verhandeln, welcher Agent die Lösung eines Problems übernimmt.\vspace{0.2cm}
+Multi-Agenten-Systeme (\acrshort{MAS}) bestehen aus mehreren Agenten. Ein Agent ist eine autonome Einheit, die mit der Umwelt interagieren kann. Im Gegensatz zur Orchestrierung sind Multi-Agenten-Systeme in ihrer Steuerung dezentralisiert. Alle Agenten haben unterschiedliche Lösungsansätze für ein Problem. Je nach deren Fähigkeit hat dieser auch seine ganz eigenen Ziele, welche zu den anderen Agenten entweder \gls{collaborative} oder \gls{competitive} ausgerichtet sind. Die Hauptarbeit zur Lösungsfindung eines Problems übernimmt der Agent, mit dem besten Lösungsansatz für das Problem. Die anderen Agenten können den ausführenden Agenten unterstützen. Um die beste Lösung zu finden, müssen die Agenten untereinander kommunizieren.  Teil der Kommunikation kann es sein, einfache Informationen austauschen, um eine gemeinsame Strategie fest zulegen oder um zu Verhandeln, welcher Agent die Lösung eines Problems übernimmt.\vspace{0.2cm}
 
-Im Bereich der Webentwicklung mit MAS, könnte ein derartiges System wie folgt aussehen. Ein \textit{Frontend-Agent} ist für das Design und die Benutzeroberfläche verantwortlich. Hierbei erzeugt dieser Agent Ausgaben in HTML, JavaScript und CSS um die Oberflächen zu erstellen. Dazu kann er Frameworks, wie React verwenden und auf externe Designer Tool zugreifen. Ein weiterer Agent ist der \textit{Backend-Agent}, der für die serverseitige Anwendung zuständig ist. Er erstellt seine Funktionen in PHP, Python oder NodeJS. Der Backend-Agent hat Zugriff auf Frameworks und externe Bibliotheken. Der erstellt und verwaltet zudem die Datenbankoperationen (CRUD-Operations). Hinzu kommt noch ein \textit{Test-Agent}, welcher automatisierte Tests durchführt. Um die Funktionalität der Anwendung zu gewährleisten, arbeitet der Test-Agent mit dem Frontend- und Backend-Agent eng zusammen. Der Test-Agent stellt sicher, dass jegliche Codeänderung getestet wird und führt Unit-, Inetragtions- und End-to-End-Tests durch. Wird ein Fehler festgestellt, kann der Test-Agent ein Ticket erstellen oder direkt mit dem Frontend- oder Backend-Agenten kommunizieren.\vspace{0.2cm}
+Im Bereich der Webentwicklung mit MAS, könnte ein derartiges System wie folgt aussehen. Ein \textit{Frontend-Agent} ist für das Design und die Benutzeroberfläche verantwortlich. Hierbei erzeugt dieser Agent Ausgaben in HTML, JavaScript und CSS um die Oberflächen zu erstellen. Dazu kann der Agent Frameworks, wie React verwenden und auf externe Designer Tool zugreifen. Ein weiterer Agent ist der \textit{Backend-Agent}, welcher für die serverseitige Anwendung zuständig ist. Er erstellt seine Funktionen in PHP, Python oder NodeJS. Der Backend-Agent hat Zugriff auf Frameworks und externe Bibliotheken der gewählten Programmiersprache. Er erstellt und verwaltet zudem die Datenbankoperationen (CRUD-Operations). Hinzu kommt noch ein \textit{Test-Agent}, welcher automatisierte Tests durchführt. Um die Funktionalität der Anwendung zu gewährleisten, arbeitet der Test-Agent mit dem Frontend- und Backend-Agent eng zusammen. Der Test-Agent stellt sicher, dass jegliche Codeänderung getestet wird und führt Unit-, Inetragtions- und End-to-End-Tests durch. Wird ein Fehler festgestellt, kann der Test-Agent ein Ticket erstellen oder direkt mit dem Frontend- oder Backend-Agenten kommunizieren.\vspace{0.2cm}
 
 Ein weiterer Agent könnte ein \textit{Deploment-Agent} sein. Dieser führt automatische Depolyments in verschiedene Umgebungen (QA, Test oder Produktion) durch. Er ist in den Continuous Integration (CI) und Continuous Deployment (CD) Workflow integriert, welche die Bereitstellung auf verschiedenen Servern (VMware, Bare-Metal) und Cloud-Umgebungen (AWS, Azure, Google) bewerkstelligt. Des weitere könnten beispielsweise Security-Agent, Monitoring-Agent und Optimierungs-Agent Einsatz finden.\vspace{0.2cm}
 
@@ -209,20 +239,20 @@ Auch hier kann ein NLP-Agent zum Einsatz kommen und die Kommunikation zwischen M
 
 % https://medium.com/scisharp/understand-the-llm-agent-orchestration-043ebfaead1f
 
-%----------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------
+
 
 \section{Prompt Engineering}
-Prompt Engineering optimiert die Antworten große Sprachmodelle, ohne Parameter, wie Bias und Gewichte des Models ändern zu müssen. Dieser Bereich hat in den letzten Jahren enorm an Bedeutung gewonnen und sich zu einer eigenen Disziplin im Bereich der Künstlichen Intelligenz entwickelt.\vspace{0.2cm}
+Prompt Engineering optimiert die Antworten große Sprachmodelle, ohne Parameter, wie Bias und Gewichte des Models ändern zu müssen. Dieser Forschungsbereich hat in den letzten Jahren enorm an Bedeutung gewonnen und sich zu einer eigenen Disziplin im Bereich der Künstlichen Intelligenz entwickelt.\vspace{0.2cm}
 
 Ein Prompt oder Anweisung muss entweder als Anweisung oder als Frage gestellt werden. Dies kann, wie in \cite{amatriain-2024} beschrieben, in Form von einer einfachen Anweisung bis hin zu detaillierten Beschreibungen oder spezifischen Aufgaben erfolgen.
 
+
 \subsection{Prompt-Techniken}\label{subsec:prompt_technics}
-Siehe Prompting Techniques Hinweise für die Optimierung von Prompts.
-Die folgenden Techniken dienen dazu die Abfragen zu optimieren und somit eine bessere Antwort von den Sprachmodellen zu erhalten.
+% Siehe Prompting Techniques Hinweise für die Optimierung von Prompts.
+Die folgenden Techniken dienen dazu die Abfragen zu optimieren und somit eine bessere Antwort von den Sprachmodellen zu erhalten. In dieser Arbeit werden hauptsächlich \textit{Contextual Augmentation} und \textit{Meta-Prompts} verwendet.\vspace{0.2cm}
 
-In dieser Arbeit werden hauptsächlich \textit{contextual augmentation} und \textit{Meta-Prompts} verwendet.\vspace{0.2cm}
-
-\textbf{\textit{Kontextuelle Prompts}} haben neben der eigentlichen Eingabeaufforderung zusätzliche Informationen für die LLMs. Dazu gehören Kontextangaben, anzuwendende Programmiersprache, geforderte Bibliotheken, Angaben der Zielgruppe und Definition über die auszugebende Struktur wie Methoden oder Klassen.\vspace{0.2cm}
+\textbf{\textit{Contextual augmentation}} sind Prompts die neben der eigentlichen Eingabeaufforderung zusätzliche Informationen für die LLMs bereitstellen. Dazu gehören Kontextangaben, anzuwendende Programmiersprache, geforderte Bibliotheken, Angaben der Zielgruppe und Definition über die auszugebende Struktur wie Methoden oder Klassen.\vspace{0.2cm}
 
 Beispiel für einen kontextuellen Prompt:
 
@@ -257,13 +287,6 @@ Ausgabe der LLM:
 Es gibt weitere Prompt-Typen, die nicht relevant für diese Arbeit sind. Eine Zusammenfassung von Methodiken und deren Beurteilung kann \cite{chen-2023} entnommen werden.
 
 
-\subsection{Grenzen beim Prompt-Engineering für LLMs}
-Trotz der bemerkenswerten linguistischen Leistung, stoßen große Sprachmodelle an ihre Grenzen, unter anderem wie in \cite{amatriain-2024} beschrieben,
-
-%\section{Relevante Arbeiten}
-%In \cite{zhou-2022} wird der Prompt-Optimierungsprozess als Black-Box interpretiert. Der mit minimalen Eingaben ein menschenähnliches Niveau erreichen soll.
-
-
 \subsubsection{Prompttemplates}
 Um die Eingaben für Programmierer oder Nutzer und dessen Anfragen an LLMs zu vereinfachen, können Propmt-Templates verwendet werden. Diese eigenen sich im besonderen Maße für automatisierte Prompts.
 
@@ -278,11 +301,13 @@ Um die Eingaben für Programmierer oder Nutzer und dessen Anfragen an LLMs zu ve
 	[Erwartetes Ausgabeformat]
 \end{lstlisting}
 
-%-------------------------------------------------------------------------------------------------
 
+\subsection{Grenzen beim Prompt-Engineering für LLMs}
+Trotz der bemerkenswerten linguistischen Leistung, stoßen große Sprachmodelle an ihre Grenzen, unter anderem wie in \cite{amatriain-2024} beschrieben. Oft ist die Komplexität der Sprache für die LLMs ein großes Hindernis, da diese oft mehrdeutig sein kann und zu unerwarteten Aussagen seitens der LLM führen kann. Ebenso haben LLMs Probleme mit Sarkasmus und Ironie, was ebenfalls zu nicht erwünschten Ausgaben führen kann.\vspace{0.2cm}
 
-%\section{Grundlagen bei der Entwicklung von Webanwendungen}
-%Webanwendung
+Ein weiteres Kriterium sind die Modellbeschränkungen. Die Qualität der Trainingsdaten entscheidet oft über die Qualität der Antwort. Ebenfalls wirkt sich die Architektur auf die Art der zu bewältigenden Aufgaben aus. Nicht alle Modelle sind für alle Prompts geeignet. Modelle können zwar Muster in Daten erkennen, ihnen fehlt aber ein tiefes Verständnis für die Welt und ihnen fehlen Zusammenhänge zwischen Ereignissen.\vspace{0.2cm}
+
+Ein großes Problem stellen die praktischen Herausforderungen. Da ein guter Prompt ein iterativer Prozess ist, der Zeit und Geduld erfordert, welche oft nicht investiert wird. Hinzu kommen die Kosten kommerzieller Modelle, welche sich negativ auf die Gesamtkosten von Softwareprojekten auswirken kann.
 
 \section{Grundlagen der Webentwicklung}
 In diesem Unterkapitel soll kurz auf Anforderungen der Webentwicklung eingegangen werden.
@@ -299,7 +324,7 @@ Bei der Entwicklung von Webseiten werden längst schon die selben Prozesse und T
 \subsubsection{Einsatz von KI}
 Der Einsatz von Künstlicher Intelligenz kann in allen Entwicklungsphasen eingesetzt werden, angefangen von der Codegenerierung über die Bereitstellung mittels Pipeline bis zur Inhaltserstellung.\vspace{0.2cm}
 
-Der Einsatz von NL2Code steck hier noch in den Anfängen, bietet aber sehr gute Ansätze viele Aufgaben zu automatisieren oder als Werkzeug um die Entwicklung effizienter zu gestalten.\vspace{0.2cm}
+Der Einsatz von NL2Code steck hier noch in den Anfängen, bietet aber sehr gute Ansätze viele Aufgaben zu automatisieren oder als Werkzeug welches die Entwicklung effizienter gestalten kann.\vspace{0.2cm}
 
 Die Codegenerierung für Designelemente kann ebenso mittels NL2Code erfolgen wie komplexe Backendfunktionalitäten. Ebenso kann die vorherige Konzeption durch eine LLM erfolgen.
 

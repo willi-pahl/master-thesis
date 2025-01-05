@@ -63,7 +63,7 @@ Der Aufruf der UI, kann mittel Browser erfolgen. Hier wird die IP und der Port 8
 %----------------------------------------------------------------------------------------
 \newpage
 
-\subsection{Hugging Face Modelle}\label{sec:hugging_face_models}
+\subsection{Download der Hugging Face Modelle}\label{sec:hugging_face_models}
 Ein Hugging Face Modell kann wie im Listing \ref{lst:download_hugging_face_model_by_cache} gezeigt, heruntergeladen werden. Das Modell wird dann im Cache von Hugging Face gehalten und steht bis zum Löschen des Cache zur Verfügung.
 
 \begin{lstlisting}[language=python,caption={Laden der Modelle von Hugging Face und lokal 
@@ -157,15 +157,14 @@ load_model_from_huggingface(
 )
 \end{lstlisting}
 
+\subsection{Abfragen lokaler Modelle}
 Um die Modelle abzufragen, kommt der Code, welcher in Listing \ref{lst:call_model} zu sehen ist, zum Einsatz.
 
 \begin{lstlisting}[
 	language=python,
-	caption={Laden der Modelle von Hugging Face und lokal speichern},
+	caption={Abfragen der Modelle von Hugging Face und Ollama},
 	label=lst:call_model
 ]
-"""Create answers."""
-
 import os
 import json
 from transformers import AutoTokenizer, pipeline, AutoModelForCausalLM
@@ -261,7 +260,7 @@ def write_log(answer: str, key: str, task_id: str) -> None:
     :param task_id (str): _description_
     """
     file_name: str = f"{os.path.dirname(os.path.realpath(__file__))}/answer/"
-    file_name = f"{file_name}/{SUBFOLDER_NAME}/{task_id.replace('/', '-')}.json"
+    file_name = f"{file_name}/{SUBFOLDER_NAME}/{task_id.replace('/', '-')}.jsonl"
     answer = answer.replace("\n", r"\n")
     answer = answer.replace('"', r"\"")
     answer = f"\"{key}\":\"{answer}\""
@@ -295,4 +294,39 @@ def execute_prompt(task_id: int, model_type: str) -> bool:
         )
         current_count += 1
     return True
+\end{lstlisting}
+
+\subsection{Evaluation der Antworten von den Modellen}
+Das Listing \ref{lst:evaluation_search_generated_code} zeigt beispielhaft eine Suche nach Codezeilen in einer Antwort eines Modells. Die Methode \texttt{search\_generated\_code} muss auf jedes Modell angepasst sein.
+
+\begin{lstlisting}[
+	language=python,
+	caption={Evaluation der Modellantworten: Suche nach Codeausschnitten},
+	label=lst:evaluation_search_generated_code
+	]
+def search_generated_code(content: str) -> str:
+    """
+    Search the generated code in string, it is one line of file.
+    :param content (str): Answer from LLM.
+    :returns str: Generated code.
+    """
+    for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+        if content.startswith('{"result_' + str(i) + '":"'):
+            generated_code: str = content.split('{"result_' + str(i) + '":"')[1]
+            generated_code = generated_code[:-2]
+            generated_code = generated_code.strip()
+
+        if len(generated_code.split("```php")) > 1:
+            generated_code = generated_code.split("```php")[1]
+            generated_code = generated_code.split("```")[0]
+
+        if generated_code.startswith("<?php"):
+            generated_code = generated_code.split("<?php")[1]
+            generated_code = generated_code.split("?>")[0]
+
+        if len(generated_code.split(r"\n}\n")) > 0:
+            generated_code = generated_code.split(r"\n}\n")[0] + "\n}\n"
+
+        return generated_code
+    return ""
 \end{lstlisting}

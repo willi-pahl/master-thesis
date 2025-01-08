@@ -165,43 +165,10 @@ Viele Nutzer (Privatnutzer aber auch Firmen) wissen nicht, was hinter den große
 Um diesen Problemen bei Entwicklern entgegenzuwirken, sind vor, während und nach der Einführung einer LLM zur Codeentwicklung, die Nutzer aufzuklären. Sie müssen sich im Klaren sein, dass LLMs Fehler produzieren können und es erforderlich ist, die Ergebnisse zu validieren. Nur so kann einem Vertrauensverlust entgegengewirkt werden und eine stetige Weiterentwicklung der Modelle erfolgen.
 
 
-\subsection{Auswahl der LLMs}\label{subsec:llm_selection}
-Die folgenden Modelle werden getestet und die Ergebnisse anschließend evaluiert. Für die Evaluation werden offene und geschlossene Modelle verwendet. Die Seiten um Hugging Face und Ollama bietet eine Reihe von offenen Modellen, die explizit zur Codegenerierung entwickelt wurden. Als alternative dazu wird der Test auch an geschlossenen Modellen von Google und OpenAI durchgeführt.\vspace{0.2cm}
+%\subsection{Auswahl der LLMs}\label{subsec:llm_selection}
+%Die folgenden Modelle werden getestet und die Ergebnisse anschließend evaluiert. Für die Evaluation werden offene und geschlossene Modelle verwendet. Die Seiten um Hugging Face und Ollama bietet eine Reihe von offenen Modellen, die explizit zur Codegenerierung entwickelt wurden. Als alternative dazu wird der Test auch an geschlossenen Modellen von Google und OpenAI durchgeführt.\vspace{0.2cm}
 
-Alle bekommen die gleichen Fragen aus dem HumanEval-XL Datensatz und werden jeweils zehnmal hintereinander abgefragt. Aus diesen Daten errechnet die \texttt{pass@k} Methodik welche Zuverlässigkeit der Modelle für die Codegenerierung erreichen.
-
-\begin{table}[!ht]
-	\begin{tabular}{|l|c|c|c|c|c|l|}
-		\hline
-		\textbf{Modell} & \textbf{Parameter} & \textbf{Größe} & \textbf{Sprache} & \textbf{offen} & \textbf{Ausführung}  & \textbf{Benchmark} \\
-		\hline
-		Qwen2.5-coder     &  32b &  19 GB & German & X & lokal/HF  & HE-XL \\
-		%		CodeGeeX          &  9B & German &  & & lokal & HE-XL \\
-		Deepseek-coder-V2 &  16b & 8,9 GB & German & X & lokal/Ollama  & HE-XL \\
-		Llama3.1-Claude   &   8b & 4,7 GB & German & X & lokal/Ollama  & HE-XL \\
-		Llama3.2          &   3b & 2,0 GB & German & X & lokal/Ollama  & HE-XL \\
-		Codellama         &  13b & 7,4 GB & German & X & lokal/Ollama  & HE-XL \\
-		Mistral Small     &  22b &  12 GB & German & X & lokal/Ollama & HE-XL \\
-		\hline
-		\multicolumn{7}{|l|}{In Vorbereitung} \\
-		\hline
-		ChatGPT3.5-turbo  & k.A. &   k.A. & German & - & online & HE-XL \\
-		ChatGPT4-turbo    & k.A. &   k.A. & German & - & online & HE-XL \\
-		Gemini 1.5 Pro    & k.A. &   k.A. & German & - & online & HE-XL \\
-		Gemini 2 Pro      & k.A. &   k.A. & German & - & online & HE-XL \\
-		%		Opus              & & & German &  & online & HE-XL \\
-		%		Claude 3          & &  German & & & online & HE-XL \\
-		\hline
-%		\multicolumn{7}{|l|}{In Planung, wenn ich es schaffe} \\
-%		\hline
-%		Llama3.3          & 70b &  43 GB & German & X & lokal  & HE-XL \\
-%		\hline
-		\multicolumn{7}{|l|}{HF: Hugging Face} \\
-		\multicolumn{7}{|l|}{HE-XL: HumanEval-XL} \\
-		\hline
-	\end{tabular}
-	\caption{Auswahl der LLMs für die Evaluierung}
-\end{table}
+%Alle Modelle werden mit den gleichen Fragen aus dem HumanEval-XL-Datensatz getestet, wobei jede Abfrage zehnmal hintereinander durchgeführt wird. Basierend auf diesen Daten berechnet die \texttt{pass@k}-Methode die Zuverlässigkeit der Modelle in Bezug auf die Codegenerierung.
 
 %-------------------------------------------------------------------------------------------------
 
@@ -334,28 +301,4 @@ Die Codegenerierung für Designelemente kann ebenso mittels NL2Code erfolgen wie
 \section{Benchmark für LLM}
 Bei der Evaluierung großer Sprachmodell hinsichtlich des generierten Codes, gibt es einige Herausforderungen. Herkömmliche Methoden, wie BLUE-Score misst die Textähnlichkeiten nicht aber die funktionale Korrektheit des Codes und vernachlässigt auch den Kontext, in dem der Code erstellt wurde. Ein generierter Code kann in seiner Lösung stark von einer vorgegebenen Beispiellösung abweichen, trotzdem aber seine Funktionalität erfüllen. Menschliche Programmierer würden das mit verschiedenen Unit-Tests überprüfen, aus diesem Grund sollte der Code mit einer weiteren Methode geprüft werden.\vspace{0.2cm}
 
-Als Benchmark für die Bewertung der großen Sprachmodelle wird der HumanEval-XL verwendet, welche unter \href{https://github.com/FloatAI/humaneval-xl/tree/main}{https://github.com/FloatAI/humaneval-xl/tree/main} heruntergeladen werden können.\vspace{0.2cm}
-
-Der Benchmark besteht aus Prompt, die wie folgt aufgebaut sind,
-
-\begin{myitemize}
-	\item \textbf{task\_id}: Kennung der Datenprobe
-	\item \textbf{prompt}: Anfrage für das Modell, Funktionsheader und Docstring
-	\item \textbf{entry\_point}: Einstiegspunkt für den Test
-	\item \textbf{test}: Test für die geforderte Funktion
-	\item \textbf{description}: Beschreibung der Aufgabe
-	\item \textbf{language}: Kennung der Programmiersprache
-	\item \textbf{canonical\_solution}: Lösung für das Problem
-	\item \textbf{natural\_language}: Ländersprache in der Datei
-\end{myitemize}
-
-Durch diesen Aufbau werden neben dem eigentlichen Prompt ein Test, eine vorgeschlagene Lösung mitgeliefert, sowie weitere Metadaten mit geliefert. Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmark-Tests.
-
-\begin{figure}[!ht]
-	\includegraphics[width=0.8\textwidth]{content/chapter_intruduction/images/code_generation_humaneval_x.eps}
-	\centering
-	\caption{Codegeneration}
-	\label{img:code_generation_humaneval}
-\end{figure}
-
-%-------------------------------------------------------------------------------------------------
+Als Benchmark für die Bewertung der Sprachmodelle wird der HumanEval-XL verwendet, welche unter \href{https://github.com/FloatAI/humaneval-xl/tree/main}{https://github.com/FloatAI/humaneval-xl/tree/main} heruntergeladen werden können.

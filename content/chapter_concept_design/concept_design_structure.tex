@@ -1,0 +1,47 @@
+Da es in deiner Arbeit primär um die *Evaluation* und *Optimierung* von LLMs für die Codegenerierung und *nicht* um die Entwicklung einer kompletten Webanwendung geht, muss das Kapitel "Konzeption / Design" diesen Fokus widerspiegeln. Es geht weniger um die Architektur einer Webanwendung als vielmehr um das Design der *Experimente* und der *Prompt-Engineering-Strategien*.
+
+Hier ist ein Vorschlag für die Struktur des Kapitels "Konzeption / Design", der auf diesen Schwerpunkt zugeschnitten ist:
+
+\subsubsection{Kapitel: Konzeption / Design}
+
+Dieses Kapitel beschreibt, *wie* die im Grundlagenkapitel evaluierten LLMs für die Codegenerierung von Webanwendungen untersucht und optimiert werden. Es legt den methodischen Rahmen für die nachfolgende Implementierung (der Experimente) fest.
+
+%**Mögliche Unterpunkte:**
+
+%1.  **Definition der Evaluierungsziele:**
+%*   Welche Aspekte der Codegenerierung sollen evaluiert werden? (z.B. Korrektheit des generierten Codes, Performance (Ausführungsgeschwindigkeit), Codequalität (Lesbarkeit, Wartbarkeit), Einhaltung von Coding Standards, Sicherheit, etc.)
+%*   Welche konkreten Metriken werden zur Messung dieser Aspekte verwendet? (z.B. Anzahl der Fehler im generierten Code, Ausführungszeit in Millisekunden, statische Codeanalyse-Metriken, etc.)
+%*   Dieser Abschnitt stellt sicher, dass die Evaluation messbar und reproduzierbar ist.
+
+%2.  **Auswahl der LLMs und deren Konfiguration:**
+%*   Welche LLMs werden konkret in den Experimenten verwendet? (Begründung basierend auf den Ergebnissen des Grundlagenkapitels)
+%*   Welche spezifischen Parameter und Einstellungen der LLMs werden verwendet? (z.B. Temperatur, maximale Tokenanzahl, Top-p Sampling, etc.)
+%*   Werden die LLMs direkt über ihre APIs angesprochen oder werden Frameworks/Bibliotheken verwendet?
+%*   Dieser Abschnitt legt die experimentelle Basis fest.
+
+%3.  **Design der Experimente:**
+%*   Welche Arten von Code sollen generiert werden? (z.B. einfache HTML-Formulare, komplexe JavaScript-Funktionen, serverseitiger Code in Python/Node.js, etc.)
+%*   Wie werden die Testfälle für die Evaluation generiert? (z.B. manuelle Erstellung, automatische Generierung, Verwendung von bestehenden Code-Snippets, etc.)
+%*   Wie groß ist der Umfang der Testfälle? (Anzahl der zu generierenden Code-Snippets)
+%*   Wie werden die Ergebnisse der LLMs verglichen? (z.B. Vergleich mit Referenzcode, manuelle Überprüfung, automatische Tests, etc.)
+%*   Dieser Abschnitt ist zentral für die Arbeit, da er die methodische Vorgehensweise der Evaluation beschreibt.
+
+%4.  **Konzeption des Prompt-Engineerings:**
+%*   Welche Strategien für das Prompt-Engineering werden untersucht? (z.B. Few-Shot-Prompting, Chain-of-Thought-Prompting, Verwendung von Code-Kommentaren als Prompts, etc.)
+%*   Wie werden die Prompts aufgebaut sein? (z.B. klare Anweisungen, Beispiele, Kontextinformationen, etc.)
+%*   Werden verschiedene Prompt-Varianten für die gleichen Code-Generierungsaufgaben verwendet, um deren Einfluss auf die Ergebnisse zu untersuchen?
+%*   Dieser Abschnitt ist besonders wichtig, da er sich mit der Optimierung der LLMs durch Prompt-Engineering beschäftigt.
+
+%5.  **Evaluationsumgebung:**
+%*   Welche Hardware und Software werden für die Experimente verwendet? (z.B. CPU, GPU, Betriebssystem, Programmiersprachen, Bibliotheken, etc.)
+%*   Wie wird die Reproduzierbarkeit der Experimente sichergestellt? (z.B. Verwendung von Versionskontrolle, Dokumentation der Umgebung, etc.)
+
+\subsubsection{Beispiel}
+
+Im Grundlagenkapitel wurden verschiedene LLMs hinsichtlich ihrer Fähigkeit zur Generierung von JavaScript-Code evaluiert. Im Konzeptionskapitel könnte nun festgelegt werden, dass drei dieser LLMs (z.B. Codex, GPT-3.5-turbo, Gemini) anhand von 50 verschiedenen JavaScript-Funktionen evaluiert werden. Die Funktionen sollen unterschiedliche Komplexitätsgrade aufweisen (einfache Funktionen, Funktionen mit Schleifen und Bedingungen, Funktionen mit DOM-Manipulation). Für jede Funktion werden drei verschiedene Prompt-Varianten erstellt: ein einfacher Prompt, ein Prompt mit Code-Kommentaren als Kontext und ein Prompt mit zwei Beispiel-Funktionen (Few-Shot-Prompting). Die Korrektheit des generierten Codes wird durch automatische Unit-Tests überprüft.
+
+\subsubsection{Abgrenzung zur Implementierung}
+
+Die Implementierung setzt die im Konzeptionskapitel definierten Experimente und Prompt-Engineering-Strategien konkret um. Hier wird der Code geschrieben, die Experimente durchgeführt und die Ergebnisse gesammelt. Das Konzeptionskapitel dient als detaillierte "Blaupause" für die Implementierung.
+
+Durch diese Struktur wird deutlich, dass es in deiner Arbeit um die systematische *Untersuchung* und *Verbesserung* der LLM-basierten Codegenerierung geht und nicht um die Entwicklung einer konkreten Webanwendung. Das Kapitel "Konzeption / Design" legt den methodischen Grundstein für diese Untersuchung.

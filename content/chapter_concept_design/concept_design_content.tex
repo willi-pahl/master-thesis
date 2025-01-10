@@ -29,28 +29,23 @@ Beide Verfahren \texttt{phpmetrics} und \texttt{SonarQube} benötigen für die A
 %*   Dieser Abschnitt legt die experimentelle Basis fest
 
 %*   Welche LLMs werden konkret in den Experimenten verwendet? (Begründung basierend auf den Ergebnissen des Grundlagenkapitels)
-
 Für die Evaluation werden experimentell einige freie und kommerzielle Modelle ausgewählt und miteinander verglichen. Hauptsächlich wurden bei den freien Modellen, jene ausgewählt welche den Fokus auf die Codegenerierung legen und mit diesem Argument beworben werden. Als Referenz sollen die kommerziellen Modelle dienen, da durch hier weite Verbreitung und breite Nutzer ihre Daten stetig erweitern und die Entwicklung vorantreiben.\vspace{0.2cm}
 
 Im Folgenden werden die ausgewählten LLMs kurz vorgestellt und warum diese gewählt wurden. Die Reihenfolge stellt an dieser Stelle keine Wertung der LLM oder über deren generierten Inhalte dar.\vspace{0.2cm}
 
-Das \textbf{Qwen2.5-Coder}-Modell zeichnet sich durch seine spezialisierte Architektur für die Codegenerierung aus. Trainiert, um sowohl syntaktisch korrekten als auch funktional hochwertigen Code zu produzieren, integriert es fortschrittliche Mechanismen zum Kontextverständnis und semantisch sinnvolle Ausgabe. Es findet Anwendung in verschiedenen Bereichen der Softwareentwicklung, insbesondere in der Web- und Anwendungsprogrammierung.\vspace{0.2cm}
+Das \textbf{Qwen2.5-Coder}-Modell zeichnet sich durch seine spezialisierte Architektur für die Codegenerierung aus. Trainiert, um sowohl syntaktisch korrekten als auch funktional hochwertigen Code zu produzieren, integriert es fortschrittliche Mechanismen zum Kontextverständnis und semantisch sinnvolle Ausgabe. Es findet Anwendung in verschiedenen Bereichen der Softwareentwicklung, insbesondere in der Web- und Anwendungsprogrammierung. Die Qwen2.5-Coder Modellbeschreibung ist \cite{qwen-2024} und \cite{hui-2024} entnommen und wird in den Arbeiten vertieft.\vspace{0.2cm}
 
-\textbf{Deepseek-Coder-V2} ist die zweite Generation der Deepseek-Coder-Reihe und bietet verbesserte Fähigkeiten zur Codegenerierung und -optimierung. Das Modell nutzt fortschrittliche Suchalgorithmen, um präzisere und effizientere Codestücke zu erstellen. Es ist insbesondere für seine hohe Genauigkeit bei der Generierung komplexer Algorithmen und Datenstrukturen bekannt.\vspace{0.2cm}
+\textbf{Deepseek-Coder-V2} ist die zweite Generation der Deepseek-Coder-Reihe und bietet verbesserte Fähigkeiten zur Codegenerierung und -optimierung. Das Modell nutzt fortschrittliche Suchalgorithmen, um präzisere und effizientere Codestücke zu erstellen. Es ist insbesondere für seine hohe Genauigkeit bei der Generierung komplexer Algorithmen und Datenstrukturen bekannt. Die Modellbeschreibung ist unteranderem aus \cite{deepseek-ai-2024} und \cite{cui-2024} entnommen. Des Weiteren wird in beiden Arbeiten das Modell mit verschiedenen Open-Source und Close-Source Modellen verglichen.\vspace{0.2cm} 
 
-\textbf{Llama3.1-Claude} stellt eine spezialisierte Version der Llama3-Serie dar, die auf die Generierung und Optimierung von Code ausgelegt ist. Das Modell kombiniert die Stärken von LLMs mit domänenspezifischen Anpassungen, um robuste und fehlerresistente Codefragmente zu generieren. Es bietet hohe Effizienz und Genauigkeit, besonders bei längeren Codeabschnitten.\vspace{0.2cm}
+Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Milliarden Parametern zu den kleineren Modellen von MetaAI. Beide Modelle basieren auf dem LLama3.1 Modell, das Llama3.1-Claude ist aber mit anderen Systemaufforderungen erstellt wurden. Hierfür wurden die Systemaufforderungen vom Claude Sonnet 3.5 der Firma Anthropic’s verwendet, nachzulesen unter \cite{ollama_page_llama31_claude}. Ein ähnliches Modell ist auf Hugging Face veröffentlicht \cite{huggingface_page_llama31_claude}. Eine Modelcard mit weiteren Informationen zum Modell ist unter \cite{meta-llama-no-date} zu finden.\vspace{0.2cm}
 
-\textbf{Llama3.2} ist eine Weiterentwicklung der Llama-Modellreihe und bietet verbesserte Leistung in der Codegenerierung. Durch Optimierungen in der Modellarchitektur und der Trainingspipeline erreicht Llama3.2 eine gesteigerte Genauigkeit und Effizienz bei der Bearbeitung komplexer Programmieraufgaben, insbesondere in der Webentwicklung und der automatisierten Codierung.\vspace{0.2cm}
+\textbf{Mistral} ist ein modernes leistungsfähiges Sprachmodell, welches nicht speziell für die Codegenerierung und -analyse entwickelt wurde. Es verwendet fortschrittliche Transformer-Architekturen und ist für eine Vielzahl von Aufgaben einsetzbar. Darunter fallen beispielsweise natürliche Sprachverarbeitung, Textzusammenfassungen, maschinelle Übersetzung und Textklassifizierung. Dieses Modell ausgewählt, um ein Modell zu evaluieren, welches nicht speziell auf Codegenerierungsaufgaben trainiert wurde. In der Arbeit \cite{eberhardinger-2024} wurde Mistral, mit verschiedenen Modelle zur Spielecodegenerierung verglichen. Während in \cite{quan-2024} eine Evaluation für natürlichsprachlicher Erklärungen, Mistral mit anderen Modellen verglichen wurde.\vspace{0.2cm}
 
-\textbf{Mistral} ist ein modernes Sprachmodell, das speziell für die Codegenerierung und -analyse entwickelt wurde. Es verwendet fortschrittliche Transformer-Architekturen, um kontextbewusste und syntaktisch korrekte Codevorschläge zu machen. Mistral ist bekannt für seine Flexibilität und die Fähigkeit, mehrere Programmiersprachen effizient zu unterstützen.\vspace{0.2cm}
+\textbf{ChatGPT 3.5} und das Nachfolgemodell \textbf{ChatGPT 4}, entwickelt von OpenAI, sind vielseitig einsetzbare Close-Source Modelle. Neben allgemeinen textuellen Einsatzgebieten kann es für die Codegenerierung eingesetzt werden. Seit November 2022 ist das Modell ChatGPT 3.5 für alle kostenlos nutzbar und wird von sehr vielen Nutzer eingesetzt. Mit diesen Daten werden neue Modelle, wozu auch ChaGPT 4 zählt ständig neu trainiert. Dadurch werden die Modelle immer besser. Die Fallstudie \cite{ahmed-2025} die Bewertung des Nutzens von ChatGPT 4 für die Gestaltung einer barrierefreien Webseite. Eine Übersicht über die Modelle ist unter \cite{openai_model_overview} einsehbar.\vspace{0.2cm}
 
-\textbf{ChatGPT 3.5}, entwickelt von OpenAI, ist ein vielseitiges Sprachmodell, das sowohl für allgemeine textuelle als auch programmatische Aufgaben verwendet wird. Es bietet eine solide Leistung in der Codegenerierung, mit besonderem Fokus auf Benutzerinteraktion und Konversation. Das Modell zeigt gute Ergebnisse in der Erstellung und Anpassung einfacher bis mittelkomplexer Codestrukturen.\vspace{0.2cm}
+Mit \textbf{Gemini 1.5} präsentiert Google ein Modell zur Verarbeitung von natürlicher Sprache und stellt es zur freien Nutzung zur Verfügung. Genau wie ChatGPT nutzt auch Google die Nutzereingaben, um neue Modelle zu trainieren, was zur Weiterentwicklung für und somit zum neuen Modell \textbf{Gemini 2}. Wie in \cite{siam-2024} beschrieben, setzen auch die Gemini Modelle die Transformer-Architektur ein, was sie dazu befähigt, komplizierte Sprachmuster zu erkennen und präzise Vorhersagen zutreffen. In \cite{siam-2024} wird Gemini 1.5 mit Aufgaben zur Codegenerierung mit ChatGPT und Copilot vergleichen. Nach \cite{elgedawy-2024} kann sich das Gemini-Ultra-Modell beim MMLU-Benchmark sogar mit menschlichen Experten messen und erschließt eine breite Palette von Anwendungsbereichen. Hier wurden die Fähigkeiten zur Codegenerierung an Sicherheitsfragen im E-Commerce Bereich getestet. Ein Überblick über die Gemini Modelle ist unter \cite{google_gemini_model_overview} zu finden.\vspace{0.2cm}
 
-\textbf{ChatGPT 4} ist die neueste und leistungsstärkste Version der ChatGPT-Serie. Mit verbesserten Fähigkeiten zur Sprach- und Kontextverarbeitung übertrifft es seine Vorgänger in der Generierung präziser und komplexer Codes. Das Modell wird häufig für anspruchsvolle Programmieraufgaben eingesetzt und zeichnet sich durch seine hohe Anpassungsfähigkeit an unterschiedliche Codierungsanforderungen aus.\vspace{0.2cm}
-
-\textbf{Gemini 1.5} ist ein Modell von Google, das speziell für die Generierung von Code und die Verarbeitung natürlicher Sprache entwickelt wurde. Es basiert auf multimodalen Eingaben und nutzt fortschrittliche Techniken zur Verbesserung der Codequalität und -konsistenz. Gemini 1.5 zeigt eine hohe Effizienz bei der Bearbeitung umfangreicher Programmieraufgaben.\vspace{0.2cm}
-
-\textbf{Gemini 2} repräsentiert die neueste Generation der Gemini-Modellreihe und bietet weiterentwickelte Fähigkeiten in der Codegenerierung. Durch die Kombination von fortschrittlichen Sprachverarbeitungstechniken und tiefen neuronalen Netzwerken ermöglicht es die Erstellung von hochwertigem und optimiertem Code für komplexe Softwareprojekte. Gemini 2 hebt sich durch seine besonders hohe Präzision und Flexibilität in der Codegenerierung hervor.\vspace{0.2cm}
+Neben den genannten Quellen sind die Herstellerseite eine gute Quelle weiterführende Informationen einzuholen.\vspace{0.2cm}
 
 Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Modelle.\vspace{0.2cm}
 
@@ -62,7 +57,8 @@ Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Mode
 %		Qwen2.5-coder     &  32b &  19 GB & German & X & lokal/HF  & HE-XL \\
 		%		CodeGeeX          &  9B & German &  & & lokal & HE-XL \\
 %		Deepseek-coder-V2 &  16b & 8,9 GB & German & X & lokal/Ollama  & HE-XL \\
-%		Llama3.1-Claude   &   8b & 4,7 GB & German & X & lokal/Ollama  & HE-XL \\
+		Llama3.1-Claude   &   8b & 4,7 GB & German & X & lokal/Ollama  & HE-XL \\
+		Llama3.1          &   8b & 4,7 GB & German & X & lokal/Ollama  & HE-XL \\
 		Llama3.2          &   3b & 2,0 GB & German & X & lokal/Ollama  & HE-XL \\
 %		Codellama         &  13b & 7,4 GB & German & X & lokal/Ollama  & HE-XL \\
 		Mistral Small     &  22b &  12 GB & German & X & lokal/Ollama & HE-XL \\
@@ -81,7 +77,6 @@ Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Mode
 		%		Llama3.3          & 70b &  43 GB & German & X & lokal  & HE-XL \\
 		%		\hline
 		\multicolumn{7}{|l|}{HF: Hugging Face} \\
-%		\multicolumn{7}{|l|}{HE-XL: HumanEval-XL} \\
 		\hline
 	\end{tabular}
 	\caption{Auswahl der LLMs für die Evaluierung}
@@ -108,7 +103,7 @@ In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurz
 		Deepseek-Coder-v2 & 0.2 & 600 & 0.95 \\
 		Llama3.1-Claude   & 0.2 & 600 & 0.95 \\
 		Llama3.2          & 0.2 & 600 & 0.95 \\
-		Codellama         & 0.2 & 600 & 0.95 \\
+%		Codellama         & 0.2 & 600 & 0.95 \\
 		Mistral Small     & 0.2 & 600 & 0.95 \\
 		ChatGPT3.5-turbo  & 0.2 & 600 & 0.95 \\
 		ChatGPT4-turbo    & 0.2 & 600 & 0.95 \\

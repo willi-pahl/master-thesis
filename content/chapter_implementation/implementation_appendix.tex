@@ -40,8 +40,8 @@ Nach der Installation kann die Funktionsfähigkeit geprüft werden, der folgende
 
 Im Anschluss kann über die Konsole mit dem Modell interagiert werden.
 
-%----------------------------------------------------------------------------------------
-\newpage
+%---------------------------------------------------------------------------------------------------
+
 
 \subsection{Open WebUI Installationshinweise}\label{sec:open_webui}
 Hier wird Open WebUI als docker Container verwendet, es ist also erforderlich vorher docker zu installieren. Die Installation von Open WebUI, unter Debian kann mit folgendem Skript erfolgen. 
@@ -60,241 +60,43 @@ docker run -d --network=host -v open-webui:/app/backend/data \
 
 Der Aufruf der UI, kann mittel Browser erfolgen. Hier wird die IP und der Port 8080 angegeben. Beispiel \texttt{http://192.168.2.45:8080}.
 
-%----------------------------------------------------------------------------------------
-\newpage
+%---------------------------------------------------------------------------------------------------
+
 
 \subsection{Download der Hugging Face Modelle}\label{sec:hugging_face_models}
-Ein Hugging Face Modell kann wie im Listing \ref{lst:download_hugging_face_model_by_cache} gezeigt, heruntergeladen werden. Das Modell wird dann im Cache von Hugging Face gehalten und steht bis zum Löschen des Cache zur Verfügung.
+Ein Hugging Face Modell kann, heruntergeladen werden. Soll das Modell auch nach dem Löschen des lokalen \texttt{huggingface}-Caches zur Verfügung stehen, sollte das Modell separat abgespeichert werden. Für den Download und speichern der Modelle kommt das Python-Skript, wie in Listing \ref{lst:download_hugging_face_model} gezeigt zur Anwendung. Hier ist zu erwähnen, dass ausreichend RAM zur Verfügung stehen muss, um die Modelle zu speichern. Mit diesem Script kann ein Modell an einem angegebenen Pfad abgespeichert werden und ist nach dem Cache löschen immer noch lokal vorhanden.
 
-\begin{lstlisting}[language=python,caption={Laden der Modelle von Hugging Face und lokal 
-speichern},label=lst:download_hugging_face_model_by_cache]
-from transformers import AutoModelForCausalLM, AutoTokenizer
+\lstinputlisting[
+	language=python,
+	caption={Laden der Modelle von Hugging Face und lokal speichern},
+	label=lst:download_hugging_face_model
+]{codes/src/download/huggingface_model.py}
 
-def call_model_by_huggingface(root_name: str, vendor_name: str, prompt: str) -> list:
-    """
-    Load model from Hugging Face and call the model with prompt.
-
-    :param root_name (str): Model root name.
-    :param vendor_name (str): Model vendor name.
-    :param prompt (str): Prompt for model.
-
-    Returns:
-        list: Answer from model.
-    """
-    model_name: str = f"{root_name}/{vendor_name}"
-    model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        torch_dtype="auto",
-        device_map="auto",
-        low_cpu_mem_usage=True,
-    )
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-    messages = [
-         {"role": "user", "content": prompt},
-    ]
-    text = tokenizer.apply_chat_template(
-        messages, tokenize=False, add_generation_prompt=True
-    )
-    model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
-
-    generated_ids = model.generate(**model_inputs, max_new_tokens=512)
-    generated_ids = [
-        output_ids[len(input_ids) :]
-        for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
-    ]
-
-    return tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
-
-# Example from https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct.
-call_model_by_huggingface(
-    root_name="Qwen",
-    vendor_name="Qwen2.5-Coder-32B-Instruct",
-    prompt="Write a quick sort algorithm.",
-)
-\end{lstlisting}
-
-Um den Cache abzufragen oder zu löschen werden folgende Befehle angewandt.
-
-\begin{verbatim}
-	huggingface-cli scan-cache
-	huggingface-cli remove-cache
-\end{verbatim}
-
-Soll ein Modell auch nach dem Löschen des Caches zur Verfügung stehen, sollte das Modell separat abgespeichert werden. Für den Download und speichern der Modelle kommt folgendes Python-Skript zur Anwendung. Hier ist zu erwähnen, dass ausreichend RAM zur Verfügung stehen muss, um die Modelle zu speichern. Mit diesem Script kann ein Modell an einem angegebenen Pfad abgespeichert werden und ist nach dem Cache löschen immer noch lokal vorhanden.
-
-\begin{lstlisting}[language=python,caption={Laden der Modelle von Hugging Face und lokal speichern},label=lst:download_hugging_face_model]
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-def load_model_from_huggingface(root_name: str, vendor_name: str) -> None:
-    """
-    Load model from Hugging Face and save local.
-
-    :param root_name (str): Root name of model.
-    :param vendor_name (str): Vendor name of model.
-    """
-    # Personal access token from Hugging Face.
-    access_token = "hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-    model_path_to_save = (
-        f"/huggingface/models/{vendor_name.replace('-', '_')}"
-    )
-
-    tokenizer = AutoTokenizer.from_pretrained(
-        f"{root_name}/{vendor_name}"
-    )
-    model = AutoModelForCausalLM.from_pretrained(
-        f"{root_name}/{vendor_name}", is_decoder=True, token=access_token
-    )
-
-    tokenizer.save_pretrained(model_path_to_save)
-    model.save_pretrained(model_path_to_save)
-
-# Example from https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct.
-load_model_from_huggingface(
-    root_name="Qwen",
-    vendor_name="Qwen2.5-Coder-32B-Instruct"
-)
-\end{lstlisting}
 
 \subsection{Abfragen lokaler Modelle}
-Um die Modelle abzufragen, kommt der Code, welcher in Listing \ref{lst:call_model} zu sehen ist, zum Einsatz.
+Um die Modelle abzufragen, kommt der Code, welcher in Listing \ref{lst:call_ollama_model} zu sehen ist, zum Einsatz.
 
-\begin{lstlisting}[
+\lstinputlisting[
 	language=python,
-	caption={Abfragen der Modelle von Hugging Face und Ollama},
-	label=lst:call_model
-]
-import os
-import json
-from transformers import AutoTokenizer, pipeline, AutoModelForCausalLM
-from langchain_ollama.llms import OllamaLLM
-from langchain.prompts import PromptTemplate
+	caption={Abfragen der Ollama Modelle},
+	label=lst:call_ollama_model
+]{codes/src/execute/execute_ollama.py}
 
-NUMBERS_OF_PROBLEMS: int = 80
-START_NUMBER_OF_PROBLEMS: int = 0
-STOP_NUMBER_OF_PROBLEMS: int = 80
 
-PROBLEM_FILE_NAME: str = "PHP_German.jsonl"
-PROBLEM_LANGUAGE: str = "php"
+\subsection{Abfrage cloudbasierter Modelle}
 
-MODEL_NAME: str = "qwen2.5-coder:32b"
-SUBFOLDER_NAME: str = "qwen25-coder"
-MODEL_PATH = f"/huggingface/models/{MODEL_NAME.replace('-', '_')}"
+\lstinputlisting[
+	language=python,
+	caption={Ausführen der Prompts für Gemini Modelle.},
+	label=lst:execution_gemini_models
+]{codes/src/execute/execute_google_gemini.py}
 
-PROMPT_REPETITIONS: int = 10
+\lstinputlisting[
+	language=python,
+	caption={Ausführen der Prompts für OpenAI Modelle.},
+	label=lst:execution_openai_models
+]{codes/src/execute/execute_openai_gpt.py}
 
-def read_problem(task_id: int, language: str) -> dict | None:
-    """
-    Read file with problem description and get the problem by task_id.
-    :param task_id (int): Task id.
-    :param language (str): Coding/Programming language.
-    :returns: dict | None: Prompt and problem.
-    """
-    jsonl = open(
-        f"{os.path.dirname(os.path.realpath(__file__))}/problems/{PROBLEM_FILE_NAME}",
-        "r",
-        encoding="utf-8",
-    )
-    lines = jsonl.readlines()
-    problem: dict = None
-    for line in lines:
-    problem = json.loads(line)
-    if problem.get("task_id", None) == f"{language}/{task_id}":
-        break
-        jsonl.close()
-    return problem
-
-def run_server_model(problem: str):
-    """
-    Connect to ollama model server.
-    :param problem (str): Prompt there is send to ollama server.
-    :returns: Result from ollama server by prompt.
-    """
-    ollama = OllamaLLM(
-        base_url="192.168.178.140:11434",
-        model=MODEL_NAME,
-    )
-    promt_template: PromptTemplate = PromptTemplate(
-    input_variables=["user_prompt"],
-        template="{user_prompt}",
-    )
-    prompt = promt_template.format(user_prompt=problem)
-    return ollama.invoke(prompt)
-
-def run_local_model(problem: str):
-    """
-    Connect to local model.
-    :param problem (str): Prompt for model.
-    :returns Result from model.
-    """
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_PATH, torch_dtype="auto", trust_remote_code=True
-    )
-    pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
-    promt_template: PromptTemplate = PromptTemplate(
-        input_variables=["user_prompt"],
-        template="{user_prompt}",
-    )
-    prompt = promt_template.format(user_prompt=problem)
-    generation_args = {
-	    "max_new_tokens": 600,
-	    "return_full_text": False,
-	    "do_sample": False,
-    }
-    output = pipe(
-        prompt,
-        **generation_args,
-        pad_token_id=tokenizer.eos_token_id
-    )
-    if len(output) > 0:
-        return output[0].get("generated_text", "")
-    return ""
-
-def write_log(answer: str, key: str, task_id: str) -> None:
-    """
-    Write the proompt result in JSON file.
-    :param answer (str): _description_
-    :param key (str): _description_
-    :param task_id (str): _description_
-    """
-    file_name: str = f"{os.path.dirname(os.path.realpath(__file__))}/answer/"
-    file_name = f"{file_name}/{SUBFOLDER_NAME}/{task_id.replace('/', '-')}.jsonl"
-    answer = answer.replace("\n", r"\n")
-    answer = answer.replace('"', r"\"")
-    answer = f"\"{key}\":\"{answer}\""
-    with open(file_name, "a", encoding="utf-8") as file:
-        file.write("{" + answer + "}\n")
-
-def execute_prompt(task_id: int, model_type: str) -> bool:
-    """
-    Create prompts and save local.
-    :param task_id (int): Problem id
-    :param model_type (str): Type of model.
-    :returns bool: True prompt create.
-    """
-    language: str = PROBLEM_LANGUAGE
-    problem: dict = read_problem(task_id=task_id, language=language)
-    prompt: str = problem.get("prompt", None)
-    if prompt is None:
-        return False
-    current_count: int = 0
-    max_count: int = PROMPT_REPETITIONS
-    while current_count < max_count:
-        answer: str = ""
-        if model_type == "local":
-            answer = run_local_model(problem=prompt)
-        elif model_type == "server":
-            answer = run_server_model(problem=prompt)
-        write_log(
-            answer=answer,
-            key=f"result_{current_count}",
-            task_id=f"{language}/{task_id}",
-        )
-        current_count += 1
-    return True
-\end{lstlisting}
 
 \subsection{Evaluation der Antworten von den Modellen}
 Das Listing \ref{lst:evaluation_search_generated_code} zeigt beispielhaft eine Suche nach Codezeilen in einer Antwort eines Modells. Die Methode \texttt{search\_generated\_code} muss auf jedes Modell angepasst sein.
@@ -310,9 +112,10 @@ def search_generated_code(content: str) -> str:
     :param content (str): Answer from LLM.
     :returns str: Generated code.
     """
-    for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
-        if content.startswith('{"result_' + str(i) + '":"'):
-            generated_code: str = content.split('{"result_' + str(i) + '":"')[1]
+    for index in [i for i in range(0, 10)]:
+        if content.startswith('{"result_' + str(index) + '":"'):
+            generated_code: str = content.split(
+                '{"result_' + str(index) + '":"')[1]
             generated_code = generated_code[:-2]
             generated_code = generated_code.strip()
 

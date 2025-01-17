@@ -23,38 +23,37 @@ Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösun
 Für alle Probleme wurden jeweils zehn Abfragen erstellt und bewertet. Welche Modelle getestet an der Evaluation beteiligt waren und welche Ergebnisse ermittelt wurden, wird in Tabelle \ref{tab:prompt_results_open_models} gezeigt.
 
 \begin{table}[!ht]
-	\begin{tabular}{l|r|r|r}
+	\begin{tabular}{|l|r|r|r|}
+		\hline
 		\textbf{Model} & \textbf{pass@1} & \textbf{pass@5} & \textbf{pass@10} \\
 		\hline
-		Llama3.2 & 0,0325 & 0,427629 & 0,6625 \\
-		llama3.1-claude & 0,0325 & 0,508929 & 0,725 \\
-		codellama & 0,0 & 0,0125 & 0,05 \\
-%		Deepseek-coder-v2 & 0,2 & 0,2 & 0,2 \\
-		codeqwen & 0,0 & 0,0 & 0,0 \\
-		\texttt{(Auswertung fehlt)} &&& \\
-		Gemini Flash 1.5 & 0,0 & 0,0 & 0,0\\
-		\texttt{(Auswertung fehlt)} &&& \\
-		Qwen 2.5-Coder & 0,0 & 0,0 & 0,0 \\
-		\texttt{(Auswertung fehlt)} &&& \\
-		Mistral-small & 0,0125 & 0,346329 & 0,65 \\
+		Llama3.3 70b      &     --- &      --- &    --- \\
+		Llama3.2          &  0,0275 &   0,4114 & 0,6125 \\
+		llama3.1-claude   &  0,0325 & 0,508929 &  0,725 \\
+		llama3.1$^{Param}$&     --- &      --- &    --- \\
+		Gemini Flash 1.5  &    0,09 &   0,4875 &    --- \\
+		Qwen 2.5-Coder    & 0,01875 &    0,239 & 0,3375 \\
+		Mistral-small     & 0,02125 &   0,3061 & 0,4875 \\
+		Deepseek-coder-v2 &     --- &      --- &    --- \\
+		\hline
+		\multicolumn{4}{|l|}{$^{Param}$: Anpassung der Parameter bei der Abfrage} \\
+		\hline
 	\end{tabular}
 	\centering
 	\label{tab:prompt_results_open_models}
 \end{table}
 
-Das Modell \texttt{codellama} hat beim Generierung von den Lösungen der PHP Probleme nicht gut abgeschnitten. Viele der Anforderungen wurden in Python erstellt und viele Tests sind als nicht bestanden gewertet wurden.\vspace{0.2cm}
+Das Modell \texttt{codellama} wurde ebenfalls getestet, hat aber beim Generierung von den Lösungen der PHP Probleme nicht gut abgeschnitten. Viele der Anforderungen wurden in Python erstellt und viele Tests sind als nicht bestanden gewertet wurden. Aus diesem Grund wird es bei den weiteren Betrachtungen nicht mehr beachtet.\vspace{0.2cm}
 
-Die Antworten von ChatGPT enthielten bei der ersten Abfrage Programmcode, alle weiteren Abfragen verwiesen auf den ersten Prompt. Eine Antwort ist in ?? dar gestellt, diese wurde in ähnlicher Weise immer wieder generiert.
+%Die Antworten von ChatGPT enthielten bei der ersten Abfrage Programmcode, alle weiteren Abfragen verwiesen auf den ersten Prompt. Eine Antwort ist in ?? dar gestellt, diese wurde in ähnlicher Weise immer wieder generiert.
+%\hrulefill
+%Der Code in deinem Kommentar ist identisch mit dem aktuellen Inhalt. Wenn du Än\-der\-ungen vornehmen möchtest, präzisiere bitte, was angepasst werden soll, und ich werde es umsetzen!
+%\begin{flushright}
+%	\textit{Generiert von ChatGPT 3.5}
+%\end{flushright}
+%\hrulefill
 
-\hrulefill
-
-Der Code in deinem Kommentar ist identisch mit dem aktuellen Inhalt. Wenn du Än\-der\-ungen vornehmen möchtest, präzisiere bitte, was angepasst werden soll, und ich werde es umsetzen!
-\begin{flushright}
-	\textit{Generiert von ChatGPT 3.5}
-\end{flushright}
-\hrulefill
-
-Im Gegensatz zu ChatGPT bringt Gemini nicht immer nur eine Lösung des Problems, sondern bietet weitere Ansätze die ebenfalls für das jeweilige Problem interessant sein könnten. Im folgenden Beispiel sind die verschiedenen Vorschläge des Modells in den Listings \ref{lst:gemini_result_php-3_1} bis \ref{lst:gemini_result_php-3_4} dargestellt, die beim PHP Problem 3 gefordert wurden. Die Aufgabenstellung in Kurzform war: \texttt{Gib den größten gemeinsamen Teiler von zwei ganzen Zahlen a und b zurück.}
+Im Gegensatz zu den anderen Modellen, bringt Gemini nicht immer nur eine Lösung des Problems, sondern bietet weitere Ansätze, welche ebenfalls für das jeweilige Problem interessant sein könnten. Im folgenden Beispiel sind die verschiedenen Vorschläge des Modells in den Listings \ref{lst:gemini_result_php-3_1} bis \ref{lst:gemini_result_php-3_4} dargestellt, die beim PHP Problem 3 gefordert wurden. Die Aufgabenstellung in Kurzform war: \texttt{Gib den größten gemeinsamen Teiler von zwei ganzen Zahlen a und b zurück.}
 
 \begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_1,caption={Gemini Ergebnis für das PHP-3 Problem Version 1}]
 function greatestCommonDivisorRecursive($a, $b) {
@@ -66,7 +65,7 @@ function greatestCommonDivisorRecursive($a, $b) {
 }
 \end{lstlisting}
 
-Text.
+Neben den geforderten Lösung gab Gemini noch weitere Lösungsvorschläge aus. Das Listing \ref{lst:gemini_result_php-3_2} zeigt einen zweiten Lösungsansatz.\vspace{0.2cm}
 
 \begin{lstlisting}[
 	language=PHP,
@@ -89,7 +88,7 @@ function greatestCommonDivisorBinary($a, b) {
 }
 \end{lstlisting}
 
-Text.
+Zu diesem Beispiel hat Gemini 1.5 noch weitere Lösungsansätze generiert. Diese sind in \ref{lst:gemini_result_php-3_3} und \ref{lst:gemini_result_php-3_4} zu sehen.
 
 \begin{lstlisting}[
 	language=PHP,
@@ -113,12 +112,23 @@ function greatestCommonDivisorMultiple(int ...$numbers): int {
 }
 \end{lstlisting}
 
-Einige Aufgaben wurden von Gemini aber wie ein Chat behandelt. So sind Ausgaben generiert wurden, die sich auf de
-ie Ausgabe davor beziehen, sodass der Code mit einer Kommentar-Zeile, wie beispielsweise
+Einige Aufgaben wurden von Gemini aber wie ein Chat behandelt. So hat das Modell Antworten generiert, die einer Konversation mit einem Chatbot ähneln, so wurde beispielsweise der folgende Text generiert, der einen Bezug zur zuvor gegebenen Antwort des Modells herstellt.
 
-\texttt{// ... (Rest der Funktion bleibt ähnlich)}
+\hrulefill
 
-ersetzt wurde.
+\texttt{function greatestCommonDivisorRecursive(\$a, \$b) \{}
+
+\texttt{\hspace{0.6cm} // ... (Rest der Funktion bleibt ähnlich)}
+
+\texttt{\}}
+
+\hrulefill
+
+\begin{flushright}
+	\textit{Generiert von Gemini 1.5}
+\end{flushright}
+
+Diese generierten Codeausschnitte haben die Tests nicht bestanden und wirken sich somit negativ auf die Auswertung aus.
 
 \subsection{Nachteile der Evaluierung}
 Es wird geprüft, ob der Code ohne Fehler ausführbar ist und die richtigen Ergebnisse liefert. Was dieser Test nicht evaluiert sind unter anderem vorhandene Codeerklärungen, Doc-Strings oder Code-Smells werden bei diesem Test nicht beachtet. Ebenso wird auch nicht der Codestandard geprüft.\vspace{0.2cm}

@@ -41,7 +41,7 @@ Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Mill
 
 \textbf{Mistral} ist ein modernes leistungsfähiges Sprachmodell, welches nicht speziell für die Codegenerierung und -analyse entwickelt wurde. Es verwendet fortschrittliche Transformer-Architekturen und ist für eine Vielzahl von Aufgaben einsetzbar. Darunter fallen beispielsweise natürliche Sprachverarbeitung, Textzusammenfassungen, maschinelle Übersetzung und Textklassifizierung. Dieses Modell ausgewählt, um ein Modell zu evaluieren, welches nicht speziell auf Codegenerierungsaufgaben trainiert wurde. In der Arbeit \cite{eberhardinger-2024} wurde Mistral, mit verschiedenen Modelle zur Spielecodegenerierung verglichen. Während in \cite{quan-2024} eine Evaluation für natürlichsprachlicher Erklärungen, Mistral mit anderen Modellen verglichen wurde.\vspace{0.2cm}
 
-\textbf{ChatGPT 3.5} und das Nachfolgemodell \textbf{ChatGPT 4}, entwickelt von OpenAI, sind vielseitig einsetzbare Close-Source Modelle. Neben allgemeinen textuellen Einsatzgebieten kann es für die Codegenerierung eingesetzt werden. Seit November 2022 ist das Modell ChatGPT 3.5 für alle kostenlos nutzbar und wird von sehr vielen Nutzer eingesetzt. Mit diesen Daten werden neue Modelle, wozu auch ChaGPT 4 zählt ständig neu trainiert. Dadurch werden die Modelle immer besser. Die Fallstudie \cite{ahmed-2025} die Bewertung des Nutzens von ChatGPT 4 für die Gestaltung einer barrierefreien Webseite. Eine Übersicht über die Modelle ist unter \cite{openai_model_overview} einsehbar.\vspace{0.2cm}
+%\textbf{ChatGPT 3.5} und das Nachfolgemodell \textbf{ChatGPT 4}, entwickelt von OpenAI, sind vielseitig einsetzbare Close-Source Modelle. Neben allgemeinen textuellen Einsatzgebieten kann es für die Codegenerierung eingesetzt werden. Seit November 2022 ist das Modell ChatGPT 3.5 für alle kostenlos nutzbar und wird von sehr vielen Nutzer eingesetzt. Mit diesen Daten werden neue Modelle, wozu auch ChaGPT 4 zählt ständig neu trainiert. Dadurch werden die Modelle immer besser. Die Fallstudie \cite{ahmed-2025} die Bewertung des Nutzens von ChatGPT 4 für die Gestaltung einer barrierefreien Webseite. Eine Übersicht über die Modelle ist unter \cite{openai_model_overview} einsehbar.\vspace{0.2cm}
 
 Mit \textbf{Gemini 1.5} präsentiert Google ein Modell zur Verarbeitung von natürlicher Sprache und stellt es zur freien Nutzung zur Verfügung. Genau wie ChatGPT nutzt auch Google die Nutzereingaben, um neue Modelle zu trainieren, was zur Weiterentwicklung für und somit zum neuen Modell \textbf{Gemini 2}. Wie in \cite{siam-2024} beschrieben, setzen auch die Gemini Modelle die Transformer-Architektur ein, was sie dazu befähigt, komplizierte Sprachmuster zu erkennen und präzise Vorhersagen zutreffen. In \cite{siam-2024} wird Gemini 1.5 mit Aufgaben zur Codegenerierung mit ChatGPT und Copilot vergleichen. Nach \cite{elgedawy-2024} kann sich das Gemini-Ultra-Modell beim MMLU-Benchmark sogar mit menschlichen Experten messen und erschließt eine breite Palette von Anwendungsbereichen. Hier wurden die Fähigkeiten zur Codegenerierung an Sicherheitsfragen im E-Commerce Bereich getestet. Ein Überblick über die Gemini Modelle ist unter \cite{google_gemini_model_overview} zu finden.\vspace{0.2cm}
 
@@ -62,13 +62,10 @@ Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Mode
 		Llama3.2          &   3b & 2,0 GB & German & X & lokal/Ollama  & HE-XL \\
 %		Codellama         &  13b & 7,4 GB & German & X & lokal/Ollama  & HE-XL \\
 		Mistral Small     &  22b &  12 GB & German & X & lokal/Ollama & HE-XL \\
-		\hline
-		\multicolumn{7}{|l|}{In Vorbereitung} \\
-		\hline
-		ChatGPT3.5-turbo  & k.A. &   k.A. & German & - & online & HE-XL \\
+%		ChatGPT3.5-turbo  & k.A. &   k.A. & German & - & online & HE-XL \\
 		ChatGPT4-turbo    & k.A. &   k.A. & German & - & online & HE-XL \\
 		Gemini 1.5 Pro    & k.A. &   k.A. & German & - & online & HE-XL \\
-		Gemini 2 Pro      & k.A. &   k.A. & German & - & online & HE-XL \\
+%		Gemini 2 Pro      & k.A. &   k.A. & German & - & online & HE-XL \\
 		%		Opus              & & & German &  & online & HE-XL \\
 		%		Claude 3          & &  German & & & online & HE-XL \\
 		\hline
@@ -76,7 +73,8 @@ Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Mode
 		%		\hline
 		%		Llama3.3          & 70b &  43 GB & German & X & lokal  & HE-XL \\
 		%		\hline
-		\multicolumn{7}{|l|}{HF: Hugging Face} \\
+%		\multicolumn{7}{|l|}{HF: Hugging Face} \\
+		\multicolumn{7}{|l|}{HE-XL: HumanEval-XL Benchmark} \\
 		\hline
 	\end{tabular}
 	\caption{Auswahl der LLMs für die Evaluierung}
@@ -105,10 +103,10 @@ In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurz
 		Llama3.2          & 0.2 & 600 & 0.95 \\
 %		Codellama         & 0.2 & 600 & 0.95 \\
 		Mistral Small     & 0.2 & 600 & 0.95 \\
-		ChatGPT3.5-turbo  & 0.2 & 600 & 0.95 \\
+%		ChatGPT3.5-turbo  & 0.2 & 600 & 0.95 \\
 		ChatGPT4-turbo    & 0.2 & 600 & 0.95 \\
 		Gemini 1.5 Pro    & 0.2 & 600 & 0.95 \\
-		Gemini 2 Pro      & 0.2 & 600 & 0.95 \\
+%		Gemini 2 Pro      & 0.2 & 600 & 0.95 \\
 		\hline
 	\end{tabular}
 	\centering

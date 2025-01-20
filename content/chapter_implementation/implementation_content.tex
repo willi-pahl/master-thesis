@@ -43,11 +43,11 @@ Nachdem die Modelle bereitstehen, erfolgt Erstellung der Antworten von den Model
 \subsection{Auswertung der Modellantworten}
 Die Auswertung der Antworten wird für jedes Modell angepasst, da die Antworten von Modell zu Modell variieren. Hier werden unterschiedliche Möglichkeiten für Codesnippets angewendet, beispielsweise (\texttt{```php}) oder (\texttt{```php \textbackslash n <?php}), welche für die Ausführung anzupassen sind. Somit wird immer nur die Methode zur Extrahierung des Codes aus den Antworten geändert, siehe Beispielcode im Listing \ref{lst:evaluation_search_generated_code}.\vspace{0.2cm}
 
-Mit den vorliegenden Codesnippets und den Tests aus dem jeweiligen Problem, wird ein ausführbarer PHP-Code erstellt und mittel Python ausgeführt. Die Tests werfen Exceptions, wenn der Code die Anforderungen nicht erfüllt oder Laufzeitfehler auftreten. Dann gibt der Code als nicht verwertbar. Der Code \ref{lst:php_interpreter_in_python} zeigt den Ausschnitt im Code zur Ausführung des PHP Interpreters.
+Mit den vorliegenden Codesnippets und den Tests aus dem jeweiligen Problem, wird ein ausführbarer PHP-Code erstellt und mittel Python ausgeführt. Die Tests werfen Exceptions, wenn der Code die Anforderungen nicht erfüllt oder Laufzeitfehler auftreten. Dann gibt der Code als nicht verwertbar. Das Listing \ref{lst:php_interpreter_in_python} zeigt den Ausschnitt im Code zur Ausführung des PHP Interpreters.
 
 \begin{lstlisting}[
 language=Python,
-caption={Codesnippet zur Ausführung des PHP Interpreters}
+caption={Codesnippet zur Ausführung des PHP Interpreters},
 label=lst:php_interpreter_in_python
 ]
 for answer in answers:
@@ -92,8 +92,8 @@ Neben dem bekannten Evaluationen mit beispielsweise dem HumanEval Benchmark, wir
 \subsection{PHP Codeevaluation}
 Der Test wird bei den erweiterten Problemen durchgeführt und beginnt mit den Unit-Tests die mit \textit{PHPUnit} durchgeführt werden. Im Anschluss wird \textit{PHPMetrics} ausgeführt. Hierbei wird geprüft, ob die Codekomplexität und Wartbarkeit überprüft. Sind diese Tests bestanden, wird der Code noch gegen eine \textit{SonarQube} Server validiert. Die Ausführung der Tests wird mithilfe eines Python-Skripts durchgeführt. Es wird eine PHP Datei erstellt, die mit den Frameworks geprüft wird.
 
-\subsection{JavaScript Codeevaluation}
-Text.
+%\subsection{JavaScript Codeevaluation}
+%Text.
 
 %\section{Online Modelle}
 % Eigenen KI Server \href{https://www.computerweekly.com/de/ratgeber/Einen-KI-Server-mit-Ollama-und-Open-WebUI-einrichte}{Computer Weekly}
@@ -101,3 +101,19 @@ Text.
 % LangChain Library \href{https://python.langchain.com/api_reference/ollama/chat_models/langchain_ollama.chat_models.ChatOllama.html}{Example}
 % \href{https://pypi.org/project/langchain-ollama/}{Python lib langchain-ollama}
 % YouTube \href{https://www.youtube.com/@AICodeKing}{AICodeKing}
+
+
+\section{Optimierung der Antworten}
+
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=red!5!white,
+	colframe=red!75!black!50,
+	title= Mein roter Faden
+	]
+	Mögliche Optimierungsstrategien
+	\begin{itemize}
+		\item mit dem Model Programming (DSPY) Ansatz: Python Bibliothek vorhanden \href{https://pypi.org/project/dspy/}{pypi.org | DSPy}.
+	\end{itemize}
+\end{tcolorbox}

@@ -23,33 +23,29 @@ Für alle Probleme wurden jeweils zehn Abfragen erstellt und bewertet. Welche Mo
 		\hline
 		\textbf{Model} & \textbf{pass@1} & \textbf{pass@5} \\
 		\hline
-		Llama3.3 70b-q2      &     --- &      --- \\
-		Llama3.2             &  0,0275 &   0,4114 \\
-		Llama3.1 8b (T600)   &   0,045 &   0,5302 \\
-		Llama3.1 8b (T1200)  &   0,045 &  0,53472 \\
-		Llama3.1-claude      &  0,0325 & 0,508929 \\
-%		llama3.1$^{Param}$   &     --- &      --- \\
-		Gemini Flash 1.5     &   0,045 &   0,3866 \\
-		Qwen 2.5-Coder 32b   & 0,01875 &    0,239 \\
-		Mistral-small 22b    & 0,02125 &   0,3061 \\
-		Deepseek-coder-v2    &  0,1075 &   0,5875 \\
-		Codellama 13b        &     0,0 &    0,025 \\
-%		\hline
-%		\multicolumn{4}{|l|}{$^{Param}$: Anpassung der Parameter bei der Abfrage} \\
+		Llama3.3:70b        &   0,575 &      0,7 \\
+		Deepseek-coder-v2:  &  0,1075 &   0,5875 \\
+		Gemini Flash 1.5    &     0,1 &     0,55 \\
+		Llama3.1:8b (T600)  &   0,045 &   0,5302 \\
+		Llama3.1:8b (T1200) &   0,045 &  0,53472 \\
+		Llama3.1-claude:8b  &  0,0325 & 0,508929 \\
+		Llama3.2:3b         &  0,0275 &   0,4114 \\
+		Mistral-small 22b   & 0,02125 &   0,3061 \\
+		Qwen 2.5-Coder 32b  & 0,01875 &    0,239 \\
+		Codellama:13b       &     0,0 &    0,025 \\
+		\hline
 		\hline
 	\end{tabular}
 	\centering
 	\label{tab:prompt_results_open_models}
-	\caption{Ergebnisse der pass@k Methode}
+	\caption{Ergebnisse der pass@1 und pass@5 Methode}
 \end{table}
 
 Das Modell \texttt{codellama} wurde ebenfalls getestet, hat aber beim Generierung von den Lösungen der PHP Probleme nicht gut abgeschnitten. Viele der Anforderungen wurden in Python erstellt und viele Tests sind als nicht bestanden gewertet wurden. Aus diesem Grund wird es bei den weiteren Betrachtungen nicht mehr beachtet.\vspace{0.2cm}
 
 Des Weiteren wurden eine Reihe von Llama-Modellen getestet, unter anderem einige verschiedene Llama3.1 Modelle. Bei dem \textit{Llama3.1 8b} wurden zwei verschiedene Versuche durchgeführt mit jeweils unterschiedlicher Tokenlängen. Anders als bei \textit{ChatGPT 3.5} und \textit{Gemini 1.5} können die kleineren Modelle schon mit geringerer Tokenlänge valide Antworten erzeugen. Die unterschiedliche Tockenlängen haben kaum einen Einfluss auf das Ergebnis. Hier liegt der Unterschied bei nicht mal einen Prozent.\vspace{0.2cm}
 
-Ein Ansatz zur Promptoptimierung, wurde bei den Tests evaluiert. So wurde ein Llama3.1 Model mit den Systemprompts des \textit{Claude Sonnet 3.5} Modell von der Firma Anthroppic erstellt. Dieser Ansatz konnte mit dieser Evaluierung nicht bestätigt werden. Der Unterschied liegt hier bei plus einem Prozent bei der pass@1 und minus drei Prozent bei der pass@5 Evaluation. Mögliche Ursachen hierfür könnten in einer fehlerhaften Erstellung des Modells oder die Aufforderungen sind nicht kompatibel mit einem Llama3.1 Modell. Eine weitere Möglichkeit sind unzureichendes Wissen über die Architektur des Quellmodells oder fehlendes implizite Informationen im Zielmodell. Ebenso könnte die Unbrauchbarkeit der Systemprompts für Codegenerierung die Ursache sein. Warum es keinen signifikanten Unterschied gab, könnte nicht abschließen geklärt werden. Die Ergebnisse sind in Tabelle \ref{tab:prompt_results_open_models} und in der Abbildung \ref{img:pass_at_k_results_by_llm} zu sehen.\vspace{0.2cm}
-
-Ein letztes Modell aus der Llama3 Reihe, das dem Benchmark unterzogen wurde, ist das \textit{Llama3.3 70b}. Auswertung liegt zurzeit noch nicht vor\vspace{0.2cm}
+Ein Ansatz zur Promptoptimierung, wurde bei den Tests ebenfalls evaluiert. So wurde ein Llama3.1 Model mit den Systemprompts des \textit{Claude Sonnet 3.5} Modell von der Firma Anthroppic erstellt. Dieser Ansatz konnte mit der vorliegenden Evaluierung nicht bestätigt werden. Der Unterschied liegt hier bei plus einem Prozent bei der pass@1 Evaluierung und minus drei Prozent bei der pass@5 Evaluation. Mögliche Ursachen hierfür könnten in einer fehlerhaften Erstellung des Modells oder die Aufforderungen sind nicht kompatibel mit einem Llama3.1 Modell. Eine weitere Möglichkeit sind unzureichendes Wissen über die Architektur des Quellmodells oder fehlendes implizite Informationen im Zielmodell. Ebenso könnte die Unbrauchbarkeit der Systemprompts für Codegenerierung die Ursache sein. Warum es keinen signifikanten Unterschied gab, könnte in dieser Arbeit nicht abschließen geklärt werden. Die Ergebnisse sind in Tabelle \ref{tab:prompt_results_open_models} und in der Abbildung \ref{img:pass_at_k_results_by_llm} zu sehen.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=\textwidth]{content/chapter_evaluation/images/llm_evaluation.eps}
@@ -58,9 +54,13 @@ Ein letztes Modell aus der Llama3 Reihe, das dem Benchmark unterzogen wurde, ist
 	\label{img:pass_at_k_results_by_llm}
 \end{figure}
 
-Zwei weitere Modelle aus dem Open-Source-Bereich sind die Modelle \textit{Mistral-Small 22b} von der gleichnamigen Firma MistralAI und \textit{Qwen 2.5 Coder 32b}. Diese beiden Modelle schnitten im Vergleich nicht so gut ab. \vspace{0.2cm}
+Ein letztes Modell aus der Llama3 Reihe, das dem Benchmark unterzogen wurde, ist das \textit{Llama3.3 70b-instruct-q2\_K}. Mit einem pass@1 Ergebnis von $0,12$ und $0,7$ beim pass@5 liefert dieses Modell die besten Ergebnisse. Bei dem vorliegenden Modell handelt es sich um ein Modell mit Quantisierung, was die Größe des Modells auf rund 26 GB reduziert.
+Bei diesem Modell wurde einige Komponenten einer 2-Bit Quantisierung unterzogen, bei einer fast gleichbleibenden Ausgabenqualität, weitere Informationen sind \cite{hugging-face-2025} zu entnehmen. Das originale Modell mit ca. 43 GB ließ sich nicht mit den verfügbaren lokalen Ressourcen testen.\vspace{0.2cm}
 
-Das Modell \textit{Deepseek Coder V2 16b} welches an die Leistung von den Llama3.1 Modellen heranreicht.\vspace{0.2cm}
+Zusätzlich wurden zwei weitere Modelle aus dem Open-Source-Bereich in die Evaluation einbezogen: \textit{Mistral-Small 22b}, entwickelt von der Firma MistralAI, sowie \textit{Qwen 2.5 Coder 32b}. Die Leistung dieser beiden Modelle fiel im Vergleich zu anderen Modellen jedoch geringer aus. Insbesondere lagen die Trefferquoten von \textit{Mistral-Small 22b} und \textit{Qwen 2.5 Coder 32b} bei etwa der Hälfte der durchschnittlichen Trefferquoten der getesteten LLama-Modelle.\vspace{0.2cm}
+
+Das Modell \textit{Deepseek Coder V2 16b} welches an die Leistung von den Llama3.1 Modellen heranreicht und ist ebenfalls aus dem Open-Source-Bereich.\vspace{0.2cm}
+
 %Die Antworten von ChatGPT enthielten bei der ersten Abfrage Programmcode, alle weiteren Abfragen verwiesen auf den ersten Prompt. Eine Antwort ist in ?? dar gestellt, diese wurde in ähnlicher Weise immer wieder generiert.
 %\hrulefill
 %Der Code in deinem Kommentar ist identisch mit dem aktuellen Inhalt. Wenn du Än\-der\-ungen vornehmen möchtest, präzisiere bitte, was angepasst werden soll, und ich werde es umsetzen!
@@ -69,64 +69,7 @@ Das Modell \textit{Deepseek Coder V2 16b} welches an die Leistung von den Llama3
 %\end{flushright}
 %\hrulefill
 
-Ein weiteres Modell ist Gemini 15. von Google. Im Gegensatz zu den anderen Modellen, bringt Gemini nicht immer nur eine Lösung des Problems, sondern bietet weitere Ansätze, welche ebenfalls für das jeweilige Problem interessant sein könnten. Im folgenden Beispiel sind die verschiedenen Vorschläge des Modells in den Listings \ref{lst:gemini_result_php-3_1} bis \ref{lst:gemini_result_php-3_4} dargestellt, die beim PHP Problem 3 gefordert wurden. Die Aufgabenstellung in Kurzform war: \texttt{Gib den größten gemeinsamen Teiler von zwei ganzen Zahlen a und b zurück.}
-
-\begin{lstlisting}[language=PHP,label=lst:gemini_result_php-3_1,caption={Gemini Ergebnis für das PHP-3 Problem Version 1}]
-function greatestCommonDivisorRecursive($a, $b) {
-  if ($b === 0) {
-    return $a;
-  } else {
-    return greatestCommonDivisorRecursive($b, $a % $b);
-  }
-}
-\end{lstlisting}
-
-Neben den geforderten Lösung gab Gemini noch weitere Lösungsvorschläge aus. Das Listing \ref{lst:gemini_result_php-3_2} zeigt einen zweiten Lösungsansatz.\vspace{0.2cm}
-
-\begin{lstlisting}[
-	language=PHP,
-	label=lst:gemini_result_php-3_2,
-	caption={Gemini Ergebnisse für das PHP-3 Problem Version 2}
-]
-function greatestCommonDivisorBinary($a, b) {
-  if ($a == 0) return $b;
-  if ($b == 0) return $a;
-
-  // Ensure a is odd
-  if ($a % 2 == 0 && $b % 2 == 0)
-    return 2 * greatestCommonDivisorBinary($a / 2, $b / 2);
-  if ($a % 2 == 0) return greatestCommonDivisorBinary($a / 2, $b);
-  if ($b % 2 == 0) return greatestCommonDivisorBinary($a, $b / 2);
-
-  // a and b are odd
-  if ($a > $b) return greatestCommonDivisorBinary($a - $b, b);
-  return greatestCommonDivisorBinary($b - a, a);
-}
-\end{lstlisting}
-
-Zu diesem Beispiel hat Gemini 1.5 noch weitere Lösungsansätze generiert. Diese sind in \ref{lst:gemini_result_php-3_3} und \ref{lst:gemini_result_php-3_4} zu sehen.
-
-\begin{lstlisting}[
-	language=PHP,
-	label=lst:gemini_result_php-3_3,
-	caption={Gemini Ergebnisse für das PHP-3 Problem Version 3}
-]
-function leastCommonMultiple(int $a, int $b): int {
-  // kgV(a, b) = (a * b) / ggT(a, b)
-  return abs($a * $b) / greatestCommonDivisor($a, $b);
-}
-\end{lstlisting}
-
-\begin{lstlisting}[
-	language=PHP,
-	label=lst:gemini_result_php-3_4,
-	caption={Gemini Ergebnisse für das PHP-3 Problem Version 4}
-]
-function greatestCommonDivisorMultiple(int ...$numbers): int {
-  // ggT von mehreren Zahlen
-  return array_reduce($numbers, 'greatestCommonDivisor');
-}
-\end{lstlisting}
+Ein weiteres Modell ist Gemini 1.5. von Google und gehört zu den Cloused-Source-Modellen. 
 
 Einige Aufgaben wurden von Gemini aber wie ein Chat behandelt. So hat das Modell Antworten generiert, die einer Konversation mit einem Chatbot ähneln, so wurde beispielsweise der folgende Text generiert, der einen Bezug zur zuvor gegebenen Antwort des Modells herstellt.
 
@@ -138,15 +81,82 @@ Einige Aufgaben wurden von Gemini aber wie ein Chat behandelt. So hat das Modell
 
 \texttt{\}}
 
-\hrulefill
-
 \begin{flushright}
 	\textit{Generiert von Gemini 1.5}
 \end{flushright}
 
-Diese generierten Codeausschnitte haben die Tests nicht bestanden und wirken sich somit negativ auf die Auswertung aus.
+\hrulefill
+
+Diese generierten Codeausschnitte haben die Tests nicht bestanden und wirken sich somit negativ auf die Auswertung aus.\vspace{0.2cm}
+
+
+\subsection{Evaluierung nach Sprache}
+Prüfung, ob englische Ergebnisse besser sind, steht noch aus.
+Da das Training der Modelle in englischer Sprache erfolgt, lag die Vermutung nahe, dass eine Evaluierung in dieser Sprache, wesentlich bessere Ergebnisse liefern sollte. Dies zeigen auch die Auswertung der Ergebnisse in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP in Englisch im Durchschnitt besser abschneidet. Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nicht bestätigt werden. Das Llama3.2 Modell zeigt sogar eine bessere Trefferquote in Deutsch bei steigendem k-Wert, bei der pass@k-Methode. In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode für $k=1 … 5$ zusammengefasst.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama31_evaluation_lang.eps}
+	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama32_evaluation_lang.eps}
+	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama33_evaluation_lang.eps}
+%	\centering
+	\caption{Ergebnisse der pass@k-Methode für Llama Modelle verschiedener Sprachen}
+	\label{img:pass_at_k_results_by_llama_lang}
+\end{figure}
+
 
 \subsection{Nachteile der Evaluierung}
+Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Test einige Fehler. Dadurch resultieren Nachteile, die sich bei der Bewertung der Modelle negativ auswirken.\vspace{0.2cm}
+
+\textbf{Formulierung der Fragen: } Einige sind nicht eindeutig formuliert und können von den Modellen falsch interpretiert werden. Ein Beispiel im HumenEval-XL Benchmark ist die Aufgabe 20. Der genaue deutsche Wortlaut ist wie folgt, \textit{Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.}, der gesamte Prompt ist in Listing \ref{lst:humaneval_xl_prompt_20} zu sehen. In der hier durchgeführten Evaluierung wurde diese Aufgabe im \textit{pass@1} nur einmal bestanden. Der Wortlaut hält die Modelle an, einen Vergleich in der Methode selbst durchzuführen. In der, durch den Benchmark vorgegebenen Test, werden aber zwei Zeichenketten verglichen. D.h. als erwartetes Ergebnis sollte eine Zeichenkette erstellt werden, welche die doppelten Zeichen zweier zu testenden Zeichenketten enthält. Das Listing \ref{lst:humaneval_xl_test_20} zeigt einen Teil des Tests und die erwarteten Ergebnisse.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:humaneval_xl_prompt_20,
+	caption={Wortlaut der Aufgabe 20 im HumalEval-XL Benchmark}
+]
+<?php
+
+/**
+* Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
+* * Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.
+* >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')
+* True
+* >>> same_chars('abcd', 'dddddddabc')
+* True
+* >>> same_chars('dddddddabc', 'abcd')
+* True
+* >>> same_chars('eabcd', 'dddddddabc')
+* False
+* >>> same_chars('abcd', 'dddddddabce')
+* False
+* >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')
+* False
+*
+*/
+function sameChars($s0, $s1){
+\end{lstlisting}
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:humaneval_xl_test_20,
+	caption={Wortlaut des Tests 20 im HumalEval-XL Benchmark}
+]
+function compare($x, $y) {
+	return $x == $y;
+}
+
+$arg00 = "eabcdzzzz";
+$arg01 = "dddzzzzzzzddeddabc";
+$x0 = sameChars($arg00, $arg01);
+$v0 = true;
+if (!compare($x0, $v0)) {
+  throw new Exception("Error at 1th assert statement.");
+}
+\end{lstlisting}
+
+
+Beispiel: 43
+
 Es wird geprüft, ob der Code ohne Fehler ausführbar ist und die richtigen Ergebnisse liefert. Was dieser Test nicht evaluiert sind unter anderem vorhandene Codeerklärungen, Doc-Strings oder Code-Smells werden bei diesem Test nicht beachtet. Ebenso wird auch nicht der Codestandard geprüft.\vspace{0.2cm}
 
 Benchmark prüfen, ob die Tests evtl. Fehler enthalten. Dies könnte sich beispielsweise in folgenden Probleme darstellen,

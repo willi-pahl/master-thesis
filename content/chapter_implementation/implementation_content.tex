@@ -3,16 +3,16 @@ Für das Ausführen von Modellen zum Testen werden in dieser Arbeit zwei Technik
 
 Die Modelle werden auf einem Debian 12 Server mit 32 GB RAM und einem 16 Kernprozessor ausgeführt. Um große Modelle zu testen wurde mit einer Swap-Partition von 100 GB gearbeitet, um die Ausführung größerer Modelle zu ermöglichen.\vspace{0.2cm}
 
-\subsection{Modellbereitstellung mit Ollama}
+%\subsection{Modellbereitstellung mit Ollama}
 Für das Testen der lokalen Modelle wird das Ollama Framework angewandt. Dies ermöglicht eine neben einer Benutzeroberfläche im Browser eine Anbindung an einer API. Diese lässt sich beispielsweise mittels Python abfragen. Auf dieser Weise lassen sich Modelle von der \href{https://ollama.com/search}{Ollama Modell} Seite testen. Dazu wird Ollama auf dem Server installiert und konfiguriert, siehe Anhang \ref{sec:install_config_ollama_local}. Nach dem Download stehen die Modelle zur Verfügung und es können Interaktionen mit dem Modell erfolgen.\vspace{0.2cm}
 
 Zusätzlich kann ein grafisches Tool zum Testen installiert werden. Mit deren Hilfe können die Modelle leicht getestet werden. Mit Open WebUI wird ein Browser basierendes Toll eingesetzt, dass auf dem Ollama-Server installiert wird. Nach der Installation ist das Tool einsatzbereit und im lokalen Netzwerk, unter http://<<server-ip>>:<<webui-port>> erreichbar. Die Installation wird im Anhang \ref{sec:open_webui} beschrieben.
 
 
-\subsection{Modellbereitstellung als Datei}
-Eine zweite Methode zur Bereitstellung von Modellen die für diese Arbeit Verwendung findet, ist die direkte Nutzung als lokale Datei. Diese können dann direkt angesprochen werden, in dieser Arbeit wird Python verwendet. Hierbei wurden die Modelle von Hugging Face fokussiert. Diese lassen sich unter anderem mit dem Python Framework \href{https://pypi.org/project/langchain/}{Longchain} orchestrieren.\vspace{0.2cm}
+%\subsection{Modellbereitstellung als Datei}
+%Eine zweite Methode zur Bereitstellung von Modellen die für diese Arbeit Verwendung findet, ist die direkte Nutzung als lokale Datei. Diese können dann direkt angesprochen werden, in dieser Arbeit wird Python verwendet. Hierbei wurden die Modelle von Hugging Face fokussiert. Diese lassen sich unter anderem mit dem Python Framework \href{https://pypi.org/project/langchain/}{Longchain} orchestrieren.\vspace{0.2cm}
 
-Nachdem die Modelle von Hugging Face heruntergeladen und lokal abgespeichert wurden, sind diese ohne größeren Aufwand anwendbar. Ein Beispiel für ein mögliches Download-Skript ist in Anhang \ref{sec:hugging_face_models} im Listing \ref{lst:download_hugging_face_model_by_cache} und \ref{lst:download_hugging_face_model} zu sehen. Hierbei ist zu beachten das genügend freier RAM zur Verfügung steht, um die Modelle abzuspeichern.
+%Nachdem die Modelle von Hugging Face heruntergeladen und lokal abgespeichert wurden, sind diese ohne größeren Aufwand anwendbar. Ein Beispiel für ein mögliches Download-Skript ist in Anhang \ref{sec:hugging_face_models} im Listing \ref{lst:download_hugging_face_model_by_cache} und \ref{lst:download_hugging_face_model} zu sehen. Hierbei ist zu beachten das genügend freier RAM zur Verfügung steht, um die Modelle abzuspeichern.
 
 %-------------------------------------------------------------------------------------------
 
@@ -27,23 +27,20 @@ Nachdem die Modelle von Hugging Face heruntergeladen und lokal abgespeichert wur
 %	\label{img:orchestration_llms}
 %\end{figure}
 
-%-------------------------------------------------------------------------------------------
-
-
 %\section{Online Modelle}
 %Text.
 
+\subsection{Ergebnisse generieren}
+Nachdem die Modelle bereitstehen, erfolgt das Generieren der Ergebnisse für jedes einzelne Modell. Mit Prompts, die aus den Aufgaben des HumanEval-XL Benchmark bestehen, werden nun die Modelle mehrmals hintereinander abgefragt. Die vollständig generierten Antworten der Modelle werden, für eine spätere Auswertung im JSONL-Dateiformat gespeichert. Für jedes Problem erfolgen fünf Abfragen an jedes Modell. Für die Evaluierung der lokalen Modelle wurden Modelle von Ollama verwendet, siehe Kapitel \ref{subsec:llm_selection} für die Auswahl der Modelle.
+
+%-------------------------------------------------------------------------------------------
+
+
+%\subsection{Auswertung der Modellantworten}
 \section{Benchmark Codeevaluation}\label{sec:benchmark_evaluation}
-Ausführen des Benchmarks.
-
-
-\subsection{Problemabfragen an die Modelle}
-Nachdem die Modelle bereitstehen, erfolgt Erstellung der Antworten von den Modellen. Mit Prompts welche die Probleme aus dem HumanEval-XL Benchmark enthalten, werden nun die Modelle abgefragt. Die vollständigen Antworten werden, für eine spätere Auswertung als JSONL-Dateiformat gespeichert. Für jedes Problem erfolgen zehn Abfragen an jedes Modell. Für die Evaluierung der lokalen Modelle wurden sowohl Modelle von Hugging Face als auch Modelle von Ollama verwendet, siehe Kapitel \ref{subsec:llm_selection} für die Zuordnung der Modelle.
-
-\subsection{Auswertung der Modellantworten}
 Die Auswertung der Antworten wird für jedes Modell angepasst, da die Antworten von Modell zu Modell variieren. Hier werden unterschiedliche Möglichkeiten für Codesnippets angewendet, beispielsweise (\texttt{```php}) oder (\texttt{```php \textbackslash n <?php}), welche für die Ausführung anzupassen sind. Somit wird immer nur die Methode zur Extrahierung des Codes aus den Antworten geändert, siehe Beispielcode im Listing \ref{lst:evaluation_search_generated_code}.\vspace{0.2cm}
 
-Mit den vorliegenden Codesnippets und den Tests aus dem jeweiligen Problem, wird ein ausführbarer PHP-Code erstellt und mittel Python ausgeführt. Die Tests werfen Exceptions, wenn der Code die Anforderungen nicht erfüllt oder Laufzeitfehler auftreten. Dann gibt der Code als nicht verwertbar. Das Listing \ref{lst:php_interpreter_in_python} zeigt den Ausschnitt im Code zur Ausführung des PHP Interpreters.
+Mit den vorliegenden Codesnippets und den Tests aus dem jeweiligen Problem, wird ein ausführbarer PHP-Code erstellt und mittel Python ausgeführt. Die Tests werfen Exceptions, wenn der Code die Anforderungen nicht erfüllt oder Laufzeitfehler auftreten. Dann gibt die Aufgabe als nicht bestanden. Das Listing \ref{lst:php_interpreter_in_python} zeigt den Ausschnitt im Code zur Ausführung des PHP Interpreters in Python.
 
 \begin{lstlisting}[
 language=Python,
@@ -67,13 +64,17 @@ for answer in answers:
         answer_result_fault = True
 \end{lstlisting}
 
-Die unbehandelte Execption führt lediglich dazu, dass die Programmausführung nicht unterbrochen wird. Der hier abgefangene Timeout wird in der nachfolgenden \texttt{if} Klausel behandelt. Aus den erhaltenen Ergebnissen, berechnet die \texttt{pass@k} Metrik die Zuverlässigkeit des jeweiligen vorgegebenen Problems, hinsichtlich Codegenerierung. Des Weiteren wird anschließend der Durchschnitt für die Zuverlässigkeit des Modells errechnet.\vspace{0.2cm}
+Die unbehandelte Execption in Zeile 12, führt lediglich dazu, dass die Programmausführung nicht unterbrochen wird. Ein abgelaufener \textit{Timeout} deutet auf eine Endlosschleife hin und somit gilt dieser Test als nicht bestanden. Der hier abgefangene \textit{Timeout} wird in der nachfolgenden \texttt{if} Konstrukt mit ausgewertet. Aus den erhaltenen Ergebnissen, berechnet die \texttt{pass@k} Methode eine Vorhersage zur Zuverlässigkeit des jeweiligen vorgegebenen Problems, hinsichtlich Codegenerierung. Anschließend wird der Durchschnitt für die Zuverlässigkeit des Modells errechnet.\vspace{0.2cm}
 
 \textbf{Umsetzung der pass@k Metric}\vspace{0.2cm}
 
-In Python steht, hierfür die Bibliothek \textit{pass\_at\_k} zur Verfügung. Der PHP Code wurde auf einen Debian 11 mit PHP in der Version 8.2.26 evaluiert.
+Die Auswertung der Ergebnisse erfolgt mittel Python. Dazu wird der generierte Code mit den vorgegebenen Tests aus dem HumenEval-XL zusammengefügt. Der so erzeugte Code wird dann in der Python-Umgebung ausgeführt. Die Ergebnisse aus den Tests werden dann mittel pass@k Methode analysiert. In Python steht, hierfür die Bibliothek \textit{pass\_at\_k} zur Verfügung. Das Listing \ref{lst:custom_pass_at_k} zeigt Umsetzung der Methode. Der PHP Code wurde auf einen Debian 11 mit PHP in der Version 8.2.26 evaluiert.
 
-\begin{lstlisting}[language=Python,label=lst:pass_at_k,caption={Berechnung der pass@k Metrik in Python}]
+\begin{lstlisting}[
+	language=Python,
+	label=lst:custom_pass_at_k,
+	caption={Berechnung der pass@k Metrik in Python}
+]
 def custom_pass_at_k(n: int, c: int, k: int) -> float:
     """
     :param n (int): numbers of total samples.

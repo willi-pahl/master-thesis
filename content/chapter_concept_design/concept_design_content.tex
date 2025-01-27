@@ -25,7 +25,7 @@ Beide Verfahren \texttt{phpmetrics} und \texttt{SonarQube} benötigen für die A
 %---------------------------------------------------------------------------------------------------
 
 
-\section{Auswahl der LLMs und deren Konfiguration}
+\section{Auswahl der LLMs und deren Konfiguration}\label{subsec:llm_selection}
 %*   Dieser Abschnitt legt die experimentelle Basis fest
 
 %*   Welche LLMs werden konkret in den Experimenten verwendet? (Begründung basierend auf den Ergebnissen des Grundlagenkapitels)
@@ -37,7 +37,7 @@ Das \textbf{Qwen2.5-Coder}-Modell zeichnet sich durch seine spezialisierte Archi
 
 \textbf{Deepseek-Coder-V2} ist die zweite Generation der Deepseek-Coder-Reihe und bietet verbesserte Fähigkeiten zur Codegenerierung und -optimierung. Das Modell nutzt fortschrittliche Suchalgorithmen, um präzisere und effizientere Codestücke zu erstellen. Es ist insbesondere für seine hohe Genauigkeit bei der Generierung komplexer Algorithmen und Datenstrukturen bekannt. Die Modellbeschreibung ist unteranderem aus \cite{deepseek-ai-2024} und \cite{cui-2024} entnommen. Des Weiteren wird in beiden Arbeiten das Modell mit verschiedenen Open-Source und Close-Source Modellen verglichen.\vspace{0.2cm} 
 
-Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Milliarden Parametern zu den kleineren Modellen von MetaAI. Beide Modelle basieren auf dem LLama3.1 Modell, das Llama3.1-Claude ist aber mit anderen Systemaufforderungen erstellt wurden. Hierfür wurden die Systemaufforderungen vom Claude Sonnet 3.5 der Firma Anthropic’s verwendet, nachzulesen unter \cite{ollama_page_llama31_claude}. Ein ähnliches Modell ist auf Hugging Face veröffentlicht \cite{huggingface_page_llama31_claude}. Eine Modelcard mit weiteren Informationen zum Modell ist unter \cite{meta-llama-no-date} zu finden.\vspace{0.2cm}
+Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Milliarden Parametern zu den kleineren Modellen von MetaAI. Beide Modelle basieren auf dem LLama3.1 Modell, das Llama3.1-Claude ist aber mit anderen Systemaufforderungen erstellt wurden. Hierfür wurden die Systemaufforderungen vom Claude Sonnet 3.5 der Firma Anthropic’s verwendet, nachzulesen unter \cite{ollama_page_llama31_claude}. Ein ähnliches Modell ist auf Hugging Face veröffentlicht \cite{huggingface_page_llama31_claude}. Eine Modelcard mit weiteren Informationen zum Modell, ist unter \cite{meta-llama-no-date} zu finden.\vspace{0.2cm}
 
 \textbf{Mistral} ist ein modernes leistungsfähiges Sprachmodell, welches nicht speziell für die Codegenerierung und -analyse entwickelt wurde. Es verwendet fortschrittliche Transformer-Architekturen und ist für eine Vielzahl von Aufgaben einsetzbar. Darunter fallen beispielsweise natürliche Sprachverarbeitung, Textzusammenfassungen, maschinelle Übersetzung und Textklassifizierung. Dieses Modell ausgewählt, um ein Modell zu evaluieren, welches nicht speziell auf Codegenerierungsaufgaben trainiert wurde. In der Arbeit \cite{eberhardinger-2024} wurde Mistral, mit verschiedenen Modelle zur Spielecodegenerierung verglichen. Während in \cite{quan-2024} eine Evaluation für natürlichsprachlicher Erklärungen, Mistral mit anderen Modellen verglichen wurde.\vspace{0.2cm}
 
@@ -50,31 +50,20 @@ Neben den genannten Quellen sind die Herstellerseite eine gute Quelle weiterfüh
 Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Modelle.\vspace{0.2cm}
 
 \begin{table}[!ht]
-	\begin{tabular}{|l|c|c|c|c|c|l|}
+	\begin{tabular}{|l|l|l|c|c|c|c|}
 		\hline
-		\textbf{Modell} & \textbf{Parameter} & \textbf{Größe} & \textbf{Sprache} & \textbf{offen} & \textbf{Ausführung}  & \textbf{Benchmark} \\
+		\textbf{Modell} & \textbf{Param} & \textbf{Quantisierung} & \textbf{Größe} & \textbf{Sprache} & \textbf{offen} & \textbf{EXEC} \\
 		\hline
-%		Qwen2.5-coder     &  32b &  19 GB & German & X & lokal/HF  & HE-XL \\
-		%		CodeGeeX          &  9B & German &  & & lokal & HE-XL \\
-%		Deepseek-coder-V2 &  16b & 8,9 GB & German & X & lokal/Ollama  & HE-XL \\
-		Llama3.1-Claude   &   8b & 4,7 GB & German & X & lokal/Ollama  & HE-XL \\
-		Llama3.1          &   8b & 4,7 GB & German & X & lokal/Ollama  & HE-XL \\
-		Llama3.2          &   3b & 2,0 GB & German & X & lokal/Ollama  & HE-XL \\
-%		Codellama         &  13b & 7,4 GB & German & X & lokal/Ollama  & HE-XL \\
-		Mistral Small     &  22b &  12 GB & German & X & lokal/Ollama & HE-XL \\
-%		ChatGPT3.5-turbo  & k.A. &   k.A. & German & - & online & HE-XL \\
-		ChatGPT4-turbo    & k.A. &   k.A. & German & - & online & HE-XL \\
-		Gemini 1.5 Pro    & k.A. &   k.A. & German & - & online & HE-XL \\
-%		Gemini 2 Pro      & k.A. &   k.A. & German & - & online & HE-XL \\
-		%		Opus              & & & German &  & online & HE-XL \\
-		%		Claude 3          & &  German & & & online & HE-XL \\
+		Qwen2.5-coder     & 32b &               q4\_K\_M &  19 GB &    DE & X & Ollama \\
+		Deepseek-coder-V2 & 16b & lite-instruct-q5\_K\_S & 8,9 GB &    DE & X & Ollama \\
+		Llama3.1-Claude   &  8b &                  q4\_0 & 4,7 GB &    DE & X & Ollama \\
+		Llama3.1          &  8b &               q4\_K\_M & 4,7 GB & DE/EN & X & Ollama \\
+		Llama3.2          &  3b &               q4\_K\_M & 2,0 GB & DE/EN & X & Ollama \\
+		Llama3.3          & 70b &         instruct-q2\_K &  43 GB & DE/EN & X & Ollama \\
+		Codellama         & 13b &                  q4\_0 & 7,4 GB &    DE & X & Ollama \\
+		Mistral Small     & 22b &                  q4\_0 &  12 GB &    DE & X & Ollama \\
+		Gemini 1.5 Pro    &k.A. &                   k.A. &   k.A. &    DE & - & online \\
 		\hline
-		%		\multicolumn{7}{|l|}{In Planung, wenn ich es schaffe} \\
-		%		\hline
-		%		Llama3.3          & 70b &  43 GB & German & X & lokal  & HE-XL \\
-		%		\hline
-%		\multicolumn{7}{|l|}{HF: Hugging Face} \\
-		\multicolumn{7}{|l|}{HE-XL: HumanEval-XL Benchmark} \\
 		\hline
 	\end{tabular}
 	\caption{Auswahl der LLMs für die Evaluierung}
@@ -95,18 +84,16 @@ In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurz
 \begin{table}[!ht]
 	\begin{tabular}{|l|c|c|c|}
 		\hline
-		\textbf{Modell} & \textbf{Temperatur} & \textbf{max. Tokenanzahl} & \textbf{Top-p Sampling} \\
+		\textbf{Modell} & \textbf{Temp.} & \textbf{max. Token} & \textbf{Top-p} \\
 		\hline
-		Qwen2.5-coder     & 0.2 & 600 & 0.95 \\
-		Deepseek-Coder-v2 & 0.2 & 600 & 0.95 \\
-		Llama3.1-Claude   & 0.2 & 600 & 0.95 \\
-		Llama3.2          & 0.2 & 600 & 0.95 \\
-%		Codellama         & 0.2 & 600 & 0.95 \\
-		Mistral Small     & 0.2 & 600 & 0.95 \\
-%		ChatGPT3.5-turbo  & 0.2 & 600 & 0.95 \\
-		ChatGPT4-turbo    & 0.2 & 600 & 0.95 \\
-		Gemini 1.5 Pro    & 0.2 & 600 & 0.95 \\
-%		Gemini 2 Pro      & 0.2 & 600 & 0.95 \\
+		Qwen2.5-coder     &  0.2 &       600 & 0.95 \\
+		Deepseek-Coder-v2 &  0.2 &       600 & 0.95 \\
+		Llama3.1          &  0.2 &  600/1200 & 0.95 \\
+		Llama3.1-Claude   &  0.2 &       600 & 0.95 \\
+		Llama3.2          &  0.2 &       600 & 0.95 \\
+		Llama3.3          &  0.2 &       600 & 0.95 \\
+		Mistral Small     &  0.2 &       600 & 0.95 \\
+		Gemini 1.5 Pro    & k.A. &      k.A. & k.A. \\
 		\hline
 	\end{tabular}
 	\centering

@@ -1,10 +1,10 @@
 Die Evaluation der Ergebnisse erfolgt im ersten Schritt anhand des HumanEval-XL Benchmarks. Dieser Benchmark wird in \cite{peng-2024} vorgestellt und erweitert den HumanEval \cite{chen-2021}. Der HumanEval-Benchmark evaluiert nur Python während der HumanEval-XL weitere Programmiersprachen und in verschiedenen Landessprachen unterstützt, darunter auch die deutsche Sprache. Neben Python sind auch Prompts für PHP und JavaScript enthalten, welche für die Webentwicklung wichtig sind. Die Datensätze des HumanEval-XL sind unter \href{https://github.com/FloatAI/humaneval-xl}{https://github.com/FloatAI/humaneval-xl} einsehbar und bestehen jeweils aus 80 Tests. Für jedes Problem werden zehn Lösungsvorschläge generiert, die im Anschluss auf die Aspekte der Syntaktik und Semantik evaluiert werden.\vspace{0.2cm}
 
-\sout{Diese Tests fordern LLM's auf kleine Problem zu lösen. Aus diesem Grund werden weitere Tests erstellt mit umfangreicheren Anforderungen aus dem Bereich der Webentwicklung. Zu jedem Problem wird eine Musterlösung und ein Unittest erstellt. Der Aufbau für diese Bereitstellung orientiert sich an dem Format aus dem HunamEval-Benchmark.}\vspace{0.2cm}
+%\sout{Diese Tests fordern LLM's auf kleine Problem zu lösen. Aus diesem Grund werden weitere Tests erstellt mit umfangreicheren Anforderungen aus dem Bereich der Webentwicklung. Zu jedem Problem wird eine Musterlösung und ein Unittest erstellt. Der Aufbau für diese Bereitstellung orientiert sich an dem Format aus dem HunamEval-Benchmark.}\vspace{0.2cm}
 
-Ein Versuch größere und komplexere Probleme zu lösen, hatte nicht den erwarteten Erfolg. Es sind viele Iterationen notwendig, um ein funktionierendes Ergebnis zu erhalten. Im Laufe der Iterationen sind die Prompts für die Modelle immer größer geworden und haben viele Missverständnisse bei den Modellen erzeugt. So das eine Zerlegung in kleine Probleme sich als sinnvoller erwies.\vspace{0.2cm}
+%Ein Versuch größere und komplexere Probleme zu lösen, hatte nicht den erwarteten Erfolg gebracht. Es sind viele Iterationen notwendig, um ein funktionierendes Ergebnis zu erhalten. Im Laufe der Iterationen sind die Prompts für die Modelle immer größer geworden und haben viele Missverständnisse bei den Modellen erzeugt. So das eine Zerlegung in kleine Probleme sich als sinnvoller erwies.\vspace{0.2cm}
 
-Des Weiteren ist die Bewertung der Coding-Standards der jeweiligen Programmiersprache vorgesehen. Für die Prüfung der Standards wird ein SonarQube-Server verwendet, der sowohl PHP als JavaScript unterstützt. Ebenfalls wird die Qualität des Codes evaluiert. Das Augenmerk liegt auf die Lesbarkeit, Effizienz und Wartbarkeit des generierten Codes.\vspace{0.2cm}
+%Des Weiteren ist die Bewertung der Coding-Standards der jeweiligen Programmiersprache vorgesehen. Für die Prüfung der Standards wird ein SonarQube-Server verwendet, der sowohl PHP als JavaScript unterstützt. Ebenfalls wird die Qualität des Codes evaluiert. Das Augenmerk liegt auf die Lesbarkeit, Effizienz und Wartbarkeit des generierten Codes.\vspace{0.2cm}
 
 %Optional werden einige Tests von zusätzlichen Tools validiert, beispielsweise bei der Validierung von PHP Files sind es Tools wie phpunit\footnote{phpunit steht unter \href{https://github.com/sebastianbergmann/phpunit}{https://github.com/sebastianbergmann/phpunit} zum Download bereit.} und Code\_Sniffer\footnote{Code\_Sniffer steht unter \href{https://github.com/squizlabs/PHP_CodeSniffer}{https://github.com/squizlabs/PHP\_CodeSniffer} zum Download zur Verfügung.} für die Validierung von JavaScript findet das Framework Jasmin\footnote{\href{https://jasmine.github.io/}{https://jasmine.github.io}.} Anwendung.\vspace{0.2cm}
 
@@ -14,7 +14,7 @@ Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} und \
 
 Aus Ergebnisse der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkeit der jeweiligen Modelle berechnet. Dieser Wert gibt an, mit welcher Wahrscheinlichkeit mindestens eine richtige Lösung unter $k$ ausgewählten Vorschlägen vorhanden ist.\vspace{0.2cm}
 
-Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösungen unter den $n$ Versuchen und $k$ gibt die Anzahl der Lösungen an die betrachtet wurden. Für die Berechnung der $pass@k$ Metrik wird die Formal \ref{lst:pass_at_k} verwendet, welche in \cite{chen-2021} vorgeschlagen wird.\vspace{0.2cm}
+Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösungen unter den $n$ Versuchen und $k$ gibt die Anzahl der Lösungen an die betrachtet wurden. Für die Berechnung der $pass@k$ Metrik wird die Formal \ref{equ:pass_qt_k_complex} verwendet, welche in \cite{chen-2021} vorgeschlagen wird.\vspace{0.2cm}
 
 Für alle Probleme wurden jeweils zehn Abfragen erstellt und bewertet. Welche Modelle getestet an der Evaluation beteiligt waren und welche Ergebnisse ermittelt wurden, wird in Tabelle \ref{tab:prompt_results_open_models} gezeigt.
 
@@ -23,16 +23,16 @@ Für alle Probleme wurden jeweils zehn Abfragen erstellt und bewertet. Welche Mo
 		\hline
 		\textbf{Model} & \textbf{pass@1} & \textbf{pass@5} \\
 		\hline
-		Llama3.3:70b        &   0,575 &      0,7 \\
-		Deepseek-coder-v2:  &  0,1075 &   0,5875 \\
-		Gemini Flash 1.5    &     0,1 &     0,55 \\
-		Llama3.1:8b (T600)  &   0,045 &   0,5302 \\
-		Llama3.1:8b (T1200) &   0,045 &  0,53472 \\
-		Llama3.1-claude:8b  &  0,0325 & 0,508929 \\
-		Llama3.2:3b         &  0,0275 &   0,4114 \\
-		Mistral-small 22b   & 0,02125 &   0,3061 \\
-		Qwen 2.5-Coder 32b  & 0,01875 &    0,239 \\
-		Codellama:13b       &     0,0 &    0,025 \\
+		Llama3.3:70b        &  0,575 &      0,7 \\
+		Deepseek-coder-v2:  &   0,53 &   0,5875 \\
+		Gemini Flash 1.5    &    0,5 &     0,55 \\
+		Llama3.1:8b (T600)  &   0,45 &   0,5302 \\
+		Llama3.1:8b (T1200) &   0,45 &  0,53472 \\
+		Llama3.1-claude:8b  &  0,375 & 0,508929 \\
+		Llama3.2:3b         &  0,275 &   0,4114 \\
+		Mistral-small 22b   & 0,2125 &   0,3061 \\
+		Qwen 2.5-Coder 32b  & 0,1875 &    0,239 \\
+		Codellama:13b       &    0,0 &    0,025 \\
 		\hline
 		\hline
 	\end{tabular}
@@ -91,8 +91,11 @@ Diese generierten Codeausschnitte haben die Tests nicht bestanden und wirken sic
 
 
 \subsection{Evaluierung nach Sprache}
-Prüfung, ob englische Ergebnisse besser sind, steht noch aus.
-Da das Training der Modelle in englischer Sprache erfolgt, lag die Vermutung nahe, dass eine Evaluierung in dieser Sprache, wesentlich bessere Ergebnisse liefern sollte. Dies zeigen auch die Auswertung der Ergebnisse in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP in Englisch im Durchschnitt besser abschneidet. Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nicht bestätigt werden. Das Llama3.2 Modell zeigt sogar eine bessere Trefferquote in Deutsch bei steigendem k-Wert, bei der pass@k-Methode. In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode für $k=1 … 5$ zusammengefasst.
+Eine Überprüfung der Modelle, ob die englische Sprache besser Ergebnisse liefern würde, wurde exemplarisch mit den \textit{Llama}-Modelle \textit{3.1:8b}, \textit{3.2:3b} und \textit{3.3:70b} durch geführt. Alle drei Modelle repräsentieren unterschiedliche Anzahl der Parameter und somit verschiedene Modellgrößen.\vspace{0.2cm}
+
+Da das Training der Modelle in englischer Sprache erfolgt, lag die Vermutung nahe, dass eine Evaluierung in dieser Sprache, wesentlich bessere Ergebnisse liefern sollte. Dies zeigen auch die Auswertungen in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP in der englischen Version im Durchschnitt besser abschnitt.\vspace{0.2cm}
+
+Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das Llama3.3 zeigt besser Werte, für die englische Version. Während das Llama3.2 Modell eine bessere Trefferquote in Deutsch bei steigendem k-Wert für die pass@k-Methode zeigt. In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode mit $k=1 … 5$ für die ausgewählten Llama-Modelle zusammengefasst.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama31_evaluation_lang.eps}
@@ -103,11 +106,12 @@ Da das Training der Modelle in englischer Sprache erfolgt, lag die Vermutung nah
 	\label{img:pass_at_k_results_by_llama_lang}
 \end{figure}
 
+Dieser Test zeigt auch das eine deutschsprachige Verwendung der Modelle nicht zwangsläufig schlechteren Code hervorbringt. Daraus wird der Schluss gezogen, das bei der Optimierung der Prompts eine Übersetzung ins Englische nicht unbedient zu einer signifikanten Verbesserung führt.
 
 \subsection{Nachteile der Evaluierung}
 Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Test einige Fehler. Dadurch resultieren Nachteile, die sich bei der Bewertung der Modelle negativ auswirken.\vspace{0.2cm}
 
-\textbf{Formulierung der Fragen: } Einige sind nicht eindeutig formuliert und können von den Modellen falsch interpretiert werden. Ein Beispiel im HumenEval-XL Benchmark ist die Aufgabe 20. Der genaue deutsche Wortlaut ist wie folgt, \textit{Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.}, der gesamte Prompt ist in Listing \ref{lst:humaneval_xl_prompt_20} zu sehen. In der hier durchgeführten Evaluierung wurde diese Aufgabe im \textit{pass@1} nur einmal bestanden. Der Wortlaut hält die Modelle an, einen Vergleich in der Methode selbst durchzuführen. In der, durch den Benchmark vorgegebenen Test, werden aber zwei Zeichenketten verglichen. D.h. als erwartetes Ergebnis sollte eine Zeichenkette erstellt werden, welche die doppelten Zeichen zweier zu testenden Zeichenketten enthält. Das Listing \ref{lst:humaneval_xl_test_20} zeigt einen Teil des Tests und die erwarteten Ergebnisse.\vspace{0.2cm}
+Einige Fragen sind nicht eindeutig formuliert und können von den Modellen falsch interpretiert werden. Ein Beispiel im HumenEval-XL Benchmark ist die Aufgabe 20. Der genaue deutsche Wortlaut ist wie folgt, \textit{Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.}, der gesamte Prompt ist in Listing \ref{lst:humaneval_xl_prompt_20} zu sehen. In der hier durchgeführten Evaluierung wurde diese Aufgabe im \textit{pass@1} nur einmal bestanden. Der Wortlaut hält die Modelle an, einen Vergleich in der Methode selbst durchzuführen. In der, durch den Benchmark vorgegebenen Test, werden aber zwei Zeichenketten verglichen. D.h. als erwartetes Ergebnis sollte eine Zeichenkette erstellt werden, welche die doppelten Zeichen zweier zu testenden Zeichenketten enthält. Das Listing \ref{lst:humaneval_xl_test_20} zeigt einen Teil des Tests und die erwarteten Ergebnisse.\vspace{0.2cm}
 
 \begin{lstlisting}[
 	language=php,
@@ -115,7 +119,6 @@ Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Tes
 	caption={Wortlaut der Aufgabe 20 im HumalEval-XL Benchmark}
 ]
 <?php
-
 /**
 * Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
 * * Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.
@@ -131,7 +134,6 @@ Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Tes
 * False
 * >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')
 * False
-*
 */
 function sameChars($s0, $s1){
 \end{lstlisting}
@@ -154,43 +156,37 @@ if (!compare($x0, $v0)) {
 }
 \end{lstlisting}
 
+Eine weitere Fehlerquelle ist das Zusammenführen der Antworten der Modelle und Tests aus dem Benchmark. Meist ist das Problem das Parsen der Sonderzeichen, wie beispielsweise die Verwendung der doppelten Anführungszeichen im Test und den erstellten Antworten. Eine manuelle Prüfung der Aufgabe 2 hat das Fehlverhalten aufgezeigt. Durch den Einsatz einer weiteren Pythoncodezeile, wie in Listing \ref{lst:error_evaluation_code_1} zeigt konnten die Bewertung einiger Modelle verbessert werden. So hat sich die Bewertung für das \textit{pass@1} des Deepseek-Coder-V2 um 7\% von $0,53$ auf $0,6$ verbessert. Ebenso wurde für das Llama3.1 Modell eine Verbesserung von $0,45$ auf $0,475$ ermittelt.\vspace{0.2cm}
 
-Beispiel: 43
+\begin{lstlisting}[
+	language=diff,
+	label=lst:error_evaluation_code_1,
+	caption={Fehler bei der Auswertung durch fehlerhafte Anführungszeichen}
+]
+  answer = answer.replace(r"\n", "\n")
++ answer = answer.replace(r'\"', '"')
++ 
++ test = test.replace(r'\"', '"') 
+\end{lstlisting}
 
-Es wird geprüft, ob der Code ohne Fehler ausführbar ist und die richtigen Ergebnisse liefert. Was dieser Test nicht evaluiert sind unter anderem vorhandene Codeerklärungen, Doc-Strings oder Code-Smells werden bei diesem Test nicht beachtet. Ebenso wird auch nicht der Codestandard geprüft.\vspace{0.2cm}
+Die Tests aus dem Benchmark und Ergebnisse der Modelle wurde stichprobenartig manuell geprüft und weitere Fehler behoben. Dennoch ist nicht auszuschließen das die jetzige Evaluation weitere Fehlerquellen enthält.\vspace{0.2cm}
 
-Benchmark prüfen, ob die Tests evtl. Fehler enthalten. Dies könnte sich beispielsweise in folgenden Probleme darstellen,
+Problem 43 (llama31/33,gemini) prüfen.
 
-\begin{itemize}
-	\item Tests sind falsch formuliert und die Abdeckung der geforderten Aufgabe wird nicht erfüllt, wodurch fehlerhafter generierter Code als korrekt bewertet wird.
-	\item Fehler in den Musterlösungen können dazu führen, dass korrekte Lösungen als nicht bestanden gewertet werden.
-	\item Mehrdeutige Aufgabenstellungen können ebenfalls das Ergebnis der Modelle negativ beeinflussen.
-	\item Die Benchmark existieren bereit mehrere Jahre, sodass nicht ausgeschlossen werden kann, das Modelle explizit mit diesen Benchmarks trainiert wurden.
-\end{itemize}
+Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.
 
 %--- Optimierung --------------------------------------------------------------------------------
 
 
 \section{Optimierung der Ergebnisse}
+% https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
 Als Ziel der Optimierung gilt das die LLMs effizienten, präzisen und korrekten Code zu generieren. Ein Ansatz dies zu erreichen ist die Prompts zur Codegenerierung mithilfe einer LLMs zu erstellen oder zu verbessern.
 
-
-% https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
-
-%\begin{tcolorbox}[
-%	enhanced,
-%	colback=BhtColorYellow!5!white,
-%	colframe=BhtColorYellow!75!black,
-%	title= HTML Startseite
-%	]
-%	Text in der Box
-%\end{tcolorbox}
-
-%\begin{tcolorbox}[
-%	enhanced,
-%	colback=BhtGrey!5!white,
-%	colframe=BhtGrey!75!black!50,
-%	title= ChatGPT 3.5
-%	]
-% Text in der Box
-%\end{tcolorbox}
+\begin{tcolorbox}[
+	enhanced,
+	colback=red!5!white,
+	colframe=red!75!black!50,
+	title= Mein roter Faden
+	]
+	Hier kommen noch Optimierungsangaben, die stehen zurzeit nicht fest.
+\end{tcolorbox}

@@ -1,0 +1,10 @@
+{"result_0":"    // Return the sum of x and y\n    return $x + $y;\n}\n\n// Testing the function\necho add(2, 3); // Should output 5\necho \"\n\";\necho add(5, 7); // Should output 12\n?>"}
+{"result_1":"    return $x + $y;\n}\n\n// Examples of using the function\necho add(2, 3); // Output: 5\necho add(5, 7); // Output: 12\n\n?>"}
+{"result_2":"    // Return the sum of x and y\n    return $x + $y;\n}\n\n// Example usage of the function\necho add(2, 3); // Outputs: 5\necho add(5, 7); // Outputs: 12\n\n?>"}
+{"result_3":"    return $x + $y;\n}\n\n// Examples of usage:\necho add(2, 3); // Outputs: 5\necho add(5, 7); // Outputs: 12\n\n?>"}
+{"result_4":"    return $x + $y;\n}\n\n// Beispiele für die Verwendung der Funktion\necho add(2, 3); // Gibt 5 aus\necho add(5, 7); // Gibt 12 aus\n?>\n\nDie Funktion `add` nimmt zwei Parameter, `$x` und `$y`, und gibt deren Summe zurück. Der Code zeigt auch Beispiele, wie diese Funktion verwendet wird, indem er die Ergebnisse der Additionen ausgibt."}
+{"result_5":"    return $x + $y;\n}\n\n// Beispielanwendung der Funktion\necho add(2, 3); // Sollte 5 ausgeben\necho add(5, 7); // Sollte 12 ausgeben\n\n?>"}
+{"result_6":"    // Return the sum of x and y\n    return $x + $y;\n}\n\n// Beispiele zur Verwendung der Funktion\necho add(2, 3); // Ergebnis: 5\necho add(5, 7); // Ergebnis: 12\n\n?>"}
+{"result_7":"    return $x + $y;\n}\n\n// Beispielnutzung der Funktion\necho add(2, 3); // Sollte 5 ausgeben\necho add(5, 7); // Sollte 12 ausgeben\n\n?>"}
+{"result_8":"    // Einfache Addition der beiden Zahlen\n    return $x + $y;\n}\n\n// Beispiele für die Funktionsnutzung\necho add(2, 3); // sollte 5 ausgeben\necho add(5, 7); // sollte 12 ausgeben\n\n?>"}
+{"result_9":"    // Berechnet die Summe von $x und $y und gibt das Ergebnis zurück\n    return $x + $y;\n}\n\n// Beispiele für den Funktionsaufruf\necho add(2, 3); // Ausgabe: 5\necho add(5, 7); // Ausgabe: 12\n\n?>"}

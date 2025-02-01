@@ -310,32 +310,16 @@ Die pass@k Methode ist eine Methode zur Bewertung der Leistungsfähigkeit von LL
 
 Ein Evaluierungsdatensatz sollte einen großen Aufgabenbereich der jeweiligen Programmiersprache abdecken, was mit dem HumenEval-XL umgesetzt wurde. Dieser Datensatz bringt 80 Aufgaben mit, mit denen Modelle geprüft werden können.\vspace{0.2cm}
 
-%Für die Methode können verschiedene Ansätze gewählt werden. Im Folgenden werden zwei dieser Ansätze vorgestellt, die in dieser Arbeit Anwendung finden.
-
-
-%\subsubsection{Einfache Methode}
-%Bei der einfachen Methode werden die aggregierten Anteile der Aufgabe berechnet, hierfür muss mindestens eine Lösung die unter den Top k Lösungen ist richtig sein. Dies ermöglicht einen gesamtheitliche Sicht auf das Modell, wie oft das Model in der Lage ist unter den Top-k korrekte Ergebnisse bereitzustellen.\vspace{0.2cm}
-
-%Für jede Aufgabe werden die Top-k Antworten des Modells geprüft, ob sich unter ihnen eine korrekte Lösung befindet. Enthalten die Top-k eine korrekte Lösung so wird die Aufgabe als bestanden gewertet, andernfalls als nicht bestanden. Nach dem alle Aufgaben auf diese Weise aus gewertet wurden, wird daraus der pass@k nach der Formel \ref{equ:pass_qt_k_simple} berechnet.
-
-%\begin{equation}\label{equ:pass_qt_k_simple}
-%	\text{pass@k} = \frac{1}{N} \sum_{i=1}^{N} 1(correct_i \in top-k_i)
-%\end{equation}
-
-%Dieser Wert verschafft einen ersten Eindruck über die Fähigkeiten des Modells und ist zudem leicht zu interpretieren.
-
-
-
-%\subsubsection{Komplexe Methode}
-%Im Gegensatz zu der einfachen Methode basiert diese auf den Erwartungswerten der Modelle und bietet eine stärkere statistische Evaluierung der Ergebnisse. Wie auch schon bei der einfachen Methode werden auch hier erfolgreiche Lösungen unter den Top-k Lösungen gesucht. Anders als bei der einfachen Methode werden hier nicht die aggregierten Anteile betrachtet, sondern die Wahrscheinlichkeit, dass das Modell in k Versuchen mindestens eine korrekte Lösung liefert. Bei der Berechnung wird nicht nur geprüft, ob mindestens eine korrekte Lösung vorliegt, bei der komplexen Methode fließen alle korrekten Lösungen mit ein.\vspace{0.2cm}
-Die Methode berechnet den Erwartungswert der Modelle und bietet eine statistische Evaluation der Ergebnisse. Es werden für die Berechnung die Anzahl der Versuche pro Aufgabe, die Anzahl der korrekt generierten Lösungen und die Gesamtanzahl der generierten Lösungen betrachtet, was die Formel \ref{equ:pass_qt_k_complex} zeigt.
+Die Methode berechnet den Erwartungswert der Modelle und bietet eine statistische Evaluation der Ergebnisse. Es werden für die Berechnung die Anzahl der Versuche pro Probe, die Anzahl der korrekt generierten Lösungen und die Gesamtanzahl der generierten Lösungen betrachtet, was die Formel \ref{equ:pass_qt_k_complex} zeigt.\vspace{0.2cm}
 
 \begin{equation}\label{equ:pass_qt_k_complex}
 	\text{pass@k} = \mathbb{E}_{sample} \left[ 1 - \frac{\binom{n-c}{k}}{\binom{n}{k}}\right]
 \end{equation}
 
-Dadurch das alle korrekten Lösungen mit in die Bewertung einfließen, bietet die Methode eine umfassendere Analyse zur Bewertung von LLM, welche bei der Codegenerierung eingesetzt wird.
+Dadurch das alle korrekten Lösungen mit in die Bewertung einfließen, bietet die Methode eine umfassendere Analyse zur Bewertung von LLMs, welche bei der Codegenerierung eingesetzt wird. Nachdem alle Aufgaben einzeln betrachtet wurden, wird der Erfolgswahrscheinlichkeit des gesamten Modells berechnet, die Formel \ref{equ:probability_of_success_per_model} zeigt die mathematische Berechnung.
 
+\begin{equation}\label{equ:probability_of_success_per_model}
+	pass@k_{gesamt} = \frac{1}{N} \sum_{i=0}^{N} pass@k_{i}
+\end{equation}
 
-%\subsubsection{Kombination}
-%Die Verwendung beider Ansätze bietet unterschiedliche Sichtweisen auf das Ergebnis. Eine schnelle und transparente Bewertung liefert die einfache Methode, während die komplexe Methode eine präzisere und fundierte Bewertung der Leistungsfähigkeit der Modelle liefert.
+Mit dieser Methoden ist eine starke statistische Evaluation der Modelle möglich. Hierbei werden nicht nur die aggregierten Anteile der Lösungen betrachtet, sondern es fließen alle korrekten Lösungen mit in die Berechnung ein. Somit erhält man einen guten vergleichbaren Wert über die Wahrscheinlichkeit, das das Modell in $k$ Versuchen mindestens eine korrekte Lösung liefert.

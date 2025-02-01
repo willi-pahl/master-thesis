@@ -95,7 +95,7 @@ Eine Überprüfung der Modelle, ob die englische Sprache besser Ergebnisse liefe
 
 Da das Training der Modelle in englischer Sprache erfolgt, lag die Vermutung nahe, dass eine Evaluierung in dieser Sprache, wesentlich bessere Ergebnisse liefern sollte. Dies zeigen auch die Auswertungen in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP in der englischen Version im Durchschnitt besser abschnitt.\vspace{0.2cm}
 
-Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das Llama3.3 zeigt besser Werte, für die englische Version. Während das Llama3.2 Modell eine bessere Trefferquote in Deutsch bei steigendem k-Wert für die pass@k-Methode zeigt. In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode mit $k=1 … 5$ für die ausgewählten Llama-Modelle zusammengefasst.\vspace{0.2cm}
+Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das Llama3.3 zeigt besser Werte, in der englische Version. Während das Llama3.2 Modell eine bessere Trefferquote in Deutsch bei steigendem k-Wert für die pass@k-Methode zeigt. In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode mit $k=1 … 5$ für die ausgewählten Llama-Modelle zusammengefasst.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama31_evaluation_lang.eps}
@@ -108,10 +108,10 @@ Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle n
 
 Dieser Test zeigt auch das eine deutschsprachige Verwendung der Modelle nicht zwangsläufig schlechteren Code hervorbringt. Daraus wird der Schluss gezogen, das bei der Optimierung der Prompts eine Übersetzung ins Englische nicht unbedient zu einer signifikanten Verbesserung führt.
 
-\subsection{Nachteile der Evaluierung}
+\subsection{Nachteile der Evaluierung}\label{subsec:disadvantages_of_evaluation}
 Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Test einige Fehler. Dadurch resultieren Nachteile, die sich bei der Bewertung der Modelle negativ auswirken.\vspace{0.2cm}
 
-Einige Fragen sind nicht eindeutig formuliert und können von den Modellen falsch interpretiert werden. Ein Beispiel im HumenEval-XL Benchmark ist die Aufgabe 20. Der genaue deutsche Wortlaut ist wie folgt, \textit{Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.}, der gesamte Prompt ist in Listing \ref{lst:humaneval_xl_prompt_20} zu sehen. In der hier durchgeführten Evaluierung wurde diese Aufgabe im \textit{pass@1} nur einmal bestanden. Der Wortlaut hält die Modelle an, einen Vergleich in der Methode selbst durchzuführen. In der, durch den Benchmark vorgegebenen Test, werden aber zwei Zeichenketten verglichen. D.h. als erwartetes Ergebnis sollte eine Zeichenkette erstellt werden, welche die doppelten Zeichen zweier zu testenden Zeichenketten enthält. Das Listing \ref{lst:humaneval_xl_test_20} zeigt einen Teil des Tests und die erwarteten Ergebnisse.\vspace{0.2cm}
+Einige \textit{\textbf{Fragen sind nicht eindeutig formuliert}} und können von den Modellen falsch interpretiert werden. Ein Beispiel im HumenEval-XL Benchmark ist die Aufgabe 20. Der genaue deutsche Wortlaut ist wie folgt, \textit{Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.}, der gesamte Prompt ist in Listing \ref{lst:humaneval_xl_prompt_20} zu sehen. In der hier durchgeführten Evaluierung wurde diese Aufgabe im \textit{pass@1} nur einmal bestanden. Der Wortlaut hält die Modelle an, einen Vergleich in der Methode selbst durchzuführen. In der, durch den Benchmark vorgegebenen Test, werden aber zwei Zeichenketten verglichen. D.h. als erwartetes Ergebnis sollte eine Zeichenkette erstellt werden, welche die doppelten Zeichen zweier zu testenden Zeichenketten enthält. Das Listing \ref{lst:humaneval_xl_test_20} zeigt einen Teil des Tests und die erwarteten Ergebnisse.\vspace{0.2cm}
 
 \begin{lstlisting}[
 	language=php,
@@ -156,7 +156,7 @@ if (!compare($x0, $v0)) {
 }
 \end{lstlisting}
 
-Eine weitere Fehlerquelle ist das Zusammenführen der Antworten der Modelle und Tests aus dem Benchmark. Meist ist das Problem das Parsen der Sonderzeichen, wie beispielsweise die Verwendung der doppelten Anführungszeichen im Test und den erstellten Antworten. Eine manuelle Prüfung der Aufgabe 2 hat das Fehlverhalten aufgezeigt. Durch den Einsatz einer weiteren Pythoncodezeile, wie in Listing \ref{lst:error_evaluation_code_1} zeigt konnten die Bewertung einiger Modelle verbessert werden. So hat sich die Bewertung für das \textit{pass@1} des Deepseek-Coder-V2 um 7\% von $0,53$ auf $0,6$ verbessert. Ebenso wurde für das Llama3.1 Modell eine Verbesserung von $0,45$ auf $0,475$ ermittelt.\vspace{0.2cm}
+Eine weitere Fehlerquelle ist das \textit{\textbf{Zusammenführen der Antworten der Modelle und Tests aus dem Benchmark}}. Meist ist das Problem das Parsen der Sonderzeichen, wie beispielsweise die Verwendung der doppelten Anführungszeichen im Test und den erstellten Antworten. Eine manuelle Prüfung der Aufgabe 2 hat das Fehlverhalten aufgezeigt. Durch den Einsatz einer weiteren Pythoncodezeile, wie in Listing \ref{lst:error_evaluation_code_1} zeigt konnten die Bewertung einiger Modelle verbessert werden. So hat sich die Bewertung für das \textit{pass@1} des Deepseek-Coder-V2 um 7\% von $0,53$ auf $0,6$ verbessert. Ebenso wurde für das Llama3.1 Modell eine Verbesserung von $0,45$ auf $0,475$ ermittelt.\vspace{0.2cm}
 
 \begin{lstlisting}[
 	language=diff,
@@ -171,11 +171,9 @@ Eine weitere Fehlerquelle ist das Zusammenführen der Antworten der Modelle und 
 
 Die Tests aus dem Benchmark und Ergebnisse der Modelle wurde stichprobenartig manuell geprüft und weitere Fehler behoben. Dennoch ist nicht auszuschließen das die jetzige Evaluation weitere Fehlerquellen enthält.\vspace{0.2cm}
 
-Problem 43 (llama31/33,gemini) prüfen.
-
 Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.
 
-%--- Optimierung --------------------------------------------------------------------------------
+%--- Optimierung -----------------------------------------------------------------------------------
 
 
 \section{Optimierung der Ergebnisse}

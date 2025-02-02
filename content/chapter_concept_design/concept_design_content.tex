@@ -4,16 +4,25 @@ In diesem Kapitel werden die Rahmen- und Randbedienungen für das methodische Vo
 %*   Dieser Abschnitt stellt sicher, dass die Evaluation messbar und reproduzierbar ist.
 
 %*   Welche Aspekte der Codegenerierung sollen evaluiert werden? (z.B. Korrektheit des generierten Codes, Performance (Ausführungsgeschwindigkeit), Codequalität (Lesbarkeit, Wartbarkeit), Einhaltung von Coding Standards, Sicherheit, etc.)
-Ausgehend von den in Kapitel \ref{sec:goals_of_the_work} gestellten Ziele dieser Arbeit, werden hier das Konzept und das Design für die Evaluation beschrieben. Wie werden die Ziele erreicht und welche Komponenten sind dazu erforderlich, um die Daten zu erheben und auszuwerten.\vspace{0.2cm}
+Ausgehend von den in Kapitel \ref{sec:goals_of_the_work} gestellten Ziele dieser Arbeit, werden hier Konzept und Design für die Evaluation besprochen. Es wird dargelegt wie die Ziele erreicht und welche Komponenten dazu erforderlich sind, um die Daten zu erheben und auszuwerten.\vspace{0.2cm}
 
-Die Evaluation soll zeigen, ob die generierten Codes korrekt funktioniert und es nicht zu Laufzeitfehlern oder Deadlocks kommt. Des Weiteren wird evaluiert, ob der Code den gängigen Programmierstil entsprechen und welche Qualität der generierte Code ausweist. Hier liegt vor allen der Fokus auf Lesbarkeit und Einhaltung von Codingstandards. Als letzter Punkt soll die Dokumentation innerhalb des Codes geprüft werden. Je besser diese Ausfällt je leichter sind spätere Refactorings möglich.\vspace{0.2cm}
+Die Evaluation soll zeigen, ob die generierten Codes korrekt Ergebnisse liefern und es nicht zu Laufzeitfehlern oder Deadlocks kommt. Des Weiteren wird bei der Prompt-Optimierung evaluiert, ob der generierte Code den gängigen Programmierstil entspricht und welche Qualität dieser aufweist. Hier liegt vor allen der Fokus auf Lesbarkeit und Einhaltung von Codingstandards. Als letzter Punkt soll die Dokumentation innerhalb des Codes geprüft werden. Je besser diese Ausfällt, umso leichter ist ein späteres Refactoring möglich.\vspace{0.2cm}
 
-Was nicht im Fokus liegt und in den Test vernachlässigt wird, sind die Performance der Modelle und die Architekturen der Systeme auf denen die Modelle laufen. Es geht in erster Linie um den generierten Code und dessen Brauchbarkeit für die reelle Verwendung in der Praxis.\vspace{0.2cm}
+Was nicht im Fokus liegt und in den Test vernachlässigt wird, sind die Performance der Modelle und die Architekturen der Systeme auf denen das jeweilige Modell läuft. Es geht in erster Linie um den generierten Code und dessen Brauchbarkeit in der Praxis.\vspace{0.2cm}
 
 %*   Welche konkreten Metriken werden zur Messung dieser Aspekte verwendet? (z.B. Anzahl der Fehler im generierten Code, Ausführungszeit in Millisekunden, statische Codeanalyse-Metriken, etc.)
-Für die Messung der Fehler wird die \texttt{pass@k} Methode angewandt. Diese Methode baut auf einen mitgelieferten Test auf, der für jedes Problem vorhanden ist. Der Test, zusammen mit dem generierten Code ergeben einen ausführbaren testbaren Code. Jeder Test wird in einer Liste notiert und dazu das Ergebnis ob positiv oder negativ. Daraus kann dann mit der \texttt{pass@k} Methode die repräsentative Zuverlässigkeit des Modells für jedes Problem und anschließend für das gesamte Modell errechnet werden.\vspace{0.2cm}
+Für die Messung der Brauchbarkeit von Modellen wird die \texttt{pass@k} Methode angewandt. Für jede Probe liefert der HumanEval-XL einene Test mit. Dieser zusammen mit dem generierten Code sollten einen ausführbaren und testbaren Code ergeben. Jeder Test wird in einer Liste notiert und dazu das Ergebnis der Ausführung. Daraus kann dann mit der \texttt{pass@k} Methode die repräsentative Zuverlässigkeit des Modells für jedes Problem und anschließend für das gesamte Modell errechnet werden.\vspace{0.2cm}
 
-Während die Evaluierung der Model mit dem Aufgaben des HumanEval-XL erfolgten, wird die Optimierung der Prompts an eigen erstellte Aufgaben erfolgen. Diese sind komplexer als die allgemeinen Aufgaben aus dem HumanEval-XL Benchmark. Hierbei soll untersucht werden, mit welchem Ansätzen Prompts im Bereich der Codegenerierung im Bereich der Webprogrammierung erfolgen kann. Der Aufbau der Aufgaben orientiert sich am HumanEval Benchmark. Es wird neben der Aufgabe auch ein Unittest vorgegeben. Somit kann der generierte Code mit Unittests geprüft werden. Um diese Test ausführen zu können, sind PHP Dateien erforderlich. Somit müssen die generierten Codes in Dateien gespeichert werden und können im Anschluss geprüft werden.
+Während die Evaluierung der Modelle mit den Aufgaben des HumanEval-XL erfolgten, wird die Optimierung der Prompts an eigen erstellte Aufgaben erfolgen. Diese sind komplexer als die allgemeinen Proben aus dem HumanEval-XL Benchmark. Hierbei soll untersucht werden, mit welchem Ansätzen Prompts im Bereich der Codegenerierung für die Webprogrammierung erfolgen kann. Der Aufbau der Aufgaben orientiert sich am HumanEval Benchmark. Es wird neben der Aufgabe auch ein Unittest vorgegeben. Somit kann der generierte Code mit Unittests geprüft werden. Um diese Tests ausführen zu können, sind PHP Dateien erforderlich. Somit müssen die generierten Codes in Dateien gespeichert und können im Anschluss geprüft werden.
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=red!5!white,
+	colframe=red!75!black!50,
+	title= Mein roter Faden
+	]
+	Hier folgt noch eine Beschreibung des Optimierungskonzeptes.
+\end{tcolorbox}
 
 %Für die erweiterte Messung des PHP Codes kommt das Tool \texttt{phpmetrics} zum Einsatz. \texttt{phpmetrics} liefert eine Vielzahl an Metriken,mit der der Code analysiert werden kann. Bei diesem Tool liegt der Fokus auf die Ergebnisse von \texttt{Cyclomatic Complexity}, mit der die Komplexität des Codes gemessen wird. Auf den \texttt{Maintainability Index} zur Auswertung der Wartbarkeit. Diese ermittelt wie aufwändig es zukünftig ist den Code zu erweitern und bewertet die Lesbarkeit. Ein weiterer Parameter welcher hilft die Komplexität zu bewerten, ist der \texttt{Logical Lines of Code} Parameter. Ein weiteres Indiz zur Wartbar- und Lesbarkeit ist der \texttt{Method Length} Parameter. Ein weiterer Parameter zur Bewertung der Lesbarkeit ist der Parameter \texttt{Numbers of Parmeters}. Diese gibt die Anzahl der Parameter welche in die Methode übergeben werden. Eine hohe Anzahl kann ein Indiz dafür sein, das der Code schwerer zu lesen ist. Zur Bewertung der Dokumentation wird der Parameter \texttt{Comment Density} herangezogen.
 %Mithilfe eines Python-Skripts wird der generierte Code mit \texttt{phpmetrics} evaluiert.\vspace{0.2cm}
@@ -39,7 +48,7 @@ Das \textbf{Qwen2.5-Coder}-Modell zeichnet sich durch seine spezialisierte Archi
 
 \textbf{Deepseek-Coder-V2} ist die zweite Generation der Deepseek-Coder-Reihe und bietet verbesserte Fähigkeiten zur Codegenerierung und -optimierung. Das Modell nutzt fortschrittliche Suchalgorithmen, um präzisere und effizientere Codestücke zu erstellen. Es ist insbesondere für seine hohe Genauigkeit bei der Generierung komplexer Algorithmen und Datenstrukturen bekannt. Die Modellbeschreibung ist unter anderem aus \cite{deepseek-ai-2024} und \cite{cui-2024} entnommen. Des Weiteren wird in beiden Arbeiten das Modell mit verschiedenen Open-Source und Close-Source Modellen verglichen.\vspace{0.2cm} 
 
-Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Milliarden Parametern zu den kleineren Modellen von MetaAI. Beide Modelle basieren auf dem LLama3.1 Modell, das Llama3.1-Claude ist aber mit anderen Systemaufforderungen erstellt wurden. Hierfür wurden die Systemaufforderungen vom Claude Sonnet 3.5 der Firma Anthropic’s verwendet, nachzulesen unter \cite{ollama_page_llama31_claude}. Ein ähnliches Modell ist auf Hugging Face veröffentlicht \cite{huggingface_page_llama31_claude}. Eine Modelcard mit weiteren Informationen zum Modell, ist unter \cite{meta-llama-no-date} zu finden.\vspace{0.2cm}
+Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Milliarden Parametern zu den kleineren Modellen von MetaAI. Beide Modelle basieren auf dem LLama3.1 Modell, das Llama3.1-Claude ist aber mit anderen Systemaufforderungen erstellt wurden. Hierfür wurden die Systemaufforderungen vom Claude Sonnet 3.5 der Firma Anthropic’s verwendet, nachzulesen unter \cite{ollama_page_llama31_claude}. Ein ähnliches Modell ist auf Hugging Face veröffentlicht \cite{huggingface_page_llama31_claude}. Eine Modelcard mit weiteren Informationen zum Modell ist zu finden unter \cite{meta-llama-no-date}.\vspace{0.2cm}
 
 \textbf{Mistral} ist ein modernes leistungsfähiges Sprachmodell, welches nicht speziell für die Codegenerierung und -analyse entwickelt wurde. Es verwendet fortschrittliche Transformer-Architekturen und ist für eine Vielzahl von Aufgaben einsetzbar. Darunter fallen beispielsweise natürliche Sprachverarbeitung, Textzusammenfassungen, maschinelle Übersetzung und Textklassifizierung. Dieses Modell ausgewählt, um ein Modell zu evaluieren, welches nicht speziell auf Codegenerierungsaufgaben trainiert wurde. In der Arbeit \cite{eberhardinger-2024} wurde Mistral, mit verschiedenen Modelle zur Spielecodegenerierung verglichen. Während in \cite{quan-2024} eine Evaluation für natürlichsprachlicher Erklärungen, Mistral mit anderen Modellen verglichen wurde.\vspace{0.2cm}
 
@@ -47,9 +56,7 @@ Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Mill
 
 Mit \textbf{Gemini 1.5} präsentiert Google ein Modell zur Verarbeitung von natürlicher Sprache und stellt es zur freien Nutzung zur Verfügung. Genau wie ChatGPT nutzt auch Google die Nutzereingaben, um neue Modelle zu trainieren, was zur Weiterentwicklung für und somit zum neuen Modell \textbf{Gemini 2}. Wie in \cite{siam-2024} beschrieben, setzen auch die Gemini Modelle die Transformer-Architektur ein, was sie dazu befähigt, komplizierte Sprachmuster zu erkennen und präzise Vorhersagen zutreffen. In \cite{siam-2024} wird Gemini 1.5 mit Aufgaben zur Codegenerierung mit ChatGPT und Copilot vergleichen. Nach \cite{elgedawy-2024} kann sich das Gemini-Ultra-Modell beim MMLU-Benchmark sogar mit menschlichen Experten messen und erschließt eine breite Palette von Anwendungsbereichen. Hier wurden die Fähigkeiten zur Codegenerierung an Sicherheitsfragen im E-Commerce Bereich getestet. Ein Überblick über die Gemini Modelle ist unter \cite{google_gemini_model_overview} zu finden.\vspace{0.2cm}
 
-Neben den genannten Quellen sind die Herstellerseite eine gute Quelle weiterführende Informationen einzuholen.\vspace{0.2cm}
-
-Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Modelle.\vspace{0.2cm}
+Neben den genannten Quellen sind die Herstellerseite eine gute Quelle weiterführende Informationen einzuholen. Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Modelle.\vspace{0.2cm}
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|l|l|c|c|c|c|}
@@ -79,7 +86,7 @@ Für die Abfragen der Testprobleme wurde eine \textit{temperature} von $0.2$ gew
 
 Ein hoher \textit{top\_p} Wert verlangt von den Modellen eine Antwort die mit hoher Wahrscheinlichkeit richtig ist. Für die Codegenerierung sollten die wahrscheinlichsten und syntaktisch korrekten Token angewandt werden. Für die Abfragen wird hier ein Wert von $0.95$ angesetzt.\vspace{0.2cm}
 
-Die maximale Anzahl Token sollte bei der Generierung von Code zwischen 20 und 1000 Token eingestellt werden, je nach Umfang der Antworten. Da hier nicht nur die Funktionsfähigkeit geprüft wird, sondern auch Struktur und Coding-Standards wird ein hoher Wert ausgewählt, sodass beispielsweise Kommentare ebenfalls enthalten sind können. Somit wird \textit{max\_token} auf sechshundert festgelegt.\vspace{0.2cm}
+Die maximale Anzahl Token sollte bei der Generierung für die Proben des HumanEval-XL zwischen 200 und 1000 Token eingestellt werden, je nach Umfang der Antworten. Da hier nur die Funktionsfähigkeit geprüft wird, werden Struktur und Coding-Standards vernachlässigt, sodass \textit{max\_token} auf 1200 festgelegt wird. Probleme mit dieser Einstellung gab es nur bei den Modellen \textit{Gemini 1.5}, \textit{ChatGPT 4} und \textit{Deepseek-R1}. Hier wurde die Anzahl der Token nicht mehr festgelegt.\vspace{0.2cm}
 
 In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurzer Form noch einmal dargestellt.
 
@@ -88,14 +95,14 @@ In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurz
 		\hline
 		\textbf{Modell} & \textbf{Temp.} & \textbf{max. Token} & \textbf{Top-p} \\
 		\hline
-		Qwen2.5-coder     &  0.2 &       600 & 0.95 \\
-		Deepseek-Coder-v2 &  0.2 &       600 & 0.95 \\
-		Llama3.1          &  0.2 &  600/1200 & 0.95 \\
-		Llama3.1-Claude   &  0.2 &       600 & 0.95 \\
-		Llama3.2          &  0.2 &       600 & 0.95 \\
-		Llama3.3          &  0.2 &       600 & 0.95 \\
-		Mistral Small     &  0.2 &       600 & 0.95 \\
-		Gemini 1.5 Pro    & k.A. &      k.A. & k.A. \\
+		Qwen2.5-coder     &  0.2 &  1200 & 0.95 \\
+		Deepseek-Coder-v2 &  0.2 &  1200 & 0.95 \\
+		Llama3.1          &  0.2 &  1200 & 0.95 \\
+		Llama3.1-Claude   &  0.2 &  1200 & 0.95 \\
+		Llama3.2          &  0.2 &  1200 & 0.95 \\
+		Llama3.3          &  0.2 &  1200 & 0.95 \\
+		Mistral Small     &  0.2 &  1200 & 0.95 \\
+		Gemini 1.5 Pro    & k.A. &  k.A. & k.A. \\
 		\hline
 	\end{tabular}
 	\centering
@@ -103,43 +110,48 @@ In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurz
 	\label{tab:params_for_llms}
 \end{table}
 
-Hinzu kommen weitere Parameter für die Modelle. Unter anderem wird der Parameter \textit{do\_sample} auf $False$ gesetzt, was die Modelle veranlasst den wahrscheinlichsten folgenden Token zu wählen und ein deterministisches Verhalten fördert. Ein weiterer Parameter ist \textit{return\_full\_text} der ebenfalls auf $False$ gesetzt wird. Dadurch werden nur die neu generierten Tokens zurückgegeben, was die Relevanz der Antworten fördert.\vspace{0.2cm}
+Hinzu kommen weitere Parameter für die lokalen Modelle. Unter anderem wird der Parameter \textit{do\_sample} auf $False$ gesetzt, was die Modelle veranlasst den wahrscheinlichsten folgenden Token zu wählen und ein deterministisches Verhalten fördert. Ein weiterer Parameter ist \textit{return\_full\_text} der ebenfalls auf $False$ gesetzt wird. Dadurch werden nur die neu generierten Tokens zurückgegeben, was die Relevanz der Antworten fördert.\vspace{0.2cm}
 
 %*   Werden die LLMs direkt über ihre APIs angesprochen oder werden Frameworks/Bibliotheken verwendet?
-Alle Prompts welche die Probleme enthalten, werden mit Python Skripten abgefragt. Dies gilt für die offenen lokalen wie auch für die kommerziellen Modelle. Die Abfragen werden jeweils an die entsprechenden APIs abgesetzt. Als Frameworkfür die Abfragen der lokalen Modelle, kommt das Python \texttt{langchain} Framework zu Einsatz. Für die Modelle der Gemini-Reihe wird die Google eigene Bibliothek, \texttt{google.genai} verwendet. Dasselbe trifft für die Modelle von OpenAI zu. Hier kommt die Python Bibliothek \texttt{openai} zum Einsatz.
+Alle Prompts die Proben enthalten, werden mit Python Skripten abgefragt. Dies gilt für die offenen lokalen wie auch für die kommerziellen Modelle. Die Abfragen werden jeweils an die entsprechenden APIs abgesetzt. Als Framework für die Abfragen der lokalen Modelle kommt das Python \texttt{langchain} Framework zu Einsatz. Für die kommerziellen Modelle der Gemini-Reihe wird die Google eigene Bibliothek, \texttt{google.genai} verwendet. Dasselbe trifft für die Modelle von OpenAI zu. Hier kommt die Python Bibliothek \texttt{openai} zum Einsatz.
 
 %---------------------------------------------------------------------------------------------------
 
 
 \section{Design der Experimente}
 %*   Dieser Abschnitt ist zentral für die Arbeit, da er die methodische Vorgehensweise der Evaluation beschreibt.
-Das Experiment wird mit dem HumanEval-XL Benchmark durchgeführt. Dieser Benchmark besteht aus einer Reihe von 80 Tests in verschiedenen Programmiersprachen, die wie folgt aufgebaut sind,
+In dem Kapitel soll das Design der Experimente besprochen werden. Zum einen die Umsetzung und Ausführung des HumanEval-XL Benchmark und zum anderen die Optimierungen der Prompts für die Webproblematiken.
+
+\subsection{HumanEval-XL Benchmark}
+Das Experiment wird mit dem HumanEval-XL Benchmark durchgeführt. Dieser Benchmark besteht aus einer Reihe von 80 Tests in verschiedenen Programmier- und Landessprachen, die wie folgt aufgebaut sind,\vspace{0.2cm}
 
 \begin{myitemize}
 	\item \textbf{task\_id}: Kennung der Datenprobe
 	\item \textbf{prompt}: Anfrage für das Modell, Funktionsheader und Docstring
-	\item \textbf{entry\_point}: Einstiegspunkt für den Test
-	\item \textbf{test}: Test für die geforderte Funktion
+	\item \textbf{entry\_point}: Einstiegspunkt für die Probe
+	\item \textbf{test}: vordefinierte Testaufgaben für die geforderte Funktion
 	\item \textbf{description}: Beschreibung der Aufgabe
 	\item \textbf{language}: Kennung der Programmiersprache
 	\item \textbf{canonical\_solution}: Lösung für das Problem
 	\item \textbf{natural\_language}: Ländersprache in der Datei
 \end{myitemize}
 
-Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmark-Tests.\vspace{0.2cm}
+Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmark-Tests. In der Struktur des Benchmarks sind vier wesentliche Bereiche erkennbar. Dazu gehören die \textit{Deklaration}, der \textit{Kommentar}, das \textit{Ergebnis} und der \textit{Test}. Die Deklaration und der Kommentar sind von Benchmark vorgegeben. Die \textit{Deklaration} definiert die anzuwendende Programmiersprache, der \textit{Kommentar} enthält die Anweisung für das Modell und definiert den Kontext. Ebenfalls wird der Name der Methode definiert, welche das Modell verwenden muss, um den abschließenden Test erfolgreich zu bestehen. Diese beiden Teile werden an das Modell übergeben und dieses generiert den Code, welches als \textit{Ergebnis} von dem Modell zurückgeliefert wird.\vspace{0.2cm}
+
+Zusammen mit dem vierten Teil, dem \textit{Test} wird dann die Prüfung des \textit{Ergebnisses} durchgeführt. Die Ergebnisse werden dokumentiert und dienen zur Berechnung der Wahrscheinlichkeit das ein Modell eine korrekte Antwort liefert.\vspace{0.2cm}
 
 \begin{figure}[!ht]
-	\includegraphics[width=0.8\textwidth]{content/chapter_intruduction/images/code_generation_humaneval_x.eps}
+	\includegraphics[width=0.6\textwidth]{content/chapter_intruduction/images/code_generation_humaneval_x.eps}
 	\centering
-	\caption{Codegeneration}
+	\caption{Aufbau des HumanEval-XL Benchmarks}
 	\label{img:code_generation_humaneval}
 \end{figure}
 
 %*   Welche Arten von Code sollen generiert werden? (z.B. einfache HTML-Formulare, komplexe JavaScript-Funktionen, serverseitiger Code in Python/Node.js, etc.)
-Um die Modelle zu evaluieren und ihre Fähigkeiten hinsichtlich der im Web vorherrschenden Programmiersprachen zu untersuchen, werden die Tests in den Programmiersprache(n) PHP (und JavaScript) vorgenommen. Dafür sollen die Modelle mehrfach einfache Funktionen generieren.\vspace{0.2cm}
+Um die Modelle zu evaluieren und ihre Fähigkeiten hinsichtlich der im Web vorherrschenden Programmiersprachen zu untersuchen, werden die Tests in den Programmiersprache PHP und in der deutschen Version vorgenommen. Dafür sollen die Modelle mehrfach einfache Funktionen generieren.\vspace{0.2cm}
 
 %*   Wie werden die Testfälle für die Evaluation generiert? (z.B. manuelle Erstellung, automatische Generierung, Verwendung von bestehenden Code-Snippets, etc.) Wie groß ist der Umfang der Testfälle? (Anzahl der zu generierenden Code-Snippets)
-Der Benchmark liefert die Tests mit. Dazu werden bereits in den Prompts die Namen der Methoden und die zu übergebenen Parameter angegeben, welche zu erstellen ist. Der jeweilige Test verwendet dann diesen Namen und übergibt die geforderten Parameter. Das Listing \ref{lst:example_prompt_test_by_humaneval_benchmark} zeigt ein Beispiel für einen mitgelieferten HumanEval-XL Test.
+Der Benchmark liefert jeweils einen Test für die Evaluierung mit. Dazu werden bereits in den Prompts die Namen der Methoden und die zu übergebenen Parameter angegeben, welche durch die Modelle zu erstellen sind. Der jeweilige Test verwendet dann diesen Namen und übergibt die geforderten Parameter. Das Listing \ref{lst:example_prompt_test_by_humaneval_benchmark} zeigt ein Beispiel für einen mitgelieferten HumanEval-XL Test.\vspace{0.2cm}
 
 \begin{lstlisting}[language=php,caption={Beispiel für einen Test aus dem HumanEval-XL Benchmark},label=lst:example_prompt_test_by_humaneval_benchmark]
 function compare($x, $y) {
@@ -155,7 +167,19 @@ if (!compare($x0, $v0)) {
 
 
 %*   Wie werden die Ergebnisse der LLMs verglichen? (z.B. Vergleich mit Referenzcode, manuelle Überprüfung, automatische Tests, etc.)
-Um die Modelle untereinander zu vergleichen, bekommen alle Modelle dieselben Prompts. Von jedem Prompt werden pro Modelle zehn Varianten erstellt. Die Ergebnisse werden in einer Liste chronologisch gespeichert. Diese Ergebnisse werden dann mittels der \texttt{pass@k} Metrik geprüft.
+Um die Modelle untereinander zu vergleichen, bekommen alle Modelle dieselben Prompts. Von jedem Prompt werden pro Modelle fünf Varianten erstellt. Die Ergebnisse werden in einer Liste chronologisch gespeichert. Mithilfe der pass@k Methode erfolgt die Evaluierung der Ergebnisse und anschließend die Bewertung der Modelle.\vspace{0.2cm}
+
+\subsection{Optimierung der Prompts}
+Die Proben aus dem HumanEval-XL Benchmark sind grundlegende Funktionsprüfungen für die Modelle und als kleine Probleme definiert. Oft werden aber durch Entwickler keine grundlegenden Aufgaben an die Modelle gestellt, sondern komplexere Probleme. Das Design der Problemstellungen soll auf objektorientierter Programmierung beruhen und mehrere Probleme der Webprogrammierung abdecken.
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=red!5!white,
+	colframe=red!75!black!50,
+	title= Mein roter Faden
+	]
+	Hier kommt noch eine Beschreibung des Optimierungskonzeptes.
+\end{tcolorbox}
 
 %---------------------------------------------------------------------------------------------------
 
@@ -168,19 +192,28 @@ Die Prompts im HunamEval-XL Benchmark sind als Few-Shot-Prompts verfasst. Sie ne
 <?php
 
 /**
-* Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
-* Gib den Median der Elemente in der Liste l zurück.
-* >>> median([3, 1, 2, 4, 5])
-* 3
-* >>> median([-10, 4, 6, 1000, 10, 20])
-* 15.0
-*
-*/
+ * Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
+ * Gib den Median der Elemente in der Liste l zurück.
+ * >>> median([3, 1, 2, 4, 5])
+ * 3
+ * >>> median([-10, 4, 6, 1000, 10, 20])
+ * 15.0
+ *
+ */
 function median($l){
 \end{lstlisting}
 
 %*   Wie werden die Prompts aufgebaut sein? (z.B. klare Anweisungen, Beispiele, Kontextinformationen, etc.)
-Alle Prompts im Benchmark sind als Code-Kommentare aufgebaut. Als letzte Zeile ist der Methodenname angegeben. Somit soll sichergestellt werden, dass die erstellten Tests funktionieren.\vspace{0.2cm}
+Alle Prompts im Benchmark sind als Code-Kommentare aufgebaut. Als letzte Zeile ist der Methodenname angegeben. Somit wird sichergestellt, dass der generierte Code zusammen mit den vorgegebenen Tests bestanden werden kann.\vspace{0.2cm}
+
+\begin{tcolorbox}[
+	enhanced,
+	colback=red!5!white,
+	colframe=red!75!black!50,
+	title= Mein roter Faden
+	]
+	Hier kommt/kommen noch ein oder mehrere Konzepte für das Prompt-Engineering.
+\end{tcolorbox}
 
 %*   Werden verschiedene Prompt-Varianten für die gleichen Code-Generierungsaufgaben verwendet, um deren Einfluss auf die Ergebnisse zu untersuchen?
 
@@ -200,11 +233,3 @@ Alle erstellten Codes und Ergebnisse werden dokumentiert und im Anhang eingefüg
 
 %*   Wie wird die Reproduzierbarkeit der Experimente sichergestellt? (z.B. Verwendung von Versionskontrolle, Dokumentation der Umgebung, etc.)
 
-\begin{tcolorbox}[
-	enhanced,
-	colback=red!5!white,
-	colframe=red!75!black!50,
-	title= Mein roter Faden
-	]
-	Hier kommen noch Optimierungsangaben, die stehen zurzeit nicht fest.
-\end{tcolorbox}

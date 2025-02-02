@@ -1,13 +1,4 @@
-%\begin{tcolorbox}[
-%	enhanced,
-%	colback=red!5!white,
-%	colframe=red!75!black!50,
-%	title= Mein roter Faden
-%	]
-%Dieses Kapitel wird die positiven und negativen Erfahrungen der Kapitel Implementierung und Evaluation auffassen. Die weiteren Kapitel bauen auf die hier gewonnenen Erkenntnisse auf.
-%\end{tcolorbox}
 In diesem werden die Arbeitsprozesse reflektiert und Fehler die während der Arbeit auftraten analysiert. Des Weiteren werden Vorschläge gegeben, um das Arbeiten mit Sprachmodellen zu verbessern. Zuerst wird der Evaluierungsprozess betrachtet, um anschließend die Optimierung der Prompts zu diskutieren.
-
 
 % --- Evaluierung ----------------------------------------------------------------------------------
 
@@ -29,16 +20,33 @@ Dennoch war die Berechnungszeit einiger Modelle, welche mehr als 12 GB groß war
 
 
 \subsection{Auswertung des Benchmarks}
-Bei der Auswertung des Benchmarks traten einige Fehler auf, die beseitigt werden konnten. Ein Großteil waren kleinere Fehler, die bei der Auswertung aufgetreten, wie in Kapitel \ref{subsec:disadvantages_of_evaluation} bereits angesprochen. Der gravierendste Fehler trat aber bei der Berechnung das \texttt{pass@k} für das gesamte Modell auf. Hier wurde eine falsche Python-Methode implementiert, sodass das Ergebnis, um ein Zehntel niedriger war, als das wirkliche Ergebnis. Erst durch Vergleiche Ergebnisse anderer Arbeiten und Herstellerangaben, ist der Fehler aufgefallen und nach intensiver Suche wurde dieser Fehler gefunden und beseitigt.
+Ein Problem bei der Generierung der Codes war der zu gering gewählte Wert für die zulässigen Tokens. Bei einer Größe von nur 600 Token, wurden die Antworten bei den Modellen \textit{ChatGPT 4}, \textit{Gemini 1.5} und \textit{Deepseek-R1} abgeschnitten, sodass die generierten Codes nicht ausführbar waren. Erst der Verzicht einer vorgeschriebene Tokenanzahl brachte lauffähige Codes hervor. Allerdings waren die Kosten beim \textit{ChatGPT 4} Modell so hoch, dass aus weitere Tests mit diesem Modell verzichtet wurde.\vspace{0.2cm}
+
+Bei der Auswertung des Benchmarks traten einige Fehler auf, die beseitigt werden konnten. Ein Großteil waren kleinere Fehler, die bei der Auswertung aufgetreten, wie in Kapitel \ref{subsec:disadvantages_of_evaluation} bereits angesprochen. Der gravierendste Fehler trat aber bei der Berechnung das \texttt{pass@k} für das gesamte Modell auf. Hier wurde eine falsche Python-Methode implementiert, sodass das Ergebnis, um ein Vielfaches niedriger war, als das wirkliche Ergebnis. Erst durch den Vergleich mit Ergebnisse anderer Arbeiten und den Herstellerangaben ist der Fehler aufgefallen. Nach intensiver Suche wurde dieser gefunden und beseitigt.\vspace{0.2cm}
+
+Bewehrt hat sich hier der Einsatz von Python und dessen Bibliotheken für Umsetzung der Evaluierungsaufgaben. Mittlerweile existieren für die meisten Probleme und Anforderungen bereits fertige Bibliotheken oft von den Herstellern der Modelle selbst. Basierend auf den vorhandenen Bibliotheken, konnte die Entwicklung der Evaluationsaufgaben in kurzer Zeit umgesetzt und implementiert werden.\vspace{0.2cm}
 
 % --- Evalierung mit eigenen ---------------------------------
 
+\begin{tcolorbox}[
+	enhanced,
+	colback=red!5!white,
+	colframe=red!75!black!50,
+	title= Mein roter Faden
+	]
+	Hier folgen noch die Ergebnisse zur Optimierung.
+\end{tcolorbox}
 
-\section{Erweiterte Codeevaluation}
+% --- Optimierung ----------------------------------------------------------------------------------
+
+
+\section{Optimierung der Abfragen}
+
+
+\subsection{Erweiterte Codeevaluation}
 Bei den vordefinierten Prüfungen der HumanEval Benchmarks, wird geprüft, ob der Code lauffähig ist, nicht aber die Codestruktur oder Kommentare. Ein Problem bei der Nutzung des von der LLM generiertem Code ist, dass Entwickler diesen einfach kopieren und in ihre Programme implementieren. Es wird also nur die Funktionalität des Codes geprüft, nicht aber Strukturen und Kommentare um die Lesbarkeit und Verständlichkeit zu erhöhen. Dieses Vorgehen mag zu schnellen Erfolgen in der Programmentwicklung führen, wird aber beim Refactoring oder Fehlersuche erhebliche Defizite mit sich bringen.\vspace{0.2cm}
 
 Aus diesem Grund sollte der erstellte Code nicht nur auf die Funktionalität geprüft werden. Dafür sollten weitere Test-Frameworks der jeweiligen Programmiersprache zur Anwendung kommen. Es gibt mehrere Frameworks zur Prüfung der Codequalität unter PHP. Zwei bekannte Frameworks die auch in dieser Arbeit Anwendung finden, sind die Frameworks \texttt{phpunit} und \texttt{phpmetrics}. Mit ihnen wird der, durch die LLMs generierten Codes geprüft.\vspace{0.2cm}
-
 Um PHPUnit und PHPMetrics für die Evaluierung zu verwenden, müssen weitere Angaben und Einträge im Benchmark erfolgen. So muss ein PHP-Unittest enthalten sein, dieser kann den einfachen benutzerdefinierten Test ersetzen. Des Weiteren sind die Kriterien für die Metrik Messung, für jeden Test erforderlich. Die Kriterien können wie in Listing \ref{lst:phpmetric_criteria_example} dargestellt, aussehen.
 
 \begin{lstlisting}[language=python,caption={Beispiel für Bewertungskriterien},label=lst:phpmetric_criteria_example]

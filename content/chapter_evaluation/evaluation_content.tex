@@ -1,4 +1,4 @@
-Die Evaluation der Ergebnisse erfolgt im ersten Schritt anhand des HumanEval-XL Benchmarks. Dieser Benchmark wird in \cite{peng-2024} vorgestellt und erweitert den HumanEval \cite{chen-2021}. Der HumanEval-Benchmark evaluiert nur Python während der HumanEval-XL weitere Programmiersprachen und in verschiedenen Landessprachen unterstützt, darunter auch die deutsche Sprache. Neben Python sind auch Prompts für PHP und JavaScript enthalten, welche für die Webentwicklung wichtig sind. Die Datensätze des HumanEval-XL sind unter \href{https://github.com/FloatAI/humaneval-xl}{https://github.com/FloatAI/humaneval-xl} einsehbar und bestehen jeweils aus 80 Tests. Für jedes Problem werden zehn Lösungsvorschläge generiert, die im Anschluss auf die Aspekte der Syntaktik und Semantik evaluiert werden.\vspace{0.2cm}
+Die Evaluation der Ergebnisse erfolgt im ersten Schritt anhand des HumanEval-XL Benchmarks. Dieser Benchmark wird in \cite{peng-2024} vorgestellt und erweitert den HumanEval \cite{chen-2021}. Der HumanEval-Benchmark unterstützt und evaluiert nur die Programmiersprache Python während der HumanEval-XL weitere Programmiersprachen und in verschiedenen Landessprachen unterstützt, darunter auch die deutsche Sprache. Neben Python sind auch Prompts für PHP und JavaScript enthalten, welche für die Webentwicklung wichtig sind. Die Datensätze des HumanEval-XL sind unter \href{https://github.com/FloatAI/humaneval-xl}{https://github.com/FloatAI/humaneval-xl} einsehbar und bestehen jeweils aus 80 Tests. Für jedes Problem werden zehn Lösungsvorschläge generiert, die im Anschluss auf die Aspekte der Syntaktik und Semantik evaluiert werden.\vspace{0.2cm}
 
 %\sout{Diese Tests fordern LLM's auf kleine Problem zu lösen. Aus diesem Grund werden weitere Tests erstellt mit umfangreicheren Anforderungen aus dem Bereich der Webentwicklung. Zu jedem Problem wird eine Musterlösung und ein Unittest erstellt. Der Aufbau für diese Bereitstellung orientiert sich an dem Format aus dem HunamEval-Benchmark.}\vspace{0.2cm}
 
@@ -12,27 +12,27 @@ Die Evaluation der Ergebnisse erfolgt im ersten Schritt anhand des HumanEval-XL 
 \section{Modellbewertung mit HumanEval Benchmark}
 Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} und \cite{peng-2024} beschrieben ist. Die Tests werden exemplarisch, mit den für die Webentwicklung relevanten Sprachen PHP und JavaScript durchgeführt. Die Evaluierung der Modelle wird auf den Ebenen \glqq einfache Fragen\grqq \ und \glqq komplexe Aufgaben\grqq \ erfolgen. Die \glqq einfachen Fragen\grqq \ werden bereits durch den zuvor genannten Benchmarks abgedeckt, sodass der entwickelte Fragenkatalog sich auf die Ebenen mit den \glqq komplexen Aufgaben\grqq \ konzentriert.\vspace{0.2cm}
 
-Aus Ergebnisse der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkeit der jeweiligen Modelle berechnet. Dieser Wert gibt an, mit welcher Wahrscheinlichkeit mindestens eine richtige Lösung unter $k$ ausgewählten Vorschlägen vorhanden ist.\vspace{0.2cm}
+Aus den Ergebnissen der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkeit der jeweiligen Modelle berechnet. Dieser Wert gibt an, mit welcher Wahrscheinlichkeit mindestens eine richtige Lösung unter $k$ ausgewählten Vorschlägen vorhanden ist.\vspace{0.2cm}
 
 Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösungen unter den $n$ Versuchen und $k$ gibt die Anzahl der Lösungen an die betrachtet wurden. Für die Berechnung der $pass@k$ Metrik wird die Formal \ref{equ:pass_qt_k_complex} verwendet, welche in \cite{chen-2021} vorgeschlagen wird.\vspace{0.2cm}
 
-Für alle Probleme wurden jeweils zehn Abfragen erstellt und bewertet. Welche Modelle getestet an der Evaluation beteiligt waren und welche Ergebnisse ermittelt wurden, wird in Tabelle \ref{tab:prompt_results_open_models} gezeigt.
+Für alle Proben wurden jeweils fünf gleiche Prompts erstellt und bewertet. Die Ergebnisse der Evaluation werden in Tabelle \ref{tab:prompt_results_open_models} gezeigt.
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|r|r|}
 		\hline
 		\textbf{Model} & \textbf{pass@1} & \textbf{pass@5} \\
 		\hline
-		Llama3.3:70b        &  0,575 &      0,7 \\
-		Deepseek-coder-v2:  &   0,53 &   0,5875 \\
-		Gemini Flash 1.5    &    0,5 &     0,55 \\
-		Llama3.1:8b (T600)  &   0,45 &   0,5302 \\
-		Llama3.1:8b (T1200) &   0,45 &  0,53472 \\
-		Llama3.1-claude:8b  &  0,375 & 0,508929 \\
-		Llama3.2:3b         &  0,275 &   0,4114 \\
-		Mistral-small 22b   & 0,2125 &   0,3061 \\
-		Qwen 2.5-Coder 32b  & 0,1875 &    0,239 \\
-		Codellama:13b       &    0,0 &    0,025 \\
+		Llama3.3:70b        & 0,6275 &    0,725 \\
+		Deepseek-coder-v2:  &  0,555 &     0,65 \\
+		Gemini Flash 1.5    &  0,293 &     0,55 \\
+		Llama3.1:8b (T600)  &   0,43 &   0,6375 \\
+		Llama3.1:8b (T1200) &  0,445 &   0,6375 \\
+		Llama3.1-claude:8b  & 0,4625 &     0,65 \\
+		Llama3.2:3b         & 0,2625 &     0,55 \\
+		Mistral-small 22b   &   0,22 &      0,4 \\
+		Qwen 2.5-Coder 32b  & 0,1975 &      0,3 \\
+		Codellama:13b       &  0,005 &    0,025 \\
 		\hline
 		\hline
 	\end{tabular}
@@ -45,7 +45,7 @@ Das Modell \texttt{codellama} wurde ebenfalls getestet, hat aber beim Generierun
 
 Des Weiteren wurden eine Reihe von Llama-Modellen getestet, unter anderem einige verschiedene Llama3.1 Modelle. Bei dem \textit{Llama3.1 8b} wurden zwei verschiedene Versuche durchgeführt mit jeweils unterschiedlicher Tokenlängen. Anders als bei \textit{ChatGPT 3.5} und \textit{Gemini 1.5} können die kleineren Modelle schon mit geringerer Tokenlänge valide Antworten erzeugen. Die unterschiedliche Tockenlängen haben kaum einen Einfluss auf das Ergebnis. Hier liegt der Unterschied bei nicht mal einen Prozent.\vspace{0.2cm}
 
-Ein Ansatz zur Promptoptimierung, wurde bei den Tests ebenfalls evaluiert. So wurde ein Llama3.1 Model mit den Systemprompts des \textit{Claude Sonnet 3.5} Modell von der Firma Anthroppic erstellt. Dieser Ansatz konnte mit der vorliegenden Evaluierung nicht bestätigt werden. Der Unterschied liegt hier bei plus einem Prozent bei der pass@1 Evaluierung und minus drei Prozent bei der pass@5 Evaluation. Mögliche Ursachen hierfür könnten in einer fehlerhaften Erstellung des Modells oder die Aufforderungen sind nicht kompatibel mit einem Llama3.1 Modell. Eine weitere Möglichkeit sind unzureichendes Wissen über die Architektur des Quellmodells oder fehlendes implizite Informationen im Zielmodell. Ebenso könnte die Unbrauchbarkeit der Systemprompts für Codegenerierung die Ursache sein. Warum es keinen signifikanten Unterschied gab, könnte in dieser Arbeit nicht abschließen geklärt werden. Die Ergebnisse sind in Tabelle \ref{tab:prompt_results_open_models} und in der Abbildung \ref{img:pass_at_k_results_by_llm} zu sehen.\vspace{0.2cm}
+Ein Ansatz zur Promptoptimierung, wurde bei den Tests ebenfalls evaluiert. So wurde ein Llama3.1 Model mit den Systemprompts des \textit{Claude Sonnet 3.5} Modell von der Firma Anthroppic erstellt. Dieser Ansatz konnte mit der vorliegenden Evaluierung bestätigt werden. Hier konnte eine Verbesserung für den \textit{pass@1} um 3,25\% und für den \textit{pass@5} von 1,25\% festgestellt werden. Die Ergebnisse sind in Tabelle \ref{tab:prompt_results_open_models} und in der Abbildung \ref{img:pass_at_k_results_by_llm} zu sehen.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=\textwidth]{content/chapter_evaluation/images/llm_evaluation.eps}
@@ -54,7 +54,7 @@ Ein Ansatz zur Promptoptimierung, wurde bei den Tests ebenfalls evaluiert. So wu
 	\label{img:pass_at_k_results_by_llm}
 \end{figure}
 
-Ein letztes Modell aus der Llama3 Reihe, das dem Benchmark unterzogen wurde, ist das \textit{Llama3.3 70b-instruct-q2\_K}. Mit einem pass@1 Ergebnis von $0,12$ und $0,7$ beim pass@5 liefert dieses Modell die besten Ergebnisse. Bei dem vorliegenden Modell handelt es sich um ein Modell mit Quantisierung, was die Größe des Modells auf rund 26 GB reduziert.
+Ein letztes Modell aus der Llama3 Reihe, das dem Benchmark unterzogen wurde, ist das \textit{Llama3.3 70b-instruct-q2\_K}. Mit einem pass@1 Ergebnis von $0,6275$ und $0,725$ beim pass@5 liefert dieses Modell die besten Ergebnisse. Bei dem vorliegenden Modell handelt es sich um ein Modell mit Quantisierung, was die Größe des Modells auf rund 26 GB reduziert.
 Bei diesem Modell wurde einige Komponenten einer 2-Bit Quantisierung unterzogen, bei einer fast gleichbleibenden Ausgabenqualität, weitere Informationen sind \cite{hugging-face-2025} zu entnehmen. Das originale Modell mit ca. 43 GB ließ sich nicht mit den verfügbaren lokalen Ressourcen testen.\vspace{0.2cm}
 
 Zusätzlich wurden zwei weitere Modelle aus dem Open-Source-Bereich in die Evaluation einbezogen: \textit{Mistral-Small 22b}, entwickelt von der Firma MistralAI, sowie \textit{Qwen 2.5 Coder 32b}. Die Leistung dieser beiden Modelle fiel im Vergleich zu anderen Modellen jedoch geringer aus. Insbesondere lagen die Trefferquoten von \textit{Mistral-Small 22b} und \textit{Qwen 2.5 Coder 32b} bei etwa der Hälfte der durchschnittlichen Trefferquoten der getesteten LLama-Modelle.\vspace{0.2cm}

@@ -1,12 +1,7 @@
 \section{Lokale Modelle}
-Für das Ausführen von Modellen zum Testen werden in dieser Arbeit zwei Techniken angewandt. Zum einen mittels Ollama Framework, das mit einer Web-GUI erweitert werden kann, zum anderen durch Dateien, welche beispielsweise mit dem Python Framework Langchain abgefragt werden können.\vspace{0.2cm}
+Für das Testen der lokalen Modelle wird das Ollama Framework angewandt. Dies ermöglicht eine Anbindung an einer API, welche sich beispielsweise mittels Python abfragen lässt. Auf dieser Weise lassen sich Modelle von der \href{https://ollama.com/search}{Ollama Modell} Seite testen. Dazu wird Ollama auf dem Server installiert und konfiguriert, siehe Anhang \ref{sec:install_config_ollama_local}. Nach dem Download stehen die Modelle zur Verfügung und mittels API können Interaktionen erfolgen.\vspace{0.2cm}
 
-Die Modelle werden auf einem Debian 12 Server mit 32 GB RAM und einem 16 Kernprozessor ausgeführt. Um große Modelle zu testen wurde mit einer Swap-Partition von 100 GB gearbeitet, um die Ausführung größerer Modelle zu ermöglichen.\vspace{0.2cm}
-
-%\subsection{Modellbereitstellung mit Ollama}
-Für das Testen der lokalen Modelle wird das Ollama Framework angewandt. Dies ermöglicht eine neben einer Benutzeroberfläche im Browser eine Anbindung an einer API. Diese lässt sich beispielsweise mittels Python abfragen. Auf dieser Weise lassen sich Modelle von der \href{https://ollama.com/search}{Ollama Modell} Seite testen. Dazu wird Ollama auf dem Server installiert und konfiguriert, siehe Anhang \ref{sec:install_config_ollama_local}. Nach dem Download stehen die Modelle zur Verfügung und es können Interaktionen mit dem Modell erfolgen.\vspace{0.2cm}
-
-Zusätzlich kann ein grafisches Tool zum Testen installiert werden. Mit deren Hilfe können die Modelle leicht getestet werden. Mit Open WebUI wird ein Browser basierendes Toll eingesetzt, dass auf dem Ollama-Server installiert wird. Nach der Installation ist das Tool einsatzbereit und im lokalen Netzwerk, unter http://<<server-ip>>:<<webui-port>> erreichbar. Die Installation wird im Anhang \ref{sec:open_webui} beschrieben.
+Zusätzlich bietet Ollama die Möglichkeit ein grafisches Tool zum Testen zu installieren. Mit Open WebUI wird ein Browser basierendes Toll eingesetzt, dass auf dem Ollama-Server aufgesetzt wird. Nach der Installation ist das Tool einsatzbereit und im lokalen Netzwerk, unter http://<<server-ip>>:<<webui-port>> erreichbar. Die Installation wird im Anhang \ref{sec:open_webui} beschrieben.
 
 
 %\subsection{Modellbereitstellung als Datei}
@@ -31,16 +26,19 @@ Zusätzlich kann ein grafisches Tool zum Testen installiert werden. Mit deren Hi
 %Text.
 
 \subsection{Ergebnisse generieren}
-Nachdem die Modelle bereitstehen, erfolgt das Generieren der Ergebnisse für jedes einzelne Modell. Mit Prompts, die aus den Aufgaben des HumanEval-XL Benchmark bestehen, werden nun die Modelle mehrmals hintereinander abgefragt. Die vollständig generierten Antworten der Modelle werden, für eine spätere Auswertung im JSONL-Dateiformat gespeichert. Für jedes Problem erfolgen fünf Abfragen an jedes Modell. Für die Evaluierung der lokalen Modelle wurden Modelle von Ollama verwendet, siehe Kapitel \ref{subsec:llm_selection} für die Auswahl der Modelle.
+Nachdem die Modelle bereitstehen, erfolgt das Generieren der Ergebnisse für jedes einzelne Modell. Mit Prompts, die aus den Proben des HumanEval-XL Benchmark bestehen, werden die Modelle mehrmals hintereinander abgefragt. Die vollständig generierten Antworten der Modelle werden, für eine spätere Auswertung und Nachvollziehbarkeit im \textit{JSONL}-Dateiformat gespeichert. Für jedes Problem erfolgen fünf Abfragen an jedes Modell. Welche Modelle für die Generierung verwendet wurden, ist in Kapitel \ref{subsec:llm_selection} nachzulesen. Alle Modelle wurde von Ollama-Framework bereitgestellt.\vspace{0.2cm}
+
+Für die Optimierung der Prompts wird ebenfalls auf das Ollama-Framework und dessen Modelle zurückgegriffen. Auch hier erfolgt die Kommunikation mit den Modellen über die API.
 
 %-------------------------------------------------------------------------------------------
 
 
 %\subsection{Auswertung der Modellantworten}
 \section{Benchmark Codeevaluation}\label{sec:benchmark_evaluation}
-Die Auswertung der Antworten wird für jedes Modell angepasst, da die Antworten von Modell zu Modell variieren. Hier werden unterschiedliche Möglichkeiten für Codesnippets angewendet, beispielsweise (\texttt{```php}) oder (\texttt{```php \textbackslash n <?php}), welche für die Ausführung anzupassen sind. Somit wird immer nur die Methode zur Extrahierung des Codes aus den Antworten geändert, siehe Beispielcode im Listing \ref{lst:evaluation_search_generated_code}.\vspace{0.2cm}
+Die Analyse der generierten Antworten muss für jedes Modell individuell angepasst werden, da die erzeugten Codefragmente zwischen den Modellen variieren. Insbesondere unterscheiden sich die Formate, in denen die Codesnippets generiert werden, beispielsweise \texttt{```php} oder \texttt{```php \textbackslash n <?php}. Dementsprechend erfordert die Extraktion des relevanten Codes aus den Modellantworten eine flexible Methode, die an das jeweilige Ausgabeformat angepasst wird. Ein exemplarischer Lösungsansatz zur Extraktion des generierten Codes ist in Listing \ref{lst:evaluation_search_generated_code} dargestellt.\vspace{0.2cm}
 
-Mit den vorliegenden Codesnippets und den Tests aus dem jeweiligen Problem, wird ein ausführbarer PHP-Code erstellt und mittel Python ausgeführt. Die Tests werfen Exceptions, wenn der Code die Anforderungen nicht erfüllt oder Laufzeitfehler auftreten. Dann gibt die Aufgabe als nicht bestanden. Das Listing \ref{lst:php_interpreter_in_python} zeigt den Ausschnitt im Code zur Ausführung des PHP Interpreters in Python.
+
+Um den generierten Code zu evaluieren, wird dieser und der Test der jeweiligen Probe aus dem Benchmark zusammengeführt. Das Ergebnis ist ein ausführbarer Code, der die geforderte Methode enthält. Mittels Python getestet wird, ob der generierte Code ausführbar ist. Entsteht bei der Ausführung ein Laufzeitfehler erfolgt der Abbruch des Tests. Dieser kann ausgelöst werden durch eine nicht korrekte Syntax, einer Endlosschleife oder wenn die geforderte Methode nicht generiert wurde. All diese Ereignisse führen dazu das die Probe als nicht bestanden gilt. Das Listing \ref{lst:php_interpreter_in_python} zeigt den Ausschnitt im Code zur Ausführung des PHP Interpreters in Python.\vspace{0.2cm}
 
 \begin{lstlisting}[
 language=Python,
@@ -51,7 +49,7 @@ for answer in answers:
     answer = answer.replace(r"\n", "\n")
     try:
         result = subprocess.run(
-            ["php", "-r", f"{test}{answer}"],
+            ["php", "-r", f"{test}{sample_result}"],
             capture_output=True,
             text=True,
             check=False,
@@ -64,11 +62,11 @@ for answer in answers:
         answer_result_fault = True
 \end{lstlisting}
 
-Die unbehandelte Execption in Zeile 12, führt lediglich dazu, dass die Programmausführung nicht unterbrochen wird. Ein abgelaufener \textit{Timeout} deutet auf eine Endlosschleife hin und somit gilt dieser Test als nicht bestanden. Der hier abgefangene \textit{Timeout} wird in der nachfolgenden \texttt{if} Konstrukt mit ausgewertet. Aus den erhaltenen Ergebnissen, berechnet die \texttt{pass@k} Methode eine Vorhersage zur Zuverlässigkeit des jeweiligen vorgegebenen Problems, hinsichtlich Codegenerierung. Anschließend wird der Durchschnitt für die Zuverlässigkeit des Modells errechnet.\vspace{0.2cm}
+Das unbehandelte Execption-Handling in Zeile 12, dient lediglich dazu, dass die Programmausführung nicht unterbrochen wird und der Test der Probe beendet werden kann. Ein abgelaufener \textit{Timeout} deutet auf eine Endlosschleife hin und somit gilt dieser Test als nicht bestanden. Der hier abgefangene \textit{Timeout} wird in der nachfolgenden \texttt{if} Anweisung mit ausgewertet. Aus den erhaltenen Ergebnissen, berechnet die \texttt{pass@k} Methode eine Vorhersage zur Zuverlässigkeit der jeweiligen vorliegenden Probe, hinsichtlich Codegenerierung. Anschließend wird der Durchschnitt für die Zuverlässigkeit des Modells errechnet.\vspace{0.2cm}
 
 \textbf{Umsetzung der pass@k Metric}\vspace{0.2cm}
 
-Die Auswertung der Ergebnisse erfolgt mittel Python. Dazu wird der generierte Code mit den vorgegebenen Tests aus dem HumenEval-XL zusammengefügt. Der so erzeugte Code wird dann in der Python-Umgebung ausgeführt. Die Ergebnisse aus den Tests werden dann mittel pass@k Methode analysiert. In Python steht, hierfür die Bibliothek \textit{pass\_at\_k} zur Verfügung. Das Listing \ref{lst:custom_pass_at_k} zeigt Umsetzung der Methode. Der PHP Code wurde auf einen Debian 11 mit PHP in der Version 8.2.26 evaluiert.
+Stehen die Ergebnisse aus den Tests fest, werden diese mithilfe der pass@k Methode analysiert. In Python steht, hierfür die Bibliothek \textit{pass\_at\_k} zur Verfügung. Das Listing \ref{lst:custom_pass_at_k} zeigt Umsetzung der Methode nach der Formel \ref{equ:pass_qt_k_complex} aus Kapitel \ref{subsec:pass_at_k}.
 
 \begin{lstlisting}[
 	language=Python,
@@ -86,12 +84,25 @@ def custom_pass_at_k(n: int, c: int, k: int) -> float:
     return 1.0 - np.prod(1.0 - k / np.arange(n - c + 1, n + 1))
 \end{lstlisting}
 
+Für die in dieser Arbeit durchgeführten Evaluierungen sind die Werte für $k=1 und k=5$ relevant. Für die Optimierungsaufgaben wird $k=1$ betrachtet. Nachdem jede Probe des HumanEval-XL Benchmark einzeln bewertet wurde, wird eine Zusammenfassung der Bewertung für das gesamte Modell berechnet. Die Berechnung erfolgt nach der Formel \ref{equ:probability_of_success_per_model} aus Kapitel \ref{subsec:pass_at_k}.
+
+% --- More Tests -----------------------------------------------------------------------------------
+
 
 \section{Codeevaluation mit Frameworks}
-Neben dem bekannten Evaluationen mit beispielsweise dem HumanEval Benchmark, wird hier eine weitere Testmethodik überprüft, die mit verschiedenen Validierungstools der jeweiligen Programmiersprache ausgeführt wird. Für die Erstellung der Abfragen wird das Python-Skript verwendet, was schon im Kapitel \ref{sec:benchmark_evaluation} vorgestellt wurde.
+\begin{tcolorbox}[
+	enhanced,
+	colback=red!5!white,
+	colframe=red!75!black!50,
+	title= Mein roter Faden
+	]
+	Hier folgen später noch die Evaluierungen der Promptoptimierung.
+\end{tcolorbox}
+
+Neben der bekannten Evaluationsmethode mit dem HumanEval Benchmark, wird hier eine weitere Testmethodik überprüft, die mit verschiedenen Validierungstools der jeweiligen Programmiersprache ausgeführt wird. Für die Erstellung der Abfragen wird das Python-Skript verwendet, was schon im Kapitel \ref{sec:benchmark_evaluation} vorgestellt wurde.
 
 \subsection{PHP Codeevaluation}
-Der Test wird bei den erweiterten Problemen durchgeführt und beginnt mit den Unit-Tests die mit \textit{PHPUnit} durchgeführt werden. Im Anschluss wird \textit{PHPMetrics} ausgeführt. Hierbei wird geprüft, ob die Codekomplexität und Wartbarkeit überprüft. Sind diese Tests bestanden, wird der Code noch gegen eine \textit{SonarQube} Server validiert. Die Ausführung der Tests wird mithilfe eines Python-Skripts durchgeführt. Es wird eine PHP Datei erstellt, die mit den Frameworks geprüft wird.
+Der Test wird bei den erweiterten Problemen durchgeführt und beginnt mit den Unit-Tests die mit \textit{PHPUnit} durchgeführt werden. Im Anschluss wird \textit{PHPMetrics} ausgeführt. Hierbei wird geprüft, ob die Codekomplexität und Wartbarkeit überprüft. Die Ausführung der Tests wird mithilfe eines Python-Skripts durchgeführt. Es wird eine PHP Datei erstellt, die mit den Frameworks geprüft wird.
 
 %\subsection{JavaScript Codeevaluation}
 %Text.

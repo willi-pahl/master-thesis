@@ -9,7 +9,7 @@ Die Evaluation der Ergebnisse erfolgt im ersten Schritt anhand des HumanEval-XL 
 %Optional werden einige Tests von zusätzlichen Tools validiert, beispielsweise bei der Validierung von PHP Files sind es Tools wie phpunit\footnote{phpunit steht unter \href{https://github.com/sebastianbergmann/phpunit}{https://github.com/sebastianbergmann/phpunit} zum Download bereit.} und Code\_Sniffer\footnote{Code\_Sniffer steht unter \href{https://github.com/squizlabs/PHP_CodeSniffer}{https://github.com/squizlabs/PHP\_CodeSniffer} zum Download zur Verfügung.} für die Validierung von JavaScript findet das Framework Jasmin\footnote{\href{https://jasmine.github.io/}{https://jasmine.github.io}.} Anwendung.\vspace{0.2cm}
 
 
-\section{Modellbewertung mit HumanEval Benchmark}
+\section{Modellbewertung mit HumanEval-XL Benchmark}
 Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} und \cite{peng-2024} beschrieben ist. Die Tests werden exemplarisch, mit den für die Webentwicklung relevanten Sprachen PHP und JavaScript durchgeführt. Die Evaluierung der Modelle wird auf den Ebenen \glqq einfache Fragen\grqq \ und \glqq komplexe Aufgaben\grqq \ erfolgen. Die \glqq einfachen Fragen\grqq \ werden bereits durch den zuvor genannten Benchmarks abgedeckt, sodass der entwickelte Fragenkatalog sich auf die Ebenen mit den \glqq komplexen Aufgaben\grqq \ konzentriert.\vspace{0.2cm}
 
 Aus den Ergebnissen der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkeit der jeweiligen Modelle berechnet. Dieser Wert gibt an, mit welcher Wahrscheinlichkeit mindestens eine richtige Lösung unter $k$ ausgewählten Vorschlägen vorhanden ist.\vspace{0.2cm}
@@ -23,13 +23,14 @@ Für alle Proben wurden jeweils fünf gleiche Prompts erstellt und bewertet. Die
 		\hline
 		\textbf{Model} & \textbf{pass@1} & \textbf{pass@5} \\
 		\hline
-		Llama3.3:70b        & 0,6275 &    0,725 \\
-		Deepseek-coder-v2:  &  0,555 &     0,65 \\
-		Gemini Flash 1.5    &  0,293 &     0,55 \\
+		DeepSeek-Coder-V2   &  0,555 &     0,65 \\
+		DeepSeek-R1         & 0,7025 &   0,8375 \\
+		Gemini Flash 1.5    & 0,2925 &     0,55 \\
 		Llama3.1:8b (T600)  &   0,43 &   0,6375 \\
 		Llama3.1:8b (T1200) &  0,445 &   0,6375 \\
 		Llama3.1-claude:8b  & 0,4625 &     0,65 \\
 		Llama3.2:3b         & 0,2625 &     0,55 \\
+		Llama3.3:70b        & 0,6275 &    0,725 \\
 		Mistral-small 22b   &   0,22 &      0,4 \\
 		Qwen 2.5-Coder 32b  & 0,1975 &      0,3 \\
 		Codellama:13b       &  0,005 &    0,025 \\
@@ -57,9 +58,10 @@ Ein Ansatz zur Promptoptimierung, wurde bei den Tests ebenfalls evaluiert. So wu
 Ein letztes Modell aus der Llama3 Reihe, das dem Benchmark unterzogen wurde, ist das \textit{Llama3.3 70b-instruct-q2\_K}. Mit einem pass@1 Ergebnis von $0,6275$ und $0,725$ beim pass@5 liefert dieses Modell die besten Ergebnisse. Bei dem vorliegenden Modell handelt es sich um ein Modell mit Quantisierung, was die Größe des Modells auf rund 26 GB reduziert.
 Bei diesem Modell wurde einige Komponenten einer 2-Bit Quantisierung unterzogen, bei einer fast gleichbleibenden Ausgabenqualität, weitere Informationen sind \cite{hugging-face-2025} zu entnehmen. Das originale Modell mit ca. 43 GB ließ sich nicht mit den verfügbaren lokalen Ressourcen testen.\vspace{0.2cm}
 
+Das Modell \textit{Deepseek Coder V2 16b} ist ebenfalls aus dem Open-Source-Bereich. Bei der Auswertung des pass@1 liegt das Resultat über den Llama-Modellen 3.1 und 3.2. Deutlich besser ist nur das größere Llama3.3 mit 70b. Bei der Auswertung des pass@5 liegt das Modell mit den Llama 3.1 und 3.2 fast gleich auf. Hier ist nur das Llama 3.3 Modell um 7,5\% besser als DeepSeek-Coder-V2 Modell. Das zweite Modell von der KI-Entwicklungsfirma DeepSeek, welches evaluiert wurde, ist das Modell \textit{DeepSeek-R1}. Dieses Modell hat die besten Ergebnisse erzielt, obwohl es nicht größte von den getesteten Modellen ist. Mit nur 32b liegt es beim pass@1 mit 7,5\% vor dem Llama 3.3 mit 70b und bei der Auswertung des pass@5 sind es 11,5\% vor dem Llama3.3 Modell.\vspace{0.2cm}
+
 Zusätzlich wurden zwei weitere Modelle aus dem Open-Source-Bereich in die Evaluation einbezogen: \textit{Mistral-Small 22b}, entwickelt von der Firma MistralAI, sowie \textit{Qwen 2.5 Coder 32b}. Die Leistung dieser beiden Modelle fiel im Vergleich zu anderen Modellen jedoch geringer aus. Insbesondere lagen die Trefferquoten von \textit{Mistral-Small 22b} und \textit{Qwen 2.5 Coder 32b} bei etwa der Hälfte der durchschnittlichen Trefferquoten der getesteten LLama-Modelle.\vspace{0.2cm}
 
-Das Modell \textit{Deepseek Coder V2 16b} welches an die Leistung von den Llama3.1 Modellen heranreicht und ist ebenfalls aus dem Open-Source-Bereich.\vspace{0.2cm}
 
 %Die Antworten von ChatGPT enthielten bei der ersten Abfrage Programmcode, alle weiteren Abfragen verwiesen auf den ersten Prompt. Eine Antwort ist in ?? dar gestellt, diese wurde in ähnlicher Weise immer wieder generiert.
 %\hrulefill

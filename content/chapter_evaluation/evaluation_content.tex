@@ -97,18 +97,19 @@ Eine Überprüfung der Modelle, ob die englische Sprache besser Ergebnisse liefe
 
 Da das Training der Modelle in englischer Sprache erfolgt, lag die Vermutung nahe, dass eine Evaluierung in dieser Sprache, wesentlich bessere Ergebnisse liefern sollte. Dies zeigen auch die Auswertungen in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP in der englischen Version im Durchschnitt besser abschnitt.\vspace{0.2cm}
 
-Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das Llama3.3 zeigt besser Werte, in der englische Version. Während das Llama3.2 Modell eine bessere Trefferquote in Deutsch bei steigendem k-Wert für die pass@k-Methode zeigt. In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode mit $k=1 … 5$ für die ausgewählten Llama-Modelle zusammengefasst.\vspace{0.2cm}
+Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das Llama3.3 zeigt beim pass@1 einen besseren Wert, in der englische Version. Dieser Wert nähert sich mit steigendem $k$ Wert an, sodass bei $k=5$ die Ergebnisse in Englisch und Deutsch identisch sind. Beim Llama3.2 zeigt das Modell mit einem steigendem $k$-Wert bessere Resultate in der deutschen Sprache. Das Llama3.1 Modell zeigt ein ausgeglichenes Resultat der beiden Sprachen im Vergleich. Hier sind die pass@3 Resultate in Deutsch und Englisch identisch. Während bei abnehmenden $k$-Werten die englischen Resultate besser werden, werden bei zunehmenden $k$-Wert die deutschsprachigen Ergebnisse besser.\vspace{0.2cm}
+
+In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode mit $k=1 … 5$ für die ausgewählten Llama-Modelle zusammengefasst. Die Proben wurden jeweils in Englisch und in Deutsch an die Modelle gestellt.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama31_evaluation_lang.eps}
 	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama32_evaluation_lang.eps}
 	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama33_evaluation_lang.eps}
-%	\centering
 	\caption{Ergebnisse der pass@k-Methode für Llama Modelle verschiedener Sprachen}
 	\label{img:pass_at_k_results_by_llama_lang}
 \end{figure}
 
-Dieser Test zeigt auch das eine deutschsprachige Verwendung der Modelle nicht zwangsläufig schlechteren Code hervorbringt. Daraus wird der Schluss gezogen, das bei der Optimierung der Prompts eine Übersetzung ins Englische nicht unbedient zu einer signifikanten Verbesserung führt.
+Dieser Test zeigt auch das eine deutschsprachige Verwendung der Modelle nicht zwangsläufig schlechteren Code generieren. Daraus wird der Schluss gezogen, das bei der Optimierung der Prompts eine Übersetzung ins Englische nicht unbedient zu einer signifikanten Verbesserung führt.
 
 \subsection{Nachteile der Evaluierung}\label{subsec:disadvantages_of_evaluation}
 Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Test einige Fehler. Dadurch resultieren Nachteile, die sich bei der Bewertung der Modelle negativ auswirken.\vspace{0.2cm}

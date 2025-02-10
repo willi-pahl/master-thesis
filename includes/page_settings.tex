@@ -3,6 +3,7 @@
 % Maße
 %--------------------------------------------------
 \usepackage[
+a4paper,
 includehead,
 includefoot,
 left=2cm,
@@ -31,3 +32,11 @@ bindingoffset=1cm,
 \renewcommand\headrulewidth{2pt}
 \renewcommand\footrulewidth{1pt}
 
+%\pdfinfo{
+%	/Author (Wilfried Pahl)
+%}
+\AfterPreamble{\hypersetup{
+		pdfauthor={\bhtAuthor},
+		pdftitle={\bhtTitle},
+		pdfsubject={Master thesis}
+}}

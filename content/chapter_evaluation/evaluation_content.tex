@@ -73,19 +73,19 @@ Zusätzlich wurden zwei weitere Modelle aus dem Open-Source-Bereich in die Evalu
 
 Ein weiteres Modell ist Gemini 1.5. von Google und gehört zu den Cloused-Source-Modellen. 
 
-Einige Aufgaben wurden von Gemini aber wie ein Chat behandelt. So hat das Modell Antworten generiert, die einer Konversation mit einem Chatbot ähneln, so wurde beispielsweise der folgende Text generiert, der einen Bezug zur zuvor gegebenen Antwort des Modells herstellt.
+Einige Aufgaben wurden von Gemini aber wie ein Chat behandelt. So hat das Modell Antworten generiert, die einer Konversation mit einem Chatbot ähneln, so wurde beispielsweise der folgende Text generiert, der einen Bezug zur zuvor gegebenen Antwort des Modells herstellt.\vspace{0.2cm}
 
-\hrulefill
+\hrulefill\vspace{-0.7cm}
 
 \texttt{function greatestCommonDivisorRecursive(\$a, \$b) \{}
 
 \texttt{\hspace{0.6cm} // ... (Rest der Funktion bleibt ähnlich)}
 
-\texttt{\}}
+\texttt{\}}\vspace{-0.7cm}
 
 \begin{flushright}
 	\textit{Generiert von Gemini 1.5}
-\end{flushright}
+\end{flushright}\vspace{-0.7cm}
 
 \hrulefill
 
@@ -172,6 +172,42 @@ Eine weitere Fehlerquelle ist das \textit{\textbf{Zusammenführen der Antworten 
 + test = test.replace(r'\"', '"') 
 \end{lstlisting}
 
+Bei der Probe \textit{php/5} wurde eine \textit{\textbf{fehlerhafte Übersetzung}} festgestellt. So wurde die Probe übersetzt, nicht aber die Tests. Das Listing \ref{lst:prompt_php_de_5} zeigt die gültigen Werte welche als Eingabeparameter für die zu generierende Funktion erlaubt sind. Hier handelt es sich um deutsche Zahlworte von $null$ bis $neun$.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:prompt_php_de_5,
+	caption={Aufgabenstelleung der Probe php/5}
+]
+/**
+* Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
+* Die Eingabe ist ein durch Leerzeichen getrennter String von Ziffern von 'null' bis 'neun'.
+*     Gültige Optionen sind 'null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht' und 'neun'.
+*     Gib den String mit den Zahlen sortiert von klein nach groß zurück.
+* >>> sort_numbers('three one five')
+* 'one three five'
+*
+*/
+function sortNumbers($numbers){
+\end{lstlisting}
+
+Der Test der Probe \textit{php/5}, welcher in Listing \ref{lst:test_php_de_5} zu sehen ist, erstellt eine Prüfung der generierten Methode mit englischem Zahlworten von $zero$ bis $nine$ bereit. Keines der getesteten Modelle hat diese Probe bestanden.
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:test_php_de_5,
+	caption={Aufgabenstelleung der Probe php/5}
+	]
+// more tests.
+
+$arg40 = "six five four three two one zero";
+$x4 = sortNumbers($arg40);
+$v4 = "zero one two three four five six";
+if (!compare($x4, $v4)) {
+	throw new Exception("Error at 5th assert statement.");
+}
+\end{lstlisting}
+
 Die Tests aus dem Benchmark und Ergebnisse der Modelle wurde stichprobenartig manuell geprüft und weitere Fehler behoben. Dennoch ist nicht auszuschließen das die jetzige Evaluation weitere Fehlerquellen enthält.\vspace{0.2cm}
 
 Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.
@@ -179,7 +215,7 @@ Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinfluss
 %--- Optimierung -----------------------------------------------------------------------------------
 
 
-\section{Optimierung der Ergebnisse}
+\section{Optimierung der Eingabeaufforderungen}
 % https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
 Als Ziel der Optimierung gilt das die LLMs effizienten, präzisen und korrekten Code zu generieren. Ein Ansatz dies zu erreichen ist die Prompts zur Codegenerierung mithilfe einer LLMs zu erstellen oder zu verbessern.
 
@@ -191,3 +227,15 @@ Als Ziel der Optimierung gilt das die LLMs effizienten, präzisen und korrekten 
 	]
 	Hier kommen noch Optimierungsangaben, die stehen zurzeit nicht fest.
 \end{tcolorbox}
+
+
+\subsection{Optimierung durch Framework}
+Ergebnisse der Optimierung durch die Auswahl des Frameworks.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.5\textwidth]{content/chapter_evaluation/images/framework_evaluation_codellama.eps}
+	\includegraphics[width=0.5\textwidth]{content/chapter_evaluation/images/framework_evaluation_llama31.eps}
+	\caption{Ergebnisse der pass@k-Methode für unterschiedliche Frameworks}
+	\label{img:pass_at_k_results_by_framework}
+\end{figure}
+

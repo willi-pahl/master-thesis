@@ -13,16 +13,16 @@ Was nicht im Fokus liegt und in den Test vernachlässigt wird, sind die Performa
 %*   Welche konkreten Metriken werden zur Messung dieser Aspekte verwendet? (z.B. Anzahl der Fehler im generierten Code, Ausführungszeit in Millisekunden, statische Codeanalyse-Metriken, etc.)
 Für die Messung der Brauchbarkeit von Modellen wird die \texttt{pass@k} Methode angewandt. Für jede Probe liefert der HumanEval-XL einene Test mit. Dieser zusammen mit dem generierten Code sollten einen ausführbaren und testbaren Code ergeben. Jeder Test wird in einer Liste notiert und dazu das Ergebnis der Ausführung. Daraus kann dann mit der \texttt{pass@k} Methode die repräsentative Zuverlässigkeit des Modells für jedes Problem und anschließend für das gesamte Modell errechnet werden.\vspace{0.2cm}
 
-Während die Evaluierung der Modelle mit den Aufgaben des HumanEval-XL erfolgten, wird die Optimierung der Prompts an eigen erstellte Aufgaben erfolgen. Diese sind komplexer als die allgemeinen Proben aus dem HumanEval-XL Benchmark. Hierbei soll untersucht werden, mit welchem Ansätzen Prompts im Bereich der Codegenerierung für die Webprogrammierung erfolgen kann. Der Aufbau der Aufgaben orientiert sich am HumanEval Benchmark. Es wird neben der Aufgabe auch ein Unittest vorgegeben. Somit kann der generierte Code mit Unittests geprüft werden. Um diese Tests ausführen zu können, sind PHP Dateien erforderlich. Somit müssen die generierten Codes in Dateien gespeichert und können im Anschluss geprüft werden.
-
 \begin{tcolorbox}[
 	enhanced,
-	colback=red!5!white,
-	colframe=red!75!black!50,
+	colback=yellow!5!white,
+	colframe=yellow!75!black!70,
 	title= Mein roter Faden
 	]
-	Hier folgt noch eine Beschreibung des Optimierungskonzeptes.
+	Hier folgt eine Beschreibung des Optimierungskonzeptes. Noch in Arbeit.
 \end{tcolorbox}
+
+Die Proben aus dem HumanEval-XL Benchmark beschreiben grundlegende Funktionsprüfungen für die Modelle und sind als einzelne Funktion zu generieren. In der Praxis stellen Entwickler komplexere Aufgaben an die Modelle, welche nicht nur als einzelne Funktion umzusetzen sind. Aus diesem Grund werden für die Prompt-Optimierung neben dem HumanEval-XL Benchmark noch eigene komplexere Proben mit Tests erstellt. Das Design dieser Proben soll auf objektorientierter Programmierung beruhen und mehrere Probleme der Webprogrammierung abdecken. Hierbei soll evaluiert werden, ob die ausgewählten Optimierungsmethoden für alle Modelle gleichermaßen erfolgreich anwendbar sind.
 
 %Für die erweiterte Messung des PHP Codes kommt das Tool \texttt{phpmetrics} zum Einsatz. \texttt{phpmetrics} liefert eine Vielzahl an Metriken,mit der der Code analysiert werden kann. Bei diesem Tool liegt der Fokus auf die Ergebnisse von \texttt{Cyclomatic Complexity}, mit der die Komplexität des Codes gemessen wird. Auf den \texttt{Maintainability Index} zur Auswertung der Wartbarkeit. Diese ermittelt wie aufwändig es zukünftig ist den Code zu erweitern und bewertet die Lesbarkeit. Ein weiterer Parameter welcher hilft die Komplexität zu bewerten, ist der \texttt{Logical Lines of Code} Parameter. Ein weiteres Indiz zur Wartbar- und Lesbarkeit ist der \texttt{Method Length} Parameter. Ein weiterer Parameter zur Bewertung der Lesbarkeit ist der Parameter \texttt{Numbers of Parmeters}. Diese gibt die Anzahl der Parameter welche in die Methode übergeben werden. Eine hohe Anzahl kann ein Indiz dafür sein, das der Code schwerer zu lesen ist. Zur Bewertung der Dokumentation wird der Parameter \texttt{Comment Density} herangezogen.
 %Mithilfe eines Python-Skripts wird der generierte Code mit \texttt{phpmetrics} evaluiert.\vspace{0.2cm}
@@ -128,29 +128,130 @@ Alle Prompts die Proben enthalten, werden mit Python Skripten abgefragt. Dies gi
 In dem Kapitel soll das Design der Experimente besprochen werden. Zum einen die Umsetzung und Ausführung des HumanEval-XL Benchmark und zum anderen die Optimierungen der Prompts für die Webproblematiken.
 
 \subsection{HumanEval-XL Benchmark}
-Das Experiment wird mit dem HumanEval-XL Benchmark durchgeführt. Dieser Benchmark besteht aus einer Reihe von 80 Tests in verschiedenen Programmier- und Landessprachen, die wie folgt aufgebaut sind,\vspace{0.2cm}
+Das Experiment wird mit dem HumanEval-XL Benchmark durchgeführt. Dieser Benchmark besteht aus einer Reihe von 80 Tests in verschiedenen Programmier- und Landessprachen, die wie folgt aufgebaut sind,
 
-\begin{myitemize}
-	\item \textbf{task\_id}: Kennung der Datenprobe
-	\item \textbf{prompt}: Anfrage für das Modell, Funktionsheader und Docstring
-	\item \textbf{entry\_point}: Einstiegspunkt für die Probe
-	\item \textbf{test}: vordefinierte Testaufgaben für die geforderte Funktion
-	\item \textbf{description}: Beschreibung der Aufgabe
-	\item \textbf{language}: Kennung der Programmiersprache
-	\item \textbf{canonical\_solution}: Lösung für das Problem
-	\item \textbf{natural\_language}: Ländersprache in der Datei
-\end{myitemize}
+\begin{myenumerate}
+	\item \textbf{task\_id}: Die Kennung der Datenprobe als eine eindeutige ID. Hier ist schon die Programmiersprache erkenntlich, welche verwendet wird. Ein Beispiel für die PHP-Proben ist \texttt{php/0} oder \texttt{php/1}, für JavaScript wäre das beispielsweise \texttt{javascript/0}.
+	\item \textbf{prompt}: Die Anfrage für das Modell, Funktionsheader und Docstring. Hier ist die eigentliche Probe definiert. Dieser Teil des Benchmarks wird später in diesem Kapitel als \textit{Deklaration} und \textit{Kommentar} ausführlicher beschrieben.
+	\item \textbf{entry\_point}: Der Einstiegspunkt für die Probe, in der der zu verwendende Methodenname explizit genannt wird. Dieser muss im Ergebnis und im Test angewandt werden.
+	\item \textbf{test}: Die vordefinierte Testaufgaben für die geforderte Funktion wird ebenfalls später in diesem Kapitel ausführlicher beschrieben.
+	\item \textbf{description}: Eine ausführliche Beschreibung der Aufgabe des Benchmarks die für den Nutzer bestimmt ist und nicht als Aufgabe für ein Modell.
+	\item \textbf{language}: Mit Kennung der Programmiersprache wird nochmals explizit auf die zu verwendende Programmiersprache hingewiesen, für die das Modell eine Lösung generieren soll.
+	\item \textbf{canonical\_solution}: Diese Lösung für das Problem kann hier vernachlässigt werden, da sie im HumanEval-XL keine Anwendung findet.
+	\item \textbf{natural\_language}: Die Angabe der Ländersprache, in der die Proben erstellt wurden.
+\end{myenumerate}
 
-Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmark-Tests. In der Struktur des Benchmarks sind vier wesentliche Bereiche erkennbar. Dazu gehören die \textit{Deklaration}, der \textit{Kommentar}, das \textit{Ergebnis} und der \textit{Test}. Die Deklaration und der Kommentar sind von Benchmark vorgegeben. Die \textit{Deklaration} definiert die anzuwendende Programmiersprache, der \textit{Kommentar} enthält die Anweisung für das Modell und definiert den Kontext. Ebenfalls wird der Name der Methode definiert, welche das Modell verwenden muss, um den abschließenden Test erfolgreich zu bestehen. Diese beiden Teile werden an das Modell übergeben und dieses generiert den Code, welches als \textit{Ergebnis} von dem Modell zurückgeliefert wird.\vspace{0.2cm}
-
-Zusammen mit dem vierten Teil, dem \textit{Test} wird dann die Prüfung des \textit{Ergebnisses} durchgeführt. Die Ergebnisse werden dokumentiert und dienen zur Berechnung der Wahrscheinlichkeit das ein Modell eine korrekte Antwort liefert.\vspace{0.2cm}
+Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmark-Tests. In der Struktur des Benchmarks sind vier wesentliche Bereiche erkennbar. Dazu gehören die \textit{Deklaration}, der \textit{Kommentar}, das \textit{Ergebnis} und der \textit{Test}.\vspace{0.2cm}
 
 \begin{figure}[!ht]
-	\includegraphics[width=0.6\textwidth]{content/chapter_intruduction/images/code_generation_humaneval_x.eps}
+	\includegraphics[width=0.6\textwidth]{content/chapter_concept_design/images/code_generation_humaneval_x.eps}
 	\centering
 	\caption{Aufbau des HumanEval-XL Benchmarks}
 	\label{img:code_generation_humaneval}
 \end{figure}
+
+Die \textit{Deklaration}, in der Abbildung \ref{img:code_generation_humaneval} mit \textbf{1} bezeichnet, ist eine optionale Angabe zur Programmiersprache und durch den Benchmark vorgegeben. Während bei den PHP-Proben die Deklaration \texttt{<?php} lautet, ist beispielsweise bei den JavaScript-Proben keine Deklaration angegeben. Hier beginnt die Probe direkt mit dem Kommentar. Der in der Abbildung \ref{img:code_generation_humaneval} mit \textbf{2} bezeichnete Kommentar, enthält die eigentliche Aufgabe, die das Modell lösen soll. Auch der Kommentar ist vom Benchmark vorgegeben. Die letzte Zeile enthält den Methodennamen als Codevorgabe, der verwendet werden muss, um nach dem Generieren der Antwort abschließend einen Test durchführen zu können. Die Listings \ref{lst:example_probe_1_of_benchmark} und \ref{lst:example_probe_2_of_benchmark} zeigen Beispiele für die beiden Bereiche aus den ersten zwei Proben des Benchmarks.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:example_probe_1_of_benchmark,
+	caption={PHP Beispiele für die erste Probe}
+]
+<?php
+
+/**
+* Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
+* Sie erhalten eine Liste von Einzahlungs- und Abhebungsvorgängen auf einem Bankkonto, das mit einem Nullsaldo beginnt. Ihre Aufgabe besteht darin, festzustellen, ob zu irgendeinem Zeitpunkt das Guthaben des Kontos unter Null fällt, und an diesem Punkt sollte die Funktion True zurückgeben. Andernfalls sollte sie False zurückgeben.
+* >>> below_zero([1, 2, 3])
+* False
+* >>> below_zero([1, 2, -4, 5])
+* True
+*
+*/
+function belowZero($operations){
+\end{lstlisting}
+
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:example_probe_2_of_benchmark,
+	caption={PHP Beispiele für die zweiten Probe}
+]
+<?php
+
+/**
+* Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
+* Für eine gegebene Liste von ganzen Zahlen soll ein Tupel zurückgegeben werden, das aus der Summe und dem Produkt aller Zahlen in der Liste besteht.
+* Eine leere Summe soll gleich 0 und ein leeres Produkt gleich 1 sein.
+* >>> sum_product([])
+* (0, 1)
+* >>> sum_product([1, 2, 3, 4])
+* (10, 24)
+*
+*/
+function sumProduct($numbers){
+\end{lstlisting}
+	
+Diese beiden Teile Deklaration und Kommentar werden an das Modell als Eingabeaufforderung übergeben und dieses generiert den Code, welches als \textit{Ergebnis} von dem Modell zurückgeliefert wird. Das Modell sollte im Idealfall den vorgegebenen Methodennamen aufgegriffen haben und diesen für die Ausgabe des Ergebnisses verwendet. Somit findet sich der Methodenname auch im Bereich \textbf{3} wieder. Ebenfalls werden oft die Deklaration und der Kommentar durch das Modell übernommen. In der Abbildung \ref{img:code_generation_humaneval} ist das Ergebnis mit \textbf{3} ausgezeichnet. Der Bereich \textbf{4} bildet den letzten Teil des Benchmarks. Der Test ist ebenfalls vom HumanEval-XL Benchmark vorgegeben. Hier wird ein einfacher Vergleich durchgeführt der bei Abweichung von der Vorgabe eine Exception auslöst. Dazu werden an die vordefinierte Methode Parameter übergeben, aus denen der generierte Code eine Lösung errechnet. Diese wird mit einer, durch den Benchmark vordefinierten Lösung abgeglichen. Das Listing \ref{lst:example_test_1_of_benchmark} zeigt den Aufbau des Tests, am Beispiel der ersten Probe des Benchmarks.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:example_test_1_of_benchmark,
+	caption={PHP Beispiele für den Test der ersten Probe}
+]
+function compare($x, $y) {
+	return $x == $y;
+}
+
+$arg00 = [];
+$x0 = belowZero($arg00);
+$v0 = false;
+if (!compare($x0, $v0)) {
+	throw new Exception("Error at 1th assert statement.");
+}
+$arg10 = [1, 2, -3, 1, 2, -3];
+$x1 = belowZero($arg10);
+$v1 = false;
+if (!compare($x1, $v1)) {
+	throw new Exception("Error at 2th assert statement.");
+}
+$arg20 = [1, 2, -4, 5, 6];
+$x2 = belowZero($arg20);
+$v2 = true;
+if (!compare($x2, $v2)) {
+	throw new Exception("Error at 3th assert statement.");
+}
+$arg30 = [1, -1, 2, -2, 5, -5, 4, -4];
+$x3 = belowZero($arg30);
+$v3 = false;
+if (!compare($x3, $v3)) {
+	throw new Exception("Error at 4th assert statement.");
+}
+$arg40 = [1, -1, 2, -2, 5, -5, 4, -5];
+$x4 = belowZero($arg40);
+$v4 = true;
+if (!compare($x4, $v4)) {
+	throw new Exception("Error at 5th assert statement.");
+}
+$arg50 = [1, -2, 2, -2, 5, -5, 4, -4];
+$x5 = belowZero($arg50);
+$v5 = true;
+if (!compare($x5, $v5)) {
+	throw new Exception("Error at 6th assert statement.");
+}
+\end{lstlisting}
+
+Nach der Generierung des Codes durch das Modell werden die Bereiche \textbf{3} (Ergebnis) und \textbf{4} (Test) für die Evaluierung der Probe verwendet. Hierfür werden die Bereiche zusammengeführt und ergeben einen testbaren ausführbaren Code. Die Ergebnisse werden dokumentiert und dienen für Berechnung der Wahrscheinlichkeit, das ein Modell unter $k$-Proben eine korrekte Antwort liefert.\vspace{0.2cm}
+
+Der Ablauf der Evaluation ist in Abbildung \ref{img:sequence_of_evaluation} dargestellt.\vspace{0.2cm}
+
+\begin{figure}[!ht]
+	\includegraphics[width=\textwidth]{content/chapter_concept_design/images/ablauf_evaluation.eps}
+	\centering
+	\caption{Aufbau des HumanEval-XL Benchmarks}
+	\label{img:sequence_of_evaluation}
+\end{figure}
+
 
 %*   Welche Arten von Code sollen generiert werden? (z.B. einfache HTML-Formulare, komplexe JavaScript-Funktionen, serverseitiger Code in Python/Node.js, etc.)
 Um die Modelle zu evaluieren und ihre Fähigkeiten hinsichtlich der im Web vorherrschenden Programmiersprachen zu untersuchen, werden die Tests in den Programmiersprache PHP und in der deutschen Version vorgenommen. Dafür sollen die Modelle mehrfach einfache Funktionen generieren.\vspace{0.2cm}
@@ -175,16 +276,18 @@ if (!compare($x0, $v0)) {
 Um die Modelle untereinander zu vergleichen, bekommen alle Modelle dieselben Prompts. Von jedem Prompt werden pro Modelle fünf Varianten erstellt. Die Ergebnisse werden in einer Liste chronologisch gespeichert. Mithilfe der pass@k Methode erfolgt die Evaluierung der Ergebnisse und anschließend die Bewertung der Modelle.\vspace{0.2cm}
 
 \subsection{Optimierung der Prompts}
-Die Proben aus dem HumanEval-XL Benchmark sind grundlegende Funktionsprüfungen für die Modelle und als kleine Probleme definiert. Oft werden aber durch Entwickler keine grundlegenden Aufgaben an die Modelle gestellt, sondern komplexere Probleme. Das Design der Problemstellungen soll auf objektorientierter Programmierung beruhen und mehrere Probleme der Webprogrammierung abdecken.
-
 \begin{tcolorbox}[
 	enhanced,
-	colback=red!5!white,
-	colframe=red!75!black!50,
+	colback=yellow!5!white,
+	colframe=yellow!75!black!70,
 	title= Mein roter Faden
 	]
 	Hier kommt noch eine Beschreibung des Optimierungskonzeptes.
 \end{tcolorbox}
+
+Während die Evaluierung der Modelle ausschließlich mit den Proben des HumanEval-XL erfolgten, wird die Optimierung der Prompts, an zusätzlichen eigenen erstellten Proben erfolgen. Diese sind komplexer als die allgemeinen Proben aus dem HumanEval-XL Benchmark. Hierbei soll untersucht werden, mit welchem Ansätzen Prompts im Bereich der Codegenerierung für die Webprogrammierung erfolgen kann. Der Aufbau der Aufgaben orientiert sich am HumanEval Benchmark. Es wird neben der Proben auch ein Unittest vorgegeben. Somit kann die Codeüberprüfung der generierten Snippets mit Unittests erfolgen. Der Vorteil von Unittest ist, dass alle Tests durchgeführt werden, auch wenn ein vorheriger Test fehlschlägt. Um diese Tests ausführen zu können, sind PHP Dateien erforderlich. Somit müssen die generierten Codes in Dateien gespeichert und können im Anschluss geprüft werden.\vspace{0.2cm}
+
+Für die Evaluierung der Ergebnisse der Optimierung wird manuell und automatisiert erfolgen. Durch die automatisierte Evaluierung ist auch hier der Vorteil gegeben das die Ergebnisse der ausgewählten Modelle nach dem gleichen Verfahren beurteilt werden. Wie bei der Evaluierung der Modelle werden die Ergebnisse auch hier festgehalten und dokumentiert.
 
 %---------------------------------------------------------------------------------------------------
 
@@ -219,6 +322,9 @@ Alle Prompts im Benchmark sind als Code-Kommentare aufgebaut. Als letzte Zeile i
 	]
 	Hier kommt/kommen noch ein oder mehrere Konzepte für das Prompt-Engineering.
 \end{tcolorbox}
+
+\subsection{Auswahl des Framework}
+Es soll untersucht werden wie sich die Verwendung unterschiedlicher Frameworks auf die Ausgaben der Modelle auswirkt. In der Arbeit werden die Auswirkungen auf die Ergebnisse der Python-Frameworks \textit{langchain} und \textit{DSPy} für verschiedene Modelle verglichen. Für einen automatisierten Test wird hier der HumanEval-XL angewandt. Das Framework \textit{langchain} wurde 2022 vorgestellt und ermöglicht Nutzern die Entwicklung komplexer Anwendungen für LLMs. Jedoch ist Fachwissen im Prompt-Engineering erforderlich, um optimale Eingabeaufforderungen an die Modelle zu stellen. Dieses Fachwissen ist beim \textit{DSPy}-Framework nicht mehr notwendig. Hier übernimmt das Framework die Optimierung der Eingabeaufforderungen und Gewichtungen der Modelle und macht somit das manuelle optimieren der Prompts und deren Techniken überflüssig. \textit{DSPy} ist im Oktober von Forschern veröffentlicht worden die Standards für NLP arbeiten.\vspace{0.2cm}
 
 %*   Werden verschiedene Prompt-Varianten für die gleichen Code-Generierungsaufgaben verwendet, um deren Einfluss auf die Ergebnisse zu untersuchen?
 

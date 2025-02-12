@@ -4,26 +4,14 @@ In diesem Kapitel werden die Rahmen- und Randbedienungen für das methodische Vo
 %*   Dieser Abschnitt stellt sicher, dass die Evaluation messbar und reproduzierbar ist.
 
 %*   Welche Aspekte der Codegenerierung sollen evaluiert werden? (z.B. Korrektheit des generierten Codes, Performance (Ausführungsgeschwindigkeit), Codequalität (Lesbarkeit, Wartbarkeit), Einhaltung von Coding Standards, Sicherheit, etc.)
-Ausgehend von den in Kapitel \ref{sec:goals_of_the_work} gestellten Ziele dieser Arbeit, werden hier Konzept und Design für die Evaluation besprochen. Es wird dargelegt wie die Ziele erreicht und welche Komponenten dazu erforderlich sind, um die Daten zu erheben und auszuwerten.\vspace{0.2cm}
 
-Die Evaluation soll zeigen, ob die generierten Codes korrekt Ergebnisse liefern und es nicht zu Laufzeitfehlern oder Deadlocks kommt. Des Weiteren wird bei der Prompt-Optimierung evaluiert, ob der generierte Code den gängigen Programmierstil entspricht und welche Qualität dieser aufweist. Hier liegt vor allen der Fokus auf Lesbarkeit und Einhaltung von Codingstandards. Als letzter Punkt soll die Dokumentation innerhalb des Codes geprüft werden. Je besser diese Ausfällt, umso leichter ist ein späteres Refactoring möglich.\vspace{0.2cm}
+Ausgehend von den in Kapitel \ref{sec:goals_of_the_work} aufgestellten Thesen dieser Arbeit, werden hier die Konzepte und Designs für die Evaluation und Optimierung besprochen. Es wird dargelegt wie Untersuchen durchgeführt, um valide Aussagen zu den Thesen treffen zu können. Es wird darauf geachtet das die Ergebnisse nachvollziehbar und überprüft werden können.
+Die Evaluation soll zeigen, inwieweit die LLMs korrekte Ergebnisse liefern und für die Webanwendungsentwicklung geeignet sind. Bei der Evaluierung der optimierten Abfragen wird der Fokus zusätzlich auf die Codequalität liegen. Hierbei wird auf die Codingstandards der Programmiersprache geachtet, die Lesbarkeit und die Dokumentation innerhalb des Codes bewertet. Für die Evaluation werden wie beim HumanEval-XL Benchmark Test geschrieben und zusätzlich werden Tool zur Codebewertung eingesetzt. Trotz der Wichtigkeit der Aspekte werden bei den Tests Aspekte zur Performance und Sicherheitsaspekte vernachlässigt. Es geht in erster Linie darum zu evaluieren, ob die Brauchbarkeit und Verständlichkeit gegeben ist und sich somit die erste These beweisen lässt, das LLMs zur Steigerung der Effizienz und Verbesserung der Codequalität beitragen.\vspace{0.2cm}
 
-Was nicht im Fokus liegt und in den Test vernachlässigt wird, sind die Performance der Modelle und die Architekturen der Systeme auf denen das jeweilige Modell läuft. Es geht in erster Linie um den generierten Code und dessen Brauchbarkeit in der Praxis.\vspace{0.2cm}
+%* Welche konkreten Metriken werden zur Messung dieser Aspekte verwendet? (z.B. Anzahl der Fehler im generierten Code, Ausführungszeit in Millisekunden, statische Codeanalyse-Metriken, etc.)
+Für die Messung zur Wahrscheinlichkeit das ein Modell eine korrekte Antwort liefert, wird die \texttt{pass@k} Methode auf die Antworten der Modelle angewandt. Für jede Probe liefert der HumanEval-XL eigene Tests mit. Dieser Test zusammen mit dem generierten Code sollten einen ausführbaren und testbaren Code ergeben. Daraus kann dann mit der \texttt{pass@k} Methode die repräsentative Zuverlässigkeit des Modells für jedes Problem ermittelt und anschließend für das gesamte Modell berechnen.\vspace{0.2cm}
 
-%*   Welche konkreten Metriken werden zur Messung dieser Aspekte verwendet? (z.B. Anzahl der Fehler im generierten Code, Ausführungszeit in Millisekunden, statische Codeanalyse-Metriken, etc.)
-Für die Messung der Brauchbarkeit von Modellen wird die \texttt{pass@k} Methode angewandt. Für jede Probe liefert der HumanEval-XL einene Test mit. Dieser zusammen mit dem generierten Code sollten einen ausführbaren und testbaren Code ergeben. Jeder Test wird in einer Liste notiert und dazu das Ergebnis der Ausführung. Daraus kann dann mit der \texttt{pass@k} Methode die repräsentative Zuverlässigkeit des Modells für jedes Problem und anschließend für das gesamte Modell errechnet werden.\vspace{0.2cm}
-
-\begin{tcolorbox}[
-	enhanced,
-	colback=yellow!5!white,
-	colframe=yellow!75!black!70,
-	title= Mein roter Faden
-	]
-	Hier folgt eine Beschreibung des Optimierungskonzeptes. Noch in Arbeit.
-\end{tcolorbox}
-
-Die Proben aus dem HumanEval-XL Benchmark beschreiben grundlegende Funktionsprüfungen für die Modelle und sind als einzelne Funktion zu generieren. In der Praxis stellen Entwickler komplexere Aufgaben an die Modelle, welche nicht nur als einzelne Funktion umzusetzen sind. Aus diesem Grund werden für die Prompt-Optimierung neben dem HumanEval-XL Benchmark noch eigene komplexere Proben mit Tests erstellt. Das Design dieser Proben soll auf objektorientierter Programmierung beruhen und mehrere Probleme der Webprogrammierung abdecken. Hierbei soll evaluiert werden, ob die ausgewählten Optimierungsmethoden für alle Modelle gleichermaßen erfolgreich anwendbar sind.
-
+Die Proben aus dem HumanEval-XL Benchmark beschreiben grundlegende Verständnisfragen für die Modelle und sind mit einer einzelnen Funktion zu beantworten. In der Praxis stellen Entwickler komplexere Aufgaben an die Modelle, welche nicht nur als einzelne Funktion umzusetzen sind. Oft werden mehrere Webtechnologien als Antwort erwartet, beispielsweise für Abfragen zu Webseiten könnten hier Technologien aus den Bereichen HTML, CSS, JavaScript und PHP zusammenspielen, um eine funktionsfähige Webanwendung zu generieren. Aus diesem Grund werden für die Optimierung neben dem HumanEval-XL Benchmark noch eigene komplexere Proben mit Tests erstellt. Das Design dieser Proben soll auf objektorientierter Programmierung beruhen und mehrere Probleme der Webprogrammierung abdecken. Hier soll geprüft werden, ob die dritte These bewiesen werden kann und eine Optimierung für die Webanwendungsentwicklung herbeigeführt werden kann, ohne das Modell grundlegend zu ändern.
 %Für die erweiterte Messung des PHP Codes kommt das Tool \texttt{phpmetrics} zum Einsatz. \texttt{phpmetrics} liefert eine Vielzahl an Metriken,mit der der Code analysiert werden kann. Bei diesem Tool liegt der Fokus auf die Ergebnisse von \texttt{Cyclomatic Complexity}, mit der die Komplexität des Codes gemessen wird. Auf den \texttt{Maintainability Index} zur Auswertung der Wartbarkeit. Diese ermittelt wie aufwändig es zukünftig ist den Code zu erweitern und bewertet die Lesbarkeit. Ein weiterer Parameter welcher hilft die Komplexität zu bewerten, ist der \texttt{Logical Lines of Code} Parameter. Ein weiteres Indiz zur Wartbar- und Lesbarkeit ist der \texttt{Method Length} Parameter. Ein weiterer Parameter zur Bewertung der Lesbarkeit ist der Parameter \texttt{Numbers of Parmeters}. Diese gibt die Anzahl der Parameter welche in die Methode übergeben werden. Eine hohe Anzahl kann ein Indiz dafür sein, das der Code schwerer zu lesen ist. Zur Bewertung der Dokumentation wird der Parameter \texttt{Comment Density} herangezogen.
 %Mithilfe eines Python-Skripts wird der generierte Code mit \texttt{phpmetrics} evaluiert.\vspace{0.2cm}
 
@@ -123,9 +111,9 @@ Alle Prompts die Proben enthalten, werden mit Python Skripten abgefragt. Dies gi
 %---------------------------------------------------------------------------------------------------
 
 
-\section{Design der Experimente}
+\section{Design der Evaluierung}
 %*   Dieser Abschnitt ist zentral für die Arbeit, da er die methodische Vorgehensweise der Evaluation beschreibt.
-In dem Kapitel soll das Design der Experimente besprochen werden. Zum einen die Umsetzung und Ausführung des HumanEval-XL Benchmark und zum anderen die Optimierungen der Prompts für die Webproblematiken.
+In dem Kapitel soll das Design der Evaluierung besprochen werden. Es wird der verwendete Benchmark vorgestellt, anschließend wird erläutert wie die Evaluierung durchgeführt wurde. Als Punkt in diesem Kapitel wird die Art und Weise festgehalten wie zum Zweck der Überprüf- und Nachvollziehbarkeit die erhobenen Daten dokumentiert wurden.
 
 \subsection{HumanEval-XL Benchmark}
 Das Experiment wird mit dem HumanEval-XL Benchmark durchgeführt. Dieser Benchmark besteht aus einer Reihe von 80 Tests in verschiedenen Programmier- und Landessprachen, die wie folgt aufgebaut sind,
@@ -202,7 +190,6 @@ Diese beiden Teile Deklaration und Kommentar werden an das Modell als Eingabeauf
 function compare($x, $y) {
 	return $x == $y;
 }
-
 $arg00 = [];
 $x0 = belowZero($arg00);
 $v0 = false;
@@ -233,14 +220,9 @@ $v4 = true;
 if (!compare($x4, $v4)) {
 	throw new Exception("Error at 5th assert statement.");
 }
-$arg50 = [1, -2, 2, -2, 5, -5, 4, -4];
-$x5 = belowZero($arg50);
-$v5 = true;
-if (!compare($x5, $v5)) {
-	throw new Exception("Error at 6th assert statement.");
-}
 \end{lstlisting}
 
+\subsection{Durchführung der Evaluierung}
 Nach der Generierung des Codes durch das Modell werden die Bereiche \textbf{3} (Ergebnis) und \textbf{4} (Test) für die Evaluierung der Probe verwendet. Hierfür werden die Bereiche zusammengeführt und ergeben einen testbaren ausführbaren Code. Die Ergebnisse werden dokumentiert und dienen für Berechnung der Wahrscheinlichkeit, das ein Modell unter $k$-Proben eine korrekte Antwort liefert.\vspace{0.2cm}
 
 Der Ablauf der Evaluation ist in Abbildung \ref{img:sequence_of_evaluation} dargestellt.\vspace{0.2cm}
@@ -273,28 +255,29 @@ if (!compare($x0, $v0)) {
 
 
 %*   Wie werden die Ergebnisse der LLMs verglichen? (z.B. Vergleich mit Referenzcode, manuelle Überprüfung, automatische Tests, etc.)
-Um die Modelle untereinander zu vergleichen, bekommen alle Modelle dieselben Prompts. Von jedem Prompt werden pro Modelle fünf Varianten erstellt. Die Ergebnisse werden in einer Liste chronologisch gespeichert. Mithilfe der pass@k Methode erfolgt die Evaluierung der Ergebnisse und anschließend die Bewertung der Modelle.\vspace{0.2cm}
+Um die Modelle untereinander zu vergleichen, bekommen alle Modelle dieselben Prompts. Von jedem Prompt werden pro Modelle fünf Varianten erstellt. Die Ergebnisse werden in einer Liste chronologisch gespeichert. Mithilfe der pass@k Methode erfolgt die Evaluierung der Ergebnisse und anschließend die Bewertung der Modelle.
 
-\subsection{Optimierung der Prompts}
-\begin{tcolorbox}[
-	enhanced,
-	colback=yellow!5!white,
-	colframe=yellow!75!black!70,
-	title= Mein roter Faden
-	]
-	Hier kommt noch eine Beschreibung des Optimierungskonzeptes.
-\end{tcolorbox}
+\subsection{Dokumentation der Daten}
+Die verwendeten Dateien des Benchmarks sind im \textit{JSONL}-Format festgehalten. Ebenso werden die Ergebnisse der LLM Abfragen in diesem Format dokumentiert. Für jede Probe wurde eine separate Datei erstellt, die jeweils fünf Ergebnisse einer LLM enthält. Für den gesamten Benchmark sind pro LLM 80 \textit{JSONL}-Dateien vorhanden.\vspace{0.2cm}
 
-Während die Evaluierung der Modelle ausschließlich mit den Proben des HumanEval-XL erfolgten, wird die Optimierung der Prompts, an zusätzlichen eigenen erstellten Proben erfolgen. Diese sind komplexer als die allgemeinen Proben aus dem HumanEval-XL Benchmark. Hierbei soll untersucht werden, mit welchem Ansätzen Prompts im Bereich der Codegenerierung für die Webprogrammierung erfolgen kann. Der Aufbau der Aufgaben orientiert sich am HumanEval Benchmark. Es wird neben der Proben auch ein Unittest vorgegeben. Somit kann die Codeüberprüfung der generierten Snippets mit Unittests erfolgen. Der Vorteil von Unittest ist, dass alle Tests durchgeführt werden, auch wenn ein vorheriger Test fehlschlägt. Um diese Tests ausführen zu können, sind PHP Dateien erforderlich. Somit müssen die generierten Codes in Dateien gespeichert und können im Anschluss geprüft werden.\vspace{0.2cm}
+Neben den Rohdaten wurden die Ergebnisse in verschiedenen \textit{Open Document Speadsheet} (ODS) übernommen. Die Dateien lassen sich mit Tabellenkalkulationstool von OpenOffice oder LibreOffice öffnen. Dies dient als Zusammenfassung der Ergebnisse und Zusätzlich wurden hieraus Grafiken generiert, welche auch in diesem Dokument Verwendung finden.\vspace{0.2cm}
 
-Für die Evaluierung der Ergebnisse der Optimierung wird manuell und automatisiert erfolgen. Durch die automatisierte Evaluierung ist auch hier der Vorteil gegeben das die Ergebnisse der ausgewählten Modelle nach dem gleichen Verfahren beurteilt werden. Wie bei der Evaluierung der Modelle werden die Ergebnisse auch hier festgehalten und dokumentiert.
+Als letztes wurden die programmierten Klassen und Methoden in Python-Dateien (\texttt{*.py}) abgelegt, mit denen die Ergebnisse erstellt und evaluiert wurden. Somit lasen sich alle erhobenen Ergebnisse nachvollziehen.
 
 %---------------------------------------------------------------------------------------------------
 
 
-\section{Konzeption des Prompt-Engineerings}
+\section{Konzeption der Optimierung}
 %*   Welche Strategien für das Prompt-Engineering werden untersucht? (z.B. Few-Shot-Prompting, Chain-of-Thought-Prompting, Verwendung von Code-Kommentaren als Prompts, etc.)
-Die Prompts im HunamEval-XL Benchmark sind als Few-Shot-Prompts verfasst. Sie neben der eigentlichen Aufgabe sind noch Beispiel für die Eingabedaten und erwarteten Ergebnisse angegeben. Das Listing \ref{lst:example_prompt_by_humaneval_benchmark} zeigt ein Beispiel für einen Prompt.
+Während die Evaluierung der Modelle ausschließlich mit den Proben des HumanEval-XL erfolgten, wird die Optimierung der Prompts, an zusätzlichen eigenen erstellten Proben erfolgen. Diese sind komplexer als die allgemeinen Proben aus dem HumanEval-XL Benchmark. Hierbei soll untersucht werden, mit welchem Ansätzen Prompts im Bereich der Codegenerierung für die Webprogrammierung erfolgen kann. Es wird neben der Proben auch ein Unittest vorgegeben. Somit kann die Codeüberprüfung der generierten Snippets mit Unittests erfolgen. Der Vorteil von Unittest ist, dass alle Tests durchgeführt werden, auch wenn ein vorheriger Test fehlschlägt. Um diese Tests ausführen zu können, sind PHP Dateien erforderlich. Somit müssen die generierten Codes in Dateien gespeichert und können im Anschluss geprüft werden.\vspace{0.2cm}
+
+Für die Evaluierung der Ergebnisse der Optimierung wird manuell und automatisiert erfolgen. Durch die automatisierte Evaluierung ist auch hier der Vorteil gegeben das die Ergebnisse der ausgewählten Modelle nach dem gleichen Verfahren beurteilt werden. Wie bei der Evaluierung der Modelle werden die Ergebnisse auch hier festgehalten und dokumentiert.\vspace{0.2cm}
+
+In der Arbeit werden verschiedene Möglichkeiten der Optimierung untersucht, die in den folgenden Kapiteln vorgestellt und deren Durchführung erläutert werden.
+
+
+\subsection{Prompt-Engineerings}
+Die Prompts aus dem HunamEval-XL Benchmark sind als \textit{One-Shot-Prompts} oder \textit{Few-Shot-Prompts} verfasst. So sind neben der eigentlichen Aufgabe, noch ein oder mehrere Beispiele für die Eingabeparameter der geforderten Methode und das erwartete Ergebnis angegeben. Das Listing \ref{lst:example_prompt_by_humaneval_benchmark} zeigt ein Beispiel für einen Prompt.
 
 \begin{lstlisting}[language=php,caption={Prompt Beispiel für  eine Aufgabe aus dem HumanEval-XL Benchmark},label=lst:example_prompt_by_humaneval_benchmark]
 <?php
@@ -314,14 +297,6 @@ function median($l){
 %*   Wie werden die Prompts aufgebaut sein? (z.B. klare Anweisungen, Beispiele, Kontextinformationen, etc.)
 Alle Prompts im Benchmark sind als Code-Kommentare aufgebaut. Als letzte Zeile ist der Methodenname angegeben. Somit wird sichergestellt, dass der generierte Code zusammen mit den vorgegebenen Tests bestanden werden kann.\vspace{0.2cm}
 
-\begin{tcolorbox}[
-	enhanced,
-	colback=red!5!white,
-	colframe=red!75!black!50,
-	title= Mein roter Faden
-	]
-	Hier kommt/kommen noch ein oder mehrere Konzepte für das Prompt-Engineering.
-\end{tcolorbox}
 
 \subsection{Auswahl des Framework}
 Es soll untersucht werden wie sich die Verwendung unterschiedlicher Frameworks auf die Ausgaben der Modelle auswirkt. In der Arbeit werden die Auswirkungen auf die Ergebnisse der Python-Frameworks \textit{langchain} und \textit{DSPy} für verschiedene Modelle verglichen. Für einen automatisierten Test wird hier der HumanEval-XL angewandt. Das Framework \textit{langchain} wurde 2022 vorgestellt und ermöglicht Nutzern die Entwicklung komplexer Anwendungen für LLMs. Jedoch ist Fachwissen im Prompt-Engineering erforderlich, um optimale Eingabeaufforderungen an die Modelle zu stellen. Dieses Fachwissen ist beim \textit{DSPy}-Framework nicht mehr notwendig. Hier übernimmt das Framework die Optimierung der Eingabeaufforderungen und Gewichtungen der Modelle und macht somit das manuelle optimieren der Prompts und deren Techniken überflüssig. \textit{DSPy} ist im Oktober von Forschern veröffentlicht worden die Standards für NLP arbeiten.\vspace{0.2cm}

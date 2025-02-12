@@ -46,21 +46,25 @@ Eine weitere Arbeit ist \cite{zan-2022}. Diese befasst sich mit einer Umfrage zu
 %---------------------------------------------------------------------------------------------------
 
 
-\section{Zielsetzung und Forschungsfragen}
+\section{Zielsetzung und Thesen}
 \label{sec:goals_of_the_work}
 Das Ziel in der Softwareentwicklung war und ist die Optimierung des Entwicklungsprozesses, um Ressourcen und Kosten einzusparen und dadurch einen Wettbewerbsvorteil zu erlangen. Ein Bereich der Besonders stark von der Digitalisierung profitiert, ist der Bereich der Webentwicklung. Durch die steigende Nachfrage von Cloud-Anwendungen steigt auch der Optimierungsdruck in diesem Bereich besonders stark.\vspace{0.2cm}
 
-Vor diesem Hintergrund lässt sich die Zielsetzung bereits aus dem Titel \glqq \textit{Evaluierung und Optimierung von Large Language Models für die Entwicklung von Webanwendungen}\grqq \ dieser Arbeit herleiten. Sie untersucht die Möglichkeiten mit natürlicher Sprache, Code zu generieren. Wie in \cite[vgl. Seite 2]{jiang-2024} wird auch in dieser Arbeit die Kurzform NL2Code, für Language-to-Code verwendet. Diese Arbeit soll eine Auswahl von Modellen evaluieren und dessen Brauchbarkeit für die Entwicklung von Webanwendungen aufzeigen. Um die Antworten der Modelle zu optimieren, soll eine Evaluation von Methodiken erfolgen, bei der deren Anwendung eine Verbesserung der Antworten ersichtlich ist.\vspace{0.2cm}
+% These 1
+Vor diesem Hintergrund lässt sich die erste These bereits aus dem Titel \glqq \textit{Evaluierung und Optimierung von Large Language Models für die Entwicklung von Webanwendungen}\grqq \ dieser Arbeit herleiten. Es soll gezeigt werden das die Möglichkeit besteht aus natürlicher Sprache Code für die Webanwendungsentwicklung mithilfe von LLMs zu generieren und somit tragen LLMs zur Optimierung des Softwareentwicklungsprozesses mit bei. In dieser Arbeit wird, wie schon in der Arbeit \cite[vgl. Seite 2]{jiang-2024} die Abkürzung NL2Code (Natural-Language-to-Code) verwendet.\vspace{0.2cm}
 
-Als erstes Ziel soll jedoch die Evaluierung des generierten Codes der Modelle stehen und dessen Tauglichkeit für die Programmierung untersucht werden. Sobald Code geschrieben wurde und von anderen Programmierenden überarbeitet oder verstanden werden muss, erfordert dies erheblich mehr Zeit als das ursprüngliche Schreiben des Codes. Daher ist es essenziell, dass der Code gut strukturiert ist und durch Kommentare ergänzt wird, um die Verständlichkeit und Wartbarkeit zu erleichtern. Viele Evaluierungsdatensätze prüfen lediglich die korrekte Funktionalität des Codes.\vspace{0.2cm}
+% These 2
+Es sind in den letzten Jahren eine Vielzahl von Benchmark-Test für die Evaluierung von NL2Code Problemen entstanden. Unter anderem der HumanEval-XL, der eine Erweiterung des HumanEval ist. Dieser erweiterte Benchmark enthält verschieden Test für unterschiedliche Programmiersprachen, auch solche die für die Webanwendungsentwicklung wichtig sind. Darunter einen Benchmark für PHP und Javascript. Trotz ihrer vielen spezifischen Tests auf verschiedene Programmiersprachen ist die zweite These, das diese Benchmarks sich nur bedingt für die Evaluierung von LLMs eigenen, die für Webanwendungsentwicklung Code generieren.\vspace{0.2cm}
 
-Die drei Ziele dieser Arbeit lassen sich in den folgenden kurz formulierten Sätzen zusammenfassen,
+% These 3
+Für NL2Code muss eine bestimmte Syntax eingehalten und Feinheiten wie Sonderzeichen müssen exakt beachtet werden. Dafür ist es relevant, dass die Eingabeaufforderungen zu optimieren. Diese Optimierungen lassen für NL2Code nicht durch die Anpassung der LLMs erreichen, was beispielsweise durch die Anpassung der Gewichte erfolgen könnte. Dies führt zur dritten These, dass die Optimierung mit der Optimierung der Eingabeaufforderungen erfolgen kann.\vspace{0.2cm}
+
+Die Thesen dieser Arbeit lassen sich in den folgenden kurz formulierten Sätzen zusammenfassen,
 
 \begin{myitemize}
-	\item[\textbf{Z1}] Können LLMs hochwertigen Code für die Entwicklung von Webanwendungen generieren und welche Modelle eigenen sich für die Entwicklung von Webanwendungen?
-	\item[\textbf{Z2}] Wie gut sind die Ergebnisse, hinsichtlich Syntax, Funktionalität, Codequalität und Coding-Standards?
-	\item[\textbf{Z3}] Welches Prompt-Design kann helfen die Codequalität und die Genauigkeit der Ergebnisse zu verbessern?
-%	\item[Z3] Wie weit lässt sich die Verwendung von Sprachmodellen, für die Codegenerierung automatisieren?
+	\item[\textbf{T1}] Durch den Einsatz von LLMs wird auch die Effizienz im Entwicklungsprozess gesteigert und eine Verbesserung der Codequalität erzielt. Es ist jedoch entscheidend die Leistungsfähigkeit der LLMs zu evaluieren und deren Stärken und Schwächen zu identifizieren. Es ist essenziell wichtig für den Entwicklungsprozess geeignete Methoden zu finden, um diesen Prozess optimal zu gestalten und die Vorteile des Einsatzes von LLMs im vollen Umfang auszuschöpfen.
+	\item[\textbf{T2}] Benchmarks, wie der HumanEval-XL eignen sich nur bedingt zur Evaluierung von LLMs die für Webanwendungsentwicklung eingesetzt werden sollen. Bei heutigen Webanwendungen werden vielmehr die Webtechnologien verschiedener Sprachen kombiniert, um nutzerfreundliche und effiziente Systeme zu erschaffen.
+	\item[\textbf{T3}] Eine Optimierung der LLMs zur Codegenerierung für Webanwendungsentwicklung lässt sich auch ohne tiefer gehende Änderungen der Modelle erreichen. Mit der Optimierung der Eingabeaufforderungen lassen sich signifikante Verbesserungen der Ausgaben erreichen und somit eine Verbesserung der Evaluierungen.
 \end{myitemize}
 
 %---------------------------------------------------------------------------------------------------

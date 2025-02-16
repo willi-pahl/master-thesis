@@ -1,6 +1,16 @@
-In diesem werden die Arbeitsprozesse reflektiert und Fehler die während der Arbeit auftraten analysiert. Des Weiteren werden Vorschläge gegeben, um das Arbeiten mit Sprachmodellen zu verbessern. Zuerst wird der Evaluierungsprozess betrachtet, um anschließend die Optimierung der Prompts zu diskutieren.
+In diesem Kapitel werden die Arbeitsprozesse der Evaluation und Optimierung reflektiert. Des Weiteren werden Vorschläge gegeben, um das Arbeiten mit Sprachmodellen zu verbessern.\vspace{0.2cm}
+
+Zudem werden die größten Hindernisse und Probleme besprochen, die während der es gesamten Prozesses Evaluation auftraten. Diese beinhalten die Bereitstellung er Modelle, das Erheben der Daten zu den Proben des Benchmarks und deren Auswertung. Um in folgenden Arbeiten diese Fehler zu verhindern werden dazu Lösungsansätze und Vorschläge diskutiert.
 
 % --- Evaluierung ----------------------------------------------------------------------------------
+
+
+\section{Evaluierungsaufbau und Vorbereitung}
+Um die Evaluierungen an Open-Source-Modellen durchführen zu können, mussten diese lokal bereitgestellt werden. Die Wahl viel auf das Ollama-Framework, da die Installation und Konfiguration sehr gut durch den Hersteller und verschiedene Foren unterstützt wird. Neben der vorhandenen API kann das Tool Open-WebUI einfach in das Ollama-Frameowrk integriert werden. Diese UI bietet eine gute UI die von allen Clients im Netzwerk aufgerufen werden kann. Ebenfalls ein großer Vorteil sind die vielen Modelle welche für Ollama zum Download bereitstehen. Darunter sind Modelle von Mistral, Llama, Deepseek und Qwen-Coder.\vspace{0.2cm}
+
+Eine weitere Möglichkeit ist, die Modelle lokal auszuführen ohne ein Framework einzusetzen. Hierbei können die Abfragen nur auf dem lokalen System erfolgen, wenn keine eigene API Schnittstelle erstellt wird. Unter anderem war keine Web-UI vorhanden, sodass diese Möglichkeit nicht weiter in Betracht gezogen wurde.\vspace{0.2cm}
+
+%---------------------------------------------------------------------------------------------------
 
 
 \section{Evaluierung der großen Sprachmodelle}

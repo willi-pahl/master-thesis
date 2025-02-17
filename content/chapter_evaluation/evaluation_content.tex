@@ -1,4 +1,4 @@
-In diesem Kapitel werden die Ergebnisse der Benchmark Proben ausgewertet. Hier wird unterschieden zwischen der ersten Evaluierung der Modelle, des Weiteren bei der Evaluierung unterschiedlichen Landessprachen und bei der Verwendung verschiedener Frameworks.\vspace{0.2cm}
+In diesem Kapitel werden die Ergebnisse der Benchmark Proben ausgewertet und die Ergebnisse aus der \texttt{pass@1} und \texttt{pass@5} Methode diskutiert. Weiterhin werden die Resultate in Bezug auf Auswahl der Landessprache und der Parameteranzahl der Modelle erläutert. Abschließend wird darauf eingegangen, wie sich die Auswahl eines Frameworks für die Interaktion mit den Modellen auf die Ergebnisse auswirken.\vspace{0.2cm}
 
 %\sout{Diese Tests fordern LLM's auf kleine Problem zu lösen. Aus diesem Grund werden weitere Tests erstellt mit umfangreicheren Anforderungen aus dem Bereich der Webentwicklung. Zu jedem Problem wird eine Musterlösung und ein Unittest erstellt. Der Aufbau für diese Bereitstellung orientiert sich an dem Format aus dem HunamEval-Benchmark.}\vspace{0.2cm}
 
@@ -14,9 +14,9 @@ Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} und \
 
 Aus den Ergebnissen der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkeit der jeweiligen Modelle berechnet. Dieser Wert gibt an, mit welcher Wahrscheinlichkeit mindestens eine richtige Lösung unter $k$ ausgewählten Vorschlägen vorhanden ist.\vspace{0.2cm}
 
-Dabei ist $n$ die Gesamtanzahl der Versuche, $c$ die Anzahl der korrekten Lösungen unter den $n$ Versuchen und $k$ gibt die Anzahl der Lösungen an die betrachtet wurden. Für die Berechnung der $pass@k$ Metrik wird die Formal \ref{equ:pass_qt_k_complex} verwendet, welche in \cite{chen-2021} vorgeschlagen wird.\vspace{0.2cm}
+Der Parameter $n$ definiert die Gesamtanzahl der Versuche, in dieser Arbeit wurde die Anzahl auf fünf Versuche pro Probe beschränkt. Dadurch wird ein $k$-Wert fünf berechenbar. Die Anzahl der korrekten Lösungen wird mit dem Parameter $c$ angegeben. Dieser richtet sich nach den bestandenen fünf Versuchen pro Probe. Der letzte erforderliche Parameter ist $k$, dieser gibt an wie viel TOP Lösungen untersucht werden, um die Wahrscheinlichkeit einer korrekten Antwort zu ermitteln. Für die Berechnung der $pass@k$ Methode wird die Formel \ref{equ:pass_qt_k_complex} verwendet, welche in \cite{chen-2021} vorgeschlagen wird.\vspace{0.2cm}
 
-Für alle Proben wurden jeweils fünf gleiche Prompts erstellt und bewertet. Die Ergebnisse der Evaluation werden in Tabelle \ref{tab:prompt_results_open_models} gezeigt.
+Nachdem die fünf Versuche pro Probe ausgewertet wurden, sind die Ergebnisse in Tabelle \ref{tab:prompt_results_open_models} aufgeführt. Hier wird auf den Werten für $k=1$ und $k=5$ eingegangen. In der Tabelle sind alle getesteten Modelle ohne eine Einschränkung vorzunehmen.\vspace{0.2cm}
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|r|r|}
@@ -42,7 +42,7 @@ Für alle Proben wurden jeweils fünf gleiche Prompts erstellt und bewertet. Die
 	\caption{Ergebnisse der pass@1 und pass@5 Methode}
 \end{table}
 
-Das Modell \texttt{codellama} wurde ebenfalls getestet, hat aber beim Generierung von den Lösungen der PHP Probleme nicht gut abgeschnitten. Viele der Anforderungen wurden in Python erstellt und viele Tests sind als nicht bestanden gewertet wurden. Aus diesem Grund wird es bei den weiteren Betrachtungen nicht mehr beachtet.\vspace{0.2cm}
+Das Modell \texttt{codellama} hat aber beim Generierung der PHP Lösungen aus dem Proben des Benchmarks am schlechtesten abgeschnitten. Der Grund hierfür war, dass die meisten generierten Code in Python erstellt worden. Das ist der Grund warum die meisten Tests, welche durch den Benchmark vorgegeben waren, durchgefallen sind.\vspace{0.2cm}
 
 Des Weiteren wurden eine Reihe von Llama-Modellen getestet, unter anderem einige verschiedene Llama3.1 Modelle. Bei dem \textit{Llama3.1 8b} wurden zwei verschiedene Versuche durchgeführt mit jeweils unterschiedlicher Tokenlängen. Anders als bei \textit{ChatGPT 3.5} und \textit{Gemini 1.5} können die kleineren Modelle schon mit geringerer Tokenlänge valide Antworten erzeugen. Die unterschiedliche Tockenlängen haben kaum einen Einfluss auf das Ergebnis. Hier liegt der Unterschied bei nicht mal einen Prozent.\vspace{0.2cm}
 

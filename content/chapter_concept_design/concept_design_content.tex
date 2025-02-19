@@ -41,20 +41,22 @@ Mit \textbf{Gemini 1.5} präsentiert Google ein Modell zur Verarbeitung von nat�
 Neben den genannten Quellen sind die Herstellerseite eine gute Quelle weiterführende Informationen einzuholen. Die Tabelle \ref{tab:selected_llms} zeigt zusammenfassend die ausgewählten Modelle.\vspace{0.2cm}
 
 \begin{table}[!ht]
-	\begin{tabular}{|l|l|l|c|c|c|c|}
+	\begin{tabular}{|l|l|l|l|c|c|c|}
 		\hline
 		\textbf{Modell} & \textbf{Param} & \textbf{Quantisierung} & \textbf{Größe} & \textbf{Sprache} & \textbf{offen} & \textbf{EXEC} \\
 		\hline
-		Qwen2.5-coder     & 32b &               q4\_K\_M &  19 GB &    DE & X & Ollama \\
-		DeepSeek-coder-V2 & 16b & lite-instruct-q5\_K\_S &  11 GB &    DE & X & Ollama \\
-		DeepSeek-R1       & 32b &               q4\_K\_M &  19 GB &    DE & X & Ollama \\
-		Llama3.1-Claude   &  8b &                  q4\_0 & 4,7 GB &    DE & X & Ollama \\
-		Llama3.1          &  8b &               q4\_K\_M & 4,7 GB & DE/EN & X & Ollama \\
-		Llama3.2          &  3b &               q4\_K\_M & 2,0 GB & DE/EN & X & Ollama \\
-		Llama3.3          & 70b &         instruct-q2\_K &  43 GB & DE/EN & X & Ollama \\
-		Codellama         & 13b &                  q4\_0 & 7,4 GB &    DE & X & Ollama \\
-		Mistral Small     & 22b &                  q4\_0 &  12 GB &    DE & X & Ollama \\
-		Gemini 1.5 Pro    &k.A. &                   k.A. &   k.A. &    DE & - & online \\
+		Qwen2.5-coder     &  32b &               q4\_K\_M &  19 GB &    DE & X & Ollama \\
+		DeepSeek-coder-V2 &  16b & lite-instruct-q5\_K\_S &  11 GB &    DE & X & Ollama \\
+		DeepSeek-R1       &  32b &               q4\_K\_M &  19 GB &    DE & X & Ollama \\
+		Llama3.1-Claude   &   8b &                  q4\_0 & 4,7 GB &    DE & X & Ollama \\
+		Llama3.1          &   8b &               q4\_K\_M & 4,7 GB & DE/EN & X & Ollama \\
+		Llama3.2          &   3b &               q4\_K\_M & 2,0 GB & DE/EN & X & Ollama \\
+		Llama3.3          &  70b &         instruct-q2\_K &  26 GB & DE/EN & X & Ollama \\
+		Codellama         &  13b &                  q4\_0 & 7,4 GB &    DE & X & Ollama \\
+		Mistral Small     &  22b &                  q4\_0 &  12 GB &    DE & X & Ollama \\
+		Gemini 1.5 Pro    & k.A. &                      - &   k.A. &    DE & - & online \\
+		Gemini 1.5 Flash  & k.A. &                      - &   k.A. &    DE & - & online \\
+		ChatGPT 4 Turbo   & k.A. &                      - &   k.A. &    DE & - & online \\
 		\hline
 		\hline
 	\end{tabular}
@@ -69,7 +71,7 @@ Für die Abfragen der Testprobleme wurde eine \textit{temperature} von $0.2$ gew
 
 Ein hoher \textit{top\_p} Wert verlangt von den Modellen eine Antwort die mit hoher Wahrscheinlichkeit richtig ist. Für die Codegenerierung sollten die wahrscheinlichsten und syntaktisch korrekten Token angewandt werden. Für die Abfragen wird hier ein Wert von $0.95$ angesetzt.\vspace{0.2cm}
 
-Die maximale Anzahl Token sollte bei der Generierung für die Proben des HumanEval-XL zwischen 200 und 1000 Token eingestellt werden, je nach Umfang der Antworten. Da hier nur die Funktionsfähigkeit geprüft wird, werden Struktur und Coding-Standards vernachlässigt, sodass \textit{max\_token} auf 1200 festgelegt wird. Probleme mit dieser Einstellung gab es nur bei den Modellen \textit{Gemini 1.5}, \textit{ChatGPT 4} und \textit{Deepseek-R1}. Hier wurde die Anzahl der Token nicht mehr festgelegt.\vspace{0.2cm}
+Die maximale Anzahl Token sollte bei der Generierung für die Proben des HumanEval-XL zwischen 200 und 1000 Token eingestellt werden, je nach Umfang der Antworten. Da hier nur die Funktionsfähigkeit geprüft wird, werden Struktur und Coding-Standards vernachlässigt, sodass \textit{max\_token} auf 1200 festgelegt wird. Probleme mit dieser Einstellung gab es nur bei den Modellen \textit{Gemini 1.5} und \textit{Deepseek-R1}. Hier wurde die Anzahl der Token nicht mehr festgelegt.\vspace{0.2cm}
 
 In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurzer Form noch einmal dargestellt.
 
@@ -78,15 +80,17 @@ In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurz
 		\hline
 		\textbf{Modell} & \textbf{Temp.} & \textbf{max. Token} & \textbf{Top-p} \\
 		\hline
-		Qwen2.5-coder     &  0.2 &  1200 & 0.95 \\
-		Deepseek-Coder-v2 &  0.2 &  1200 & 0.95 \\
-		Deepseek-R1       &  0.2 & offen & 0.95 \\
-		Llama3.1          &  0.2 &  1200 & 0.95 \\
-		Llama3.1-Claude   &  0.2 &  1200 & 0.95 \\
-		Llama3.2          &  0.2 &  1200 & 0.95 \\
-		Llama3.3          &  0.2 &  1200 & 0.95 \\
-		Mistral Small     &  0.2 &  1200 & 0.95 \\
-		Gemini 1.5 Pro    & k.A. &  k.A. & k.A. \\
+		Qwen2.5-coder      &  0.2 &       600 & 0.95 \\
+		Deepseek-Coder-v2  &  0.2 &       600 & 0.95 \\
+		Deepseek-R1        &  0.2 &     offen & 0.95 \\
+		Llama3.1           &  0.2 &  600/1200 & 0.95 \\
+		Llama3.1-Claude    &  0.2 &       600 & 0.95 \\
+		Llama3.2           &  0.2 &       600 & 0.95 \\
+		Llama3.3           &  0.2 &       600 & 0.95 \\
+		Mistral Small      &  0.2 &       600 & 0.95 \\
+		Gemini 1.5 Pro     &  0.2 &       600 & 0.95 \\
+		Gemini 1.5 ChatBot & k.A. &      k.A. & k.A. \\
+		ChatGPT 4 Tubro    &  0.2 &       600 & 0.95 \\
 		\hline
 		\hline
 	\end{tabular}

@@ -47,6 +47,110 @@ Bewehrt hat sich hier der Einsatz von Python und dessen Bibliotheken für Umsetz
 	Hier folgen noch die Ergebnisse zur Optimierung.
 \end{tcolorbox}
 
+
+\subsection{Nachteile der Evaluierung}\label{subsec:disadvantages_of_evaluation}
+Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Test einige Fehler. Dadurch resultieren Nachteile, die sich bei der Bewertung der Modelle negativ auswirken.\vspace{0.2cm}
+
+Einige \textit{\textbf{Fragen sind nicht eindeutig formuliert}} und können von den Modellen falsch interpretiert werden. Ein Beispiel im HumenEval-XL Benchmark ist die Aufgabe 20. Der genaue deutsche Wortlaut ist, \textit{Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.}, der gesamte Prompt ist in Listing \ref{lst:humaneval_xl_prompt_20} zu sehen. In der hier durchgeführten Evaluierung wurde diese Aufgabe im \textit{pass@1} nur einmal bestanden. Der Wortlaut hält die Modelle an, einen Vergleich in der Methode selbst durchzuführen und einen booleschen Wert als Rückgabe zu erstellen. In der, durch den Benchmark vorgegebenen Test, werden aber zwei Zeichenketten verglichen. D.h. als erwartetes Ergebnis sollte eine Zeichenkette erstellt werden, welche die doppelten Zeichen zweier zu testenden Zeichenketten enthält. Das Listing \ref{lst:humaneval_xl_test_20} zeigt einen kleinen Teil des Tests und die vom Test erwarteten Ergebnisse.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:humaneval_xl_prompt_20,
+	caption={Wortlaut der Aufgabe 20 im HumalEval-XL Benchmark}
+]
+<?php
+/**
+ * Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
+ * * Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.
+ * >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')
+ * True
+ * >>> same_chars('abcd', 'dddddddabc')
+ * True
+ * >>> same_chars('dddddddabc', 'abcd')
+ * True
+ * >>> same_chars('eabcd', 'dddddddabc')
+ * False
+ * >>> same_chars('abcd', 'dddddddabce')
+ * False
+ * >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')
+ * False
+ */
+function sameChars($s0, $s1){
+\end{lstlisting}
+
+\begin{lstlisting}[
+language=php,
+label=lst:humaneval_xl_test_20,
+caption={Wortlaut des Tests 20 im HumalEval-XL Benchmark}
+]
+function compare($x, $y) {
+    return $x == $y;
+}
+
+$arg00 = "eabcdzzzz";
+$arg01 = "dddzzzzzzzddeddabc";
+$x0 = sameChars($arg00, $arg01);
+$v0 = true;
+if (!compare($x0, $v0)) {
+    throw new Exception("Error at 1th assert statement.");
+}
+\end{lstlisting}
+
+Eine weitere Fehlerquelle ist das \textit{\textbf{Zusammenführen der Antworten der Modelle und Tests aus dem Benchmark}}. Meist ist das Problem das Parsen der Sonderzeichen, wie beispielsweise die Verwendung der doppelten Anführungszeichen im Test und den erstellten Antworten. Eine manuelle Prüfung der Aufgabe 2 hat das Fehlverhalten aufgezeigt. Durch den Einsatz einer weiteren Pythoncodezeile, wie in Listing \ref{lst:error_evaluation_code_1} zeigt konnten die Bewertung einiger Modelle verbessert werden. So hat sich die Bewertung für das \textit{pass@1} des Deepseek-Coder-V2 um 7\% von $0,53$ auf $0,6$ verbessert. Ebenso wurde für das Llama3.1 Modell eine Verbesserung von $0,45$ auf $0,475$ ermittelt.\vspace{0.2cm}
+
+\begin{lstlisting}[
+language=diff,
+label=lst:error_evaluation_code_1,
+caption={Fehler bei der Auswertung durch fehlerhafte Anführungszeichen}
+]
+  answer = answer.replace(r"\n", "\n")
++ answer = answer.replace(r'\"', '"')
++ 
++ test = test.replace(r'\"', '"') 
+\end{lstlisting}
+
+Bei der Probe \textit{php/5} wurde eine \textit{\textbf{fehlerhafte Übersetzung}} festgestellt. So wurde die Probe übersetzt, nicht aber die Tests. Das Listing \ref{lst:prompt_php_de_5} zeigt die gültigen Werte welche als Eingabeparameter für die zu generierende Funktion erlaubt sind. Hier handelt es sich um deutsche Zahlworte von $null$ bis $neun$.\vspace{0.2cm}
+
+\begin{lstlisting}[
+language=php,
+label=lst:prompt_php_de_5,
+caption={Aufgabenstelleung der Probe php/5}
+]
+/**
+ * Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
+ * Die Eingabe ist ein durch Leerzeichen getrennter String von Ziffern von 'null' bis 'neun'.
+ *     Gültige Optionen sind 'null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht' und 'neun'.
+ *     Gib den String mit den Zahlen sortiert von klein nach groß zurück.
+ * >>> sort_numbers('three one five')
+ * 'one three five'
+ *
+ */
+function sortNumbers($numbers){
+\end{lstlisting}
+
+Der Test der Probe \textit{php/5}, welcher in Listing \ref{lst:test_php_de_5} zu sehen ist, erstellt eine Prüfung der generierten Methode mit englischem Zahlworten von $zero$ bis $nine$ bereit. Keines der getesteten Modelle hat diese Probe bestanden.
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:test_php_de_5,
+	caption={Aufgabenstelleung der Probe php/5}
+]
+// more tests.
+
+$arg40 = "six five four three two one zero";
+$x4 = sortNumbers($arg40);
+$v4 = "zero one two three four five six";
+if (!compare($x4, $v4)) {
+    throw new Exception("Error at 5th assert statement.");
+}
+\end{lstlisting}
+
+Fehlerquelle Methodenname\vspace{0.2cm}
+
+Die Tests aus dem Benchmark und Ergebnisse der Modelle wurde stichprobenartig manuell geprüft und weitere Fehler behoben. Dennoch ist nicht auszuschließen das die jetzige Evaluation weitere Fehlerquellen enthält.\vspace{0.2cm}
+
+Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.
+
 % --- Optimierung ----------------------------------------------------------------------------------
 
 

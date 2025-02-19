@@ -23,17 +23,19 @@ Nachdem die fünf Versuche pro Probe ausgewertet wurden, sind die Ergebnisse in 
 		\hline
 		\textbf{Model} & \textbf{pass@1} & \textbf{pass@5} \\
 		\hline
-		DeepSeek-Coder-V2   &  0,555 &     0,65 \\
-		DeepSeek-R1         & 0,7025 &   0,8375 \\
-		Gemini Flash 1.5    & 0,2925 &     0,55 \\
-		Llama3.1:8b (T600)  &   0,43 &   0,6375 \\
-		Llama3.1:8b (T1200) &  0,445 &   0,6375 \\
-		Llama3.1-claude:8b  & 0,4625 &     0,65 \\
-		Llama3.2:3b         & 0,2625 &     0,55 \\
-		Llama3.3:70b        & 0,6275 &    0,725 \\
-		Mistral-small 22b   &   0,22 &      0,4 \\
-		Qwen 2.5-Coder 32b  & 0,1975 &      0,3 \\
-		Codellama:13b       &  0,005 &    0,025 \\
+		DeepSeek-Coder-V2           &  0,555 &     0,65 \\
+		DeepSeek-R1                 & 0,7025 &   0,8375 \\
+		Gemini Flash 1.5 Chatbot    & 0,2925 &     0,55 \\
+		Gemini Flash 1.5 API (T600) &   0,06 &    0,075 \\
+		ChatGPT 4 API (T600)        &  0,335 &   0,6125 \\
+		Llama3.1:8b (T600)          &   0,43 &   0,6375 \\
+		Llama3.1:8b (T1200)         &  0,445 &   0,6375 \\
+		Llama3.1-claude:8b          & 0,4625 &     0,65 \\
+		Llama3.2:3b                 & 0,2625 &     0,55 \\
+		Llama3.3:70b                & 0,6275 &    0,725 \\
+		Mistral-small 22b           &   0,22 &      0,4 \\
+		Qwen 2.5-Coder 32b          & 0,1975 &      0,3 \\
+		Codellama:13b               &  0,005 &    0,025 \\
 		\hline
 		\hline
 	\end{tabular}
@@ -42,11 +44,35 @@ Nachdem die fünf Versuche pro Probe ausgewertet wurden, sind die Ergebnisse in 
 	\caption{Ergebnisse der pass@1 und pass@5 Methode}
 \end{table}
 
-Das Modell \texttt{codellama} hat aber beim Generierung der PHP Lösungen aus dem Proben des Benchmarks am schlechtesten abgeschnitten. Der Grund hierfür war, dass die meisten generierten Code in Python erstellt worden. Das ist der Grund warum die meisten Tests, welche durch den Benchmark vorgegeben waren, durchgefallen sind.\vspace{0.2cm}
+Die ersten Tests zur Generierung von Code wurden mit den Cloused-Source-Modellen \textit{ChatGPT 4} und \textit{Gemini 1.5} durchgeführt. Hierbei wurden die Tests mit Tokenlänge 600 bei beiden Modellen durchgeführt. Insbesondere \textit{Gemini 1.5} hat mit dieser Tokenlänge Probleme, die Antworten worden mitten in der Beantwortung der Frage abgebrochen. Somit waren die generierten Codefragmente nicht nutzbar. Es wurde kein lauffähiger Code generiert. Das Listing \ref{lst:humaneval_xl_prompt_22} zeigt einen unvollständig generiertes Codefragment für die Probe \textit{PHP/22}.
 
-Des Weiteren wurden eine Reihe von Llama-Modellen getestet, unter anderem einige verschiedene Llama3.1 Modelle. Bei dem \textit{Llama3.1 8b} wurden zwei verschiedene Versuche durchgeführt mit jeweils unterschiedlicher Tokenlängen. Anders als bei \textit{ChatGPT 3.5} und \textit{Gemini 1.5} können die kleineren Modelle schon mit geringerer Tokenlänge valide Antworten erzeugen. Die unterschiedliche Tockenlängen haben kaum einen Einfluss auf das Ergebnis. Hier liegt der Unterschied bei nicht mal einen Prozent.\vspace{0.2cm}
+\begin{lstlisting}[
+	language=php,
+	label=lst:humaneval_xl_prompt_22,
+	caption={Wortlaut der Aufgabe 2" im HumalEval-XL Benchmark}
+]
+/**
+ * Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
+ * Gib sortierte eindeutige gemeinsame Elemente für zwei Listen zurück.
+ * >>> common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121])
+ * [1, 5, 653]
+ * >>> common([5, 3, 2, 8], [3, 2])
+ * [2, 3]
 
-Ein Ansatz zur Promptoptimierung, wurde bei den Tests ebenfalls evaluiert. So wurde ein Llama3.1 Model mit den Systemprompts des \textit{Claude Sonnet 3.5} Modell von der Firma Anthroppic erstellt. Dieser Ansatz konnte mit der vorliegenden Evaluierung bestätigt werden. Hier konnte eine Verbesserung für den \textit{pass@1} um 3,25\% und für den \textit{pass@5} von 1,25\% festgestellt werden. Die Ergebnisse sind in Tabelle \ref{tab:prompt_results_open_models} und in der Abbildung \ref{img:pass_at_k_results_by_llm} zu sehen.\vspace{0.2cm}
+ *
+ */
+function common($l1, $l2){
+\end{lstlisting}
+
+Hier wurde durch \textit{Gemini} oft zuerst die Frage wiederholt, bevor die neu generierten Teile kommen und somit die definierte Anzahl der Token nicht ausreicht, was zu einem Nachteil für dieses Modell wurde. Die gleichen Fragen wurden anschließend an den freien ChatBot \textit{Gemini 1.5} gestellt, was zu einem besseren Ergebnis führte. Während die Gemini API mit 600 Token für den \texttt{pass@1} einen Wert von 6\% erreichte waren es bei den Abfragen des Gemini ChatBots 29,3\%.\vspace{0.2cm}
+
+Das Modell \textit{ChatCPT 4} von OpenAI wurde über die API abgefragt. Hierbei lag der Wert für den \texttt{pass@1} bei 33,5\% und der Wert für den \texttt{pass@5} bei 61,25\%. Weitere Tests wurden aufgrund der Kosten mit diesem Modell nicht weitergeführt. Somit ist die Ermittlung der Werte für die \texttt{pass@k} Methode bei einer höheren Tokenlänge nicht mehr erfolgt.\vspace{0.2cm}
+
+Eines der getesteten Open-Source-Modelle ist das \texttt{codellama} Modell. Dieses hat beim Generierung der PHP Lösungen aus dem Proben des Benchmarks am schlechtesten abgeschnitten. Der Grund hierfür war, dass die meisten generierten Codes für die Programmiersprache Python erstellt worden. Das ist der Grund warum die meisten Tests, welche durch den Benchmark vorgegeben waren, ein negatives Ergebnis auswiesen.\vspace{0.2cm}
+
+Des Weiteren wurden eine Reihe von Llama-Modellen getestet, darunter verschiedene Llama3.1 Modelle. Bei dem \textit{Llama3.1 8b} wurden zwei verschiedene Versuche durchgeführt mit jeweils unterschiedlicher Tokenlängen. Anders als bei dem Modell \textit{Gemini 1.5 (API)} können die kleineren Modelle schon mit geringerer Tokenlänge valide Antworten erzeugen. Die unterschiedliche Tockenlängen haben kaum einen Einfluss auf das Ergebnis. Hier wies das Llama 3.1 mit 1200 Token gegenüber dem Llama 3.1 mit 600 Token eine Verbesserung von 1,5\% bei der \texttt{pass@1} Methode auf. Bei der Auswertung der \texttt{pass@5} Werte, war keine Veränderung der Ergebnisse zu beobachten, hier liegt der Wert konstant bei 63,75\%.\vspace{0.2cm}
+
+Um einen Ansatz zur Optimierung der Prompts zu testen, wurde das Modell \textit{Llama3.1-Claude 8b-q4} ebenfalls evaluiert. Bei diesem Modell handelt es sich um ein \textit{Llama 3.1:8b} Model, welches mit den Systemprompts des Modells \textit{Claude Sonnet 3.5} von der Firma Anthroppic erstellt wurde. Bei der Lösungsgenerierung wurden die Antworten beide Modelle mit 600 Token limitiert. Hier konnte eine Verbesserung gegenüber dem Basismodell um 3,25\% für den \textit{pass@1} und um 1,25\% für den \textit{pass@5} festgestellt werden. Die Ergebnisse sind in Tabelle \ref{tab:prompt_results_open_models} und in der Abbildung \ref{img:pass_at_k_results_by_llm} zu sehen.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=\textwidth]{content/chapter_evaluation/images/llm_evaluation.eps}
@@ -55,44 +81,20 @@ Ein Ansatz zur Promptoptimierung, wurde bei den Tests ebenfalls evaluiert. So wu
 	\label{img:pass_at_k_results_by_llm}
 \end{figure}
 
-Ein letztes Modell aus der Llama3 Reihe, das dem Benchmark unterzogen wurde, ist das \textit{Llama3.3 70b-instruct-q2\_K}. Mit einem pass@1 Ergebnis von $0,6275$ und $0,725$ beim pass@5 liefert dieses Modell die besten Ergebnisse. Bei dem vorliegenden Modell handelt es sich um ein Modell mit Quantisierung, was die Größe des Modells auf rund 26 GB reduziert.
-Bei diesem Modell wurde einige Komponenten einer 2-Bit Quantisierung unterzogen, bei einer fast gleichbleibenden Ausgabenqualität, weitere Informationen sind \cite{hugging-face-2025} zu entnehmen. Das originale Modell mit ca. 43 GB ließ sich nicht mit den verfügbaren lokalen Ressourcen testen.\vspace{0.2cm}
+Ein weiteres getestetes Modell aus dem Hause \textit{Meta} ist das Modell \textit{LLama3.2:3b}. Es ist mit 3 Milliarden Parameter kleiner als das getestete Vorgängermodell \textit{Llama3.1:8b} und somit das kleinste welches in dieser Arbeit evaluiert wird. Diesem Modell erzielte bei der Generierung von PHP Code, beim \texttt{pass@1} eine Wahrscheinlichkeit von 26,25\% und beim \texttt{pass@5} eine Wahrscheinlichkeit von 55\%.\vspace{0.2cm}
 
-Das Modell \textit{Deepseek Coder V2 16b} ist ebenfalls aus dem Open-Source-Bereich. Bei der Auswertung des pass@1 liegt das Resultat über den Llama-Modellen 3.1 und 3.2. Deutlich besser ist nur das größere Llama3.3 mit 70b. Bei der Auswertung des pass@5 liegt das Modell mit den Llama 3.1 und 3.2 fast gleich auf. Hier ist nur das Llama 3.3 Modell um 7,5\% besser als DeepSeek-Coder-V2 Modell. Das zweite Modell von der KI-Entwicklungsfirma DeepSeek, welches evaluiert wurde, ist das Modell \textit{DeepSeek-R1}. Dieses Modell hat die besten Ergebnisse erzielt, obwohl es nicht größte von den getesteten Modellen ist. Mit nur 32b liegt es beim pass@1 mit 7,5\% vor dem Llama 3.3 mit 70b und bei der Auswertung des pass@5 sind es 11,5\% vor dem Llama3.3 Modell.\vspace{0.2cm}
+Ein letztes Modell aus der Llama3 Reihe, das dem Benchmark unterzogen wurde, ist das \textit{Llama3.3 70b-instruct-q2\_K}. Mit einem pass@1 Ergebnis von 62,75\% und 72,5\% beim pass@5 liefert dieses Modell das drittbeste Ergebnis. Bei dem vorliegenden Modell handelt es sich um ein quantisiertes Modell, was die Größe des Modells auf rund 26 GB reduziert. Bei diesem Modell wurde einige Komponenten einer 2-Bit Quantisierung unterzogen und eine fast gleichbleibende Ausgabenqualität liefern. Weitere Informationen zu diesem Modell sind \cite{hugging-face-2025} zu entnehmen. Das Basismodell mit ca. 43 GB ließ sich nicht mit den verfügbaren lokalen Ressourcen testen.\vspace{0.2cm}
 
-Zusätzlich wurden zwei weitere Modelle aus dem Open-Source-Bereich in die Evaluation einbezogen: \textit{Mistral-Small 22b}, entwickelt von der Firma MistralAI, sowie \textit{Qwen 2.5 Coder 32b}. Die Leistung dieser beiden Modelle fiel im Vergleich zu anderen Modellen jedoch geringer aus. Insbesondere lagen die Trefferquoten von \textit{Mistral-Small 22b} und \textit{Qwen 2.5 Coder 32b} bei etwa der Hälfte der durchschnittlichen Trefferquoten der getesteten LLama-Modelle.\vspace{0.2cm}
+Ebenfalls wurden zwei Open-Source-Modelle von der KI-Entwicklungsfirma Deepseek evaluiert.
+Das Modell \textit{Deepseek Coder V2 16b} erreichte bei der Auswertung des \texttt{pass@1} eine Wahrscheinlichkeit von 55,5\% und beim \texttt{pass@5} eine Wahrscheinlichkeit von 65\%. Somit liegt es in der Bewertung des Benchmarks für den \texttt{pass@1} mit 12,5\% vor den \textit{Llama3.1} und mit 29,25\% vor dem \textit{Llama3.2} Modell und ist somit erzielte das Modell deutlich bessere Werte. Beim \texttt{pass@5} liegt das Modell mit dem \textit{Llama31-Claude}, mit 65\% gleich. Identische Werte lieferte auch die Evaluation mit der \texttt{pass@5} Methode im Vergleich zu den \textit{Llama3.x} Modellen. Das \textit{Deepseek Coder V2} Modell lag von dem \textit{Llama3.1}, mit 1,25\% und vor dem \textit{Llama3.2}, mit 10\%. Ähnliches ergab die Auswertung der \texttt{pass@5} Methode. Hier lag \textit{Deepseek Coder V2} 7,5\% hinter dem \textit{LLama3.3} Modell.\vspace{0.2cm}
 
+Das zweite Modell von der KI-Entwicklungsfirma DeepSeek, welches evaluiert wurde, ist das Modell \textit{DeepSeek-R1}. Dieses Modell hat die besten Ergebnisse erzielt, obwohl es mit 32 Milliarden Parameter nicht das größte von den getesteten Modellen ist, erreicht es bei der Evaluierung der \texttt{pass@1} Methode 70,25\% und beim \texttt{pass@5} 83,75\%. Somit liegt es beim \texttt{pass@1} 7,5\% vor dem \textit{Llama 3.3} und bei der Auswertung des \texttt{pass@5} sind es 11,5\% vor dem \textit{Llama3.3} Modell.\vspace{0.2cm}
 
-%Die Antworten von ChatGPT enthielten bei der ersten Abfrage Programmcode, alle weiteren Abfragen verwiesen auf den ersten Prompt. Eine Antwort ist in ?? dar gestellt, diese wurde in ähnlicher Weise immer wieder generiert.
-%\hrulefill
-%Der Code in deinem Kommentar ist identisch mit dem aktuellen Inhalt. Wenn du Än\-der\-ungen vornehmen möchtest, präzisiere bitte, was angepasst werden soll, und ich werde es umsetzen!
-%\begin{flushright}
-%	\textit{Generiert von ChatGPT 3.5}
-%\end{flushright}
-%\hrulefill
+Zusätzlich wurden zwei weitere Modelle aus dem Open-Source-Bereich in die Evaluation einbezogen: \textit{Mistral-Small:22b}, entwickelt von der KI-Entwicklungsfirma MistralAI, sowie \textit{Qwen2.5 Coder:32b} von Qwen-AI. \textit{Mistral  Small} hat bei er Evaluation des \texttt{pass@1} ein Ergebnis von 22\% und beim \texttt{pass@5} ein Ergebnis von 40\%. Das Modell \texttt{Qwen2.5 Coder} erreicht beim \texttt{pass@1} ein Ergebnis von 19,75\% und beim \texttt{pass@5} ein Ergebnis von 30\%. Somit ist die Wahrscheinlichkeit eine korrekte Antwort unter den TOP Antworten zu generieren etwa nur halb so groß wie bei den getesteten \textit{Llama3.1} Modellen.
 
-Ein weiteres Modell ist Gemini 1.5. von Google und gehört zu den Cloused-Source-Modellen. 
-
-Einige Aufgaben wurden von Gemini aber wie ein Chat behandelt. So hat das Modell Antworten generiert, die einer Konversation mit einem Chatbot ähneln, so wurde beispielsweise der folgende Text generiert, der einen Bezug zur zuvor gegebenen Antwort des Modells herstellt.\vspace{0.2cm}
-
-\hrulefill\vspace{-0.7cm}
-
-\texttt{function greatestCommonDivisorRecursive(\$a, \$b) \{}
-
-\texttt{\hspace{0.6cm} // ... (Rest der Funktion bleibt ähnlich)}
-
-\texttt{\}}\vspace{-0.7cm}
-
-\begin{flushright}
-	\textit{Generiert von Gemini 1.5}
-\end{flushright}\vspace{-0.7cm}
-
-\hrulefill
-
-Diese generierten Codeausschnitte haben die Tests nicht bestanden und wirken sich somit negativ auf die Auswertung aus.\vspace{0.2cm}
 
 \subsection{Evaluierung der Parametergröße}
-Eine weitere Untersuchung konzentriert sich auf die Anzahl der Parameter der Modelle. Die Evaluation soll zeigen, inwieweit die Anzahl der Parameter die Ausgaben beeinflusst und ob die Auswahl eher auf große Modelle fallen sollte. Die Abbildung \ref{img:results_by_llm_param} zeigt die getesteten Modelle, ihre Parametergröße und ihr Abschneiden bei der $pass@1$ Methode.
+Eine weitere Untersuchung soll zeigen, ob es einen Zusammenhang gibt, zwischen der Modellparameteranzahl und der Wahrscheinlichkeit das sich eine korrekte Antwort unter $k$ Probe befindet. Somit soll die Evaluation zeigen, inwieweit die Anzahl der Parameter die Ausgaben beeinflusst und ob die Auswahl eher auf große Modelle fallen sollte. Die Abbildung \ref{img:results_by_llm_param} zeigt die getesteten Modelle, in Abhängigkeit ihre Parametergröße und ihren Ergebnissen bei der \texttt{pass@1} Methode. Die Größeneinheit für die Parameterangaben ist in Milliarden und die Angaben der \texttt{pass@k} Methode in Prozent. In dieser Arbeit werden nur die Open-Sorce-Modelle verglichen, da keine offiziellen Daten zu den Cloused-Source-Modellen bereitgestellt werden.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=\textwidth]{content/chapter_evaluation/images/llm_evaluation_param.eps}
@@ -101,7 +103,9 @@ Eine weitere Untersuchung konzentriert sich auf die Anzahl der Parameter der Mod
 	\label{img:results_by_llm_param}
 \end{figure}
 
-Die Tabelle \ref{tab:prompt_results_open_models_by_param} zeigt die genauen Werte, die in der Abbildung \ref{img:results_by_llm_param} dargestellt sind.
+Die hier getesteten Modelle sind eher kleine Modelle und lassen sich in drei Gruppen aufteilen. Die erste Gruppe sind Modelle mit weniger als \textit{10b}, in der zweiten Gruppe werden alle Modelle die großer \textit{10b} sind bis \textit{32b} und schließlich die dritte Gruppe umfasst alle Modelle die größer als \textit{32b} sind. Die kleinen \textit{Llama3.1:8b} Modelle übertreffen in den Benchmarks die Modelle \textit{Mistral Small:22b}, \textit{Qwen2.5 Coder:32b} und \textit{Codellama:13b}. Bei den Modellen zwischen 11b und 32b haben die Modelle von Deepseep \textit{Coder V2} und \textit{R1} die besten Ergebnisse. Das \textit{Deepseek-R1} übertrifft sogar die größte hier getestete Modell \textit{Llama3.3:70b}. Somit lässt sich feststellen, das die Anzahl der Parameter nicht Ausschlag gebend sind, für die Qualität der generierten Programmcodes.\vspace{0.2cm}
+
+Die Ergebnisse aus diesem Test sind in Tabelle \ref{tab:prompt_results_open_models_by_param} zusammengefasst und zeigen die genauen Werte, für die Ergebnisse des Benchmarks, welche in der Abbildung \ref{img:results_by_llm_param} dargestellt sind.
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|r|r|}
@@ -128,11 +132,15 @@ Die Tabelle \ref{tab:prompt_results_open_models_by_param} zeigt die genauen Wert
 
 
 \subsection{Evaluierung nach Sprache}
-Eine Überprüfung der Modelle, ob die englische Sprache besser Ergebnisse liefern würde, wurde exemplarisch mit den \textit{Llama}-Modelle \textit{3.1:8b}, \textit{3.2:3b} und \textit{3.3:70b} durch geführt. Alle drei Modelle repräsentieren unterschiedliche Anzahl der Parameter und somit verschiedene Modellgrößen.\vspace{0.2cm}
+Eine Überprüfung der Modelle, inwieweit die englische Sprache besser Ergebnisse liefern würde, wurde exemplarisch mit den \textit{Llama}-Modelle \textit{3.1:8b}, \textit{3.2:3b} und \textit{3.3:70b} durch geführt. Alle drei Modelle repräsentieren unterschiedliche Anzahl der Parameter und somit verschiedene Modellgrößen.\vspace{0.2cm}
 
-Da das Training der Modelle in englischer Sprache erfolgt, lag die Vermutung nahe, dass eine Evaluierung in dieser Sprache, wesentlich bessere Ergebnisse liefern sollte. Dies zeigen auch die Auswertungen in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP in der englischen Version im Durchschnitt besser abschnitt.\vspace{0.2cm}
+Ein Grund für diese Annahme war unter anderem, die in Kapitel \ref{subsec:disadvantages_of_evaluation} gezeigten Fehler, die bei der Übersetzung der Tests auftraten. Da das Training der Modelle in englischer Sprache erfolgt und hier ebenso Fehler bei der Übersetzung die Ausgaben beeinflussen könnten, lag die Vermutung nahe, dass eine Evaluierung in dieser Sprache, wesentlich bessere Ergebnisse liefern könnte. Diese Vermutung wurde auch durch die Auswertungen in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP, in der englischen Version im Durchschnitt besser abschnitt bestärkt.\vspace{0.2cm}
 
-Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das Llama3.3 zeigt beim pass@1 einen besseren Wert, in der englische Version. Dieser Wert nähert sich mit steigendem $k$ Wert an, sodass bei $k=5$ die Ergebnisse in Englisch und Deutsch identisch sind. Beim Llama3.2 zeigt das Modell mit einem steigendem $k$-Wert bessere Resultate in der deutschen Sprache. Das Llama3.1 Modell zeigt ein ausgeglichenes Resultat der beiden Sprachen im Vergleich. Hier sind die pass@3 Resultate in Deutsch und Englisch identisch. Während bei abnehmenden $k$-Werten die englischen Resultate besser werden, werden bei zunehmenden $k$-Wert die deutschsprachigen Ergebnisse besser.\vspace{0.2cm}
+Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das \textit{Llama3.3} zeigt beim pass@1, in der englische Version einen besseren Wert. Hier betrug der Unterschied 3,5\%, bei denen die Ergebnisse in Deutsch einen Wert von 62,75\% erreichten. Diese Werte nähert sich mit steigendem $k$ Wert an, sodass bei $k=5$ die Ergebnisse in Englisch und Deutsch identisch sind und beide Sprachen einen Wert für die Wahrscheinlichkeit von 72,5\% erreichten.\vspace{0.2cm}
+
+Das \textit{Llama3.2} Modelle zeigte beim \texttt{pass@k} für $k=1,...,5$ ein umgekehrtes Verhalten, als das \textit{Llama3.3} Modell. Mit einem steigendem $k$-Wert erzielte diese Modellvariante immer bessere Resultate in der deutschen Sprache. Für  den \texttt{pass@1} erzielte das \textit{Llama3.2} Modell für den Test in Deutsch 26,25\% und in Englisch 24,75\%. Einen Wert von 45\% konnte für das englische Modell beim \texttt{pass@5} festgestellt werden und das deutsche Modelle erreichte einen Wert von 55\%. Für den \texttt{pass@1} betrug der Unterschied bei den Ergebnissen des Benchmarks gerade mal 1,5\%, während es beim \texttt{pass@5} bereits 10\% waren.\vspace{0.2cm}
+
+Ein ausgeglichenes Resultat zeigt das \textit{Llama3.1} Modell der beiden Sprachen im Vergleich. Hier sind die pass@3 Resultate in Deutsch und Englisch fast identisch und der Unterschied liegt hier bei 0,75\%. Während bei abnehmenden $k$-Werten die englischen Resultate besser werden, ist bei zunehmenden $k$-Wert eine Verbesserung der deutschsprachigen Ergebnisse zu erkennen. Für den \texttt{pass@1} ist das englische Ergebnis von 48,5\% um 5,5\% besser als die Resultate mit dem deutschen Benchmark. Beim \texttt{pass@5} lagen die Ergebnisse in Deutsch, mit 63,75\% um 2,5\% vor den englischen Ergebnissen.\vspace{0.2cm}
 
 In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode mit $k=1 … 5$ für die ausgewählten Llama-Modelle zusammengefasst. Die Proben wurden jeweils in Englisch und in Deutsch an die Modelle gestellt.\vspace{0.2cm}
 
@@ -144,115 +152,36 @@ In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse
 	\label{img:pass_at_k_results_by_llama_lang}
 \end{figure}
 
-Dieser Test zeigt auch das eine deutschsprachige Verwendung der Modelle nicht zwangsläufig schlechteren Code generieren. Daraus wird der Schluss gezogen, das bei der Optimierung der Prompts eine Übersetzung ins Englische nicht unbedient zu einer signifikanten Verbesserung führt.
+Die Tabelle \ref{tab:prompt_results_llama_x_by_lang} dokumentiert die Resultate des Benchmarks für die \textit{Llama3.x} Modelle. Hier sind alle Werte für die \texttt{pass@k}, mit $k=1,...,5$ notiert. Die Differenz zwischen der deutschen und englischen Sprachen wurde nach der Formel $DE - ENG = diff$ berechnet.\vspace{0.2cm}
 
-\subsection{Nachteile der Evaluierung}\label{subsec:disadvantages_of_evaluation}
-Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Test einige Fehler. Dadurch resultieren Nachteile, die sich bei der Bewertung der Modelle negativ auswirken.\vspace{0.2cm}
+\begin{table}[!ht]
+	\begin{tabular}{|l|lll|lll|lll|}
+		\hline
+		& \multicolumn{3}{c|}{\textbf{Llama3.1}} & \multicolumn{3}{c|}{\textbf{Llama3.2}} & \multicolumn{3}{c|}{\textbf{Llama3.3}} \\
+		%\hline
+		\textbf{k} & \textbf{DE} & \textbf{ENG} & \textbf{diff} & \textbf{DE} & \textbf{ENG} & \textbf{diff} & \textbf{DE} & \textbf{ENG} & \textbf{diff} \\
+		\hline
+		1 & 0,43 & 0,485 & -0,055     & 0,2625 & 0,2475 & 0,015  & 0,6275 & 0,6625 & -0,035 \\
+		2 & 0,5375 & 0,5512 & -0,0137 & 0,3875 & 0,3337 & 0,0538 & 0,6825 & 0,6987 & -0,0162 \\
+		3 & 0,59 & 0,5825 & -0,0075   & 0,465 & 0,385 & 0,08     & 0,7063 & 0,7125 & -0,0062 \\
+		4 & 0,62 & 0,6 & 0,02         & 0,515 & 0,4225 & 0,0925  & 0,7175 & 0,72 & -0,0025 \\
+		5 & 0,6375 & 0,6125 & 0,025   & 0,55 & 0,45 & 0,1        & 0,725 & 0,725 & 0 \\
+		\hline
+		\hline
+	\end{tabular}
+	\centering
+	\label{tab:prompt_results_llama_x_by_lang}
+	\caption{Ergebnisse der pass@1 Methode für die englische und deutsche Sprache}
+\end{table}
 
-Einige \textit{\textbf{Fragen sind nicht eindeutig formuliert}} und können von den Modellen falsch interpretiert werden. Ein Beispiel im HumenEval-XL Benchmark ist die Aufgabe 20. Der genaue deutsche Wortlaut ist wie folgt, \textit{Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.}, der gesamte Prompt ist in Listing \ref{lst:humaneval_xl_prompt_20} zu sehen. In der hier durchgeführten Evaluierung wurde diese Aufgabe im \textit{pass@1} nur einmal bestanden. Der Wortlaut hält die Modelle an, einen Vergleich in der Methode selbst durchzuführen. In der, durch den Benchmark vorgegebenen Test, werden aber zwei Zeichenketten verglichen. D.h. als erwartetes Ergebnis sollte eine Zeichenkette erstellt werden, welche die doppelten Zeichen zweier zu testenden Zeichenketten enthält. Das Listing \ref{lst:humaneval_xl_test_20} zeigt einen Teil des Tests und die erwarteten Ergebnisse.\vspace{0.2cm}
-
-\begin{lstlisting}[
-	language=php,
-	label=lst:humaneval_xl_prompt_20,
-	caption={Wortlaut der Aufgabe 20 im HumalEval-XL Benchmark}
-]
-<?php
-/**
-* Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
-* * Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.
-* >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')
-* True
-* >>> same_chars('abcd', 'dddddddabc')
-* True
-* >>> same_chars('dddddddabc', 'abcd')
-* True
-* >>> same_chars('eabcd', 'dddddddabc')
-* False
-* >>> same_chars('abcd', 'dddddddabce')
-* False
-* >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')
-* False
-*/
-function sameChars($s0, $s1){
-\end{lstlisting}
-
-\begin{lstlisting}[
-	language=php,
-	label=lst:humaneval_xl_test_20,
-	caption={Wortlaut des Tests 20 im HumalEval-XL Benchmark}
-]
-function compare($x, $y) {
-	return $x == $y;
-}
-
-$arg00 = "eabcdzzzz";
-$arg01 = "dddzzzzzzzddeddabc";
-$x0 = sameChars($arg00, $arg01);
-$v0 = true;
-if (!compare($x0, $v0)) {
-  throw new Exception("Error at 1th assert statement.");
-}
-\end{lstlisting}
-
-Eine weitere Fehlerquelle ist das \textit{\textbf{Zusammenführen der Antworten der Modelle und Tests aus dem Benchmark}}. Meist ist das Problem das Parsen der Sonderzeichen, wie beispielsweise die Verwendung der doppelten Anführungszeichen im Test und den erstellten Antworten. Eine manuelle Prüfung der Aufgabe 2 hat das Fehlverhalten aufgezeigt. Durch den Einsatz einer weiteren Pythoncodezeile, wie in Listing \ref{lst:error_evaluation_code_1} zeigt konnten die Bewertung einiger Modelle verbessert werden. So hat sich die Bewertung für das \textit{pass@1} des Deepseek-Coder-V2 um 7\% von $0,53$ auf $0,6$ verbessert. Ebenso wurde für das Llama3.1 Modell eine Verbesserung von $0,45$ auf $0,475$ ermittelt.\vspace{0.2cm}
-
-\begin{lstlisting}[
-	language=diff,
-	label=lst:error_evaluation_code_1,
-	caption={Fehler bei der Auswertung durch fehlerhafte Anführungszeichen}
-]
-  answer = answer.replace(r"\n", "\n")
-+ answer = answer.replace(r'\"', '"')
-+ 
-+ test = test.replace(r'\"', '"') 
-\end{lstlisting}
-
-Bei der Probe \textit{php/5} wurde eine \textit{\textbf{fehlerhafte Übersetzung}} festgestellt. So wurde die Probe übersetzt, nicht aber die Tests. Das Listing \ref{lst:prompt_php_de_5} zeigt die gültigen Werte welche als Eingabeparameter für die zu generierende Funktion erlaubt sind. Hier handelt es sich um deutsche Zahlworte von $null$ bis $neun$.\vspace{0.2cm}
-
-\begin{lstlisting}[
-	language=php,
-	label=lst:prompt_php_de_5,
-	caption={Aufgabenstelleung der Probe php/5}
-]
-/**
-* Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
-* Die Eingabe ist ein durch Leerzeichen getrennter String von Ziffern von 'null' bis 'neun'.
-*     Gültige Optionen sind 'null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht' und 'neun'.
-*     Gib den String mit den Zahlen sortiert von klein nach groß zurück.
-* >>> sort_numbers('three one five')
-* 'one three five'
-*
-*/
-function sortNumbers($numbers){
-\end{lstlisting}
-
-Der Test der Probe \textit{php/5}, welcher in Listing \ref{lst:test_php_de_5} zu sehen ist, erstellt eine Prüfung der generierten Methode mit englischem Zahlworten von $zero$ bis $nine$ bereit. Keines der getesteten Modelle hat diese Probe bestanden.
-
-\begin{lstlisting}[
-	language=php,
-	label=lst:test_php_de_5,
-	caption={Aufgabenstelleung der Probe php/5}
-	]
-// more tests.
-
-$arg40 = "six five four three two one zero";
-$x4 = sortNumbers($arg40);
-$v4 = "zero one two three four five six";
-if (!compare($x4, $v4)) {
-	throw new Exception("Error at 5th assert statement.");
-}
-\end{lstlisting}
-
-Die Tests aus dem Benchmark und Ergebnisse der Modelle wurde stichprobenartig manuell geprüft und weitere Fehler behoben. Dennoch ist nicht auszuschließen das die jetzige Evaluation weitere Fehlerquellen enthält.\vspace{0.2cm}
-
-Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.
+Dieser Test zeigt, dass eine deutschsprachige Verwendung der Modelle nicht zwangsläufig schlechteren Code generiert. Daraus wird der Schluss gezogen, das bei der Optimierung der Prompts eine Übersetzung ins Englische nicht unbedient zu einer signifikanten Verbesserung führt.
 
 %--- Optimierung -----------------------------------------------------------------------------------
 
 
 \section{Optimierung der Ergebnisse durch die Wahl des Frameworks}
 % https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
-Als Ziel der Optimierung gilt das die LLMs effizienten, präzisen und korrekten Code zu generieren. Ein Ansatz dies zu erreichen ist die Prompts zur Codegenerierung mithilfe einer LLMs zu erstellen oder zu verbessern.
+Für die Evaluierung zur Prüfung einer Optimierung der Ausgaben durch die Wahl eines Frameworks, wurden die Modelle \textit{Codellama}, \textit{Llama3.1}, \textit{Mistral Small} und \textit{Qwen 2.5 Coder} herangezogen.
 
 
 Ergebnisse der Optimierung durch die Auswahl des Frameworks.
@@ -267,3 +196,22 @@ Ergebnisse der Optimierung durch die Auswahl des Frameworks.
 	\label{img:pass_at_k_results_by_framework}
 \end{figure}
 
+
+\begin{table}[!ht]
+	\begin{tabular}{|l|ll|ll|ll|ll|}
+		\hline
+		& \multicolumn{2}{c|}{\textbf{Codellama}} & \multicolumn{2}{c|}{\textbf{Llama3.1}} & \multicolumn{2}{c|}{\textbf{Qwen 2.5 Coder}} & \multicolumn{2}{c|}{\textbf{Mistral Small}} \\
+		%\hline
+		\textbf{k} & \textbf{1} & \textbf{5} & \textbf{1} & \textbf{5} & \textbf{1} & \textbf{5} & \textbf{1} & \textbf{5} \\
+		\hline
+		\textbf{Langchain}  & 0,005 & 0,025 & 0,43 & 0,6375  & 0,1975 & 0,3   & 0,22 & 0,4 \\
+		\textbf{DSPy}       & 0,1425 & 0,4  & 0,335 & 0,6125 & 0,7125 & 0,825 & 05375 & 0,725 \\
+		\hline
+		\textbf{Diff in \%} & 13,75 & 37,5  & -9,5 & -2,5    & 51,5 & 52,5    & 31,75 & 32,5 \\
+		\hline
+		\hline
+	\end{tabular}
+	\centering
+	\label{tab:pass_at_k_results_by_framework}
+	\caption{Ergebnisse der pass@1 und pass@5 Methode verschiedener Frameworks}
+\end{table}

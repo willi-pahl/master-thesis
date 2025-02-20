@@ -6,9 +6,9 @@ Zudem werden die größten Hindernisse und Probleme besprochen, die während der
 
 
 \section{Evaluierungsaufbau und Vorbereitung}
-Um die Evaluierungen an Open-Source-Modellen durchführen zu können, mussten diese lokal bereitgestellt werden. Die Wahl viel auf das Ollama-Framework, da die Installation und Konfiguration sehr gut durch den Hersteller und verschiedene Foren unterstützt wird. Neben der vorhandenen API kann das Tool Open-WebUI einfach in das Ollama-Frameowrk integriert werden. Diese UI bietet eine gute UI die von allen Clients im Netzwerk aufgerufen werden kann. Ebenfalls ein großer Vorteil sind die vielen Modelle welche für Ollama zum Download bereitstehen. Darunter sind Modelle von Mistral, Llama, Deepseek und Qwen-Coder.\vspace{0.2cm}
+Um die Evaluierungen an Open-Source-Modellen durchführen zu können, mussten diese lokal bereitgestellt werden. Die Wahl viel auf das Ollama-Framework, da die Installation und Konfiguration sehr gut durch den Hersteller und verschiedene Foren unterstützt wird. Neben der vorhandenen API kann das Tool \textit{Open-WebUI} einfach in das Ollama-Frameowrk integriert werden. Dieses Tool bietet eine gute UI die von allen Clients im Browser im Netzwerk aufgerufen werden kann. Ebenfalls ein großer Vorteil sind die vielen Modelle welche für Ollama zum Download bereitstehen. Darunter sind Modelle von Mistral, Llama, Deepseek und Qwen-Coder.\vspace{0.2cm}
 
-Eine weitere Möglichkeit ist, die Modelle lokal auszuführen ohne ein Framework einzusetzen. Hierbei können die Abfragen nur auf dem lokalen System erfolgen, wenn keine eigene API Schnittstelle erstellt wird. Unter anderem war keine Web-UI vorhanden, sodass diese Möglichkeit nicht weiter in Betracht gezogen wurde.\vspace{0.2cm}
+Eine weitere Möglichkeit ist, die Modelle lokal auszuführen ohne ein Framework einzusetzen. Hierbei können die Abfragen nur auf dem lokalen System erfolgen, wenn keine eigene API Schnittstelle erstellt wird. Des Weiteren fehlte auch eine Web-UI Lösung, sodass diese Möglichkeit nicht weiter in Betracht gezogen wurde.\vspace{0.2cm}
 
 %---------------------------------------------------------------------------------------------------
 
@@ -18,98 +18,31 @@ Ein großes Problem stellte der Zugriff auf die Cloused-Source-Modelle dar. Durc
 
 
 \subsection{Lokale Ressourcen}
-Eines der größten Probleme für das lokale Betreiben von großen Sprachmodellen sind die Hardwareanforderungen. Hier spielen neben der Prozessoranzahl, die Speicherplatz der Festplatte und der VRAM der Grafikkarte eine Rolle. Während der Arbeit wurde eine SSD-Festplatte mit höherer Kapazität eingesetzt und eine Grafikkarte mit mehr VRAM.\vspace{0.2cm}
+Eines der größten Probleme für das lokale Betreiben von großen Sprachmodellen sind die Hardwareanforderungen. Hier spielen neben der Prozessoranzahl, die Speicherplatz der Festplatte und der VRAM der Grafikkarte eine entscheidende Rolle. Während der Arbeit wurde eine SSD-Festplatte mit höherer Kapazität eingesetzt und eine Grafikkarte mit mehr VRAM.\vspace{0.2cm}
 
-Der größere Speicher wurde notwendig während des Laden und Speichern der Modelle auf die lokale SSD. Zudem war ein RAM notwendig, der doppelt so groß sein musste wie das Modell selbst. Um diesen RAM bereit zustellen wurde eine SWAP Partition von 100 GB auf der SSD eingerichtet. Dieser wurde auch für die Ausführung größerer Modelle benötigt.\vspace{0.2cm}
+Der größere Speicher wurde notwendig während des Ladens und Speichern, der Modelle von Ollama, auf die lokale SSD. Dazu war ein RAM notwendig, der doppelt so groß sein musste, wie das Modell selbst. Um diesen RAM bereit zustellen wurde eine SWAP Partition von 100 GB auf der SSD eingerichtet. Dieser wurde auch für die Ausführung größerer Modelle benötigt.\vspace{0.2cm}
 
-Eine weitere Verbesserung war der Austausch der Grafikkarte. Hierbei wurde die vorhandene Nvidia GTX 1050 TI mit 4 GB VRAM und einer Bandbreite von 112 GB/s durch eine Nvidia RTX 3060 mit 12 GB VRAM und einer Bandbreite von 360 GB/s ersetzt. Durch das Austauschen der Grafikkarte wurde der SWAP für die Berechnungen der Token während die Antwort erstellt wurde nicht mehr benötigt.
+Eine weitere und signifikante Verbesserung brachte der Austausch der Grafikkarte. Hierbei wurde die vorhandene Nvidia GTX 1050 TI mit 4 GB VRAM und einer Bandbreite von 112 GB/s durch eine Nvidia RTX 3060 mit 12 GB VRAM und einer Bandbreite von 360 GB/s ersetzt. Durch den Austausch der Grafikkarte wurde die eingerichtete SWAP Partition nicht mehr benötigt.
 
 Durch diese Anpassungen bestand die Möglichkeit größere Modelle zuladen und bereit zustellt. Des Weiteren konnte eine wesentliche Verbesserung der Antwortzeit festgestellt werden. Eine genaue Messung wurde hier nicht durchgeführt. So wurden bei dem Deekseek-Coder-V2 Modelle eine Verbesserung der Berechnungszeit für den Benchmark von etwa 24 Stunden auf circa eine Stunde beobachtet.\vspace{0.2cm}
 
-Dennoch war die Berechnungszeit einiger Modelle, welche mehr als 12 GB groß waren sehr hoch. Sodass die Wartezeit, das Auswerten der Evaluierung verzögerte.
+Dennoch war die Berechnungszeit für die Generierung der Codes bei einigen Modellen, die mehr als 12 GB groß waren sehr hoch. Sodass die Wartezeit, das Auswerten der Evaluierung verzögerte.
 
 
 \subsection{Auswertung des Benchmarks}
-Die Anwendung des vorgeschlagenen Parametersatzes zeigte bemerkenswerte unerwünschte Auswirkungen auf die Erzeugung der Antworten. Insbesondere bei einer Tokenlänge von 600 traten Störungen auf, die den generierten Codeabschnitt entweder gänzlich oder nur teilweise verfügbar machten. Diese Ungenauigkeit resultierte beim \textit{DeepSeek-R1} aus einem 'explanation'-Abschnitt innerhalb der Antwortstruktur, in dem das Modell eine detaillierte Herleitung seines Denkprozesses anbot, bevor es zur eigentlichen Lösung gelangte. Bei den Modellen \textit{ChatGPT 4} und \textit{Gemini 1.5} führten ausführliche Erklärungen am Anfang und am Ende der Antwort zum selben Effekt, sodass diese Ergebnisse ebenfalls nicht brauchbar waren. Aus diesem Grund wurde beim \textit{DeepSeek-R1} und beim \textit{Gemini 1.5} auf eine Einschränkung der Tokenlänge verzichtet. Auf eine erneute Evaluierung des OpenAI Modell müsste aus Kostengründen verzichtet werden.\vspace{0.2cm}
+Die Anwendung des vorgeschlagenen Parametersatzes zeigte bemerkenswerte unerwünschte Auswirkungen auf die Erzeugung der Antworten. Insbesondere bei einer Tokenlänge von 600 traten Störungen auf, bei denen einige Modelle unbrauchbaren Code generierten. Dieser Umstand resultierte beim \textit{DeepSeek-R1} aus einem 'explanation'-Abschnitt innerhalb der Antwortstruktur, in dem das Modell eine detaillierte Herleitung seines Denkprozesses anbot, bevor es zur eigentlichen Lösung gelangte. Bei dem Modell \textit{Gemini 1.5} führten ausführliche Erklärungen am Anfang und am Ende der Antwort zum selben Effekt, sodass diese Ergebnisse ebenfalls nicht brauchbar waren. Aus diesem Grund wurde beim \textit{DeepSeek-R1} und beim \textit{Gemini 1.5} auf eine Einschränkung der Tokenlänge verzichtet. Auf eine erneute Evaluierung des OpenAI Modell musste aus Kostengründen verzichtet werden.\vspace{0.2cm}
 
-Bei der Auswertung des Benchmarks traten einige Fehler auf, die beseitigt werden konnten. Ein Großteil waren kleinere Fehler, die bei der Auswertung aufgetreten, wie in Kapitel \ref{subsec:disadvantages_of_evaluation} bereits angesprochen. Der gravierendste Fehler trat aber bei der Berechnung das \texttt{pass@k} für das gesamte Modell auf. Hier wurde eine falsche Python-Methode implementiert, sodass das Ergebnis, um ein Vielfaches niedriger war, als das wirkliche Ergebnis. Erst durch den Vergleich mit Ergebnisse anderer Arbeiten und den Herstellerangaben ist der Fehler aufgefallen. Nach intensiver Suche wurde dieser gefunden und beseitigt.\vspace{0.2cm}
+Bei der Auswertung des Benchmarks traten einige Fehler auf, die beseitigt werden konnten. Ein Großteil waren kleinere Fehler, die bei der Auswertung aufgetreten, die in Kapitel \ref{subsec:disadvantages_of_evaluation} ausführlicher besprochen werden. Der gravierendste Fehler trat aber bei der Berechnung das \texttt{pass@k} für das gesamte Modell auf. Hier wurde eine falsche Python-Methode implementiert, sodass die Ergebnisse, um ein Vielfaches niedriger waren. Erst durch den Vergleich mit Ergebnisse anderer Arbeiten und den Herstellerangaben ist der Fehler aufgefallen. Nach intensiver Suche wurde dieser schlussendlich gefunden und beseitigt.\vspace{0.2cm}
 
-Bewehrt hat sich hier der Einsatz von Python und dessen Bibliotheken für Umsetzung der Evaluierungsaufgaben. Mittlerweile existieren für die meisten Probleme und Anforderungen bereits fertige Bibliotheken oft von den Herstellern der Modelle selbst. Basierend auf den vorhandenen Bibliotheken, konnte die Entwicklung der Evaluationsaufgaben in kurzer Zeit umgesetzt und implementiert werden.\vspace{0.2cm}
+Bewehrt hat sich der Einsatz von Python und dessen Bibliotheken für Umsetzung der Evaluierungs- und Optimierungsaufgaben. Mittlerweile existieren für die meisten Probleme und Anforderungen bereits fertige Bibliotheken. Oft von den Herstellern der Modelle selbst. Basierend auf den vorhandenen Bibliotheken, konnte die Entwicklung der Evaluationsaufgaben in kurzer Zeit umgesetzt und implementiert werden.\vspace{0.2cm}
 
 % --- Evalierung mit eigenen ---------------------------------
 
-\begin{tcolorbox}[
-	enhanced,
-	colback=red!5!white,
-	colframe=red!75!black!50,
-	title= Mein roter Faden
-	]
-	Hier folgen noch die Ergebnisse zur Optimierung.
-\end{tcolorbox}
-
 
 \subsection{Nachteile der Evaluierung}\label{subsec:disadvantages_of_evaluation}
-Trotz seines Einsatzes bei der Evaluierung von Modellen, zeigt der Benchmark-Test einige Fehler. Dadurch resultieren Nachteile, die sich bei der Bewertung der Modelle negativ auswirken.\vspace{0.2cm}
+Trotz seines häufigen Einsatzes bei der Evaluierung von Modellen, in verschiedenen wissenschaftlichen Arbeiten, zeigt der Benchmark-Test für die deutschen PHP Proben Fehler. Aber auch bei der Erstellung der Auswertung mit Python traten Fehler auf. Dadurch entstehen Nachteile für die Modelle, bei der Bewertung mit dem HumanEval-XL Benchmark. Im Verlauf dieses Kapitels werden einige Nachteile diskutiert.\vspace{0.2cm}
 
-Einige \textit{\textbf{Fragen sind nicht eindeutig formuliert}} und können von den Modellen falsch interpretiert werden. Ein Beispiel im HumenEval-XL Benchmark ist die Aufgabe 20. Der genaue deutsche Wortlaut ist, \textit{Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.}, der gesamte Prompt ist in Listing \ref{lst:humaneval_xl_prompt_20} zu sehen. In der hier durchgeführten Evaluierung wurde diese Aufgabe im \textit{pass@1} nur einmal bestanden. Der Wortlaut hält die Modelle an, einen Vergleich in der Methode selbst durchzuführen und einen booleschen Wert als Rückgabe zu erstellen. In der, durch den Benchmark vorgegebenen Test, werden aber zwei Zeichenketten verglichen. D.h. als erwartetes Ergebnis sollte eine Zeichenkette erstellt werden, welche die doppelten Zeichen zweier zu testenden Zeichenketten enthält. Das Listing \ref{lst:humaneval_xl_test_20} zeigt einen kleinen Teil des Tests und die vom Test erwarteten Ergebnisse.\vspace{0.2cm}
-
-\begin{lstlisting}[
-	language=php,
-	label=lst:humaneval_xl_prompt_20,
-	caption={Wortlaut der Aufgabe 20 im HumalEval-XL Benchmark}
-]
-<?php
-/**
- * Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
- * * Überprüfen Sie, ob zwei Wörter dieselben Zeichen enthalten.
- * >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')
- * True
- * >>> same_chars('abcd', 'dddddddabc')
- * True
- * >>> same_chars('dddddddabc', 'abcd')
- * True
- * >>> same_chars('eabcd', 'dddddddabc')
- * False
- * >>> same_chars('abcd', 'dddddddabce')
- * False
- * >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')
- * False
- */
-function sameChars($s0, $s1){
-\end{lstlisting}
-
-\begin{lstlisting}[
-language=php,
-label=lst:humaneval_xl_test_20,
-caption={Wortlaut des Tests 20 im HumalEval-XL Benchmark}
-]
-function compare($x, $y) {
-    return $x == $y;
-}
-
-$arg00 = "eabcdzzzz";
-$arg01 = "dddzzzzzzzddeddabc";
-$x0 = sameChars($arg00, $arg01);
-$v0 = true;
-if (!compare($x0, $v0)) {
-    throw new Exception("Error at 1th assert statement.");
-}
-\end{lstlisting}
-
-Eine weitere Fehlerquelle ist das \textit{\textbf{Zusammenführen der Antworten der Modelle und Tests aus dem Benchmark}}. Meist ist das Problem das Parsen der Sonderzeichen, wie beispielsweise die Verwendung der doppelten Anführungszeichen im Test und den erstellten Antworten. Eine manuelle Prüfung der Aufgabe 2 hat das Fehlverhalten aufgezeigt. Durch den Einsatz einer weiteren Pythoncodezeile, wie in Listing \ref{lst:error_evaluation_code_1} zeigt konnten die Bewertung einiger Modelle verbessert werden. So hat sich die Bewertung für das \textit{pass@1} des Deepseek-Coder-V2 um 7\% von $0,53$ auf $0,6$ verbessert. Ebenso wurde für das Llama3.1 Modell eine Verbesserung von $0,45$ auf $0,475$ ermittelt.\vspace{0.2cm}
-
-\begin{lstlisting}[
-language=diff,
-label=lst:error_evaluation_code_1,
-caption={Fehler bei der Auswertung durch fehlerhafte Anführungszeichen}
-]
-  answer = answer.replace(r"\n", "\n")
-+ answer = answer.replace(r'\"', '"')
-+ 
-+ test = test.replace(r'\"', '"') 
-\end{lstlisting}
-
-Bei der Probe \textit{php/5} wurde eine \textit{\textbf{fehlerhafte Übersetzung}} festgestellt. So wurde die Probe übersetzt, nicht aber die Tests. Das Listing \ref{lst:prompt_php_de_5} zeigt die gültigen Werte welche als Eingabeparameter für die zu generierende Funktion erlaubt sind. Hier handelt es sich um deutsche Zahlworte von $null$ bis $neun$.\vspace{0.2cm}
+Bei der Probe \textit{php/5} wurde eine \textit{\textbf{nicht eindeutige Übersetzung}} festgestellt. So wurde die Probe übersetzt, nicht aber die Tests. Das Listing \ref{lst:prompt_php_de_5} zeigt die gültigen Werte welche als Eingabeparameter für die zu generierende Funktion erlaubt sind. Hier handelt es sich um deutsche Zahlworte von $null$ bis $neun$. Im angegebenen Beispieltest sind Eingabe- und Ausgabeparameter in englischer Sprache. Es wird auch nicht explizit angegeben, das eine Übersetzung erfolgen soll.\vspace{0.2cm}
 
 \begin{lstlisting}[
 language=php,
@@ -145,51 +78,143 @@ if (!compare($x4, $v4)) {
 }
 \end{lstlisting}
 
-Fehlerquelle Methodenname\vspace{0.2cm}
+Eine mögliche Lösung ist die Anpassung des Benchmarks vorzunehmen und alle Übersetzungen anzupassen oder zu korrigieren. Mit der originalen Benchmark PHP Probendatei, hat beispielsweise das Modell \textit{Deepseek Coder V2} dasselbe beschriebene Problem und kann keine, nach dem Test im Benchmark korrekte Lösung generieren. Wird der Test im Benchmark angepasst und die Zahlworte ebenfalls übersetzt, so wie der in Listing \ref{lst:test_php_de_5_translated} gezeigte Teil, wird die Probe von dem Modell mit drei korrekten Antworten bestanden. Derselbe Test in der englischen Sprache wurde vom Modell \textit{Llama3.3} in allen fünf Antworten, mit bestanden bewertet.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:test_php_de_5_translated,
+	caption={Übersetzte Aufgabenstelleung der Probe php/5}
+]
+// more tests.
+
+$arg40 = "sechs fünf vier drei zwei eins null";
+$x4 = sortNumbers($arg40);
+$v4 = "null eins zwei drei vier fünf sechs";
+if (!compare($x4, $v4)) {
+    throw new Exception("Error at 5th assert statement.");
+}
+\end{lstlisting}
+
+Die Ergebnisse für die fünfte Probe vor und nach der Änderung sind im Listing \ref{lst:test_php_de_5_translated_bash_view} dargestellt. Nach dem Namen $php/5$ wird die Gesamtanzahl der Proben angegeben, gefolgt von den insgesamt bestandenen Durchläufe der Probe. Anschließend werden die Wahrscheinlichkeiten, das eine korrekte Antwort unter den TOP Antworten zu finden ist, angegeben, beginnend mit dem \texttt{pass@1}.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=bash,
+	label=lst:test_php_de_5_translated_bash_view,
+	caption={Ergebnisse der Probe php/5 für das \textit{Deepssek Coder V2} Modell}
+]
+# origin sample no. 5
+php/5;5;0;0.0000;0.0000;0.0000;0.0000;0.0000
+
+# translated sample no. 5
+php/5;5;3;0.6000;0.9000;1.0000;1.0000;1.0000
+\end{lstlisting}
+
+Diese Probe zeigt, nach der Änderung wurden drei von fünf möglichen Antworten mit korrekt bewertet. Die Änderung für die Bewertung der \texttt{pass@k} Methode des gesamten Modells ist in Tabelle \ref{tab:pass_at_k_results_bevor_after_translate} dargestellt. Diese Änderung wurde nicht mehr auf alle Modelle ausgeweitet, sodass der Fehler in allen Bewertungen enthalten ist.\vspace{0.2cm}
+
+\begin{table}
+	\begin{tabular}{|l|lllll|}
+		\hline
+		k & 1 & 2 & 3 & 4 & 5 \\
+		\hline
+		ohne Korrektur & 0,555 & 0,6112 & 0,6312 & 0,6425 & 0,65 \\
+		mit Korrektor  & 0,565 & 0,6225 & 0,6438 & 0,6550 & 0,6625 \\
+		\hline
+		\hline
+	\end{tabular}\centering
+	\label{tab:pass_at_k_results_bevor_after_translate}
+	\caption{Ergebnisse für das \textit{Deepseek Coder V2} Modell mit und ohne Probe 5 Korrektur }
+\end{table}
+
+Mit diesem Problem wird gezeigt, dass bereits ein kleiner Fehler das Ergebnis um mehr als ein Prozent für ein Modell verbessern kann.\vspace{0.2cm}
+
+Eine andere Fehlerquelle ist das \textit{\textbf{Zusammenführen der Antworten der Modelle und Tests aus dem Benchmark}}. Diese Fehlerquelle ist nicht der Benchmark selbst, sondern die Umsetzung der Ausführung und Bewertung. Oft sind die Probleme das Parsen der Sonderzeichen, wie beispielsweise die Verwendung der doppelten Anführungszeichen im Test und den erstellten Antworten. Eine manuelle Prüfung der Aufgabe 2 hat das Fehlverhalten aufgezeigt. Durch das Implementieren einiger weiteren Codezeilen in Python, wie das Listing \ref{lst:error_evaluation_code_1} zeigt, konnten die Bewertung einiger Modelle verbessert werden. So hat sich die Bewertung für die \textit{pass@1} Methode des Deepseek-Coder-V2 um 7\% von $0,53$ auf $0,6$ verbessert. Ebenso wurde für das Llama3.1 Modell eine Verbesserung der Bewertung um $0,025$, von $0,45$ auf $0,475$ ermittelt.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=diff,
+	label=lst:error_evaluation_code_1,
+	caption={Fehler bei der Auswertung durch fehlerhafte Anführungszeichen}
+]
+answer = answer.replace(r"\n", "\n")
++ answer = answer.replace(r'\"', '"')
++ 
++ test = test.replace(r'\"', '"') 
+\end{lstlisting}
+
+Ein weiteres Problem, welches sich in den Tests gezeigt hat, sind die von einigen Modellen \textit{\textbf{verwendeten umgeänderten Methodennamen}}. Einige Modelle ändern diesen ab und passen ihn an die Funktionalität der Methode an. Dieses Verhalten ist beispielsweise beim Google Modell \textit{Gemini 1.5} mehrfach aufgetreten. Ein Beispiel ist die Probe 26 aus dem Benchmark. Hierbei sollte das $n$-te Element der Fibonacci-Folge berechnet werden. Der geforderte Name der Methode war als \texttt{fibfib} definiert. Das Modell schlug in einem Durchlauf den Namen \texttt{fibfib\_iterativ} vor, da über ein beliebig großes $n$ iteriert wird. Somit ist der Test für diese Probe fehlgeschlagen, obwohl die Methode die Berechnung korrekt durchführte. Das Listing \ref{lst:correct_func_with_non_correct_name} zeigt diese, durch \textit{Gemini 1.5} generierte Funktion.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=php,
+	label=lst:correct_func_with_non_correct_name,
+	caption={Generierte Funktion mit falschen Namen}
+]
+function fibfib_iterativ($n) {
+    if ($n < 0) {
+        throw new InvalidArgumentException("n muss nicht-negativ sein");
+    }
+
+    if ($n <= 2) {
+        return $n - 1;
+    }
+
+    $a = 0;
+    $b = 0;
+    $c = 1;
+    for ($i = 3; $i <= $n; $i++) {
+        $temp = $a + $b + $c;
+        $a = $b;
+        $b = $c;
+        $c = $temp;
+    }
+    return $c;
+}
+\end{lstlisting}
+
+Ein menschlicher Entwickler würde den Methodennamen anpassen und die Methode einsetzen. Eine Möglichkeit dies zu umgehen, ist es, den Methodennamen zur Laufzeit zu ermitteln. 
 
 Die Tests aus dem Benchmark und Ergebnisse der Modelle wurde stichprobenartig manuell geprüft und weitere Fehler behoben. Dennoch ist nicht auszuschließen das die jetzige Evaluation weitere Fehlerquellen enthält.\vspace{0.2cm}
 
 Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.
 
+Diese Erkenntnis lassen den Schluss zu, dass die zweite These (T2) aus Kapitel \ref{sec:goals_of_the_work} bewiesen wurde. Ein einzelner Benchmark hat nicht \vspace{0.2cm}
 % --- Optimierung ----------------------------------------------------------------------------------
 
 
 \section{Optimierung der Abfragen}
 
 
-\subsection{Erweiterte Codeevaluation}
-Bei den vordefinierten Prüfungen der HumanEval Benchmarks, wird geprüft, ob der Code lauffähig ist, nicht aber die Codestruktur oder Kommentare. Ein Problem bei der Nutzung des von der LLM generiertem Code ist, dass Entwickler diesen einfach kopieren und in ihre Programme implementieren. Es wird also nur die Funktionalität des Codes geprüft, nicht aber Strukturen und Kommentare um die Lesbarkeit und Verständlichkeit zu erhöhen. Dieses Vorgehen mag zu schnellen Erfolgen in der Programmentwicklung führen, wird aber beim Refactoring oder Fehlersuche erhebliche Defizite mit sich bringen.\vspace{0.2cm}
+%\subsection{Erweiterte Codeevaluation}
+%Bei den vordefinierten Prüfungen der HumanEval Benchmarks, wird geprüft, ob der Code lauffähig ist, nicht aber die Codestruktur oder Kommentare. Ein Problem bei der Nutzung des von der LLM generiertem Code ist, dass Entwickler diesen einfach kopieren und in ihre Programme implementieren. Es wird also nur die Funktionalität des Codes geprüft, nicht aber Strukturen und Kommentare um die Lesbarkeit und Verständlichkeit zu erhöhen. Dieses Vorgehen mag zu schnellen Erfolgen in der Programmentwicklung führen, wird aber beim Refactoring oder Fehlersuche erhebliche Defizite mit sich bringen.\vspace{0.2cm}
 
-Aus diesem Grund sollte der erstellte Code nicht nur auf die Funktionalität geprüft werden. Dafür sollten weitere Test-Frameworks der jeweiligen Programmiersprache zur Anwendung kommen. Es gibt mehrere Frameworks zur Prüfung der Codequalität unter PHP. Zwei bekannte Frameworks die auch in dieser Arbeit Anwendung finden, sind die Frameworks \texttt{phpunit} und \texttt{phpmetrics}. Mit ihnen wird der, durch die LLMs generierten Codes geprüft.\vspace{0.2cm}
-Um PHPUnit und PHPMetrics für die Evaluierung zu verwenden, müssen weitere Angaben und Einträge im Benchmark erfolgen. So muss ein PHP-Unittest enthalten sein, dieser kann den einfachen benutzerdefinierten Test ersetzen. Des Weiteren sind die Kriterien für die Metrik Messung, für jeden Test erforderlich. Die Kriterien können wie in Listing \ref{lst:phpmetric_criteria_example} dargestellt, aussehen.
+%Aus diesem Grund sollte der erstellte Code nicht nur auf die Funktionalität geprüft werden. Dafür sollten weitere Test-Frameworks der jeweiligen Programmiersprache zur Anwendung kommen. Es gibt mehrere Frameworks zur Prüfung der Codequalität unter PHP. Zwei bekannte Frameworks die auch in dieser Arbeit Anwendung finden, sind die Frameworks \texttt{phpunit} und \texttt{phpmetrics}. Mit ihnen wird der, durch die LLMs generierten Codes geprüft.\vspace{0.2cm}
+%Um PHPUnit und PHPMetrics für die Evaluierung zu verwenden, müssen weitere Angaben und Einträge im Benchmark erfolgen. So muss ein PHP-Unittest enthalten sein, dieser kann den einfachen benutzerdefinierten Test ersetzen. Des Weiteren sind die Kriterien für die Metrik Messung, für jeden Test erforderlich. Die Kriterien können wie in Listing \ref{lst:phpmetric_criteria_example} dargestellt, aussehen.
 
-\begin{lstlisting}[language=python,caption={Beispiel für Bewertungskriterien},label=lst:phpmetric_criteria_example]
-	criteria = {
-		"Lines of code": lambda x: int(x) > 12,
-		"Logical lines of code by method": lambda x: float(x) > 7,
-		"Lack of cohesion of methods": lambda x: float(x) > 3,
-		"Average Cyclomatic complexity by class": lambda x: float(x) > 10,
-		"Average Weighted method count by class": lambda x: float(x) > 20,
-		"Average bugs by class": lambda x: float(x) > 0.1,
-		"Critical": lambda x: int(x) > 0,
-		"Error": lambda x: int(x) > 0,
-		"Warning": lambda x: int(x) > 0,
-		"Information": lambda x: int(x) > 0,
-	}
-\end{lstlisting}
+%\begin{lstlisting}[language=python,caption={Beispiel für %Bewertungskriterien},label=lst:phpmetric_criteria_example]
+%	criteria = {
+%		"Lines of code": lambda x: int(x) > 12,
+%		"Logical lines of code by method": lambda x: float(x) > 7,
+%		"Lack of cohesion of methods": lambda x: float(x) > 3,
+%		"Average Cyclomatic complexity by class": lambda x: float(x) > 10,
+%		"Average Weighted method count by class": lambda x: float(x) > 20,
+%		"Average bugs by class": lambda x: float(x) > 0.1,
+%		"Critical": lambda x: int(x) > 0,
+%		"Error": lambda x: int(x) > 0,
+%		"Warning": lambda x: int(x) > 0,
+%		"Information": lambda x: int(x) > 0,
+%	}
+%\end{lstlisting}
 
-Mit den erweiterten Tests werden die Benchmarks, um die folgenden Punkte erweitert.
+%Mit den erweiterten Tests werden die Benchmarks, um die folgenden Punkte erweitert.
 
-\begin{myitemize}
-	\item \textbf{unittest}: Unittests für die geforderte Funktion, unterschied zu den einfachen Tests
-	\item \textbf{metrics}: Kriterien für den Metriktest
-\end{myitemize}
+%\begin{myitemize}
+%	\item \textbf{unittest}: Unittests für die geforderte Funktion, unterschied zu den einfachen Tests
+%	\item \textbf{metrics}: Kriterien für den Metriktest
+%\end{myitemize}
 
-\subsection{PHPUnit}
-Eines der bekanntesten spezielles Framework für Unit-Tests in PHP, was als Industriestandard gilt. Mit diesem Framework können neben der Prüfung auf funktionsfähigen Code auch Randfälle betrachtet und Fehlerbehandlungen im Code getestet werden. Als Grundlage für die Auswahl des Tools wird auf Studie \cite{mohamad-2016} verwiesen.
+%\subsection{PHPUnit}
+%Eines der bekanntesten spezielles Framework für Unit-Tests in PHP, was als Industriestandard gilt. Mit diesem Framework können neben der Prüfung auf funktionsfähigen Code auch Randfälle betrachtet und Fehlerbehandlungen im Code getestet werden. Als Grundlage für die Auswahl des Tools wird auf Studie \cite{mohamad-2016} verwiesen.
 
-\subsection{PHPMetrics}
-Ein PHP Framework für die Codeanalyse, welches detaillierte Berichte über die Codequalität, Komplexität des Codes und über dessen Wartbarkeit erzeugt. PHPMetrics wird in verschiedenen Arbeiten eingesetzt, um die Codequalität zu ermitteln. So auch in \cite{anggrain-2016}, bei der verschiedene Open Source LMS verglichen werden.
+%\subsection{PHPMetrics}
+%Ein PHP Framework für die Codeanalyse, welches detaillierte Berichte über die Codequalität, Komplexität des Codes und über dessen Wartbarkeit erzeugt. PHPMetrics wird in verschiedenen Arbeiten eingesetzt, um die Codequalität zu ermitteln. So auch in \cite{anggrain-2016}, bei der verschiedene Open Source LMS verglichen werden.
 
 %\subsection{SonarQube}
 %Als letztes Tool soll SonarQube zur statischen Codeanalyse und Codeprüfung zum Einsatz kommen. Es werden verschiedene Programmiersprachen unterstützt, darunter auch PHP und JavaScript. In der Arbeit \cite{da-silva-simoes-2024} wird die Prüfung der Codequalität mit SonarQube, ChatGPT3.5 und ChatGPT4 vergleichen. Als Schlussfolgerung aus dem Ergebnis dieser Arbeit, wird auch hier die Codeanalyse durch eine LLM nicht erfolgen, sondern ebenfalls durch SonarQube.

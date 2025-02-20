@@ -62,8 +62,8 @@ Der Aufruf der UI, kann mittel Browser erfolgen. Hier wird die IP und der Port 8
 
 %---------------------------------------------------------------------------------------------------
 
-
-\subsection{Download der Hugging Face Modelle}\label{sec:hugging_face_models}
+\newpage
+\section{Download der Hugging Face Modelle}\label{sec:hugging_face_models}
 Ein Hugging Face Modell kann, heruntergeladen werden. Soll das Modell auch nach dem Löschen des lokalen \texttt{huggingface}-Caches zur Verfügung stehen, sollte das Modell separat abgespeichert werden. Für den Download und speichern der Modelle kommt das Python-Skript, wie in Listing \ref{lst:download_hugging_face_model} gezeigt zur Anwendung. Hier ist zu erwähnen, dass ausreichend RAM zur Verfügung stehen muss, um die Modelle zu speichern. Mit diesem Script kann ein Modell an einem angegebenen Pfad abgespeichert werden und ist nach dem Cache löschen immer noch lokal vorhanden.
 
 \lstinputlisting[
@@ -72,8 +72,8 @@ Ein Hugging Face Modell kann, heruntergeladen werden. Soll das Modell auch nach 
 	label=lst:download_hugging_face_model
 ]{codes/src/download/huggingface_model.py}
 
-
-\subsection{Abfragen lokaler Modelle}
+\newpage
+\section{Abfragen lokaler Modelle}
 Um die Modelle abzufragen, kommt der Code, welcher in Listing \ref{lst:call_ollama_model} zu sehen ist, zum Einsatz.
 
 \lstinputlisting[
@@ -82,8 +82,8 @@ Um die Modelle abzufragen, kommt der Code, welcher in Listing \ref{lst:call_olla
 	label=lst:call_ollama_model
 ]{codes/src/execute/execute_ollama.py}
 
-
-\subsection{Abfrage cloudbasierter Modelle}
+\newpage
+\section{Abfrage cloudbasierter Modelle}
 
 \lstinputlisting[
 	language=python,
@@ -105,7 +105,7 @@ Das Listing \ref{lst:evaluation_search_generated_code} zeigt beispielhaft eine S
 	language=python,
 	caption={Evaluation der Modellantworten: Suche nach Codeausschnitten},
 	label=lst:evaluation_search_generated_code
-	]
+]
 def search_generated_code(content: str) -> str:
     """
     Search the generated code in string, it is one line of file.
@@ -133,3 +133,97 @@ def search_generated_code(content: str) -> str:
         return generated_code
     return ""
 \end{lstlisting}
+
+
+\newpage
+\section{Methodenerkennung unter PHP}
+Mit den folgenden Skripten wird gezeigt das es möglich ist PHP Funktionen welche durch LLMs erzeugt wurden zu scannen und beispielsweise deren Namen in Tests verwenden zu können. Das Listing \ref{lst:php_code_functions} zeigt ein Skript, das beispielhaft verschiedene Funktionen implementiert die durch das Skript im Listing \ref{lst:php_code_scan_functions} zur Laufzeit erkannt werden.\vspace{0.2cm}
+
+\begin{lstlisting}[
+	language=php,
+	caption={PHP Skript welches verschiedene Funktionen imlementiert},
+	label=lst:php_code_functions
+]
+<?php
+// @file: methods.php
+
+function fibfib_rekursiv($n) {}
+
+function fibfib_iterativ($n) {}
+
+function fib($x, $y) {}
+
+function fibfib($n) {}
+
+\end{lstlisting}
+
+\begin{lstlisting}[
+	language=php,
+	caption={PHP Skript das Methoden zur Laufzeit erkennt},
+	label=lst:php_code_scan_functions
+]
+<?php
+// @file scan_methods.php
+
+<?php
+
+// include "method_names.php";
+$filename = "method_names.php";
+$code = file_get_contents($filename);
+$tokens = token_get_all($code);
+
+$all = [];
+$search = "";
+$func_name = False;
+foreach ($tokens as $token) {
+	if (
+		gettype($token) == "array" &&
+		count($token) > 1 &&
+		trim($token[1]) != "" &&
+		trim($token[1]) !="<?php"
+	) {
+		if ($token[1] == "function") {
+			if (str_ends_with($search, ",")) {
+				$search = substr($search, 0, strlen($search) - 1);
+			}
+			$search = $search . ")";
+			if ($search  != ")") {
+				$all[] = $search;
+			}
+			$search = $token[1] . " ";
+			$func_name = True;
+		} elseif ($func_name) {
+			$func_name = False;
+			$search = $search . $token[1] . "(";
+		} else {
+			$search = $search . $token[1] . ",";
+		}
+	}
+}
+
+if (str_ends_with($search, ",")) {
+	$search = substr($search, 0, strlen($search) - 1);
+}
+
+$search = $search . ")";
+$all[] = $search;
+
+print_r($all);
+\end{lstlisting}
+
+Nach dem Ausführen des Skriptes wird die Ausgabe, welche in Listing \ref{bash_scan_function_result} zu sehen ist erzeugt.
+
+\begin{lstlisting}[
+	language=bash,
+	caption={Erkannte PHP Methoden},
+	label=lst:bash_scan_function_result
+]
+Array
+(
+    [0] => function fibfib_rekursiv($n)
+    [1] => function fibfib_iterativ($n)
+    [2] => function fib($x,$y)
+    [3] => function fibfib($n)
+)
+\end{lstlisting}
+

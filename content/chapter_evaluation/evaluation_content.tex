@@ -181,10 +181,13 @@ Dieser Test zeigt, dass eine deutschsprachige Verwendung der Modelle nicht zwang
 
 \section{Optimierung der Ergebnisse durch die Wahl des Frameworks}
 % https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
-Für die Evaluierung zur Prüfung einer Optimierung der Ausgaben durch die Wahl eines Frameworks, wurden die Modelle \textit{Codellama}, \textit{Llama3.1}, \textit{Mistral Small} und \textit{Qwen 2.5 Coder} herangezogen.
+Für die Evaluierung zur Prüfung einer Optimierung der Ausgaben durch die Wahl eines Frameworks, wurden die Modelle \textit{Codellama}, \textit{Llama3.1}, \textit{Mistral Small} und \textit{Qwen 2.5 Coder} herangezogen. Von den vier getesteten Modellen zeigten drei eine signifikante Verbesserung in den Ergebnissen. Ausschließlich das im Test verwendetet Llama3.1 Modell hat nach der Änderung des Frameworks eine Verschlechterung der Ergebnisse gezeigt. Bei diesem Modell sank das Ergebnis beim \texttt{pass@1} um 0,095 von 0,43 auf 0,335 und beim \texttt{pass@5} sank das Ergebnis des Tests von 0,6375 auf 0,6125\%.\vspace{0.2cm}
 
+Bei den getesteten Modellen \textit{Codellama} und \textit{Mistral Small} wurde eine erhebliche Verbesserung festgestellt. Beim \textit{Codellama} Modell erhöhte sich das Ergebnis des Benchmarks beim \texttt{pass@1} um 0,1375 von 0,005 auf 0,1475 und beim \texttt{pass@5} um 0,375 von 0,025 auf 0,4. Eine ähnliche Verbesserung zeigt das Modell \textit{Mistral Small}. Hier stiegt der Wert des Ergebnisses beim \texttt{pass@1} um 0,3175 von 0,22 und beim \texttt{pass@5} um 0,325 von 0,4 auf 0,725.\vspace{0.2cm}
 
-Ergebnisse der Optimierung durch die Auswahl des Frameworks.
+Die besten Werte der getesteten in der Evaluierung mit dem HumanEval-XL erzielte das Modell \textit{Qwen 2.5 Coder}. Hier ist ein Anstiegt der Ergebnisse beim \texttt{pass@1} um 0,515 und beim \texttt{pass@5} um 0,525 zu beobachten. Somit erreicht das Modell im Benchmark für den \texttt{pass@1} ein Ergebnis von 0,7125 und für den \texttt{pass@5} einen Wert von 0,825. Mit diesem Ergebnis liegt das \textit{Qwen 2.5 Coder} Modell fast gleich auf mit dem neusten Modell von Deepseek, dem \textit{Deepseek-R1} Modell. Dieses hat im Benchmark, mit dem \texttt{langchain} Framework einen Wert für den \texttt{pass@1} von 0,7025 und für den \texttt{pass@5} von 0,8375 erreicht.\vspace{0.2cm}
+
+Die Ergebnisse der Optimierung durch die Auswahl des Frameworks werden in den Diagrammen der Abbildung \ref{img:pass_at_k_results_by_framework} dargestellt.
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.5\textwidth]{content/chapter_evaluation/images/framework_evaluation_codellama.eps}
@@ -196,6 +199,7 @@ Ergebnisse der Optimierung durch die Auswahl des Frameworks.
 	\label{img:pass_at_k_results_by_framework}
 \end{figure}
 
+Die Werte aus der Abbildung \ref{img:pass_at_k_results_by_framework} sind in der Tabelle \ref{tab:pass_at_k_results_by_framework} detailliert aufgeführt. Zusätzlich ist der Tabelle die Differenz angegeben, welche zwischen den Ergebnissen der Frameworks \texttt{langchain} und \texttt{DSPy} festgehalten wurden. Die Differenz wurde nach der Formel $DPSy - langchain = Diff$ berechnet.
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|ll|ll|ll|ll|}
@@ -207,7 +211,7 @@ Ergebnisse der Optimierung durch die Auswahl des Frameworks.
 		\textbf{Langchain}  & 0,005 & 0,025 & 0,43 & 0,6375  & 0,1975 & 0,3   & 0,22 & 0,4 \\
 		\textbf{DSPy}       & 0,1425 & 0,4  & 0,335 & 0,6125 & 0,7125 & 0,825 & 05375 & 0,725 \\
 		\hline
-		\textbf{Diff in \%} & 13,75 & 37,5  & -9,5 & -2,5    & 51,5 & 52,5    & 31,75 & 32,5 \\
+		\textbf{Diff} & 0,1375 & 0,375  & -0,095 & -0,025    & 0,515 & 0,525    & 0,3175 & 0,325 \\
 		\hline
 		\hline
 	\end{tabular}
@@ -215,3 +219,5 @@ Ergebnisse der Optimierung durch die Auswahl des Frameworks.
 	\label{tab:pass_at_k_results_by_framework}
 	\caption{Ergebnisse der pass@1 und pass@5 Methode verschiedener Frameworks}
 \end{table}
+
+Dieser Test zeigt, dass die Wahl des Famework für die Interaktion mit den Modellen, durchaus eine Verbesserung der Ergebnisse bewirken kann und durchaus in Erwägung gezogen werden sollte.

@@ -169,18 +169,23 @@ function fibfib_iterativ($n) {
 }
 \end{lstlisting}
 
-Ein menschlicher Entwickler würde den Methodennamen anpassen und die Methode einsetzen. Eine Möglichkeit dies zu umgehen, ist es, den Methodennamen zur Laufzeit zu ermitteln. 
+Ein menschlicher Entwickler würde den Methodennamen anpassen und die Methode einsetzen. Eine Möglichkeit dies zu umgehen, ist es, den Methodennamen zur Laufzeit zu ermitteln. Mit den Proben sollen die Fähigkeiten der LLMs geprüft werden, inwieweit diese, grundlegende Funktionen implementieren können. Hierbei ist der Name der Methode nicht entscheidend. Anders verhält es sich bei Erweiterungen bestehender Programme, bei denen die erstellten Funktionen integriert werden sollen.\vspace{0.2cm}
 
 Die Tests aus dem Benchmark und Ergebnisse der Modelle wurde stichprobenartig manuell geprüft und weitere Fehler behoben. Dennoch ist nicht auszuschließen das die jetzige Evaluation weitere Fehlerquellen enthält.\vspace{0.2cm}
 
-Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.
+Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.\vspace{0.2cm}
 
-Diese Erkenntnis lassen den Schluss zu, dass die zweite These (T2) aus Kapitel \ref{sec:goals_of_the_work} bewiesen wurde. Ein einzelner Benchmark hat nicht \vspace{0.2cm}
+Diese Erkenntnis lassen den Schluss zu, dass die zweite These (T2) aus Kapitel \ref{sec:goals_of_the_work} bewiesen wurde. Ein einzelner Benchmark hat nicht ausreichend Aussagekraft, um eine LLMs hinreichend zu bewerten. Diese Benchmark eignen sich dafür einen ersten Eindruck von den Modellen zu erhalten. Wie auch in \cite{zhang-2024} wird die Auffassung vertreten, dass diese Probe grundlegende Codeproblematiken testen, die nicht mit den realen Bedingungen übereinstimmen. Zudem werden immer aktuellere und ausgereiftere Benchmarks vorgeschlagen, sodass das Potenzial der Proben noch nicht ausgeschöpft ist.\vspace{0.2cm}
+
 % --- Optimierung ----------------------------------------------------------------------------------
 
 
 \section{Optimierung der Abfragen}
+Wie bereits in Kapitel \ref{sec:conzept_of_optimization_prompt} besprochen sind die Prompts in den Benchmarks sehr gut optimiert. Die Optimierungstests mit der Auswahl eines anderen Framework hat zu einer erheblichen Steigerung der Ergebnisse geführt. Diese signifikante Verbesserung wurde so nicht erwartet. Dieses Ergebnis zeigt, dass die Prompts in des HumanEval-XL Benchmarks weiter optimiert werden können. Zum anderen zeigt es, dass das DSPy Framework die Prompts selbstständig optimiert, ohne das Entwickler tiefgehende Kenntnisse im Prompt Engineering haben müssen. Zum anderen wird gezeigt, dass die in Kapitel \ref{sec:goals_of_the_work} aufgestellte dritte These (T3) bestätigt. Eine Optimierung der Eingabeaufforderungen für die Webanwendungsentwicklung lässt sich ohne Änderung der Modellparameter erreichen, um eine signifikante Verbesserung der Ergebnisse zu erzielen.\vspace{0.2cm}
 
+Dennoch zeigt der Test auch, dass diese Optimierung Grenzen hat. So konnte sich beim \textit{Llama 3.1} keine Optimierung erzielt lassen. Hier sind die Ergebnisse schlechter ausgefallen. Aus diesem Grund sollte in diesen Fällen weitere Frameworks, wie beispielsweise \textit{AdalFlow} oder \textit{LamaIndex} für die Optimierung in Betracht gezogen werden.\vspace{0.2cm}
+
+oder andere Optimierungsstrategien in Betracht gezogen werden.\vspace{0.2cm}
 
 %\subsection{Erweiterte Codeevaluation}
 %Bei den vordefinierten Prüfungen der HumanEval Benchmarks, wird geprüft, ob der Code lauffähig ist, nicht aber die Codestruktur oder Kommentare. Ein Problem bei der Nutzung des von der LLM generiertem Code ist, dass Entwickler diesen einfach kopieren und in ihre Programme implementieren. Es wird also nur die Funktionalität des Codes geprüft, nicht aber Strukturen und Kommentare um die Lesbarkeit und Verständlichkeit zu erhöhen. Dieses Vorgehen mag zu schnellen Erfolgen in der Programmentwicklung führen, wird aber beim Refactoring oder Fehlersuche erhebliche Defizite mit sich bringen.\vspace{0.2cm}

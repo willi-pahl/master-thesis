@@ -175,54 +175,23 @@ Die Tests aus dem Benchmark und Ergebnisse der Modelle wurde stichprobenartig ma
 
 Es gibt durchaus weitere Fehlerquellen, welche die Ergebnisse negativ beeinflussen können. Bei der Formulierung der Tests könnten Randbedingungen nicht korrekt betrachtet wurden sein, was dazu führen kann, dass der Einsagt der generierten Codes zu Fehlern führen könnte. Ebenfalls können die Tests falsche Parameter vorgeben, wodurch korrekt generierter Code als falsch bewertet wird. Die eben genannten Fehler konnten im vorliegenden Ergebnissen nicht nachgewiesen werden, ganz auszuschließen sind sie aber nicht.\vspace{0.2cm}
 
-Diese Erkenntnis lassen den Schluss zu, dass die zweite These (T2) aus Kapitel \ref{sec:goals_of_the_work} bewiesen wurde. Ein einzelner Benchmark hat nicht ausreichend Aussagekraft, um eine LLMs hinreichend zu bewerten. Diese Benchmark eignen sich dafür einen ersten Eindruck von den Modellen zu erhalten. Wie auch in \cite{zhang-2024} wird die Auffassung vertreten, dass diese Probe grundlegende Codeproblematiken testen, die nicht mit den realen Bedingungen übereinstimmen. Zudem werden immer aktuellere und ausgereiftere Benchmarks vorgeschlagen, sodass das Potenzial der Proben noch nicht ausgeschöpft ist.\vspace{0.2cm}
-
 % --- Optimierung ----------------------------------------------------------------------------------
 
 
 \section{Optimierung der Abfragen}
-Wie bereits in Kapitel \ref{sec:conzept_of_optimization_prompt} besprochen sind die Prompts in den Benchmarks sehr gut optimiert. Die Optimierungstests mit der Auswahl eines anderen Framework hat zu einer erheblichen Steigerung der Ergebnisse geführt. Diese signifikante Verbesserung wurde so nicht erwartet. Dieses Ergebnis zeigt, dass die Prompts in des HumanEval-XL Benchmarks weiter optimiert werden können. Zum anderen zeigt es, dass das DSPy Framework die Prompts selbstständig optimiert, ohne das Entwickler tiefgehende Kenntnisse im Prompt Engineering haben müssen. Zum anderen wird gezeigt, dass die in Kapitel \ref{sec:goals_of_the_work} aufgestellte dritte These (T3) bestätigt. Eine Optimierung der Eingabeaufforderungen für die Webanwendungsentwicklung lässt sich ohne Änderung der Modellparameter erreichen, um eine signifikante Verbesserung der Ergebnisse zu erzielen.\vspace{0.2cm}
+Wie bereits in Kapitel \ref{sec:conzept_of_optimization_prompt} besprochen sind die Prompts in den Benchmarks sehr gut optimiert. Die Optimierungstests mit der Auswahl eines anderen Framework hat zu einer erheblichen Steigerung der Ergebnisse geführt. Diese signifikante Verbesserung wurde so nicht erwartet. Dieses Ergebnis zeigt, dass die Prompts in des HumanEval-XL Benchmarks weiter optimiert werden können. Zum anderen zeigt es, dass das DSPy Framework die Prompts selbstständig optimiert, ohne das Entwickler tiefgehende Kenntnisse im Prompt Engineering haben müssen.\vspace{0.2cm}
 
-Dennoch zeigt der Test auch, dass diese Optimierung Grenzen hat. So konnte sich beim \textit{Llama 3.1} keine Optimierung erzielt lassen. Hier sind die Ergebnisse schlechter ausgefallen. Aus diesem Grund sollte in diesen Fällen weitere Frameworks, wie beispielsweise \textit{AdalFlow} oder \textit{LamaIndex} für die Optimierung in Betracht gezogen werden.\vspace{0.2cm}
+Dennoch zeigt der Test auch, dass diese Optimierung Grenzen hat. So konnte sich beim \textit{Llama 3.1} keine Optimierung erzielt lassen. Hier sind die Ergebnisse schlechter ausgefallen. Für die Optimierungstests wurde eine Konfiguration aus dem DSPy Framework getestet. Das Framework bietet verschiedene Möglichkeiten der Datenverarbeitung, in diesem Fall das Optimieren der Prompts. Hierbei könnten weitere Konfigurationen bestehend aus Signatur und Modul getestet werden die das Framework mitbringt und zusätzlich an eigene Bedürfnisse anpassbar ist.\vspace{0.2cm}
 
-oder andere Optimierungsstrategien in Betracht gezogen werden.\vspace{0.2cm}
+In den Auswertungen der Optimierung sind einige Modelle nicht aufgeführt, da das \texttt{DSPy} Framework bei den Anfragen der Proben an die Modelle mit Fehlern abbricht. Hierbei handelt, ist sich um das Codelama-Modell \textit{codellama:70b-instruct-q2\_K}. Abfragen mit \texttt{langchain} Framework zeigen diese Fehler nicht. Das gleiche Verhalten ist bei weiteren größeren Modellen, wie das \textit{llama3.3:70b} und \textit{deepseek-r1:32b} zu beobachten. Es wurden verschiedene Module, darunter \texttt{Predict}, \texttt{ProgramOfThought} oder \texttt{ChainOfThought} und Signaturen getestet, zum Zeitpunkt der Arbeit wurde keine Lösung für dieses Problem gefunden.\vspace{0.2cm}
 
-%\subsection{Erweiterte Codeevaluation}
-%Bei den vordefinierten Prüfungen der HumanEval Benchmarks, wird geprüft, ob der Code lauffähig ist, nicht aber die Codestruktur oder Kommentare. Ein Problem bei der Nutzung des von der LLM generiertem Code ist, dass Entwickler diesen einfach kopieren und in ihre Programme implementieren. Es wird also nur die Funktionalität des Codes geprüft, nicht aber Strukturen und Kommentare um die Lesbarkeit und Verständlichkeit zu erhöhen. Dieses Vorgehen mag zu schnellen Erfolgen in der Programmentwicklung führen, wird aber beim Refactoring oder Fehlersuche erhebliche Defizite mit sich bringen.\vspace{0.2cm}
+Eine mögliche Ursache, kann darin liegen, dass \texttt{DSPy} einen deklarativen Ansatz implementiert und im Gegensatz zu \texttt{langchain}, Abfrageketten erstellt. Hierbei besteht die Möglichkeit, dass unvollständige Ergebnisse, die von den LLMs gesandt werden, nicht so effektiv vom Framework verarbeitet werden, wie es bei \texttt{langchain} der Fall ist. Hierbei könnte der Fehler dadurch entstehen, da der zur Verfügung stehen VRAM des Servers auf 12 GB beschränkt ist und somit könnten größere Modelle unvollständige Antworten erstellen. Bei allen drei Modellen übersteigt die Modellgröße den verfügbaren VRAM.  Das Problem konnte nicht abschließend aufgeklärt werden.\vspace{0.2cm}
 
-%Aus diesem Grund sollte der erstellte Code nicht nur auf die Funktionalität geprüft werden. Dafür sollten weitere Test-Frameworks der jeweiligen Programmiersprache zur Anwendung kommen. Es gibt mehrere Frameworks zur Prüfung der Codequalität unter PHP. Zwei bekannte Frameworks die auch in dieser Arbeit Anwendung finden, sind die Frameworks \texttt{phpunit} und \texttt{phpmetrics}. Mit ihnen wird der, durch die LLMs generierten Codes geprüft.\vspace{0.2cm}
-%Um PHPUnit und PHPMetrics für die Evaluierung zu verwenden, müssen weitere Angaben und Einträge im Benchmark erfolgen. So muss ein PHP-Unittest enthalten sein, dieser kann den einfachen benutzerdefinierten Test ersetzen. Des Weiteren sind die Kriterien für die Metrik Messung, für jeden Test erforderlich. Die Kriterien können wie in Listing \ref{lst:phpmetric_criteria_example} dargestellt, aussehen.
+\begin{figure}[!ht]
+	\includegraphics[width=0.8\textwidth]{content/chapter_lessons_learned/images/nvtop_model_change.eps}
+	\centering
+	\caption{Auslastung des VRAMs während eines Modellwechsels}
+	\label{img:bash_nvtop_model_change}
+\end{figure}
 
-%\begin{lstlisting}[language=python,caption={Beispiel für %Bewertungskriterien},label=lst:phpmetric_criteria_example]
-%	criteria = {
-%		"Lines of code": lambda x: int(x) > 12,
-%		"Logical lines of code by method": lambda x: float(x) > 7,
-%		"Lack of cohesion of methods": lambda x: float(x) > 3,
-%		"Average Cyclomatic complexity by class": lambda x: float(x) > 10,
-%		"Average Weighted method count by class": lambda x: float(x) > 20,
-%		"Average bugs by class": lambda x: float(x) > 0.1,
-%		"Critical": lambda x: int(x) > 0,
-%		"Error": lambda x: int(x) > 0,
-%		"Warning": lambda x: int(x) > 0,
-%		"Information": lambda x: int(x) > 0,
-%	}
-%\end{lstlisting}
-
-%Mit den erweiterten Tests werden die Benchmarks, um die folgenden Punkte erweitert.
-
-%\begin{myitemize}
-%	\item \textbf{unittest}: Unittests für die geforderte Funktion, unterschied zu den einfachen Tests
-%	\item \textbf{metrics}: Kriterien für den Metriktest
-%\end{myitemize}
-
-%\subsection{PHPUnit}
-%Eines der bekanntesten spezielles Framework für Unit-Tests in PHP, was als Industriestandard gilt. Mit diesem Framework können neben der Prüfung auf funktionsfähigen Code auch Randfälle betrachtet und Fehlerbehandlungen im Code getestet werden. Als Grundlage für die Auswahl des Tools wird auf Studie \cite{mohamad-2016} verwiesen.
-
-%\subsection{PHPMetrics}
-%Ein PHP Framework für die Codeanalyse, welches detaillierte Berichte über die Codequalität, Komplexität des Codes und über dessen Wartbarkeit erzeugt. PHPMetrics wird in verschiedenen Arbeiten eingesetzt, um die Codequalität zu ermitteln. So auch in \cite{anggrain-2016}, bei der verschiedene Open Source LMS verglichen werden.
-
-%\subsection{SonarQube}
-%Als letztes Tool soll SonarQube zur statischen Codeanalyse und Codeprüfung zum Einsatz kommen. Es werden verschiedene Programmiersprachen unterstützt, darunter auch PHP und JavaScript. In der Arbeit \cite{da-silva-simoes-2024} wird die Prüfung der Codequalität mit SonarQube, ChatGPT3.5 und ChatGPT4 vergleichen. Als Schlussfolgerung aus dem Ergebnis dieser Arbeit, wird auch hier die Codeanalyse durch eine LLM nicht erfolgen, sondern ebenfalls durch SonarQube.
-
-%\subsection{ESLint}
-%JavaScript Tool zur Syntaxfehler-Erkennung, Stil- und Codequalitätsprüfung. Mit diesem Tool kann reines JavaScript als auch Node.js überprüfen. https://arxiv.org/html/2402.14261v1
+Die Abbildung \ref{img:bash_nvtop_model_change} zeigt den Modellwechsel vom \textit{Llama3.2} zum \textit{Codellama:70b} Modell. In der Abbildung werden die Grafikkartenparameter mit dem Tool \texttt{nvtop} ausgelesen und angezeigt. Während die Auslastung des VRAMs beim \textit{Llama3.2:3b} 3,64 GB beträgt, sind es beim \textit{Codellama:70b} mehr als 11 GB. Das \textit{Llama3.2:3b} hat eine tatsächliche Größe von 2 GB, während das \textit{Codellama:70b} eine tatsächliche Größe von 25 GB hat. Im linken Teil der Abbildung ist das geladene \textit{Llama3.2:3b} Modell zusehen, gefolgt von einem Leerlauf des Speichers zur Vorbereitung auf das neu zu ladende \textit{Codellama:70b} Modell. Die Speicherauslastung dieses Modells ist auf der rechten Seite der Abbildung \ref{img:bash_nvtop_model_change} zu erkennen.

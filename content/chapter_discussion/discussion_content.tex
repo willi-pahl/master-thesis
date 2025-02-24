@@ -1,17 +1,41 @@
-Wie in \cite{hartenstein_2024} beschrieben,
-\section{Thesen}
+In diesem soll eine Zusammenfassung der wichtigsten Ergebnisse erfolgen und die Beantwortung der Thesen erfolgen.
+
+Vergleich Stand der Forschung: fehlt noch, muss in Thesen einfließen
+
+Grenzen und Einschränkungen: begrenzte Datenbasis, Grenzen der eingesetzter Tools und Technik.
+
+Impulse für zukünftige Forschung: Vorschläge für weitere Studien. Verbesserungsmöglichkeiten der Methoden usw. und Zukunft des Forschungsfeldes und evtl. Trends.
+
+Praktische Anwendung: Eine Diskussion der möglichen Anwendungen der Ergebnisse. In welchen Unternehmen und welche realen Anwendungen können die Ergebnisse eingesetzt werden.
+
+\section{Bewertung der Zielsetzung und Thesen}
 % 3. These: Optimierung ohne Modellanpassung, nur Prompt Engineering
+% Hat super funktionier
 Die Erkenntnisse aus den Experimenten dieser Arbeit bestätigen die aufgestellte dritte These (T3) aus Kapitel \ref{sec:goals_of_the_work}. Eine Optimierung der Eingabeaufforderungen für die Webanwendungsentwicklung lässt sich ohne Änderung der Modellparameter erreichen und bewirken eine signifikante Verbesserung der Ergebnisse. Die Modelle wurden bereits mit Programmiersprachen, die für Webanwendungsentwicklung essenziell sind, wie beispielsweise PHP, trainiert und diese Daten, in Form von Programmcode sind in den Modellen abrufbar. Entscheidend hierbei ist die Art und Weise wie die Gestaltung der Eingabeaufforderungen umgesetzt wird. Diese Optimierung erfolgt durch das \texttt{DSPy} Framework für die meisten Modelle automatisch.\vspace{0.2cm}
 
-Dennoch hat das \texttt{DSPy} Framework, auf einige Modelle eine negative Auswirkung. Der generierte Code schnitt in der Evaluation mit den HumanEval-XL Proben schlechter ab. Das legt die Annahme nahe das  
+% Hat nicht funktioniert.
+Dennoch hat das \texttt{DSPy} Framework, auf einige Modelle eine negative Auswirkung. Der generierte Code schnitt in der Evaluation mit den HumanEval-XL Proben schlechter ab. Der Grund konnte zurzeit nicht geklärt werden. Eine Annahme ist, dass der deklarative Ansatz von DSPy mit den komplexeren Datenstrukturen und Modulketten die LLMs zu inkonsistenten Antworten leitet. In diesen Fällen sollte weitere Frameworks, wie beispielsweise \textit{AdalFlow} oder \textit{LamaIndex} für die Optimierung in Betracht gezogen werden.\vspace{0.2cm}
 
-Aus diesem Grund sollte in diesen Fällen weitere Frameworks, wie beispielsweise \textit{AdalFlow} oder \textit{LamaIndex} für die Optimierung in Betracht gezogen werden.\vspace{0.2cm}
+% Es gibt Fehler bei der Verwendung von DSPy.
+Die Tests haben weiterhin gezeigt, dass einige Modelle nicht mit dem \texttt{DSPy} Framework zusammenarbeiten. Auch hier konnte nicht abschließend geklärt werden, ob die Fehlerquelle bei der eingesetzten Hardware zu suchen ist oder ob das Framework selbst Probleme mit den Antworten dieser Modelle hat. Bei Modellen, die dieses Verhalten zeigen, sollte geprüft werden, ob auch hier die Wahl auf ein anderes Framework fallen kann.\vspace{0.2cm}
+
+Gerade mit der Arbeit von Closed-Source-Modellen, bei der die Modelle gar nicht oder nur sehr bedingt angepasst werden können, sind die Optimierungen der Eingabeaufforderungen essenziell.\vspace{0.2cm}
 
 % 2. These: Benckmarks sind ungeeignet
-Diese Erkenntnis lassen den Schluss zu, dass die zweite These (T2) aus Kapitel \ref{sec:goals_of_the_work} bewiesen wurde. Ein einzelner Benchmark hat nicht ausreichend Aussagekraft, um eine LLMs hinreichend zu bewerten. Diese Benchmark eignen sich dafür einen ersten Eindruck von den Modellen zu erhalten. Wie auch in \cite{zhang-2024} wird die Auffassung vertreten, dass diese Probe grundlegende Codeproblematiken testen, die nicht mit den realen Bedingungen übereinstimmen. In dem Onlineartikel \cite{albrecht-2023} heißt es \glqq \textit{...liefert Code, der zwar nicht immer direkt nutzbar ist, nach einer Überarbeitung aber schon recht überzeugend läuft.}\grqq \ was darauf hindeutet, dass Programmierer andere Anforderungen an LLMs stellen, die zurzeit mit Benchmarks nicht abgedeckt werden können.\vspace{0.2cm}
+Alle Evaluierungen wurden mit den HumanEval-XL durchgeführt. Mit den gewonnenen Erkenntnissen aus dieser Arbeit lässt sich die zweite These (T2) nur bedingt bestätigen. Ein einzelner Benchmark hat nicht ausreichend Aussagekraft, um eine LLM hinreichend zu bewerten. Diese Benchmarks eignen sich um einen ersten Eindruck von den Modellen zu erhalten. Hierbei können erste Eindrücke über deren Stärken und Schwächen gesammelt werden. Wie auch in \cite{zhang-2024} wird die Auffassung vertreten, dass diese Probe grundlegende Codeproblematiken testen, die nicht mit den realen Anforderungen von Entwicklern übereinstimmen. In dem Onlineartikel \cite{albrecht-2023} heißt es \glqq \textit{...liefert Code, der zwar nicht immer direkt nutzbar ist, nach einer Überarbeitung aber schon recht überzeugend läuft.}\grqq. Diese Aussagen deuten darauf hin, dass Programmierer andere Anforderungen an LLMs stellen, die zurzeit mit Benchmarks nur in engen Grenzen abgedeckt werden können.
+Die menschliche Intelligenz ist in der Lage aus generiertem Code und eigenem Wissen, die Programmteile herauszufiltern welche zur Lösung eines Problems beitragen. Entwickler stellen meist sehr komplexe Anforderungen, um die ihnen gestellten Probleme zu lösen. Diese Komplexität wird durch die Benchmarks nicht abgedeckt.\vspace{0.2cm}
 
 % 1. These: LLMs effizientere Webanwendungsentwicklung. Wichtig ist die Evaluierung
-In den letzten Jahren hat generative KI auch die Arbeit der Entwickler stark beeinflusst. So ist in \cite{focus-online-2025} die Rede von einem Programmierer, der seine Aufgabe ab brach, \glqq \textit{weil er keinen Zugang zu seinem virtuellen Assistenten hatte. ''Ich kann einfach nicht mehr ohne die Hilfe der KI programmieren''}\grqq \ so der Entwickler. So werden KI Anwendungen bei Entwicklern immer beliebter und das gilt auch für den Bereich der Webanwendungsentwicklung. Dabei verwenden viele Entwickler KI Modellen von US Amerikanischen Unternehmen wie Athropic, Google oder OpenAI
+In den letzten Jahren hat generative KI auch die Arbeit der Entwickler stark beeinflusst. So ist in \cite{focus-online-2025} die Rede von einem Programmierer, der seine Aufgabe abbrach, Zitat: \glqq \textit{weil er keinen Zugang zu seinem virtuellen Assistenten hatte. ''Ich kann einfach nicht mehr ohne die Hilfe der KI programmieren''}\grqq \ so der Entwickler. In \cite{company_gartner_2024}, einem Artikel von Gartner, wird behauptet das bis zum Jahr 2027, 80\% der Ingenieure eine Weiterbildung für generative KI benötigen. Dies hebt ebenfalls den Trend der nächsten Jahre hervor, das generative KI die Softwareentwicklung maßgeblich beeinflussen wird.
+% Zu den Modellen.
+Die Beliebtheit von KI Anwendungen wächst bei Softwareentwicklern immer weiter und dies gilt auch für den Bereich der Webanwendungsentwicklung. Dabei nutzen viele Entwickler, KI Modellen von US amerikanischen Unternehmen wie Athropic, Google oder OpenAI die bereits sehr gut entwickelte Chatbots und APIs anbieten, welche für die Integration in Tools zur Codegenerierung eingesetzt werden können. Zurzeit hat Mistral, eine europäische KI-Entwicklungsfirma einen neuen Chatbot, mit names \textit{Le Chat} herausgebracht, der Kokurrenz zu den amerikanischen Konzernen gesehen wird. Die KI-Entwicklungsfirma \textit{Deepseek} aus China hat ein Modell entwickelt, das wie Mistral in Konkurrenz zu den amerikanischen Modellen steht. Neben diese kommerziellen Closed-Source-Modelle gibt es eine Reihe von Open-Source-Modellen, welche ebenfalls hervorragende Resultate für die Generierung von Code zeigen, wie die Ergebnisse dieser Arbeit beweisen. Um so wichtiger ist es die Stärken und Schwächen der Modelle zu kennen und welche Methoden, zur effektiven Nutzung von Eingabeaufforderungen einzusetzen sind. Mit diesen Kenntnissen wird die, in der Arbeit aufgestellte dritte These (T3) bewiesen. Ki kann und wird die Webanwendungsentwicklung maßgeblich beeinflussen. 
+
+\section{Grenzen und Einschränkungen}
+Kleine Beteiligung der Closed-Source-Modelle aufgrund der Kosten.
+
+Benchmark nur den HumanEval-XL, mit 80 Proben.
+
+Nur langchain und DPSy
 
 \section{Impulse für zukünftige Forschungen}
 Ein interessantes Feld für die Forschung ist die Nutzung generativer KI und welche Auswirkungen dies auf das menschliche Denken und Handeln hat. In der Studie \cite{chiriatti-2024} wird von einem System 0 gesprochen, welches neben den bekannten 
@@ -51,7 +75,6 @@ Blaupause für Prompting \href{https://piamedia.com/wp-content/uploads/2024/09/P
 
 \href{https://arxiv.org/html/2501.16998v1}{Große Sprachmodelle zur Codegenerierung: Die Perspektive der Praktiker}
 
-\subsection{Anwendung für Entwickler}
 Zur Optimierung des generierten Codes kann auch die freie Wahl der Softwarekomponenten durch die LLMs betragen. Wie in \cite{chen-2021} beschrieben können Nutzer, anstatt in Suchmaschinen beispielsweise die Vorteilen und Nachteile von \texttt{PyTorch} und \texttt{Tensorflow} zu vergleichen, kann das die LLM übernehmen und als Prompt wird nur \texttt{\# import machine learning package} angegeben.\vspace{0.2cm}
 
 Wie in [Quelle ist weg] beschrieben nimmt das Lesen von Programm zehn mal mehr Zeit in Anspruch, als Code zu schreiben. Diese Arbeit kann ebenfalls durch eine LLM übernommen werden.

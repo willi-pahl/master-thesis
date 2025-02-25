@@ -1,8 +1,6 @@
-In diesem soll eine Zusammenfassung der wichtigsten Ergebnisse erfolgen und die Beantwortung der Thesen erfolgen.
+In diesem Kapitel soll eine Zusammenfassung der wichtigsten Ergebnisse erfolgen und die zur Beantwortung der Thesen führen.
 
 Vergleich Stand der Forschung: fehlt noch, muss in Thesen einfließen
-
-Grenzen und Einschränkungen: begrenzte Datenbasis, Grenzen der eingesetzter Tools und Technik.
 
 Impulse für zukünftige Forschung: Vorschläge für weitere Studien. Verbesserungsmöglichkeiten der Methoden usw. und Zukunft des Forschungsfeldes und evtl. Trends.
 
@@ -40,7 +38,7 @@ Die in dieser Arbeit evaluierten und optimierten Modelle, waren hauptsächlich O
 Für die Evaluierung der Modelle ist nur der \textit{HumanEval-XL} angewandt worden. Die meisten Benchmarks prüfen LLMs mit Python oder Java Proben. Eine Evaluierung mit spezifischen Sprachen für Webanwendungsentwicklung wie PHP, bieten nur wenige Benchmarks.\vspace{0.2cm}
 
 %Nur langchain und DPSy
-Die Auswahl der getesteten Frameworks, die die Kommunikation zur LLMs und somit zum Ollama-Server herstellen, waren auf \texttt{langchain} und \texttt{DSPy} begrenzt.\vspace{0.2cm}
+Die Auswahl der getesteten Frameworks, welche die Kommunikation zu den LLMs und somit zum Ollama-Server herstellten, waren begrenzt auf \texttt{langchain} und \texttt{DSPy}.\vspace{0.2cm}
 
 \section{Impulse für zukünftige Forschungen}
 %Ein interessantes Feld für die Forschung ist die Nutzung generativer KI und welche Auswirkungen dies auf das menschliche Denken und Handeln hat. In der Studie \cite{chiriatti-2024} wird von einem System 0 gesprochen, welches neben den bekannten 
@@ -85,7 +83,7 @@ Ein weiteres mögliches Themenfeld ist die Einführung einer KI gestützten Soft
 In der kommenden Zeit wird die Entwicklung der LLM weiter voranschreiten, dies wird zu weiteren Verbesserungen bei den Ausgaben der LLMs führen. Dennoch sollte der Focus auf eine einheitliche Vorgehensweise liegen. Somit werden nicht nur gleiche Standards beim Code geschaffen, zudem wird ein einheitliches Know-How der Mitarbeiter realisiert. Dies wird langfristig dazu führen, dass die Entwicklung von Webanwendungen mithilfe generativer KI, die Arbeit der Entwickler effizienter gestaltet und sich somit auf die Kosten und Ressourcen der Unternehmen auswirkt.\vspace{0.2cm}
 
 % Nutzen/Vorteil
-Die Auswahl der Anbieter wird, durch die ständig wachsende Anzahl der immer schwieriger. Die in dieser Arbeit durchgeführten evaluierten Modelle, können Unternehmen verwenden, um einen Einstieg in das Thema zubekommen und unterstützt bei ersten Versuchen LLMs zu evaluieren und das optimale Modell zu finden. Die Mehrheit der Entwickler und Unternehmen nutzt zurzeit kommerzielle Modelle großer Anbieter, da die Nutzung der Chatbots und schnelle, unkomplizierte Verwendung der APIs mit wenig Aufwand realisierbar ist. Durch das zunehmende breite Interesse an generativer KI, werden bald Möglichkeiten geschaffen Open-Source-Modelle in der eigenen Infrastruktur einzubinden und diese zu verwenden. Hierbei ist besonders die Abrechnung nach Tokens ein interessanter Punkt, der nicht immer eindeutig nachvollziehbar ist. Der Kostenaspekt zwischen \textit{Open-Source} und \textit{Closed-Source} Modellen, wurde schon aufgegriffen, diskutiert und bringt laut \cite{irugalbandara-2023} eine große Ersparnis, was nicht nur für kleine und mittlere Unternehmen interessant ist.\vspace{0.2cm}
+Die Auswahl der Anbieter wird, durch deren ständig wachsender Anzahl immer schwieriger. Die in dieser Arbeit evaluierten Modelle, können Unternehmen verwenden, um einen Einstieg in das Thema zubekommen und unterstützt sie den bei ersten Versuchen, weitere LLMs zu evaluieren und das optimale Modell zu finden. Die Mehrheit der Entwickler und Unternehmen nutzt zurzeit kommerzielle Modelle großer Anbieter, da die Nutzung der Chatbots und schnelle, unkomplizierte Verwendung der APIs mit wenig Aufwand realisierbar ist. Durch das zunehmende breite Interesse an generativer KI, wurden Möglichkeiten geschaffen Open-Source-Modelle in der eigenen Infrastruktur einzubinden und diese zu verwenden. Dies kann, wie schon zuvor besprochen zur Senkung der Kosten beitragen. Besonders die Abrechnung der Tokens ist ein interessanter Punkt, der nicht immer eindeutig nachvollziehbar ist. Der Kostenaspekt zwischen \textit{Open-Source} und \textit{Closed-Source} Modellen, wurde schon aufgegriffen, diskutiert und bringt laut \cite{irugalbandara-2023} eine große Ersparnis, was nicht nur für kleine und mittlere Unternehmen interessant werden kann.\vspace{0.2cm}
 
 % Implementierung
 Unabhängig von der Auswahl des Modells sollten einheitliche Schnittstellen zu den Modellen bereitgestellt werden. Zum Einem können die wie in dieser Arbeit beschrieben mittels verschiedener Frameworks oder anderer Methoden angepasst werden, zum anderen können die abgesetzten Prompts dazu verwendet werden, um Modelle weiter \glqq Fine-Tuning\grqq \ zu optimieren. Eine weitere Möglichkeit besteht darin die Prompts auszuwerten und den Wissensstand der Entwickler zu prüfen und ggf. mit gezielten Schulungsmaßnahmen die Nutzer zu fördern.\vspace{0.2cm}
@@ -93,16 +91,20 @@ Unabhängig von der Auswahl des Modells sollten einheitliche Schnittstellen zu d
 Ein weiterer Vorteil dieser Methode ist, dass die Prompts mit verschiedenen Metadaten angereichert und Ansätze wie \textit{Personas}, \textit{Beispielen} und \textit{zusätzlichem Kontext} umgesetzt werden können. Vorstellbar wäre auch die Integration eines RAG, welches auf Daten der eigenen Entwickler und bereits umgesetzter Softwarelösungen zurückgreifen kann.\vspace{0.2cm}
 
 % Example
-Die Abbildung \ref{img:example_firm_integration} zeigt das zuvor beschriebene Beispiel für die Integration einer LLM in den Prozess zur Programmcodegenerierung. Die Entwickler stellen ihre Eingabeaufforderungen über ein Eingabeformular an den Agenten oder als Plugin einer IDE. Der Agent steht im ersten Schritt für ein verwendetes Framework und könnte später durch einen echten Agenten ersetzt werden. Dieser Agent leitet den optimierten Prompt an die LLM und sendet das Ergebnis an den Entwickler zurück. Die grün dargestellten Elemente sind in dieser Arbeit bereits vorgestellt und besprochen.\vspace{0.2cm}
+Die Abbildung \ref{img:example_firm_integration} zeigt das zuvor beschriebene Beispiel für die Integration einer LLM in den Prozess zur Programmcodegenerierung. Die Entwickler stellen ihre Eingabeaufforderungen an den Agenten. Das erfolgt über ein Eingabeformular oder als Plug-in einer IDE. Über das Plug-in wird der generierte Code direkt in den aktuellen Programmcode übernommen, das Formular bietet die Möglichkeit weitere Fragen an die LLM, welche nicht im Code erscheinen sollen. Dies könnten allgemeine Fragen zur Architektur oder Fragen zur Beurteilung von Tools beinhalten. So werden alle Fragen und Probleme erfasst, vor die Entwickler stehen.
+% Der Agent
+In einem ersten Schritt könnte der Agent als verwendetes Framework implementiert und später durch einen echten Agenten ersetzt werden. Der Agent leitet den optimierten Prompt an die LLM, wertet die Antwort aus und sendet das Ergebnis an den Entwickler zurück. Zusätzlich werden die Prompts aufgezeichnet und in einer Datenbank gespeichert. In der Abbildung wird die Datenbank als \texttt{Logs} bezeichnet. Die grün dargestellten Elemente sind in dieser Arbeit bereits vorgestellt und besprochen.\vspace{0.2cm}
 
 \begin{figure}[!ht]
-	\includegraphics[width=0.8\textwidth]{content/chapter_discussion/images/anwendungsbeispiel.eps}
+	\includegraphics[width=0.9\textwidth]{content/chapter_discussion/images/anwendungsbeispiel.eps}
 	\centering
 	\caption{Anwendungsbeispiel für die Integration einer LLM}
 	\label{img:example_firm_integration}
 \end{figure}
 
-Eine mögliche Erweiterung ist das Austauschen des Frameworks und der Einsatz eines Agenten. Im Weiteren kann ein \textit{Retrieval Augmented Generation} (RAG) implementiert werden, um auf vorhandene firmenintern Daten zuzugreifen. Diese Daten können bereits gestellte Prompts der Entwickler oder vorhandener Code aus fertigen Projekten sind. Mit dem \texttt{DSPy} Framework können Agenten und Retrieval Augmented Generation implementiert werden. Abschließend wird in Abbildung \ref{img:example_chat_form} ein Beispiel für ein einfaches Chat-Formular gezeigt. Weitere Formularfelder können Formular hinzugefügt werden und der LLM mitgeteilt werden.\vspace{0.2cm}
+Eine mögliche Erweiterung ist das Austauschen des Frameworks und der Einsatz eines Agenten. Im Weiteren kann ein \textit{Retrieval Augmented Generation} (RAG) implementiert werden, um auf vorhandene firmenintern Daten zuzugreifen. Diese Daten können bereits gestellte Prompts der Entwickler oder vorhandener Code aus fertigen Projekten sind. Mit dem \texttt{DSPy} Framework können Agenten und Retrieval Augmented Generation implementiert werden.\vspace{0.2cm}
+
+Abschließend wird in Abbildung \ref{img:example_chat_form} ein Beispiel für ein einfaches Chat-Formular gezeigt. Weitere Formularfelder können im Formular hinzugefügt und der LLM als zusätzliche Metadaten oder Anweisungen mitgeteilt werden.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.8\textwidth]{content/chapter_discussion/images/chatbot_form_example.eps}

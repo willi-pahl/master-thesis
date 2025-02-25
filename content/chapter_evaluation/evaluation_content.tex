@@ -36,6 +36,7 @@ Nachdem die fünf Versuche pro Probe ausgewertet wurden, sind die Ergebnisse in 
 		Mistral-small 22b           &   0,22 &      0,4 \\
 		Qwen 2.5-Coder 32b          & 0,1975 &      0,3 \\
 		Codellama:13b               &  0,005 &    0,025 \\
+		Codellama:70b               & 0,3325 &   0,6375 \\
 		\hline
 		\hline
 	\end{tabular}
@@ -68,7 +69,7 @@ Hier wurde durch \textit{Gemini} oft zuerst die Frage wiederholt, bevor die neu 
 
 Das Modell \textit{ChatCPT 4} von OpenAI wurde über die API abgefragt. Hierbei lag der Wert für den \texttt{pass@1} bei 33,5\% und der Wert für den \texttt{pass@5} bei 61,25\%. Weitere Tests wurden aufgrund der Kosten mit diesem Modell nicht weitergeführt. Somit ist die Ermittlung der Werte für die \texttt{pass@k} Methode bei einer höheren Tokenlänge nicht mehr erfolgt.\vspace{0.2cm}
 
-Eines der getesteten Open-Source-Modelle ist das \texttt{codellama} Modell. Dieses hat beim Generierung der PHP Lösungen aus dem Proben des Benchmarks am schlechtesten abgeschnitten. Der Grund hierfür war, dass die meisten generierten Codes für die Programmiersprache Python erstellt worden. Das ist der Grund warum die meisten Tests, welche durch den Benchmark vorgegeben waren, ein negatives Ergebnis auswiesen.\vspace{0.2cm}
+Eines der getesteten Open-Source-Modelle ist das \texttt{codellama} Modell mit 13 Milliarden Parametern. Dieses hat beim Generierung der PHP Lösungen aus dem Proben des Benchmarks am schlechtesten abgeschnitten. Der Grund hierfür war, dass die meisten generierten Codes für die Programmiersprache Python erstellt worden. Das ist der Grund warum die meisten Tests, welche durch den Benchmark vorgegeben waren, ein negatives Ergebnis auswiesen. Das zweite der Codellama-Familie ist das Modell mit 70 Milliarden Parametern. Dieses Modell erreichte beim \texttt{pass@1} ein Ergebnis von 33,25\% und erreicht mit ChatGPT identische Werte. Während dieses Modell bei der Evaluation des \texttt{pass@5} den gleichen Wert 63.75\%, wie das Llama3.1 erreicht und somit über dem Ergebnis von ChatGPT 4 liegt.\vspace{0.2cm}
 
 Des Weiteren wurden eine Reihe von Llama-Modellen getestet, darunter verschiedene Llama3.1 Modelle. Bei dem \textit{Llama3.1 8b} wurden zwei verschiedene Versuche durchgeführt mit jeweils unterschiedlicher Tokenlängen. Anders als bei dem Modell \textit{Gemini 1.5 (API)} können die kleineren Modelle schon mit geringerer Tokenlänge valide Antworten erzeugen. Die unterschiedliche Tockenlängen haben kaum einen Einfluss auf das Ergebnis. Hier wies das Llama 3.1 mit 1200 Token gegenüber dem Llama 3.1 mit 600 Token eine Verbesserung von 1,5\% bei der \texttt{pass@1} Methode auf. Bei der Auswertung der \texttt{pass@5} Werte, war keine Veränderung der Ergebnisse zu beobachten, hier liegt der Wert konstant bei 63,75\%.\vspace{0.2cm}
 
@@ -94,7 +95,7 @@ Zusätzlich wurden zwei weitere Modelle aus dem Open-Source-Bereich in die Evalu
 
 
 \subsection{Evaluierung der Parametergröße}
-Eine weitere Untersuchung soll zeigen, ob es einen Zusammenhang gibt, zwischen der Modellparameteranzahl und der Wahrscheinlichkeit das sich eine korrekte Antwort unter $k$ Probe befindet. Somit soll die Evaluation zeigen, inwieweit die Anzahl der Parameter die Ausgaben beeinflusst und ob die Auswahl eher auf große Modelle fallen sollte. Die Abbildung \ref{img:results_by_llm_param} zeigt die getesteten Modelle, in Abhängigkeit ihre Parametergröße und ihren Ergebnissen bei der \texttt{pass@1} Methode. Die Größeneinheit für die Parameterangaben ist in Milliarden und die Angaben der \texttt{pass@k} Methode in Prozent. In dieser Arbeit werden nur die Open-Sorce-Modelle verglichen, da keine offiziellen Daten zu den Cloused-Source-Modellen bereitgestellt werden.\vspace{0.2cm}
+Eine weitere Untersuchung soll zeigen, ob es einen Zusammenhang gibt, zwischen der Modellparameteranzahl und der Wahrscheinlichkeit das sich eine korrekte Antwort unter $k$ Probe befindet. Somit soll die Evaluation zeigen, inwieweit die Anzahl der Parameter die Ausgaben beeinflusst und ob die Auswahl eher auf große Modelle fallen sollte. Die Abbildung \ref{img:results_by_llm_param} zeigt die getesteten Modelle, in Abhängigkeit ihre Parametergröße und ihren Ergebnissen bei der \texttt{pass@1} Methode für die deutsche Sprache. Die Größeneinheit für die Parameterangaben ist in Milliarden und die Angaben der \texttt{pass@k} Methode in Prozent. In dieser Arbeit werden nur die Open-Sorce-Modelle verglichen, da keine offiziellen Daten zu den Cloused-Source-Modellen bereitgestellt werden.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=\textwidth]{content/chapter_evaluation/images/llm_evaluation_param.eps}
@@ -103,7 +104,19 @@ Eine weitere Untersuchung soll zeigen, ob es einen Zusammenhang gibt, zwischen d
 	\label{img:results_by_llm_param}
 \end{figure}
 
-Die hier getesteten Modelle sind eher kleine Modelle und lassen sich in drei Gruppen aufteilen. Die erste Gruppe sind Modelle mit weniger als \textit{10b}, in der zweiten Gruppe werden alle Modelle die großer \textit{10b} sind bis \textit{32b} und schließlich die dritte Gruppe umfasst alle Modelle die größer als \textit{32b} sind. Die kleinen \textit{Llama3.1:8b} Modelle übertreffen in den Benchmarks die Modelle \textit{Mistral Small:22b}, \textit{Qwen2.5 Coder:32b} und \textit{Codellama:13b}. Bei den Modellen zwischen 11b und 32b haben die Modelle von Deepseep \textit{Coder V2} und \textit{R1} die besten Ergebnisse. Das \textit{Deepseek-R1} übertrifft sogar die größte hier getestete Modell \textit{Llama3.3:70b}. Somit lässt sich feststellen, das die Anzahl der Parameter nicht Ausschlag gebend sind, für die Qualität der generierten Programmcodes.\vspace{0.2cm}
+Die hier getesteten Modelle sind eher kleine Modelle und lassen sich in drei Gruppen aufteilen. Die erste Gruppe sind Modelle mit weniger als \textit{10b}, in der zweiten Gruppe werden alle Modelle die großer \textit{10b} sind bis \textit{32b} und schließlich die dritte Gruppe umfasst alle Modelle die größer als \textit{32b} sind.\vspace{0.2cm}
+
+% 1. Gruppe
+Die kleineren \textit{Llama3.1:8b} Modelle übertreffen in der Evaluierung die Modelle der zweiten Gruppe \textit{Mistral Small:22b}, \textit{Qwen2.5 Coder:32b} und \textit{Codellama:13b}. Diese Modelle liegen in der Gruppe mit der kleinen Parameteranzahl deutlich über den Modellen \textit{Llama3.2} und \textit{Codellama:13b}.\vspace{0.2cm}
+
+% 2. Gruppe
+Bei den Modellen zwischen 11b und 32b haben die Modelle von Deepseep \textit{Coder V2} und \textit{R1} die besten Ergebnisse. Das \textit{Deepseek-R1} übertrifft sogar die größten hier getesteten Modelle \textit{Llama3.3:70b} und \textit{Codellama:70b}. Während die Modelle \textit{Mistral Small} und \textit{Qwen2.5-Coder} deutlich unter den Ergebnissen der Deepseek-Modelle liegen.\vspace{0.2cm}
+
+% 3. Gruppe
+Bei den Modellen mit der höchsten Anzahl an Parameter liegt das \textit{Llama3.3} vor dem \textit{Codellama:70b} Modell. Jedoch beiden getesteten Modelle reichen nicht an das \textit{Deepseek-R1} Modell heran, welches nur 32 Milliarden Parameter hat.\vspace{0.2cm}
+
+% Ergebnis
+Somit lässt sich feststellen, dass bei den hier getesteten Modellen kein Zusammenhang zwischen der Anzahl der Parameter und der Qualität des generierten Codes besteht und die Anzahl der Parameter ist nicht ausschlaggebend, um eine gute Codequalität zu gewährleisten.\vspace{0.2cm}
 
 Die Ergebnisse aus diesem Test sind in Tabelle \ref{tab:prompt_results_open_models_by_param} zusammengefasst und zeigen die genauen Werte, für die Ergebnisse des Benchmarks, welche in der Abbildung \ref{img:results_by_llm_param} dargestellt sind.
 
@@ -112,7 +125,8 @@ Die Ergebnisse aus diesem Test sind in Tabelle \ref{tab:prompt_results_open_mode
 		\hline
 		\textbf{Model} & \textbf{Parameter} & \textbf{pass@1} \\
 		\hline
-		Codellama             & 13 &  0,005 \\
+		Codellama:13b         & 13 &  0,005 \\
+		Codellama:70b         & 13 & 0,3325 \\
 		Qwen2.5 Coder         & 32 & 0,1975 \\
 		Mistral Small         & 22 &   0,22 \\
 		Llama3.2              &  3 & 0,2625 \\

@@ -30,7 +30,13 @@ Das \textbf{Qwen2.5-Coder}-Modell zeichnet sich durch seine spezialisierte Archi
 
 Die jüngste Innovation der chinesischen KI-Entwicklungsfirma DeepSeek ist das \textbf{DeepSeek-R1} Modell. Mit seiner offiziellen Vorstellung im Januar 2025 erregte es bedeutende Aufmerksamkeit sowohl im Bereich künstlicher Intelligenz als auch an den Finanzmärkten. Laut Unternehmensaussagen gleichwertig zu closed-source -Systemen wie ChatGPT-4 oder Gemini 2.0, demonstriert das R1-Modell eine erhebliche Leistungskraft. Im Rahmen dieser Untersuchung wurde speziell die Version deepseek-r1 analysiert, die über 32 Milliarden Parameter verfügt.\vspace{0.2cm}
 
-Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Milliarden Parametern zu den kleineren Modellen von MetaAI. Beide Modelle basieren auf dem LLama3.1 Modell, das Llama3.1-Claude ist aber mit anderen Systemaufforderungen erstellt wurden. Hierfür wurden die Systemaufforderungen vom Claude Sonnet 3.5 der Firma Anthropic’s verwendet, nachzulesen unter \cite{ollama_page_llama31_claude}. Ein ähnliches Modell ist auf Hugging Face veröffentlicht \cite{huggingface_page_llama31_claude}. Eine Modelcard mit weiteren Informationen zum Modell ist zu finden unter \cite{meta-llama-no-date}.\vspace{0.2cm}
+Die Modelle \textbf{Llama 3.1-Claude} und \textbf{Llama 3.1} gehören mit 8 Milliarden Parametern zu den kleineren Modellen von Meta. Beide Modelle basieren auf dem LLama3.1 Modell, das Llama3.1-Claude ist aber mit anderen Systemaufforderungen erstellt wurden. Hierfür wurden die Systemaufforderungen vom Claude Sonnet 3.5 der Firma Anthropic’s verwendet, nachzulesen unter \cite{ollama_page_llama31_claude}. Ein ähnliches Modell ist auf Hugging Face veröffentlicht \cite{huggingface_page_llama31_claude}. Eine Modelcard mit weiteren Informationen zum Modell ist zu finden unter \cite{meta-llama-no-date}.\vspace{0.2cm}
+
+Ein weiteres Modell von der KI-Entwicklungsfirma \textbf{Meta}, wurden speziell zur Codegenerierung entwickelt. Hierbei handelt es sich um das Modell \textit{Codellama}, welches mit unterschiedlicher Parameteranzahl evaluiert wird. CodeLlama basiert auf Metas Llama2 Modell wurde im Januar 2024 veröffentlicht.
+% Codellama:13b
+Zuerst wird das Modell \textit{Codellama:13b} evaluiert. Mit dieser Anzahl von Parametern gehört das Modell zu den kleineren Modellen. Dies wurde die Gewichte auf zwei Bit quantisiert, somit ist die Größe des Modells auf 7,4 GB reduziert wurden.
+% Codellama:70b
+Die zweite Modellkonfiguration ist das \textit{Codellama:70b} und wurde durch eine Quantisierung Q2\_K von 39 GB auf 25 GB verkleinert. Laut \cite{meta-2023} unterstützt das Modell unter anderem Programmiersprachen wie PHP, welche für die Erstellung für Webanwendungen relevant sind.\vspace{0.2cm}
 
 \textbf{Mistral} ist ein modernes leistungsfähiges Sprachmodell, welches nicht speziell für die Codegenerierung und -analyse entwickelt wurde. Es verwendet fortschrittliche Transformer-Architekturen und ist für eine Vielzahl von Aufgaben einsetzbar. Darunter fallen beispielsweise natürliche Sprachverarbeitung, Textzusammenfassungen, maschinelle Übersetzung und Textklassifizierung. Dieses Modell ausgewählt, um ein Modell zu evaluieren, welches nicht speziell auf Codegenerierungsaufgaben trainiert wurde. In der Arbeit \cite{eberhardinger-2024} wurde Mistral, mit verschiedenen Modelle zur Spielecodegenerierung verglichen. Während in \cite{quan-2024} eine Evaluation für natürlichsprachlicher Erklärungen, Mistral mit anderen Modellen verglichen wurde.\vspace{0.2cm}
 
@@ -53,10 +59,11 @@ Neben den genannten Quellen sind die Herstellerseite eine gute Quelle weiterfüh
 		Llama3.2          &   3b &               q4\_K\_M & 2,0 GB & DE/EN & X & Ollama \\
 		Llama3.3          &  70b &         instruct-q2\_K &  26 GB & DE/EN & X & Ollama \\
 		Codellama         &  13b &                  q4\_0 & 7,4 GB &    DE & X & Ollama \\
+		Codellama         &  70b &         instruct-q2\_K &  25 GB &    DE & X & Ollama \\
 		Mistral Small     &  22b &                  q4\_0 &  12 GB &    DE & X & Ollama \\
-		Gemini 1.5 Pro    & k.A. &                      - &   k.A. &    DE & - & online \\
-		Gemini 1.5 Flash  & k.A. &                      - &   k.A. &    DE & - & online \\
-		ChatGPT 4 Turbo   & k.A. &                      - &   k.A. &    DE & - & online \\
+		Gemini 1.5 Pro    & k.A. &                      - &   k.A. &    DE & - & Online \\
+		Gemini 1.5 Flash  & k.A. &                      - &   k.A. &    DE & - & Online \\
+		ChatGPT 4 Turbo   & k.A. &                      - &   k.A. &    DE & - & Online \\
 		\hline
 		\hline
 	\end{tabular}
@@ -87,6 +94,8 @@ In der Tabelle \ref{tab:params_for_llms} sind die Werte in übersichtlicher kurz
 		Llama3.1-Claude    &  0.2 &       600 & 0.95 \\
 		Llama3.2           &  0.2 &       600 & 0.95 \\
 		Llama3.3           &  0.2 &       600 & 0.95 \\
+		Codellama:13b      &  0.2 &       600 & 0.95 \\
+		Codellama:70b      &  0.2 &     offen & 0.95 \\
 		Mistral Small      &  0.2 &       600 & 0.95 \\
 		Gemini 1.5 Pro     &  0.2 &       600 & 0.95 \\
 		Gemini 1.5 ChatBot & k.A. &      k.A. & k.A. \\

@@ -1,5 +1,8 @@
 In diesem Kapitel werden die Rahmen- und Randbedienungen für das methodische Vorgehen der Evaluation großer Sprachmodelle für die Codegenerierung von webbasiertem Code festgehalten. Dies umfasst die Festlegung der verwendeten LLMs, die geprüfte Programmiersprachen, Framework zur Erstellung und Auswertung der Tests und Systeme für die Bereitstellung und Verarbeitung der Ergebnisse. Die Evaluierung der Modelle erfolgt in deutscher Sprache, was die Prompts und die Tests betrifft. Allein die Methodenbezeichnung ist in englischer Sprache.
 
+%---------------------------------------------------------------------------------------------------
+
+
 \section{Definition der Evaluierungsziele}
 %*   Dieser Abschnitt stellt sicher, dass die Evaluation messbar und reproduzierbar ist.
 
@@ -120,6 +123,7 @@ Alle Prompts die Proben enthalten, werden mit Python Skripten abgefragt. Dies gi
 %*   Dieser Abschnitt ist zentral für die Arbeit, da er die methodische Vorgehensweise der Evaluation beschreibt.
 In dem Kapitel soll das Design der Evaluierung besprochen werden. Es wird der verwendete Benchmark vorgestellt, anschließend wird erläutert wie die Evaluierung durchgeführt wurde. Als Punkt in diesem Kapitel wird die Art und Weise festgehalten wie zum Zweck der Überprüf- und Nachvollziehbarkeit die erhobenen Daten dokumentiert wurden.
 
+
 \subsection{HumanEval-XL Benchmark}\label{subsec:structor_of_humaneval_xl}
 Das Experiment wird mit dem HumanEval-XL Benchmark durchgeführt. Dieser Benchmark besteht aus einer Reihe von 80 Tests in verschiedenen Programmier- und Landessprachen, die wie folgt aufgebaut sind,
 
@@ -163,7 +167,6 @@ Das \textit{PHP Opening Tag}, in der Abbildung \ref{img:code_generation_humaneva
 */
 function belowZero($operations){
 \end{lstlisting}
-
 
 \begin{lstlisting}[
 	language=php,
@@ -227,6 +230,7 @@ if (!compare($x4, $v4)) {
 }
 \end{lstlisting}
 
+
 \subsection{Durchführung der Evaluierung}
 Nach der Generierung des Codes durch das Modell werden die Bereiche \textbf{3} (Ergebnis) und \textbf{4} (Test) für die Evaluierung der Probe verwendet. Hierfür werden die Bereiche zusammengeführt und ergeben einen testbaren ausführbaren Code. Die Ergebnisse werden dokumentiert und dienen für Berechnung der Wahrscheinlichkeit, das ein Modell unter $k$-Proben eine korrekte Antwort liefert.\vspace{0.2cm}
 
@@ -238,7 +242,6 @@ Der Ablauf der Evaluation ist in Abbildung \ref{img:sequence_of_evaluation} darg
 	\caption{Ablauf der Evaluierung mit dem HumanEval-XL Benchmarks}
 	\label{img:sequence_of_evaluation}
 \end{figure}
-
 
 %*   Welche Arten von Code sollen generiert werden? (z.B. einfache HTML-Formulare, komplexe JavaScript-Funktionen, serverseitiger Code in Python/Node.js, etc.)
 Um die Modelle zu evaluieren und ihre Fähigkeiten hinsichtlich der im Web vorherrschenden Programmiersprachen zu untersuchen, werden die Tests in den Programmiersprache PHP und in der deutschen Version vorgenommen. Dafür sollen die Modelle mehrfach einfache Funktionen generieren.\vspace{0.2cm}
@@ -258,9 +261,9 @@ if (!compare($x0, $v0)) {
 }
 \end{lstlisting}
 
-
 %*   Wie werden die Ergebnisse der LLMs verglichen? (z.B. Vergleich mit Referenzcode, manuelle Überprüfung, automatische Tests, etc.)
 Um die Modelle untereinander zu vergleichen, bekommen alle Modelle dieselben Prompts. Von jedem Prompt werden pro Modelle fünf Varianten erstellt. Die Ergebnisse werden in einer Liste chronologisch gespeichert. Mithilfe der pass@k Methode erfolgt die Evaluierung der Ergebnisse und anschließend die Bewertung der Modelle.
+
 
 \subsection{Dokumentation der Daten}
 Die verwendeten Dateien des Benchmarks sind im \textit{JSONL}-Format festgehalten. Ebenso werden die Ergebnisse der LLM Abfragen in diesem Format dokumentiert. Für jede Probe wurde eine separate Datei erstellt, die jeweils fünf Ergebnisse einer LLM enthält. Für den gesamten Benchmark sind pro LLM 80 \textit{JSONL}-Dateien vorhanden.\vspace{0.2cm}
@@ -279,9 +282,6 @@ Als letztes wurden die programmierten Klassen und Methoden in Python-Dateien (\t
 %Für die Evaluierung der Ergebnisse der Optimierung wird manuell und automatisiert erfolgen. Durch die automatisierte Evaluierung ist auch hier der Vorteil gegeben das die Ergebnisse der ausgewählten Modelle nach dem gleichen Verfahren beurteilt werden. Wie bei der Evaluierung der Modelle werden die Ergebnisse auch hier festgehalten und dokumentiert.\vspace{0.2cm}
 
 %In der Arbeit werden verschiedene Möglichkeiten der Optimierung untersucht, die in den folgenden Kapiteln vorgestellt und deren Durchführung erläutert werden.
-
-
-%\subsection{Prompt-Engineerings}
 Die Prompts aus dem HunamEval-XL Benchmark sind als \textit{One-Shot-Prompts} oder \textit{Few-Shot-Prompts} verfasst. So sind neben der eigentlichen Aufgabe, noch ein oder mehrere Beispiele für die Eingabeparameter der geforderten Methode und das erwartete Ergebnis angegeben. Das Listing \ref{lst:example_prompt_by_humaneval_benchmark} zeigt ein Beispiel für einen Prompt aus dem HumanEval-XL Benchmark. Im gezeigten Beispiel wird die Aufgabe und zwei Lösungsbeispiele als Prompt an die LLM gesandt. Die Beispiele enthalten die Eingabeparameter und das geforderte Ergebnis der erwarteten Methode.\vspace{0.2cm}
 
 \begin{lstlisting}[language=php,caption={Prompt Beispiel für  eine Aufgabe aus dem HumanEval-XL Benchmark},label=lst:example_prompt_by_humaneval_benchmark]
@@ -308,39 +308,30 @@ Somit lässt sich feststellen, dass die Eingabeaufforderungen weitestgehend opti
 %*   Wie werden die Prompts aufgebaut sein? (z.B. klare Anweisungen, Beispiele, Kontextinformationen, etc.)
 %Bei der Optimierung der Eingabeaufforderungen werden die LLMs bei NL2Code Generierung einen objektorientierten Ansatz zu generieren. Diese generierten Klassen lassen sich mit Test-Frameworks wir \textit{phpunit} und \textit{phpmetrics} evaluieren.\vspace{0.2cm}
 
+
 \subsection{Optimierung durch Frameworkauswahl}
 Eine andere Methode zur Optimierung der Eingabeaufforderungen ist die Verwendung verschiedener Frameworks. Hierbei werden die Eingabeaufforderungen auf verschiedenen Arten und Weisen, je nach eingesetztem Framework angepasst und beispielsweise mit zusätzlichen Meta-Angaben versehen. Es soll untersucht werden wie sich die Verwendung unterschiedlicher Frameworks auf die Ausgaben der Modelle auswirkt. In der Arbeit werden die Auswirkungen auf die Ergebnisse der Python-Frameworks \textit{langchain} und \textit{DSPy} für verschiedene Modelle verglichen. Für einen automatisierten Test wird hier der HumanEval-XL angewandt.\vspace{0.2cm}
 
 Das Framework \textit{langchain} wurde 2022 vorgestellt und ermöglicht Nutzern die Entwicklung komplexer Anwendungen für LLMs. Jedoch ist Fachwissen im Prompt-Engineering erforderlich, um optimale Eingabeaufforderungen an die Modelle zu stellen. Dieses Fachwissen ist beim \textit{DSPy}-Framework nicht mehr notwendig. Hier übernimmt das Framework die Optimierung der Eingabeaufforderungen für die Modelle und macht somit das manuelle optimieren der Prompts und deren Techniken überflüssig. \textit{DSPy} ist im Oktober von Forschern veröffentlicht worden die Standards für NLP arbeiten.\vspace{0.2cm}
 
 
-%*   Werden verschiedene Prompt-Varianten für die gleichen Code-Generierungsaufgaben verwendet, um deren Einfluss auf die Ergebnisse zu untersuchen?
 \subsection{Evaluierung der Optimierungen}
+% Werden verschiedene Prompt-Varianten für die gleichen Code-Generierungsaufgaben verwendet, um deren Einfluss auf die Ergebnisse zu untersuchen?
+% Dieser Abschnitt ist besonders wichtig, da er sich mit der Optimierung der LLMs durch Prompt-Engineering beschäftigt.
 Wie auch schon bei der Evaluierung der Modelle werden die Ergebnisse festgehalten, um diese nachvollziehen zu können. Die erhobenen Rohdaten werden in Dateien, die im \textit{JSONL}-Format vorliegen gespeichert. Für die Auswertung der Ergebnisse ist auch hier das \textit{Open Document Speadsheet (ODS)} vorgesehen.\vspace{0.2cm}
 
 Die erstellen Programme für die Erstellung der Rohdaten und der Evaluierung, sind als Python-Dateien \texttt{*.py} abgelegt, um die Nachvollziehbarkeit der Ergebnisse zu gewährleisten.
-%Für die erweiterte Messung des PHP Codes kommt das Tool \texttt{phpmetrics} zum Einsatz. \texttt{phpmetrics} liefert eine Vielzahl an Metriken,mit der der Code analysiert werden kann. Bei diesem Tool liegt der Fokus auf die Ergebnisse von \texttt{Cyclomatic Complexity}, mit der die Komplexität des Codes gemessen wird. Auf den \texttt{Maintainability Index} zur Auswertung der Wartbarkeit. Diese ermittelt wie aufwändig es zukünftig ist den Code zu erweitern und bewertet die Lesbarkeit. Ein weiterer Parameter welcher hilft die Komplexität zu bewerten, ist der \texttt{Logical Lines of Code} Parameter. Ein weiteres Indiz zur Wartbar- und Lesbarkeit ist der \texttt{Method Length} Parameter. Ein weiterer Parameter zur Bewertung der Lesbarkeit ist der Parameter \texttt{Numbers of Parmeters}. Diese gibt die Anzahl der Parameter welche in die Methode übergeben werden. Eine hohe Anzahl kann ein Indiz dafür sein, das der Code schwerer zu lesen ist. Zur Bewertung der Dokumentation wird der Parameter \texttt{Comment Density} herangezogen.
-%Mithilfe eines Python-Skripts wird der generierte Code mit \texttt{phpmetrics} evaluiert.\vspace{0.2cm}
-
-%(SonarQube, wenn die Zeit es noch erlaubt)
-
-%Mit dem SonarQube steht ein Auswertungstool zur Verfügung, welches neben qualitativen Codeanalyse noch eine Sicherheitsanalyse des Codes durchführt und die technischen Schulden ermittelt. Somit ist SonarQube eine Ergänzung zu \texttt{phpmetrics}. SonarQube wird eine lokale VM ausgeführt und mittels Integration werden die generierten Codes an den Server übermittelt.\vspace{0.2cm}
-
-%Beide Verfahren \texttt{phpmetrics} und \texttt{SonarQube} benötigen für die Analyse Dateien. Somit müssen die Ergebnisse erst als Datei gespeichert werden, bevor die Tools mit der Analyse beginnen.
-
-
-%*   Dieser Abschnitt ist besonders wichtig, da er sich mit der Optimierung der LLMs durch Prompt-Engineering beschäftigt.
 
 %---------------------------------------------------------------------------------------------------
 
 
 \section{Testumgebung}
 %*   Welche Hardware und Software werden für die Experimente verwendet? (z.B. CPU, GPU, Betriebssystem, Programmiersprachen, Bibliotheken, etc.)
-Die \textit{Open-Source}-Modelle laufen auf einem Debian 12 System, welches mit 8 Kernen (16 Threads) und 32 GB RAM ausgestattet ist. Um zusätzlichen Speicher zu erhalten, wurde eine 100 GB Swap Partition genutzt. Zur Unterstützung wurde eine RTX 3060 Grafikkarte der Firma Nvidia, 12 GB VRAM verbaut. Für die Bereitstelle ist das freie Framework Ollama zum Einsatz gekommen.\vspace{0.2cm}
+Die \textit{Open-Source}-Modelle laufen auf einem System, welches mit 8 Kernen (16 Threads) und 32 GB RAM ausgestattet ist. Um zusätzlichen Speicher zu erhalten, wurde eine 100 GB Swap Partition genutzt. Zur weiteren Optimierung wurde eine RTX 3060 Grafikkarte der Firma Nvidia, mit 12 GB VRAM verwendet. Das System ist mit dem lokalen Netzwerk verbunden und stellt den Zugriff der Modelle im Netzwerk bereit.\vspace{0.2cm}
+
+Auf dem System ist ein Debian 12 installiert und für die Bereitstellung kommt das freie Framework Ollama zum Einsatz. Zur Evaluierung wurde PHP in der Version 8.2.26 (Build-Stand: 25.11.2024) angewandt.\vspace{0.2cm}
 
 Über die Hard- und Softwarekomponenten der kommerziellen \textit{Cloused-Source}-Modelle sind keine Hardwarespezifikationen oder andere tiefer gehende Informationen vorhanden. Da die Performance für die Evaluierung keine entscheidende Rolle spielt, wird nicht weiter und tiefer gehend recherchiert. \vspace{0.2cm}
 
-Alle wichtigen Codes und Codesequenzen, sowie die Ergebnisse sind im Dokument oder im Anhang zu finden. Der gesamte Code und Ergebnisse sind dokumentiert, sodass die Möglichkeit besteht die Evaluierungen nachzuvollziehen. Alle Daten und Dateien werden unter \href{https://github.com/willi-pahl/master-thesis}{https://github.com/willi-pahl/master-thesis} bereitgestellt.\vspace{0.2cm}
-
 %*   Wie wird die Reproduzierbarkeit der Experimente sichergestellt? (z.B. Verwendung von Versionskontrolle, Dokumentation der Umgebung, etc.)
-
+Alle wichtigen Codes und Codesequenzen, sowie die Ergebnisse sind im Dokument oder im Anhang zu finden. Der gesamte Code und Ergebnisse sind dokumentiert, sodass die Möglichkeit besteht die Evaluierungen nachzuvollziehen. Alle Daten und Dateien werden unter \href{https://github.com/willi-pahl/master-thesis}{https://github.com/willi-pahl/master-thesis} bereitgestellt.\vspace{0.2cm}

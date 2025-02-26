@@ -1,14 +1,9 @@
-In diesem Kapitel soll eine Zusammenfassung der wichtigsten Ergebnisse erfolgen und die zur Beantwortung der Thesen führen.
+Dieses Kapitel stellt eine Zusammenfassung der wichtigsten Ergebnisse dieser Arbeit auf, die zur Beantwortung der Thesen führen. Es werden zusammenfassend die Grenzen und Einschränkungen geklärt, zu denen die Evaluation durchgeführt wurde. Des Weiteren werden Impulse für weitere Forschungen diskutiert. Das Kapitel endet mit einer praktischen Anwendung, bei der die Ergebnisse dieser Arbeit angewandt werden können.
 
-Vergleich Stand der Forschung: fehlt noch, muss in Thesen einfließen
-
-Impulse für zukünftige Forschung: Vorschläge für weitere Studien. Verbesserungsmöglichkeiten der Methoden usw. und Zukunft des Forschungsfeldes und evtl. Trends.
-
-Praktische Anwendung: Eine Diskussion der möglichen Anwendungen der Ergebnisse. In welchen Unternehmen und welche realen Anwendungen können die Ergebnisse eingesetzt werden.
+%Vergleich Stand der Forschung: fehlt noch, muss in Thesen einfließen
 
 \section{Bewertung der Zielsetzung und Thesen}
 % 3. These: Optimierung ohne Modellanpassung, nur Prompt Engineering
-% Hat super funktionier
 Die Erkenntnisse aus den Experimenten dieser Arbeit bestätigen die aufgestellte dritte These (T3) aus Kapitel \ref{sec:goals_of_the_work}. Eine Optimierung der Eingabeaufforderungen für die Webanwendungsentwicklung lässt sich ohne Änderung der Modellparameter erreichen und bewirken eine signifikante Verbesserung der Ergebnisse. Die Modelle wurden bereits mit Programmiersprachen, die für Webanwendungsentwicklung essenziell sind, wie beispielsweise PHP, trainiert und diese Daten, in Form von Programmcode sind in den Modellen abrufbar. Entscheidend hierbei ist die Art und Weise wie die Gestaltung der Eingabeaufforderungen umgesetzt wird. Diese Optimierung erfolgt durch das \texttt{DSPy} Framework für die meisten Modelle automatisch.\vspace{0.2cm}
 
 % Hat nicht funktioniert.
@@ -53,21 +48,12 @@ Die KI-Entwicklungsfirmen bringen immer neue Modelle auf dem Markt, die schon mi
 %Inwieweit können auch \textit{Small Language Models} für Programmieraufgaben eingesetzt werden. Könnte der enorme Energiebedarf und Ressourcen der LLMs durch SLMs ersetzt werden? Siehe \href{https://medium.com/@nageshmashette32/small-language-models-slms-305597c9edf2}{Small Language Models (SLMs)} oder \href{https://medium.com/version-1/small-but-powerful-a-deep-dive-into-small-language-models-slms-b793bdb002f2}{Small but Powerful: A Deep Dive into Small Language Models (SLMs)}. Eine weitere Forschung kann die Evaluation sein, ob Finetuned SLMs, wie Phi-2, Google Gemini Nano oder Metas Llama-2-13b bessere Ergebnisse liefern, als die LLMs.\vspace{0.2cm}
 
 % Andere Benchmakrs eigene entwickeln.
-Nutzung anderer Benchmarks
-Erstellen von erweiterten Benchmarks mit Nutzung externer Tool wie SonarQube, PHPBench, PHPUnit oder PHPMetrics. Um die Probleme mit jetzigen Benchmarks zu umgehen. Dazu zählen OOP Ansatz der Proben, dynamischer Test der generierten Methoden. Analog auf für andere relevante Programmiersprachen der Webentwicklung, wie beispielsweise JavaScript. Evtl. mit Spezialisierung auf Client, mittels Framework z.B. Vuejs oder React und Server z.B. mit Nodejs. Weitere Sprachen könnten Ruby oder Java sein.\vspace{0.2cm}
+Des Weiteren sollte Unternehmen oder Entwickler weitere Benchmarks in Betracht ziehen und die Brauchbarkeit von LLMs für die Webanwendungsentwicklung evaluieren. Interessant wäre die Prüfung, ob die Verwendung mehrerer Benchmarks zu einer besseren Bewertung der LLMs führt.\vspace{0.2cm}
+
+Da die meisten Benchmarks auf statische Analysen ausgelegt sind und die LLMs nur bedingtes oder klein deterministisches Verhalten zeigen, kann eine weitere Forschung dahin gehen, einen Benchmark zu erstellen, der auf die dynamischen Antworten der LLMs besser eingehen könnte. Speziell für die PHP-Entwicklung wäre eine Untersuchung interessant, bei der die Evaluierung mit externer Tool wie \textit{SonarQube}, \textit{PHPBench}, \textit{PHPUnit} oder \textit{PHPMetrics} durchgeführt und dadurch eine verbesserte Bewertung der LLMs  erreicht wird.  Analog kann so ein Benchmark auf für andere relevante Programmiersprachen der Webentwicklung, wie beispielsweise JavaScript, Java und Ruby ausgeweitet werden.\vspace{0.2cm}
 
 % Einführung in Firmen und Schluung der Mitarbeiter.
 Ein weiteres mögliches Themenfeld ist die Einführung einer KI gestützten Softwareentwicklung für Webanwendungen mit Firmenrichtlinien. Der Fokus sollte hierbei auf das Auswahlverfahren der Modelle liegen mit Blick auf die möglichen Benchmarks und dem Evaluierungsverfahren. Wie lassen sich Entwickler frühzeitig in die Auswahl der Modelle einbeziehen und welche Möglichkeiten bestehen für Entwickler schon während dieses Prozesses ihre Kenntnisse im Bereich von generativer KI zu erweitern oder vertiefen, sodass effektives Entwickeln von Anfang an erfolgen kann.\vspace{0.2cm}
-
-%\begin{itemize}
-%	\item Wie können Entwickler bestmöglich vorbereitet werden, um die Einführung von KI reibungslos zu ermöglichen?
-%	\item Wie kann Datensicherheit und Datenqualität sichergestellt werden?
-%	\item Evaluierung von Kosten/Nutzen für die Einführung von KI in Softwareunternehmen.
-%\end{itemize}
-
-%evaluieren.
-
-
 %\begin{tcolorbox}[
 %	enhanced,
 %	breakable,
@@ -79,21 +65,22 @@ Ein weiteres mögliches Themenfeld ist die Einführung einer KI gestützten Soft
 %\end{tcolorbox}
 
 \section{Praktische Anwendung}
+%Praktische Anwendung: Eine Diskussion der möglichen Anwendungen der Ergebnisse. In welchen Unternehmen und welche realen Anwendungen können die Ergebnisse eingesetzt werden.
 % Konkreter Fall
 In der kommenden Zeit wird die Entwicklung der LLM weiter voranschreiten, dies wird zu weiteren Verbesserungen bei den Ausgaben der LLMs führen. Dennoch sollte der Focus auf eine einheitliche Vorgehensweise liegen. Somit werden nicht nur gleiche Standards beim Code geschaffen, zudem wird ein einheitliches Know-How der Mitarbeiter realisiert. Dies wird langfristig dazu führen, dass die Entwicklung von Webanwendungen mithilfe generativer KI, die Arbeit der Entwickler effizienter gestaltet und sich somit auf die Kosten und Ressourcen der Unternehmen auswirkt.\vspace{0.2cm}
 
 % Nutzen/Vorteil
-Die Auswahl der Anbieter wird, durch deren ständig wachsender Anzahl immer schwieriger. Die in dieser Arbeit evaluierten Modelle, können Unternehmen verwenden, um einen Einstieg in das Thema zubekommen und unterstützt sie den bei ersten Versuchen, weitere LLMs zu evaluieren und das optimale Modell zu finden. Die Mehrheit der Entwickler und Unternehmen nutzt zurzeit kommerzielle Modelle großer Anbieter, da die Nutzung der Chatbots und schnelle, unkomplizierte Verwendung der APIs mit wenig Aufwand realisierbar ist. Durch das zunehmende breite Interesse an generativer KI, wurden Möglichkeiten geschaffen Open-Source-Modelle in der eigenen Infrastruktur einzubinden und diese zu verwenden. Dies kann, wie schon zuvor besprochen zur Senkung der Kosten beitragen. Besonders die Abrechnung der Tokens ist ein interessanter Punkt, der nicht immer eindeutig nachvollziehbar ist. Der Kostenaspekt zwischen \textit{Open-Source} und \textit{Closed-Source} Modellen, wurde schon aufgegriffen, diskutiert und bringt laut \cite{irugalbandara-2023} eine große Ersparnis, was nicht nur für kleine und mittlere Unternehmen interessant werden kann.\vspace{0.2cm}
+Die Auswahl der Anbieter wird, durch deren ständig wachsender Anzahl immer schwieriger. Die in dieser Arbeit evaluierten Modelle, können Unternehmen nutzen, um einen Einstieg in das Thema zubekommen und schlägt Modelle vor, welche sich für die Generierung von Programmcode in der Webanwendungsentwicklung eigenen. Des Weiteren unterstützt diese Arbeit sie den bei ersten Versuchen, weitere neue LLMs zu evaluieren und das optimale Modell für ihre Prozesse zu finden. Die Mehrheit der Entwickler und Unternehmen nutzt zurzeit kommerzielle Modelle großer Anbieter, da die Nutzung der Chatbots und schnelle, unkomplizierte Verwendung der APIs mit wenig Aufwand realisierbar ist. Durch das zunehmende breite Interesse an generativer KI, wurden Möglichkeiten geschaffen Open-Source-Modelle in der eigenen Infrastruktur einzubinden und diese zu verwenden. Dies kann, wie schon zuvor besprochen zur Senkung der Kosten beitragen. Besonders die Abrechnung der Tokens ist ein interessanter Punkt, der nicht immer eindeutig nachvollziehbar ist. Der Kostenaspekt zwischen \textit{Open-Source} und \textit{Closed-Source} Modellen, wurde schon aufgegriffen, diskutiert und bringt laut \cite{irugalbandara-2023} eine große Ersparnis, was nicht nur für kleine und mittlere Unternehmen interessant werden kann. Wie in dieser Arbeit gezeigt, liefern die Open-Source-Modelle hervorragende Ergebnisse für die Aufgaben in der Webanwendungsentwicklung, oft bessere als die kommerziellen Closed-Source-Modelle.\vspace{0.2cm}
 
 % Implementierung
-Unabhängig von der Auswahl des Modells sollten einheitliche Schnittstellen zu den Modellen bereitgestellt werden. Zum Einem können die wie in dieser Arbeit beschrieben mittels verschiedener Frameworks oder anderer Methoden angepasst werden, zum anderen können die abgesetzten Prompts dazu verwendet werden, um Modelle weiter \glqq Fine-Tuning\grqq \ zu optimieren. Eine weitere Möglichkeit besteht darin die Prompts auszuwerten und den Wissensstand der Entwickler zu prüfen und ggf. mit gezielten Schulungsmaßnahmen die Nutzer zu fördern.\vspace{0.2cm}
+Unabhängig von der Auswahl des Modells sollten Unternehmen für die Entwickler einheitliche Schnittstellen zu den Modellen bereitstellen. Zum Einem können die Eingabeaufforderungen, wie in dieser Arbeit beschrieben, mittels verschiedener Frameworks oder anderer Methoden angepasst werden. Zum anderen können die abgesetzten Prompts verwendet finden, um Modelle weiter, durch \glqq Fine-Tuning\grqq \ zu optimieren. Eine weitere Möglichkeit besteht darin die Prompts auszuwerten und den Wissensstand der Entwickler zu prüfen und ggf. mit gezielten Schulungsmaßnahmen das Entwicklungsteam zu fördern.\vspace{0.2cm}
 
 Ein weiterer Vorteil dieser Methode ist, dass die Prompts mit verschiedenen Metadaten angereichert und Ansätze wie \textit{Personas}, \textit{Beispielen} und \textit{zusätzlichem Kontext} umgesetzt werden können. Vorstellbar wäre auch die Integration eines RAG, welches auf Daten der eigenen Entwickler und bereits umgesetzter Softwarelösungen zurückgreifen kann.\vspace{0.2cm}
 
 % Example
 Die Abbildung \ref{img:example_firm_integration} zeigt das zuvor beschriebene Beispiel für die Integration einer LLM in den Prozess zur Programmcodegenerierung. Die Entwickler stellen ihre Eingabeaufforderungen an den Agenten. Das erfolgt über ein Eingabeformular oder als Plug-in einer IDE. Über das Plug-in wird der generierte Code direkt in den aktuellen Programmcode übernommen, das Formular bietet die Möglichkeit weitere Fragen an die LLM, welche nicht im Code erscheinen sollen. Dies könnten allgemeine Fragen zur Architektur oder Fragen zur Beurteilung von Tools beinhalten. So werden alle Fragen und Probleme erfasst, vor die Entwickler stehen.
 % Der Agent
-In einem ersten Schritt könnte der Agent als verwendetes Framework implementiert und später durch einen echten Agenten ersetzt werden. Der Agent leitet den optimierten Prompt an die LLM, wertet die Antwort aus und sendet das Ergebnis an den Entwickler zurück. Zusätzlich werden die Prompts aufgezeichnet und in einer Datenbank gespeichert. In der Abbildung wird die Datenbank als \texttt{Logs} bezeichnet. Die grün dargestellten Elemente sind in dieser Arbeit bereits vorgestellt und besprochen.\vspace{0.2cm}
+In einem ersten Schritt könnte der Agent als verwendetes Framework implementiert und später durch einen echten Agenten ersetzt werden. Der Agent leitet den optimierten Prompt an die LLM, wertet die Antwort aus und sendet das Ergebnis an den Entwickler zurück. Zusätzlich werden die Prompts aufgezeichnet und in einer Datenbank gespeichert. In der Abbildung wird die Datenbank als \texttt{Logs} bezeichnet. Für die grün dargestellten Elemente, in der Abbildung \ref{img:example_firm_integration} sind in dieser Arbeit bereits Ansätze und Lösungsvorschläge vorgestellt und besprochen wurden.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.9\textwidth]{content/chapter_discussion/images/anwendungsbeispiel.eps}
@@ -102,7 +89,7 @@ In einem ersten Schritt könnte der Agent als verwendetes Framework implementier
 	\label{img:example_firm_integration}
 \end{figure}
 
-Eine mögliche Erweiterung ist das Austauschen des Frameworks und der Einsatz eines Agenten. Im Weiteren kann ein \textit{Retrieval Augmented Generation} (RAG) implementiert werden, um auf vorhandene firmenintern Daten zuzugreifen. Diese Daten können bereits gestellte Prompts der Entwickler oder vorhandener Code aus fertigen Projekten sind. Mit dem \texttt{DSPy} Framework können Agenten und Retrieval Augmented Generation implementiert werden.\vspace{0.2cm}
+Eine mögliche Erweiterung ist das Austauschen des Frameworks und der Einsatz eines Agenten. Im Weiteren kann ein \textit{Retrieval Augmented Generation} (RAG) implementiert werden, um auf vorhandene firmenintern Daten zuzugreifen. Diese Daten können bereits gestellte Prompts der Entwickler oder vorhandener Code aus fertigen Projekten sein. Mit dem, in dieser Arbeit vorgestellten \texttt{DSPy} Framework können Agenten und Retrieval Augmented Generation implementiert werden.\vspace{0.2cm}
 
 Abschließend wird in Abbildung \ref{img:example_chat_form} ein Beispiel für ein einfaches Chat-Formular gezeigt. Weitere Formularfelder können im Formular hinzugefügt und der LLM als zusätzliche Metadaten oder Anweisungen mitgeteilt werden.\vspace{0.2cm}
 

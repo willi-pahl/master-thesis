@@ -1,11 +1,13 @@
 """
-Work with Hugging Face models.
+The script downloads and temporarily saves a model of Hugging Face and provides the prompt.
 """
+
+__VERSION__ = "0.0.1"
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
-def call_model_by_huggingface(root_name: str, vendor_name: str, prompt: str) -> list:
+def run_local_model_after_download(root_name: str, vendor_name: str, prompt: str) -> list:
     """
     Load model from Hugging Face and call the model with prompt.
 
@@ -42,14 +44,15 @@ def call_model_by_huggingface(root_name: str, vendor_name: str, prompt: str) -> 
 
     return tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
 
-
-call_model_by_huggingface(
+# Example: https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0
+run_local_model_after_download(
     root_name="TinyLlama",
     vendor_name="TinyLlama-1.1B-Chat-v1.0",
     prompt="Write a quick sort algorithm.",
 )
 
-call_model_by_huggingface(
+# Example: https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct
+run_local_model_after_download(
     root_name="Qwen",
     vendor_name="Qwen2.5-Coder-32B-Instruct",
     prompt="Write a quick sort algorithm.",

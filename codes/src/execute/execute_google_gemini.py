@@ -1,15 +1,17 @@
+"""
+Create answers by Google Gemini.
+"""
+
 __VERSION__ = "0.0.1"
 
 from google import genai
 from google.genai import types
 
-from src.execute.execute import (
-    read_problem,
-    write_log,
-    MODEL_SETTING_MAX_TOKEN,
-    MODEL_SETTING_TOP_P,
-    MODEL_SETTING_TEMP,
-)
+
+MODEL_SETTING_MAX_TOKEN: int = 600
+MODEL_SETTING_TOP_P: float = 0.95
+MODEL_SETTING_TEMP: float = 0.2
+
 
 GOOGLE_PROJECT: str = "XX-XXXxx"
 GOOGLE_LOCATION: str = "us-central1"
@@ -18,6 +20,7 @@ ALLOWED_LLMS: list[dict] = [
     {"model": "gemini-1.5-pro-002", "answer_folder": "gemini15"},
     {"model": "gemini-2.0-flash-exp", "answer_folder": "gemini2"},
 ]
+
 
 def run_model(problem: str, client: genai.Client, model_name: str) -> str:
     """
@@ -45,53 +48,38 @@ def run_model(problem: str, client: genai.Client, model_name: str) -> str:
 
     return text.rstrip()
 
+
 def connect_client() -> genai.Client:
     """
     Get Gemini client.
 
     :return genai.Client: Gemini client.
     """
-    return genai.Client(vertexai=True, project=GOOGLE_PROJECT,
-                        location=GOOGLE_LOCATION)
+    return genai.Client(vertexai=True, project=GOOGLE_PROJECT, location=GOOGLE_LOCATION)
+
 
 def execute_prompt(
-    task_id: int,
+    prompt: str,
     model_name: str,
-    language: str,
-    problem_filename: str,
-    answer_sub_folder: str,
-    prompt_repetitions: int = 10,
-) -> bool:
+    prompt_repetitions: int = 5,
+) -> list[str]:
     """
     Execute model with problem.
 
-    :param task_id (int): Problem task id.
+    :param prompt (str): Prompts with sample.
     :param model_name (str): Model name.
-    :param language (str): Programming language.
-    :param problem_filename (str): File name with problem content.
-    :param answer_sub_folder (str): Sub folder for save answer.
-    :param prompt_repetitions (int, optional): Count of repetitions. Defaults to 10.
-    :return bool: _description_
+    :param prompt_repetitions (int, optional): Count of repetitions. Defaults to 5.
+    :return bool: Answers by model.
     """
-    problem: dict = read_problem(
-        task_id=task_id, language=language, problem_filename=problem_filename
-    )
-    prompt: str = problem.get("prompt", None)
-
     if prompt is None:
         return False
 
     current_count: int = 0
     max_count: int = prompt_repetitions
     client = connect_client()
+    answers: list[str] = []
     while current_count < max_count:
-        answer: str = ""
-        answer = run_model(problem=prompt, client=client, model_name=model_name)
-        write_log(
-            answer=answer,
-            key=f"result_{current_count}",
-            task_id=f"{language}/{task_id}",
-            sub_folder=answer_sub_folder,
-        )
+        answers.append(run_model(problem=prompt, client=client, model_name=model_name))
         current_count += 1
-    return True
+
+    return answers

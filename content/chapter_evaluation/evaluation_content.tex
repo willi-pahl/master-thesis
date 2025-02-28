@@ -1,33 +1,31 @@
-In diesem Kapitel werden die Ergebnisse der Benchmark Proben ausgewertet und die Ergebnisse aus der \texttt{pass@1} und \texttt{pass@5} Methode diskutiert. Weiterhin werden die Resultate in Bezug auf Auswahl der Landessprache und der Parameteranzahl der Modelle erläutert. Abschließend wird darauf eingegangen, wie sich die Auswahl eines Frameworks für die Interaktion mit den Modellen auf die Ergebnisse auswirken.\vspace{0.2cm}
+In diesem Kapitel werden die Ergebnisse der Benchmark Proben ausgewertet und die Ergebnisse aus der \texttt{pass@1} und \texttt{pass@5} Methode diskutiert. Weiterhin werden die Resultate in Bezug auf die Auswahl der Landessprache und die Wahl der Parameteranzahl bei den Modellen erläutert. Abschließend wird darauf eingegangen, wie sich die Auswahl eines Frameworks für die Interaktion mit den Modellen auf die Ergebnisse auswirken.\vspace{0.2cm}
 
 %\sout{Diese Tests fordern LLM's auf kleine Problem zu lösen. Aus diesem Grund werden weitere Tests erstellt mit umfangreicheren Anforderungen aus dem Bereich der Webentwicklung. Zu jedem Problem wird eine Musterlösung und ein Unittest erstellt. Der Aufbau für diese Bereitstellung orientiert sich an dem Format aus dem HunamEval-Benchmark.}\vspace{0.2cm}
-
 %Ein Versuch größere und komplexere Probleme zu lösen, hatte nicht den erwarteten Erfolg gebracht. Es sind viele Iterationen notwendig, um ein funktionierendes Ergebnis zu erhalten. Im Laufe der Iterationen sind die Prompts für die Modelle immer größer geworden und haben viele Missverständnisse bei den Modellen erzeugt. So das eine Zerlegung in kleine Probleme sich als sinnvoller erwies.\vspace{0.2cm}
-
 %Des Weiteren ist die Bewertung der Coding-Standards der jeweiligen Programmiersprache vorgesehen. Für die Prüfung der Standards wird ein SonarQube-Server verwendet, der sowohl PHP als JavaScript unterstützt. Ebenfalls wird die Qualität des Codes evaluiert. Das Augenmerk liegt auf die Lesbarkeit, Effizienz und Wartbarkeit des generierten Codes.\vspace{0.2cm}
-
 %Optional werden einige Tests von zusätzlichen Tools validiert, beispielsweise bei der Validierung von PHP Files sind es Tools wie phpunit\footnote{phpunit steht unter \href{https://github.com/sebastianbergmann/phpunit}{https://github.com/sebastianbergmann/phpunit} zum Download bereit.} und Code\_Sniffer\footnote{Code\_Sniffer steht unter \href{https://github.com/squizlabs/PHP_CodeSniffer}{https://github.com/squizlabs/PHP\_CodeSniffer} zum Download zur Verfügung.} für die Validierung von JavaScript findet das Framework Jasmin\footnote{\href{https://jasmine.github.io/}{https://jasmine.github.io}.} Anwendung.\vspace{0.2cm}
+%---------------------------------------------------------------------------------------------------
 
 
 \section{Modellbewertung}
-Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} und \cite{peng-2024} beschrieben ist. Die Tests werden exemplarisch, mit der für die Webentwicklung relevanten Sprache PHP durchgeführt. \vspace{0.2cm}
+Für die Bewertung wird das Vorgehen gewählt, welches in \cite{chen-2021} und \cite{peng-2024} beschrieben wird. Die Tests werden exemplarisch, mit der für die Webentwicklung relevanten Sprache PHP durchgeführt und in deutscher Landessprache.\vspace{0.2cm}
 
-Aus den Ergebnissen der Tests, wird mithilfe der $pass@k$-Metrik, die Zuverlässigkeit der jeweiligen Modelle berechnet. Dieser Wert gibt an, mit welcher Wahrscheinlichkeit mindestens eine richtige Lösung unter $k$ ausgewählten Vorschlägen vorhanden ist.\vspace{0.2cm}
+Aus den Ergebnissen der Tests, wird mithilfe der $pass@k$-Methode, die Zuverlässigkeit der jeweiligen Modelle berechnet. Dieser Wert gibt an, mit welcher Wahrscheinlichkeit mindestens eine richtige Lösung unter $k$ ausgewählten Vorschlägen vorhanden ist.\vspace{0.2cm}
 
-Der Parameter $n$ definiert die Gesamtanzahl der Versuche, in dieser Arbeit wurde die Anzahl auf fünf Versuche pro Probe beschränkt. Dadurch wird ein $k$-Wert fünf berechenbar. Die Anzahl der korrekten Lösungen wird mit dem Parameter $c$ angegeben. Dieser richtet sich nach den bestandenen fünf Versuchen pro Probe. Der letzte erforderliche Parameter ist $k$, dieser gibt an wie viel TOP Lösungen untersucht werden, um die Wahrscheinlichkeit einer korrekten Antwort zu ermitteln. Für die Berechnung der $pass@k$ Methode wird die Formel \ref{equ:pass_qt_k_complex} verwendet, welche in \cite{chen-2021} vorgeschlagen wird.\vspace{0.2cm}
-
-Nachdem die fünf Versuche pro Probe ausgewertet wurden, sind die Ergebnisse in Tabelle \ref{tab:prompt_results_open_models} aufgeführt. Hier wird auf den Werten für $k=1$ und $k=5$ eingegangen. In der Tabelle sind alle getesteten Modelle ohne eine Einschränkung vorzunehmen.\vspace{0.2cm}
+Nachdem die fünf Versuche pro Probe ausgewertet wurden, sind die Ergebnisse in Tabelle \ref{tab:prompt_results_open_models} aufgeführt. Hier wird auf den Werten für $k=1$ und $k=5$ eingegangen. In der Tabelle sind alle getesteten Modelle nach Namen sortiert und es wird dadurch noch keine Wertung abgegeben.\vspace{0.2cm}
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|r|r|}
 		\hline
 		\textbf{Model} & \textbf{pass@1} & \textbf{pass@5} \\
 		\hline
+		ChatGPT 4 API (T600)        &  0,335 &   0,6125 \\
+		Codellama:13b               &  0,005 &    0,025 \\
+		Codellama:70b               & 0,3325 &   0,6375 \\
 		DeepSeek-Coder-V2           &  0,555 &     0,65 \\
 		DeepSeek-R1                 & 0,7025 &   0,8375 \\
 		Gemini Flash 1.5 Chatbot    & 0,2925 &     0,55 \\
 		Gemini Flash 1.5 API (T600) &   0,06 &    0,075 \\
-		ChatGPT 4 API (T600)        &  0,335 &   0,6125 \\
 		Llama3.1:8b (T600)          &   0,43 &   0,6375 \\
 		Llama3.1:8b (T1200)         &  0,445 &   0,6375 \\
 		Llama3.1-claude:8b          & 0,4625 &     0,65 \\
@@ -35,8 +33,6 @@ Nachdem die fünf Versuche pro Probe ausgewertet wurden, sind die Ergebnisse in 
 		Llama3.3:70b                & 0,6275 &    0,725 \\
 		Mistral-small 22b           &   0,22 &      0,4 \\
 		Qwen 2.5-Coder 32b          & 0,1975 &      0,3 \\
-		Codellama:13b               &  0,005 &    0,025 \\
-		Codellama:70b               & 0,3325 &   0,6375 \\
 		\hline
 		\hline
 	\end{tabular}
@@ -45,27 +41,34 @@ Nachdem die fünf Versuche pro Probe ausgewertet wurden, sind die Ergebnisse in 
 	\caption{Ergebnisse der pass@1 und pass@5 Methode}
 \end{table}
 
-Die ersten Tests zur Generierung von Code wurden mit den Cloused-Source-Modellen \textit{ChatGPT 4} und \textit{Gemini 1.5} durchgeführt. Hierbei wurden die Tests mit 600 Token bei beiden Modellen durchgeführt. Insbesondere \textit{Gemini 1.5} hat mit dieser Tokenlänge Probleme, die Antworten worden mitten in der Beantwortung der Frage abgebrochen. Somit waren die generierten Codefragmente nicht nutzbar. Es wurde kein lauffähiger Code generiert. Das Listing \ref{lst:humaneval_xl_prompt_22} zeigt einen unvollständig generiertes Codefragment für die Probe \textit{PHP/22}.
+Die ersten Tests zur Generierung von Code wurden mit den Cloused-Source-Modellen \textit{ChatGPT 4} und \textit{Gemini 1.5} durchgeführt. Hierbei wurden die Tests mit 600 Token bei beiden Modellen durchgeführt. Insbesondere \textit{Gemini 1.5} hat mit dieser Tokenlänge Probleme. Die kurze Tokenlänge führte dazu, das die Antworten mitten in der Beantwortung der Frage unterbrochen worden. Somit waren die generierten Codefragmente nicht nutzbar. Es wurde kein lauffähiger Code generiert. Das Listing \ref{lst:humaneval_xl_prompt_23} zeigt einen unvollständig generiertes Codefragment für die Probe \textit{PHP/23}. Die Zeile sechzehn ist die letzte Zeile, welche vom Modell zurückgesandt wurde und ist zudem unvollständig.\vspace{0.2cm}
 
+\begin{figure}[!ht]
 \begin{lstlisting}[
 	language=php,
-	label=lst:humaneval_xl_prompt_22,
-	caption={Wortlaut der Aufgabe 2" im HumalEval-XL Benchmark}
+	label=lst:humaneval_xl_prompt_23,
+	caption={Wortlaut der Aufgabe 23 aus dem HumalEval-XL Benchmark}
 ]
 /**
  * Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
- * Gib sortierte eindeutige gemeinsame Elemente für zwei Listen zurück.
- * >>> common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121])
- * [1, 5, 653]
- * >>> common([5, 3, 2, 8], [3, 2])
- * [2, 3]
-
+ * Gib den größten Primfaktor von n zurück. Gehe davon aus, dass n > 1 und keine Primzahl ist.
+ * >>> largest_prime_factor(13195)
+ * 29
+ * >>> largest_prime_factor(2048)
+ * 2
  *
  */
-function common($l1, $l2){
-\end{lstlisting}
+function largestPrimeFactor($n){
+    $largestFactor = 1;
 
-Hier wurde durch \textit{Gemini} oft zuerst die Frage wiederholt, bevor die neu generierten Teile kommen und somit die definierte Anzahl der Token nicht ausreicht, was zu einem Nachteil für dieses Modell wurde. Die gleichen Fragen wurden anschließend an den freien ChatBot \textit{Gemini 1.5} gestellt, was zu einem besseren Ergebnis führte. Während die Gemini API mit 600 Token für den \texttt{pass@1} einen Wert von 6\% erreichte waren es bei den Abfragen des Gemini ChatBots 29,3\%.\vspace{0.2cm}
+    // Teile n wiederholt durch 2, bis es ungerade ist
+    while ($n % 2 == 0) {
+        $largestFactor = 2;
+        $n
+\end{lstlisting}
+\end{figure}
+
+Hier wurde durch \textit{Gemini} oft zuerst die Frage wiederholt, bevor die neu generierten Teile kommen und somit die definierte Anzahl der Token nicht ausreicht, was zu einem Nachteil für dieses Modell wurde. Die gleichen Fragen wurden anschließend an den ChatBot \textit{Gemini 1.5} gestellt, was zu einem besseren Ergebnis führte. Während die Gemini API mit 600 Token für den \texttt{pass@1} einen Wert von 6\% erreichte waren es bei den Abfragen des Gemini ChatBots 29,3\%.\vspace{0.2cm}
 
 Das Modell \textit{ChatCPT 4} von OpenAI wurde über die API abgefragt. Hierbei lag der Wert für den \texttt{pass@1} bei 33,5\% und der Wert für den \texttt{pass@5} bei 61,25\%. Weitere Tests wurden aufgrund der Kosten mit diesem Modell nicht weitergeführt. Somit ist die Ermittlung der Werte für die \texttt{pass@k} Methode bei einer höheren Tokenlänge nicht mehr erfolgt.\vspace{0.2cm}
 
@@ -73,7 +76,7 @@ Eines der getesteten Open-Source-Modelle ist das \texttt{codellama} Modell mit 1
 
 Des Weiteren wurden eine Reihe von Llama-Modellen getestet, darunter verschiedene Llama3.1 Modelle. Bei dem \textit{Llama3.1 8b} wurden zwei verschiedene Versuche durchgeführt mit jeweils unterschiedlicher Tokenlängen. Anders als bei dem Modell \textit{Gemini 1.5 (API)} können die kleineren Modelle schon mit geringerer Tokenlänge valide Antworten erzeugen. Die unterschiedliche Tockenlängen haben kaum einen Einfluss auf das Ergebnis. Hier wies das Llama 3.1 mit 1200 Token gegenüber dem Llama 3.1 mit 600 Token eine Verbesserung von 1,5\% bei der \texttt{pass@1} Methode auf. Bei der Auswertung der \texttt{pass@5} Werte, war keine Veränderung der Ergebnisse zu beobachten, hier liegt der Wert konstant bei 63,75\%.\vspace{0.2cm}
 
-Um einen Ansatz zur Optimierung der Prompts zu testen, wurde das Modell \textit{Llama3.1-Claude 8b-q4} ebenfalls evaluiert. Bei diesem Modell handelt es sich um ein \textit{Llama 3.1:8b} Model, welches mit den Systemprompts des Modells \textit{Claude Sonnet 3.5} von der Firma Anthroppic erstellt wurde. Bei der Lösungsgenerierung wurden die Antworten beide Modelle mit 600 Token limitiert. Hier konnte eine Verbesserung gegenüber dem Basismodell um 3,25\% für den \textit{pass@1} und um 1,25\% für den \textit{pass@5} festgestellt werden. Die Ergebnisse sind in Tabelle \ref{tab:prompt_results_open_models} und in der Abbildung \ref{img:pass_at_k_results_by_llm} zu sehen.\vspace{0.2cm}
+Um einen Ansatz zur Optimierung der Prompts zu testen, wurde das Modell \textit{Llama3.1-Claude 8b-q4} ebenfalls evaluiert. Bei diesem Modell handelt es sich um ein \textit{Llama 3.1:8b} Model, welches mit den System Prompts des Modells \textit{Claude Sonnet 3.5} von der Firma Anthroppic erstellt wurde. Bei der Lösungsgenerierung wurden die Antworten beide Modelle mit 600 Token limitiert. Hier konnte eine Verbesserung gegenüber dem Basismodell um 3,25\% für den \textit{pass@1} und um 1,25\% für den \textit{pass@5} festgestellt werden. Die Ergebnisse sind in Tabelle \ref{tab:prompt_results_open_models} und in der Abbildung \ref{img:pass_at_k_results_by_llm} zu sehen.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=\textwidth]{content/chapter_evaluation/images/llm_evaluation.eps}
@@ -95,7 +98,7 @@ Zusätzlich wurden zwei weitere Modelle aus dem Open-Source-Bereich in die Evalu
 
 
 \subsection{Evaluierung der Parametergröße}
-Eine weitere Untersuchung soll zeigen, ob es einen Zusammenhang gibt, zwischen der Modellparameteranzahl und der Wahrscheinlichkeit das sich eine korrekte Antwort unter $k$ Probe befindet. Somit soll die Evaluation zeigen, inwieweit die Anzahl der Parameter die Ausgaben beeinflusst und ob die Auswahl eher auf große Modelle fallen sollte. Die Abbildung \ref{img:results_by_llm_param} zeigt die getesteten Modelle, in Abhängigkeit ihre Parametergröße und ihren Ergebnissen bei der \texttt{pass@1} Methode für die deutsche Sprache. Die Größeneinheit für die Parameterangaben ist in Milliarden und die Angaben der \texttt{pass@k} Methode in Prozent. In dieser Arbeit werden nur die Open-Sorce-Modelle verglichen, da keine offiziellen Daten zu den Cloused-Source-Modellen bereitgestellt werden.\vspace{0.2cm}
+Eine weitere Untersuchung soll zeigen, ob es einen Zusammenhang gibt, zwischen der Modellparameteranzahl und der \textit{Wahrscheinlichkeit das sich eine korrekte Antwort unter $k$ Probe befindet}. Somit soll die Evaluation aufzeigen, inwieweit die Anzahl der Parameter die Ausgaben beeinflusst und ob die Auswahl eher auf große Modelle fallen sollte. Die Abbildung \ref{img:results_by_llm_param} zeigt die getesteten Modelle, in Abhängigkeit ihre Parametergröße und ihren Ergebnissen bei der \texttt{pass@1} Methode für die deutsche Sprache. Die Größeneinheit für die Parameterangaben ist in Milliarden und die Angaben der \texttt{pass@k} Methode in Prozent. In dieser Arbeit werden nur die Open-Sorce-Modelle verglichen, da keine offiziellen Daten zu den Parametern der Cloused-Source-Modelle bereitgestellt werden.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=\textwidth]{content/chapter_evaluation/images/llm_evaluation_param.eps}
@@ -104,10 +107,10 @@ Eine weitere Untersuchung soll zeigen, ob es einen Zusammenhang gibt, zwischen d
 	\label{img:results_by_llm_param}
 \end{figure}
 
-Die hier getesteten Modelle sind eher kleine Modelle und lassen sich in drei Gruppen aufteilen. Die erste Gruppe sind Modelle mit weniger als \textit{10b}, in der zweiten Gruppe werden alle Modelle die großer \textit{10b} sind bis \textit{32b} und schließlich die dritte Gruppe umfasst alle Modelle die größer als \textit{32b} sind.\vspace{0.2cm}
+Die hier getesteten Modelle sind eher kleine Modelle und lassen sich in drei Gruppen aufteilen. Die erste Gruppe sind Modelle mit weniger oder genau \textit{10b} Parametern, in der zweiten Gruppe werden alle Modelle die großer \textit{10b} sind und bis \textit{32b} reichen und schließlich die dritte Gruppe umfasst alle Modelle die größer als \textit{32b} sind.\vspace{0.2cm}
 
 % 1. Gruppe
-Die kleineren \textit{Llama3.1:8b} Modelle übertreffen in der Evaluierung die Modelle der zweiten Gruppe \textit{Mistral Small:22b}, \textit{Qwen2.5 Coder:32b} und \textit{Codellama:13b}. Diese Modelle liegen in der Gruppe mit der kleinen Parameteranzahl deutlich über den Modellen \textit{Llama3.2} und \textit{Codellama:13b}.\vspace{0.2cm}
+Die kleineren \textit{Llama3.1:8b} Modelle übertreffen in der Evaluierung die Modelle der zweiten Gruppe \textit{Mistral Small:22b}, \textit{Qwen2.5 Coder:32b} und \textit{Codellama:13b}. Die \textit{Llama3.1:8b} Modelle liegen in ihrer Gruppe deutlich über dem \textit{Llama3.2:3b} Modell.\vspace{0.2cm}
 
 % 2. Gruppe
 Bei den Modellen zwischen 11b und 32b haben die Modelle von Deepseep \textit{Coder V2} und \textit{R1} die besten Ergebnisse. Das \textit{Deepseek-R1} übertrifft sogar die größten hier getesteten Modelle \textit{Llama3.3:70b} und \textit{Codellama:70b}. Während die Modelle \textit{Mistral Small} und \textit{Qwen2.5-Coder} deutlich unter den Ergebnissen der Deepseek-Modelle liegen.\vspace{0.2cm}
@@ -116,9 +119,9 @@ Bei den Modellen zwischen 11b und 32b haben die Modelle von Deepseep \textit{Cod
 Bei den Modellen mit 70 Milliarden Parameter liegt das \textit{Llama3.3} vor dem \textit{Codellama} Modell. Jedoch liegen beiden getesteten Modelle unter den Ergebnissen des \textit{Deepseek-R1} Modell, welches nur 32 Milliarden Parameter aufweist. Das \textit{Deepseek Coder V2} Modell mit 13 Milliarden Parametern und die \textit{LLama3.1} Modelle mit 8 Milliarden Parametern, erzielten ebenfalls besser Ergebnisse als das \textit{Codellama} Modell.\vspace{0.2cm}
 
 % Ergebnis
-Somit lässt sich feststellen, dass bei den hier getesteten Modellen kein Zusammenhang zwischen der Anzahl der Parameter und der Qualität des generierten Codes besteht und die Anzahl der Parameter ist nicht ausschlaggebend, um eine gute Codequalität zu gewährleisten.\vspace{0.2cm}
+Somit lässt sich feststellen, dass bei den hier getesteten Modellen kein Zusammenhang zwischen der Anzahl der Parameter und der Qualität des generierten Codes besteht und die Anzahl der Parameter nicht ausschlaggebend ist, um eine gute Codequalität zu gewährleisten.\vspace{0.2cm}
 
-Die Ergebnisse aus diesem Test sind in Tabelle \ref{tab:prompt_results_open_models_by_param} zusammengefasst und zeigen die genauen Werte, für die Ergebnisse des Benchmarks, welche in der Abbildung \ref{img:results_by_llm_param} dargestellt sind.
+Die Ergebnisse aus diesem Test sind in Tabelle \ref{tab:prompt_results_open_models_by_param} zusammengefasst und zeigen die genauen Werte, für die Ergebnisse des Benchmarks, welche in der Abbildung \ref{img:results_by_llm_param} grafisch dargestellt sind.
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|r|r|}
@@ -144,6 +147,8 @@ Die Ergebnisse aus diesem Test sind in Tabelle \ref{tab:prompt_results_open_mode
 	\caption{Ergebnisse der pass@1 Methode mit Angabe der Parameter}
 \end{table}
 
+\section{HiER WEITER}
+Weiter hier.
 
 \subsection{Evaluierung nach Sprache}
 Eine Überprüfung der Modelle, inwieweit die englische Sprache besser Ergebnisse liefern würde, wurde exemplarisch mit den \textit{Llama}-Modelle \textit{3.1:8b}, \textit{3.2:3b} und \textit{3.3:70b} durch geführt. Alle drei Modelle repräsentieren unterschiedliche Anzahl der Parameter und somit verschiedene Modellgrößen.\vspace{0.2cm}

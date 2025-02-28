@@ -119,38 +119,38 @@ Alle Skripte zur Erstellung und Auswertung der Antworten werden mit Python reali
 
 %---------------------------------------------------------------------------------------------------
 
-Hier Weiter:
 
 \section{Design der Evaluierung}
 % Dieser Abschnitt ist zentral für die Arbeit, da er die methodische Vorgehensweise der Evaluation beschreibt.
-In dem Kapitel soll das Design der Evaluierung besprochen werden. Es wird der verwendete Benchmark vorgestellt, anschließend wird erläutert wie die Evaluierung durchgeführt wurde. Als Punkt in diesem Kapitel wird die Art und Weise festgehalten wie zum Zweck der Überprüf- und Nachvollziehbarkeit die erhobenen Daten dokumentiert wurden.
+In dem Kapitel wird das Design der Evaluierung besprochen. Der verwendete Benchmark wird vorgestellt und anschließend erläutert wie die Durchführung der Evaluierung erfolgt. Als letzter Punkt wird in diesem Kapitel die Art und Weise festgehalten, wie die Daten dokumentiert werden, um die Überprüf- und Nachvollziehbarkeit zu gewährleisten.
 
 
 \subsection{HumanEval-XL Benchmark}\label{subsec:structor_of_humaneval_xl}
-Das Experiment wird mit dem HumanEval-XL Benchmark durchgeführt. Dieser Benchmark besteht aus einer Reihe von 80 Tests in verschiedenen Programmier- und Landessprachen, die wie folgt aufgebaut sind,
+Das Experiment wird mit dem HumanEval-XL Benchmark durchgeführt. Dieser Benchmark besteht aus einer Reihe von 80 Proben in verschiedenen Programmier- und Landessprachen, die wie folgt aufgebaut sind,
 
 \begin{myenumerate}
-	\item \textbf{task\_id}: Die Kennung der Datenprobe als eine eindeutige ID. Hier ist schon die Programmiersprache erkenntlich, welche verwendet wird. Ein Beispiel für die PHP-Proben ist \texttt{php/0} oder \texttt{php/1}, für JavaScript wäre das beispielsweise \texttt{javascript/0}.
-	\item \textbf{prompt}: Die Anfrage für das Modell, Funktionsheader und Docstring. Hier ist die eigentliche Probe definiert. Dieser Teil des Benchmarks wird später in diesem Kapitel als \textit{Opening Tag} und \textit{Kommentar} ausführlicher beschrieben.
-	\item \textbf{entry\_point}: Der Einstiegspunkt für die Probe, in der der zu verwendende Methodenname explizit genannt wird. Dieser muss im Ergebnis und im Test angewandt werden.
-	\item \textbf{test}: Die vordefinierte Testaufgaben für die geforderte Funktion wird ebenfalls später in diesem Kapitel ausführlicher beschrieben.
-	\item \textbf{description}: Eine ausführliche Beschreibung der Aufgabe des Benchmarks die für den Nutzer bestimmt ist und nicht als Aufgabe für ein Modell.
-	\item \textbf{language}: Mit Kennung der Programmiersprache wird nochmals explizit auf die zu verwendende Programmiersprache hingewiesen, für die das Modell eine Lösung generieren soll.
-	\item \textbf{canonical\_solution}: Diese Lösung für das Problem kann hier vernachlässigt werden, da sie im HumanEval-XL keine Anwendung findet.
-	\item \textbf{natural\_language}: Die Angabe der Ländersprache, in der die Proben erstellt wurden.
+	\item \textbf{task\_id}: Die Kennung der Datenprobe, als eine eindeutige ID. An ihr ist bereits die Programmiersprache erkennbar, welche verwendet wird. Ein Beispiel für die PHP-Proben ist \texttt{php/0} oder \texttt{php/1}, für JavaScript wäre das beispielsweise \texttt{javascript/0}.
+	\item \textbf{prompt}: Der Prompt ist die Anfrage für das Modell und besteht aus Funktionsheader und Docstring. Hier ist die eigentliche Aufgabe der Probe definiert. Dieser Teil des Benchmarks wird später in diesem Kapitel, für die PHP Proben als \textit{Opening Tag} und \textit{Kommentar} ausführlicher beschrieben.
+	\item \textbf{entry\_point}: Der Einstiegspunkt für die Probe ist der \texttt{entry\_point}, in welcher der zu verwendende Methodenname explizit genannt wird. Dieser muss im Ergebnis und Test angewandt werden.
+	\item \textbf{test}: Die vordefinierte Testaufgaben, für die geforderte Funktion im generierten Code, wird ebenfalls später in diesem Kapitel ausführlicher beschrieben.
+	\item \textbf{description}: Diese enthält ausführliche Beschreibung der Aufgabe des Benchmarks, welche für den Nutzer bestimmt ist und nicht für das Modell.
+	\item \textbf{language}: Mit Kennung der Programmiersprache wird nochmals explizit auf diese hingewiesen, für die das Modell eine Lösung generieren soll.
+	\item \textbf{canonical\_solution}: Diese Lösung für das Problem findet keine Verwendung, da sie im HumanEval-XL nicht verwendet wird und zudem keine Angaben enthält.
+	\item \textbf{natural\_language}: Hier findet sich die Angabe zur Ländersprache, in der die Proben erstellt wird.
 \end{myenumerate}
 
-Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmark-Tests. In der Struktur des Benchmarks sind vier wesentliche Bereiche erkennbar. Dazu gehören das \textit{Opening Tag} (optional), der \textit{Kommentar}, das \textit{Ergebnis} und der \textit{Test}.\vspace{0.2cm}
+Die Abbildung \ref{img:code_generation_humaneval} zeigt den Aufbau und damit alle wichtigen Bereiche des Benchmarks. In dessen Struktur sind vier wesentliche Teilbereiche erkennbar. Dazu gehören das \textit{Opening Tag} (optional), der \textit{Kommentar}, das \textit{Ergebnis} und der \textit{Test}.\vspace{0.2cm}
 
 \begin{figure}[!ht]
-	\includegraphics[width=0.6\textwidth]{content/chapter_concept_design/images/code_generation_humaneval_x.eps}
+	\includegraphics[width=0.7\textwidth]{content/chapter_concept_design/images/code_generation_humaneval_x.eps}
 	\centering
 	\caption{Aufbau des HumanEval-XL Benchmarks}
 	\label{img:code_generation_humaneval}
 \end{figure}
 
-Das \textit{PHP Opening Tag}, in der Abbildung \ref{img:code_generation_humaneval} mit \textbf{1} bezeichnet, ist eine optionale Angabe zur Programmiersprache und durch den Benchmark vorgegeben. Während bei den PHP-Proben das Opening Tag \texttt{<?php} lautet, ist beispielsweise bei den JavaScript-Proben kein Opening Tag angegeben. Hier beginnt die Probe direkt mit dem Kommentar. Der in der Abbildung \ref{img:code_generation_humaneval} mit \textbf{2} bezeichnete Kommentar, enthält die eigentliche Aufgabe, die das Modell lösen soll. Auch der Kommentar ist vom Benchmark vorgegeben. Die letzte Zeile enthält den Methodennamen als Codevorgabe, der verwendet werden muss, um nach dem Generieren der Antwort abschließend einen Test durchführen zu können. Die Listings \ref{lst:example_probe_1_of_benchmark} und \ref{lst:example_probe_2_of_benchmark} zeigen Beispiele für die beiden Bereiche aus den ersten zwei Proben des Benchmarks.\vspace{0.2cm}
+Das \textit{PHP Opening Tag}, in der Abbildung \ref{img:code_generation_humaneval} mit \textbf{1} bezeichnet, ist eine optionale Angabe zur Programmiersprache und durch den Benchmark vorgegeben. Während bei den PHP-Proben das Opening Tag \texttt{<?php} lautet, ist beispielsweise bei den JavaScript-Proben kein Opening Tag angegeben. Hier beginnt die Probe direkt mit dem Kommentar. Der in der Abbildung \ref{img:code_generation_humaneval} mit \textbf{2} bezeichnete Kommentar, enthält die eigentliche Aufgabe, die das Modell lösen soll. Auch der Kommentar ist vom Benchmark vorgegeben. Die letzte Zeile enthält den Methodennamen als Codevorgabe, der zwingend verwendet werden muss. Der Methodenname ist erforderlich, um nach dem Generieren der Antwort einen Test durchführen zu können. Die Listings \ref{lst:example_probe_1_of_benchmark} zeigt ein Beispiel für die beiden Bereiche der ersten Probe des Benchmarks. In dem Listing ist auch zu erkennen das es sich bei den Proben, um Few-Shot-Prompting handelt. Die Aufgaben werden mit mehreren Beispiellösungen angegeben.\vspace{0.2cm}
 
+\begin{figure}[!ht]
 \begin{lstlisting}[
 	language=php,
 	label=lst:example_probe_1_of_benchmark,
@@ -169,29 +169,11 @@ Das \textit{PHP Opening Tag}, in der Abbildung \ref{img:code_generation_humaneva
 */
 function belowZero($operations){
 \end{lstlisting}
-
-\begin{lstlisting}[
-	language=php,
-	label=lst:example_probe_2_of_benchmark,
-	caption={PHP Beispiele für die zweiten Probe}
-]
-<?php
-
-/**
-* Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
-* Für eine gegebene Liste von ganzen Zahlen soll ein Tupel zurückgegeben werden, das aus der Summe und dem Produkt aller Zahlen in der Liste besteht.
-* Eine leere Summe soll gleich 0 und ein leeres Produkt gleich 1 sein.
-* >>> sum_product([])
-* (0, 1)
-* >>> sum_product([1, 2, 3, 4])
-* (10, 24)
-*
-*/
-function sumProduct($numbers){
-\end{lstlisting}
+\end{figure}
 	
-Diese beiden Teile Opening Tag und Kommentar werden an das Modell als Eingabeaufforderung übergeben und dieses generiert den Code, welches als \textit{Ergebnis} von dem Modell zurückgeliefert wird. Das Modell sollte im Idealfall den vorgegebenen Methodennamen aufgegriffen haben und diesen für die Ausgabe des Ergebnisses verwendet. Somit findet sich der Methodenname auch im Bereich \textbf{3} wieder. Ebenfalls werden oft das Opening Tag und der Kommentar durch das Modell übernommen. In der Abbildung \ref{img:code_generation_humaneval} ist das Ergebnis mit \textbf{3} ausgezeichnet. Der Bereich \textbf{4} bildet den letzten Teil des Benchmarks. Der Test ist ebenfalls vom HumanEval-XL Benchmark vorgegeben. Hier wird ein einfacher Vergleich durchgeführt der bei Abweichung von der Vorgabe eine Exception auslöst. Dazu werden an die vordefinierte Methode Parameter übergeben, aus denen der generierte Code eine Lösung errechnet. Diese wird mit einer, durch den Benchmark vordefinierten Lösung abgeglichen. Das Listing \ref{lst:example_test_1_of_benchmark} zeigt den Aufbau des Tests, am Beispiel der ersten Probe des Benchmarks.\vspace{0.2cm}
+Die beiden Teilbereiche \textit{Opening Tag} und \textit{Kommentar} werden an das Modell als Eingabeaufforderung übergeben. Es generiert den Programmcode und liefert diesen als \textit{Ergebnis} zurück. Die Modelle sollten im Idealfall den vorgegebenen Methodennamen aufgreifen und diesen in ihrer Ausgabe verwendet. Somit findet sich der Methodenname auch im Teilbereich \textbf{3} wieder. Ebenfalls werden oft das Opening Tag und der Kommentar durch das Modell übernommen. In der Abbildung \ref{img:code_generation_humaneval} ist das Ergebnis mit \textbf{3} ausgezeichnet. Der Bereich \textbf{4} bildet den letzten Teil des Benchmarks. Der Test ist ebenfalls vom HumanEval-XL Benchmark vorgegeben. Hier wird ein einfacher Vergleich durchgeführt der bei Abweichung von der Vorgabe eine Exception auslöst. Dazu werden an die vordefinierte Methode Parameter übergeben, aus denen der generierte Code eine Lösung errechnet. Diese wird mit einer, durch den Benchmark vordefinierten Lösung abgeglichen. Das Listing \ref{lst:example_test_1_of_benchmark} zeigt den Aufbau des Tests, am Beispiel der ersten Probe des Benchmarks. Hier sind in Zeile fünf und elf die erwarteten Methodennamen und die zu übergebenen Parameter zusehen. Ebenfalls sind die Vergleichswerte in Zeile vier und zehn angegeben und die einfache Methode \texttt{compare} in Zeile eins bis drei, welche einen statischen Vergleich durchführt. Der hier gezeigte Test der ersten Probe ist in einer gekürzten Fassung dargestellt. Der vollständige Code zur Probe kann unter \href{https://github.com/willi-pahl/master-thesis/blob/main/data/problems/PHP_German.jsonl}{https://github.com/willi-pahl/master-thesis/blob/main/data/problems/PHP\_German.jsonl} entnommen werden.\vspace{0.2cm}
 
+\begin{figure}
 \begin{lstlisting}[
 	language=php,
 	label=lst:example_test_1_of_benchmark,
@@ -212,31 +194,13 @@ $v1 = false;
 if (!compare($x1, $v1)) {
 	throw new Exception("Error at 2th assert statement.");
 }
-$arg20 = [1, 2, -4, 5, 6];
-$x2 = belowZero($arg20);
-$v2 = true;
-if (!compare($x2, $v2)) {
-	throw new Exception("Error at 3th assert statement.");
-}
-$arg30 = [1, -1, 2, -2, 5, -5, 4, -4];
-$x3 = belowZero($arg30);
-$v3 = false;
-if (!compare($x3, $v3)) {
-	throw new Exception("Error at 4th assert statement.");
-}
-$arg40 = [1, -1, 2, -2, 5, -5, 4, -5];
-$x4 = belowZero($arg40);
-$v4 = true;
-if (!compare($x4, $v4)) {
-	throw new Exception("Error at 5th assert statement.");
-}
+// more tests
 \end{lstlisting}
+\end{figure}
 
 
 \subsection{Durchführung der Evaluierung}
-Nach der Generierung des Codes durch das Modell werden die Bereiche \textbf{3} (Ergebnis) und \textbf{4} (Test) für die Evaluierung der Probe verwendet. Hierfür werden die Bereiche zusammengeführt und ergeben einen testbaren ausführbaren Code. Die Ergebnisse werden dokumentiert und dienen für Berechnung der Wahrscheinlichkeit, das ein Modell unter $k$-Proben eine korrekte Antwort liefert.\vspace{0.2cm}
-
-Der Ablauf der Evaluation ist in Abbildung \ref{img:sequence_of_evaluation} dargestellt.\vspace{0.2cm}
+Nach der Generierung des Codes durch das Modell werden die Bereiche \textbf{3} (Ergebnis) und \textbf{4} (Test) für die Evaluierung der Probe verwendet. Hierfür werden die Bereiche zusammengeführt und ergeben einen ausführbaren und testbaren Code. Die Ergebnisse werden dokumentiert und dienen für die Berechnung der Wahrscheinlichkeit, mit \texttt{pass@k}, dass ein Modell unter $k$-Proben eine korrekte Antwort liefert. Der Ablauf der Evaluation ist in Abbildung \ref{img:sequence_of_evaluation} dargestellt.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=\textwidth]{content/chapter_concept_design/images/ablauf_evaluation.eps}
@@ -246,33 +210,18 @@ Der Ablauf der Evaluation ist in Abbildung \ref{img:sequence_of_evaluation} darg
 \end{figure}
 
 %*   Welche Arten von Code sollen generiert werden? (z.B. einfache HTML-Formulare, komplexe JavaScript-Funktionen, serverseitiger Code in Python/Node.js, etc.)
-Um die Modelle zu evaluieren und ihre Fähigkeiten hinsichtlich der im Web vorherrschenden Programmiersprachen zu untersuchen, werden die Tests in den Programmiersprache PHP und in der deutschen Version vorgenommen. Dafür sollen die Modelle mehrfach einfache Funktionen generieren.\vspace{0.2cm}
+Um die Modelle zu evaluieren und ihre Fähigkeiten hinsichtlich Code für Webanwendungsentwicklung zu generieren, werden die Tests in den Programmiersprache PHP und in der deutschen Version vorgenommen. Dafür sollen die Modelle mehrfach einfache Funktionen generieren. Alle Modelle werden im ersten Schritt mit denselben Parametern getestet, die bereits in der Tabelle \ref{tab:params_for_llms} dokumentiert wurden.\vspace{0.2cm}
 
 %*   Wie werden die Testfälle für die Evaluation generiert? (z.B. manuelle Erstellung, automatische Generierung, Verwendung von bestehenden Code-Snippets, etc.) Wie groß ist der Umfang der Testfälle? (Anzahl der zu generierenden Code-Snippets)
-Der Benchmark liefert jeweils einen Test für die Evaluierung mit. Dazu werden bereits in den Prompts die Namen der Methoden und die zu übergebenen Parameter angegeben, welche durch die Modelle zu erstellen sind. Der jeweilige Test verwendet dann diesen Namen und übergibt die geforderten Parameter. Das Listing \ref{lst:example_prompt_test_by_humaneval_benchmark} zeigt ein Beispiel für einen mitgelieferten HumanEval-XL Test.\vspace{0.2cm}
-
-\begin{lstlisting}[language=php,caption={Beispiel für einen Test aus dem HumanEval-XL Benchmark},label=lst:example_prompt_test_by_humaneval_benchmark]
-function compare($x, $y) {
-	return $x == $y;
-}
-$arg00 = [3, 1, 2, 4, 5];
-$x0 = median($arg00);
-$v0 = 3;
-if (!compare($x0, $v0)) {
-	throw new Exception(\"Error at 1th assert statement.\");
-}
-\end{lstlisting}
-
-%*   Wie werden die Ergebnisse der LLMs verglichen? (z.B. Vergleich mit Referenzcode, manuelle Überprüfung, automatische Tests, etc.)
-Um die Modelle untereinander zu vergleichen, bekommen alle Modelle dieselben Prompts. Von jedem Prompt werden pro Modelle fünf Varianten erstellt. Die Ergebnisse werden in einer Liste chronologisch gespeichert. Mithilfe der pass@k Methode erfolgt die Evaluierung der Ergebnisse und anschließend die Bewertung der Modelle.
+Der Benchmark liefert für jede Probe einen Test für die Evaluierung mit. Dafür werden in den Prompts die Namen der Methoden und die zu übergebenen Parameter angegeben, welche durch die Modelle zu erstellen sind. Der jeweilige Test verwendet dann diesen Namen und übergibt die geforderten Parameter. Von jeder Probe werden pro Modelle fünf Varianten erstellt. Die Ergebnisse werden in einer Liste chronologisch gespeichert. Mithilfe der pass@k Methode erfolgt die Evaluierung der Ergebnisse und anschließend die Bewertung der Modelle.
 
 
 \subsection{Dokumentation der Daten}
-Die verwendeten Dateien des Benchmarks sind im \textit{JSONL}-Format festgehalten. Ebenso werden die Ergebnisse der LLM Abfragen in diesem Format dokumentiert. Für jede Probe wurde eine separate Datei erstellt, die jeweils fünf Ergebnisse einer LLM enthält. Für den gesamten Benchmark sind pro LLM 80 \textit{JSONL}-Dateien vorhanden.\vspace{0.2cm}
+Die verwendeten Dateien des HumanEval-XL Benchmarks sind im \textit{JSONL}-Format vorgegeben. Ebenso werden die von der LLM generierten Codes in diesem Format dokumentiert und persistent gespeichert. Für jede Probe wird eine separate Datei erstellt, die jeweils fünf Antworten von einer LLM enthält. Für den gesamten Benchmark sind, nach dem Test pro LLM, 80 \textit{JSONL}-Dateien vorhanden.\vspace{0.2cm}
 
-Neben den Rohdaten wurden die Ergebnisse in verschiedenen \textit{Open Document Speadsheet} (ODS) übernommen. Die Dateien lassen sich mit Tabellenkalkulationstool von OpenOffice oder LibreOffice öffnen. Dies dient als Zusammenfassung der Ergebnisse und Zusätzlich wurden hieraus Grafiken generiert, welche auch in diesem Dokument Verwendung finden.\vspace{0.2cm}
+Neben den Rohdaten werden die Ergebnisse in verschiedenen \textit{Open Document Speadsheet} (ODS) Dokumente übernommen und aufbereitet. Die Dateien lassen sich mit Tabellenkalkulationstools von OpenOffice oder LibreOffice öffnen. Diese dienen für die Zusammenfassungen der Ergebnisse und zusätzlich werden hieraus Grafiken generiert, welche auch in diesem Dokument Verwendung finden.\vspace{0.2cm}
 
-Als letztes wurden die programmierten Klassen und Methoden in Python-Dateien (\texttt{*.py}) abgelegt, mit denen die Ergebnisse erstellt und evaluiert wurden. Somit lasen sich alle erhobenen Ergebnisse nachvollziehen.
+Als Letztes werden die programmierten Klassen und Methoden in Python-Dateien (\texttt{*.py}) abgelegt, mit denen die Ergebnisse erstellt und evaluiert werden. Somit lassen sich alle erstellten Ergebnisse nachvollziehen.
 
 %---------------------------------------------------------------------------------------------------
 
@@ -280,60 +229,62 @@ Als letztes wurden die programmierten Klassen und Methoden in Python-Dateien (\t
 \section{Konzeption der Optimierung}\label{sec:conzept_of_optimization_prompt}
 %*   Welche Strategien für das Prompt-Engineering werden untersucht? (z.B. Few-Shot-Prompting, Chain-of-Thought-Prompting, Verwendung von Code-Kommentaren als Prompts, etc.)
 %Während die Evaluierung der Modelle ausschließlich mit den Proben des HumanEval-XL erfolgten, wird die Optimierung der Prompts, an zusätzlichen eigenen erstellten Proben erfolgen. Diese sind komplexer als die allgemeinen Proben aus dem HumanEval-XL Benchmark. Hierbei soll untersucht werden, mit welchem Ansätzen Prompts im Bereich der Codegenerierung für die Webprogrammierung erfolgen kann. Es wird neben der Proben auch ein Unittest vorgegeben. Somit kann die Codeüberprüfung der generierten Snippets mit Unittests erfolgen. Der Vorteil von Unittest ist, dass alle Tests durchgeführt werden, auch wenn ein vorheriger Test fehlschlägt. Um diese Tests ausführen zu können, sind PHP Dateien erforderlich. Somit müssen die generierten Codes in Dateien gespeichert und können im Anschluss geprüft werden.\vspace{0.2cm}
-
 %Für die Evaluierung der Ergebnisse der Optimierung wird manuell und automatisiert erfolgen. Durch die automatisierte Evaluierung ist auch hier der Vorteil gegeben das die Ergebnisse der ausgewählten Modelle nach dem gleichen Verfahren beurteilt werden. Wie bei der Evaluierung der Modelle werden die Ergebnisse auch hier festgehalten und dokumentiert.\vspace{0.2cm}
-
 %In der Arbeit werden verschiedene Möglichkeiten der Optimierung untersucht, die in den folgenden Kapiteln vorgestellt und deren Durchführung erläutert werden.
-Die Prompts aus dem HunamEval-XL Benchmark sind als \textit{One-Shot-Prompts} oder \textit{Few-Shot-Prompts} verfasst. So sind neben der eigentlichen Aufgabe, noch ein oder mehrere Beispiele für die Eingabeparameter der geforderten Methode und das erwartete Ergebnis angegeben. Das Listing \ref{lst:example_prompt_by_humaneval_benchmark} zeigt ein Beispiel für einen Prompt aus dem HumanEval-XL Benchmark. Im gezeigten Beispiel wird die Aufgabe und zwei Lösungsbeispiele als Prompt an die LLM gesandt. Die Beispiele enthalten die Eingabeparameter und das geforderte Ergebnis der erwarteten Methode.\vspace{0.2cm}
+Die Prompts aus dem HunamEval-XL Benchmark sind, wie bereits erwähnt als  \textit{Few-Shot-Prompts} verfasst. Einige der Proben besitzen nur ein Beispiel und sind somit als \textit{One-Shot-Prompts} definiert, was in Listing \ref{lst:example_test_3_of_benchmark} beispielhaft dargestellt wird. Hier ist die dritte Probe des Benchmarks zu sehen. Vor den Beispielen ist die eigentliche Aufgabe, welche von der LLM gelöst werden muss. Diese ist in Zeile drei bis sechs zu sehen. In der Zeile sieben ist der beispielhafte Methodenaufruf für die LLM dargestellt und das erwartete Ergebnis folgt in Zeile acht. Die Zeile elf zeigt in diesem Beispiel den vordefinierten Methodennamen und die zu übergebenen Parameter für die Methode.\vspace{0.2cm}
 
-\begin{lstlisting}[language=php,caption={Prompt Beispiel für  eine Aufgabe aus dem HumanEval-XL Benchmark},label=lst:example_prompt_by_humaneval_benchmark]
+\begin{figure}[!ht]
+\begin{lstlisting}[
+	language=php,
+	label=lst:example_test_3_of_benchmark,
+	caption={PHP Beispiele für den Test der dritten Probe, One-Shot-Prompt}
+]
 <?php
+
 /**
  * Sie sind ein erfahrener PHP-Programmierer und hier ist Ihre Aufgabe.
- * Gib den Median der Elemente in der Liste l zurück.
- * >>> median([3, 1, 2, 4, 5])
- * 3
- * >>> median([-10, 4, 6, 1000, 10, 20])
- * 15.0
+ * Die Eingabe sind zwei Zeichenketten a und b, die nur aus 1en und 0en bestehen.
+ * Führen Sie eine binäre XOR-Operation auf diesen Eingaben aus und geben Sie das Ergebnis ebenfalls als Zeichenkette zurück.
+ * >>> string_xor('010', '110')
+ * '100'
+ *
  */
-function median($l){
+function stringXor($a, $b){
 \end{lstlisting}
+\end{figure}
 
-Anders als bei \textit{Zero-Shot-Prompts}, können LLMS durch die Angabe von Beispielen die Regeln besser erlernen, Muster und Konzept der Aufgabe besser verstehen und es wird eine Verbesserung des generieren Programmcodes erreicht. Durch das Anwenden der Art von Prompts Design wurden die Eingabeaufforderungen bereits durch die Autoren des HumanEval-XL optimiert.\vspace{0.2cm}
+Anders als bei \textit{Zero-Shot-Prompts}, können LLMS durch die Angabe von Beispielen, die Regeln besser erlernen, Muster und Konzept der Aufgabe ableiten, helfen der LLM beim Erkennen des erwarteten Formates und reduzieren Halluzinationen bei den Antworten. Somit wird eine Verbesserung des generieren Programmcodes erreicht. Durch das Anwenden dieses Prompt-Design wurden die Eingabeaufforderungen bereits durch die Autoren des HumanEval-XL optimiert bereitgestellt.\vspace{0.2cm}
 
-Neben der Optimierung des Prompt Designs wurde weitere Optimierungen in den Eingabeaufforderungen des HumanEval-XL angewandt. So wurde die Eingabeaufforderung bereits als Kommentar der jeweiligen Programmiersprache verfasst. Bei der Probe für die PHP Programmierung wird vor dem Kommentar auf das, für PHP Programme erforderliche . Das definiert einen Kontextparameter und liefert für die LLM einen ersten Anhaltspunkt der zu generierenden Programmiersprache.\vspace{0.2cm}
+Neben der Optimierung des Prompt Designs wurden weitere Optimierungen in den Eingabeaufforderungen des HumanEval-XL angewandt. So werden die Eingabeaufforderung bereits als Kommentare der jeweiligen Programmiersprache verfasst. Bei den Proben für die Programmiersprache PHP wird vor dem Kommentar, dass für PHP Programme erforderliche \textit{Opening Tag} gesetzt. Somit wird ein weiterer Kontextparameter definiert und liefert für die LLM einen weiteren Anhaltspunkt für die zu generierende Programmiersprache.\vspace{0.2cm}
 
-Eine weitere Optimierung der Eingabeaufforderung ist die letzte Zeile. Hier ist bereits der Name für die erwartete Funktion angegeben. Hier wird die Fähigkeit der Modelle ausgenutzt, Funktionen und Codes zu vervollständigen. Dies ist wichtig, da die Tests im Benchmark auf einen existierenden Funktionsnamen angewiesen sind.\vspace{0.2cm}
+Eine weitere Optimierung der Eingabeaufforderung ist die bereits angesprochene letzte Zeile. Hier wird der Name für die erwartete Funktion angegeben und es wird die Fähigkeit der Modelle ausgenutzt, Funktionen und Codes zu vervollständigen. Dies ist wichtig, da die Tests im Benchmark auf einen existierenden Funktionsnamen angewiesen sind.\vspace{0.2cm}
 
-Somit lässt sich feststellen, dass die Eingabeaufforderungen weitestgehend optimiert sind. Daher wird auf eine weitere manuelle Optimierung der Eingabeaufforderung verzichtet. Es gibt viele Arbeiten, die sich mit genau diesem Problem befassen und es sind durchaus weitere Möglichkeiten vorhanden, die Eingabeaufforderungen zu optimieren.\vspace{0.2cm}
-
-%*   Wie werden die Prompts aufgebaut sein? (z.B. klare Anweisungen, Beispiele, Kontextinformationen, etc.)
-%Bei der Optimierung der Eingabeaufforderungen werden die LLMs bei NL2Code Generierung einen objektorientierten Ansatz zu generieren. Diese generierten Klassen lassen sich mit Test-Frameworks wir \textit{phpunit} und \textit{phpmetrics} evaluieren.\vspace{0.2cm}
+Somit lässt sich feststellen, dass die Eingabeaufforderungen weitestgehend optimiert sind. Daher wird auf eine weitere manuelle Optimierung der Eingabeaufforderung verzichtet. Es gibt viele Arbeiten, die sich mit genau diesem Problem befassen und es sind durchaus weitere Möglichkeiten vorhanden, die Eingabeaufforderungen textuell zu optimieren.\vspace{0.2cm}
 
 
 \subsection{Optimierung durch Frameworkauswahl}
-Eine andere Methode zur Optimierung der Eingabeaufforderungen ist die Verwendung verschiedener Frameworks. Hierbei werden die Eingabeaufforderungen auf verschiedenen Arten und Weisen, je nach eingesetztem Framework angepasst und beispielsweise mit zusätzlichen Meta-Angaben versehen. Es soll untersucht werden wie sich die Verwendung unterschiedlicher Frameworks auf die Ausgaben der Modelle auswirkt. In der Arbeit werden die Auswirkungen auf die Ergebnisse der Python-Frameworks \textit{langchain} und \textit{DSPy} für verschiedene Modelle verglichen. Für einen automatisierten Test wird hier der HumanEval-XL angewandt.\vspace{0.2cm}
+Eine andere Methode zur Optimierung der Eingabeaufforderungen ist die Verwendung verschiedener Frameworks. Hierbei werden die Eingabeaufforderungen durch das Framework angepasst, beispielsweise durch das Hinzufügen zusätzlichen Meta-Angaben. Es soll untersucht werden wie sich die Verwendung unterschiedlicher Frameworks auf die Ausgaben der Modelle auswirkt. In der Arbeit werden die Auswirkungen auf die Ergebnisse, der Python-Frameworks \textit{langchain} und \textit{DSPy}, für verschiedene Modelle verglichen. Für eine automatisierte Auswertung der Tests wird hier ebenfalls der HumanEval-XL angewandt.\vspace{0.2cm}
 
-Das Framework \textit{langchain} wurde 2022 vorgestellt und ermöglicht Nutzern die Entwicklung komplexer Anwendungen für LLMs. Jedoch ist Fachwissen im Prompt-Engineering erforderlich, um optimale Eingabeaufforderungen an die Modelle zu stellen. Dieses Fachwissen ist beim \textit{DSPy}-Framework nicht mehr notwendig. Hier übernimmt das Framework die Optimierung der Eingabeaufforderungen für die Modelle und macht somit das manuelle optimieren der Prompts und deren Techniken überflüssig. \textit{DSPy} ist im Oktober von Forschern veröffentlicht worden die Standards für NLP arbeiten.\vspace{0.2cm}
+Das Framework \textit{langchain} wurde 2022 vorgestellt und ermöglicht Nutzern die Entwicklung komplexer Anwendungen für Interaktionen mit LLMs. Jedoch ist Fachwissen im Bereich Prompt-Engineering erforderlich, um optimale Eingabeaufforderungen an die Modelle zu stellen. Dieses Fachwissen ist beim \textit{DSPy}-Framework nicht mehr notwendig. Hier übernimmt das Framework die Optimierung der Eingabeaufforderungen für die Modelle und macht somit das manuelle Optimieren der Prompts und Kenntnisse in diesen Techniken überflüssig. \textit{DSPy} ist im Oktober von den Forschern der \textit{Stanford NLP Group} veröffentlicht worden, die an Standards für \textit{Natural Language Processing} arbeiten.\vspace{0.2cm}
 
 
 \subsection{Evaluierung der Optimierungen}
 % Werden verschiedene Prompt-Varianten für die gleichen Code-Generierungsaufgaben verwendet, um deren Einfluss auf die Ergebnisse zu untersuchen?
 % Dieser Abschnitt ist besonders wichtig, da er sich mit der Optimierung der LLMs durch Prompt-Engineering beschäftigt.
-Wie auch schon bei der Evaluierung der Modelle werden die Ergebnisse festgehalten, um diese nachvollziehen zu können. Die erhobenen Rohdaten werden in Dateien, die im \textit{JSONL}-Format vorliegen gespeichert. Für die Auswertung der Ergebnisse ist auch hier das \textit{Open Document Speadsheet (ODS)} vorgesehen.\vspace{0.2cm}
+Wie auch schon bei der Evaluierung der Modelle, werden die Ergebnisse der Optimierung ebenfalls festgehalten, um diese nachvollziehen zu können. Die erhobenen Daten werden in Dateien, die im \textit{JSONL}-Format vorliegen gespeichert. Für die Auswertung der Ergebnisse ist auch hier das \textit{Open Document Speadsheet (ODS)} vorgesehen. Hier erfolgt die Zusammenfassung der Ergebnisse und deren grafischen Darstellung.\vspace{0.2cm}
 
-Die erstellen Programme für die Erstellung der Rohdaten und der Evaluierung, sind als Python-Dateien \texttt{*.py} abgelegt, um die Nachvollziehbarkeit der Ergebnisse zu gewährleisten.
+Die erstellen Methoden und Klasse, für die Erzeugung der Antworten und Ausführen der Evaluierungen, sind in Python erstellt und in Dateien \texttt{*.py} abgelegt, um die Nachvollziehbarkeit der Ergebnisse zu gewährleisten.
 
 %---------------------------------------------------------------------------------------------------
 
 
 \section{Testumgebung}
 %*   Welche Hardware und Software werden für die Experimente verwendet? (z.B. CPU, GPU, Betriebssystem, Programmiersprachen, Bibliotheken, etc.)
-Die \textit{Open-Source}-Modelle laufen auf einem System, welches mit 8 Kernen (16 Threads) und 32 GB RAM ausgestattet ist. Um zusätzlichen Speicher zu erhalten, wurde eine 100 GB Swap Partition genutzt. Zur weiteren Optimierung wurde eine RTX 3060 Grafikkarte der Firma Nvidia, mit 12 GB VRAM verwendet. Das System ist mit dem lokalen Netzwerk verbunden und stellt den Zugriff der Modelle im Netzwerk bereit.\vspace{0.2cm}
+Die \textit{Open-Source}-Modelle laufen auf einem System, welches mit 8 Kernen (16 Threads) und 32 GB RAM ausgestattet ist. Um zusätzlichen Speicher zu erhalten, wurde eine 100 GB Swap Partition genutzt. Zur weiteren Optimierung wurde eine RTX 3060 Grafikkarte der Firma Nvidia, mit 12 GB VRAM verwendet. Das System ist mit dem lokalen Netzwerk verbunden und stellt den Zugriff der Modelle über das Netzwerk bereit.\vspace{0.2cm}
 
 Auf dem System ist ein Debian 12 installiert und für die Bereitstellung kommt das freie Framework Ollama zum Einsatz. Zur Evaluierung wurde PHP in der Version 8.2.26 (Build-Stand: 25.11.2024) angewandt.\vspace{0.2cm}
 
-Über die Hard- und Softwarekomponenten der kommerziellen \textit{Cloused-Source}-Modelle sind keine Hardwarespezifikationen oder andere tiefer gehende Informationen vorhanden. Da die Performance für die Evaluierung keine entscheidende Rolle spielt, wird nicht weiter und tiefer gehend recherchiert. \vspace{0.2cm}
+Über die Hard- und Softwarekomponenten der kommerziellen \textit{Cloused-Source}-Modelle sind keine Hardwarespezifikationen oder andere tiefer gehende Informationen vorhanden. Da die Performance für die Evaluierung in dieser Arbeit keine entscheidende Rolle spielt, wird nicht weiter recherchiert.\vspace{0.2cm}
 
 %*   Wie wird die Reproduzierbarkeit der Experimente sichergestellt? (z.B. Verwendung von Versionskontrolle, Dokumentation der Umgebung, etc.)
-Alle wichtigen Codes und Codesequenzen, sowie die Ergebnisse sind im Dokument oder im Anhang zu finden. Der gesamte Code und Ergebnisse sind dokumentiert, sodass die Möglichkeit besteht die Evaluierungen nachzuvollziehen. Alle Daten und Dateien werden unter \href{https://github.com/willi-pahl/master-thesis}{https://github.com/willi-pahl/master-thesis} bereitgestellt.\vspace{0.2cm}
+Alle wichtigen Codes und Codesequenzen, sowie die Ergebnisse sind im Dokument oder im Anhang zu finden. Der gesamte Code und die Ergebnisse sind dokumentiert, sodass die Möglichkeit besteht die Evaluierungen nachzuvollziehen. Alle Daten und Dateien werden unter \href{https://github.com/willi-pahl/master-thesis}{https://github.com/willi-pahl/master-thesis} bereitgestellt.\vspace{0.2cm}

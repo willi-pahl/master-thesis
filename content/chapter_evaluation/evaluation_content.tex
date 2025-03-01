@@ -147,19 +147,18 @@ Die Ergebnisse aus diesem Test sind in Tabelle \ref{tab:prompt_results_open_mode
 	\caption{Ergebnisse der pass@1 Methode mit Angabe der Parameter}
 \end{table}
 
-\section{HiER WEITER}
-Weiter hier.
 
 \subsection{Evaluierung nach Sprache}
-Eine Überprüfung der Modelle, inwieweit die englische Sprache besser Ergebnisse liefern würde, wurde exemplarisch mit den \textit{Llama}-Modelle \textit{3.1:8b}, \textit{3.2:3b} und \textit{3.3:70b} durch geführt. Alle drei Modelle repräsentieren unterschiedliche Anzahl der Parameter und somit verschiedene Modellgrößen.\vspace{0.2cm}
+Eine Überprüfung, inwieweit die englische Sprache besser Ergebnisse liefern würde, wurde exemplarisch mit den \textit{Llama}-Modellen \textit{3.1:8b}, \textit{3.2:3b} und \textit{3.3:70b} durchgeführt. Alle drei Modelle repräsentieren unterschiedliche Anzahl der Parameter und somit verschiedene Modellgrößen.\vspace{0.2cm}
 
-Ein Grund für diese Annahme war unter anderem, die in Kapitel \ref{subsec:disadvantages_of_evaluation} gezeigten Fehler, die bei der Übersetzung der Tests auftraten. Da das Training der Modelle in englischer Sprache erfolgt und hier ebenso Fehler bei der Übersetzung die Ausgaben beeinflussen könnten, lag die Vermutung nahe, dass eine Evaluierung in dieser Sprache, wesentlich bessere Ergebnisse liefern könnte. Diese Vermutung wurde auch durch die Auswertungen in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP, in der englischen Version im Durchschnitt besser abschnitt bestärkt.\vspace{0.2cm}
+Ein Grund für diese Annahme ist, die in Kapitel \ref{subsec:disadvantages_of_evaluation} gezeigten Fehler, die bei der Übersetzung der Proben festzustellen war.
+Es kann auch nicht ausgeschlossen werden, dass die Trainingsdaten für die Modelle Fehler in der Übersetzung enthalten. Diese könnten ebenfalls zu falsch generiertem Code, in einer nicht englischen Sprache führen. Aus den genannten Gründen, lag die Vermutung nahe, dass eine Evaluierung in der englischen Sprache, wesentlich bessere Ergebnisse liefern könnte. Diese Vermutung wurde auch durch die Auswertungen in \cite[][11]{peng-2024} (Tabelle 12), bei denen die Programmiersprache PHP, in der englischen Version im Durchschnitt besser abschnitt bestärkt.\vspace{0.2cm}
 
-Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das \textit{Llama3.3} zeigt beim pass@1, in der englische Version einen besseren Wert. Hier betrug der Unterschied 3,5\%, bei denen die Ergebnisse in Deutsch einen Wert von 62,75\% erreichten. Diese Werte nähert sich mit steigendem $k$ Wert an, sodass bei $k=5$ die Ergebnisse in Englisch und Deutsch identisch sind und beide Sprachen einen Wert für die Wahrscheinlichkeit von 72,5\% erreichten.\vspace{0.2cm}
+Diese Vermutung konnte mit den durchgeführten Tests der ausgewählten Modelle nur bedingt bestätigt werden. Das \textit{Llama3.3} zeigt beim pass@1, in der englische Version einen besseren Wert. Hier betrug der Unterschied 3,5\%, bei denen die Ergebnisse in Deutsch einen Wert von 62,75\% erreichten. Die Werte nähert sich mit steigendem $k$ Wert an, sodass bei $k=5$ die Ergebnisse in Englisch und Deutsch identisch sind und beide Sprachen einen Wert für die Wahrscheinlichkeit von 72,5\% erreichten.\vspace{0.2cm}
 
-Das \textit{Llama3.2} Modelle zeigte beim \texttt{pass@k} für $k=1,...,5$ ein umgekehrtes Verhalten, als das \textit{Llama3.3} Modell. Mit einem steigendem $k$-Wert erzielte diese Modellvariante immer bessere Resultate in der deutschen Sprache. Für  den \texttt{pass@1} erzielte das \textit{Llama3.2} Modell für den Test in Deutsch 26,25\% und in Englisch 24,75\%. Einen Wert von 45\% konnte für das englische Modell beim \texttt{pass@5} festgestellt werden und das deutsche Modelle erreichte einen Wert von 55\%. Für den \texttt{pass@1} betrug der Unterschied bei den Ergebnissen des Benchmarks gerade mal 1,5\%, während es beim \texttt{pass@5} bereits 10\% waren.\vspace{0.2cm}
+Das \textit{Llama3.2} Modelle zeigte beim \texttt{pass@k} für $k=1,...,5$ ein umgekehrtes Verhalten, als das zuvor genannte \textit{Llama3.3} Modell. Mit einem steigendem $k$-Wert erzielte diese Modellvariante immer bessere Resultate in der deutschen Sprache. Für den \texttt{pass@1} erzielte das \textit{Llama3.2} Modell für die deutschen Proben einen Wert von 26,25\% und bei den englischen Proben einen Wert von 24,75\%. Einen Wert von 45\% konnte für das englische Modell beim \texttt{pass@5} festgestellt werden und das deutsche Modelle erreichte einen Wert von 55\%. Somit betrug der Unterschied bei den Ergebnissen des Benchmarks, beim \texttt{pass@1} gerade einmal 1,5\%, während es beim \texttt{pass@5} bereits 10\% waren.\vspace{0.2cm}
 
-Ein ausgeglichenes Resultat zeigt das \textit{Llama3.1} Modell der beiden Sprachen im Vergleich. Hier sind die pass@3 Resultate in Deutsch und Englisch fast identisch und der Unterschied liegt hier bei 0,75\%. Während bei abnehmenden $k$-Werten die englischen Resultate besser werden, ist bei zunehmenden $k$-Wert eine Verbesserung der deutschsprachigen Ergebnisse zu erkennen. Für den \texttt{pass@1} ist das englische Ergebnis von 48,5\% um 5,5\% besser als die Resultate mit dem deutschen Benchmark. Beim \texttt{pass@5} lagen die Ergebnisse in Deutsch, mit 63,75\% um 2,5\% vor den englischen Ergebnissen.\vspace{0.2cm}
+Ein ausgeglichenes Resultat zeigt das \textit{Llama3.1} Modell, bei dem Vergleich beider Sprachen. Hier sind die \texttt{pass@3} Resultate in Deutsch und Englisch fast identisch und der Unterschied liegt hier bei 0,75\%. Während bei abnehmenden $k$-Werten die englischen Resultate besser werden, ist bei zunehmenden $k$-Wert eine Verbesserung der deutschsprachigen Ergebnisse zu erkennen. Für den \texttt{pass@1} ist das englische Ergebnis von 48,5\% um 5,5\% besser als die Resultate mit dem deutschen Proben des Benchmarks. Beim \texttt{pass@5} lagen die Ergebnisse in Deutsch, mit 63,75\% um 2,5\% vor den englischen Ergebnissen.\vspace{0.2cm}
 
 In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse der $pass@k$-Methode mit $k=1 … 5$ für die ausgewählten Llama-Modelle zusammengefasst. Die Proben wurden jeweils in Englisch und in Deutsch an die Modelle gestellt.\vspace{0.2cm}
 
@@ -167,11 +166,11 @@ In der Abbildung \ref{img:pass_at_k_results_by_llama_lang} werden die Ergebnisse
 	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama31_evaluation_lang.eps}
 	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama32_evaluation_lang.eps}
 	\includegraphics[width=0.45\textwidth]{content/chapter_evaluation/images/llama33_evaluation_lang.eps}
-	\caption{Ergebnisse der pass@k-Methode für Llama Modelle verschiedener Sprachen}
+	\caption{Ergebnisse der pass@k-Methode für Llama Modelle in gewählten Sprachen}
 	\label{img:pass_at_k_results_by_llama_lang}
 \end{figure}
 
-Die Tabelle \ref{tab:prompt_results_llama_x_by_lang} dokumentiert die Resultate des Benchmarks für die \textit{Llama3.x} Modelle. Hier sind alle Werte für die \texttt{pass@k}, mit $k=1,...,5$ notiert. Die Differenz zwischen der deutschen und englischen Sprachen wurde nach der Formel $DE - ENG = diff$ berechnet.\vspace{0.2cm}
+Die Tabelle \ref{tab:prompt_results_llama_x_by_lang} dokumentiert die Resultate des Benchmarks für die \textit{Llama3.x} Modelle. Hier sind alle Werte für die \texttt{pass@k}, mit $k=1,...,5$ notiert. Die Differenz zwischen der deutschen und englischen Sprachen wurde nach der Formel $DE - ENG = diff$ berechnet. Somit stellt eine positive Differenz, ein besseres Ergebnis für die Proben in Deutsch dar und eine negative Differenz ein besseres Ergebnis für die Proben in Englisch dar.\vspace{0.2cm}
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|lll|lll|lll|}
@@ -190,23 +189,23 @@ Die Tabelle \ref{tab:prompt_results_llama_x_by_lang} dokumentiert die Resultate 
 	\end{tabular}
 	\centering
 	\label{tab:prompt_results_llama_x_by_lang}
-	\caption{Ergebnisse der pass@1 Methode für die englische und deutsche Sprache}
+	\caption{Vergleich der englischen und deutschen Sprache für den \texttt{pass@1}}
 \end{table}
 
-Dieser Test zeigt, dass eine deutschsprachige Verwendung der Modelle nicht zwangsläufig schlechteren Code generiert. Daraus wird der Schluss gezogen, das bei der Optimierung der Prompts eine Übersetzung ins Englische nicht unbedient zu einer signifikanten Verbesserung führt.
+Dieser Test zeigt, dass eine deutschsprachige Verwendung der Modelle nicht zwangsläufig schlechteren Code generiert.
 
 %--- Optimierung -----------------------------------------------------------------------------------
 
 
 \section{Optimierung der Ergebnisse durch die Wahl des Frameworks}
 % https://ki-techlab.de/ki-news/evaluierung-grosser-sprachmodelle-ein-technischer-leitfaden/
-Für die Evaluierung zur Prüfung einer Optimierung der Ausgaben durch die Wahl eines Frameworks, wurden die Modelle \textit{Codellama}, \textit{Llama3.1}, \textit{Mistral Small} und \textit{Qwen 2.5 Coder} herangezogen. Von den vier getesteten Modellen zeigten drei eine signifikante Verbesserung in den Ergebnissen. Ausschließlich das im Test verwendetet Llama3.1 Modell hat nach der Änderung des Frameworks eine Verschlechterung der Ergebnisse gezeigt. Bei diesem Modell sank das Ergebnis beim \texttt{pass@1} um 0,095 von 0,43 auf 0,335 und beim \texttt{pass@5} sank das Ergebnis des Tests von 0,6375 auf 0,6125\%.\vspace{0.2cm}
+Um zu prüfen, ob sich mit verschiedenen Frameworks Optimierungen erzielen lassen, wurden die Modelle \textit{Codellama}, \textit{Llama3.1}, \textit{Mistral Small} und \textit{Qwen 2.5 Coder} herangezogen. Von den vier getesteten Modellen zeigten drei eine signifikante Verbesserung in den Ergebnissen. Nur das im Test verwendetet Llama3.1 Modell hat nach der Änderung des Frameworks eine Verschlechterung der Ergebnisse gezeigt. Bei diesem Modell sank das Ergebnis beim \texttt{pass@1} um 0,095 von 0,43 auf 0,335 und beim \texttt{pass@5} sank das Ergebnis des Tests von 0,6375 auf 0,6125\%.\vspace{0.2cm}
 
-Bei den getesteten Modellen \textit{Codellama} und \textit{Mistral Small} wurde eine erhebliche Verbesserung festgestellt. Beim \textit{Codellama} Modell erhöhte sich das Ergebnis des Benchmarks beim \texttt{pass@1} um 0,1375 von 0,005 auf 0,1475 und beim \texttt{pass@5} um 0,375 von 0,025 auf 0,4. Eine ähnliche Verbesserung zeigt das Modell \textit{Mistral Small}. Hier stiegt der Wert des Ergebnisses beim \texttt{pass@1} um 0,3175 von 0,22 und beim \texttt{pass@5} um 0,325 von 0,4 auf 0,725.\vspace{0.2cm}
+Bei den getesteten Modellen \textit{Codellama} und \textit{Mistral Small} wurde eine erhebliche Verbesserung festgestellt. Beim \textit{Codellama} Modell erhöhte sich das Ergebnis des Benchmarks beim \texttt{pass@1} um 0,1425 von 0,005 auf 0,1475 und beim \texttt{pass@5} um 0,375 von 0,025 auf 0,4. Eine ähnliche Verbesserung zeigt das Modell \textit{Mistral Small}. Hier stiegt der Wert des Ergebnisses beim \texttt{pass@1} um 0,3175 von 0,22 auf 0,5375 und beim \texttt{pass@5} um 0,325 von 0,4 auf 0,725.\vspace{0.2cm}
 
-Die besten Werte der getesteten in der Evaluierung mit dem HumanEval-XL erzielte das Modell \textit{Qwen 2.5 Coder}. Hier ist ein Anstiegt der Ergebnisse beim \texttt{pass@1} um 0,515 und beim \texttt{pass@5} um 0,525 zu beobachten. Somit erreicht das Modell im Benchmark für den \texttt{pass@1} ein Ergebnis von 0,7125 und für den \texttt{pass@5} einen Wert von 0,825. Mit diesem Ergebnis liegt das \textit{Qwen 2.5 Coder} Modell fast gleich auf mit dem neusten Modell von Deepseek, dem \textit{Deepseek-R1} Modell. Dieses hat im Benchmark, mit dem \texttt{langchain} Framework einen Wert für den \texttt{pass@1} von 0,7025 und für den \texttt{pass@5} von 0,8375 erreicht.\vspace{0.2cm}
+Die besten Werte, nach der Framework Änderung erzielte das Modell \textit{Qwen 2.5 Coder}. Hier ist ein Anstiegt der Ergebnisse beim \texttt{pass@1} um 0,515 und beim \texttt{pass@5} um 0,525 zu beobachten. Somit erreicht das Modell im Benchmark für den \texttt{pass@1} ein Ergebnis von 0,7125 und für den \texttt{pass@5} einen Wert von 0,825. Mit diesem Ergebnis liegt das \textit{Qwen 2.5 Coder} Modell fast gleich auf mit dem neusten Modell von Deepseek, dem \textit{Deepseek-R1} Modell. Dieses hat im Benchmark, mit dem \texttt{langchain} Framework einen Wert für den \texttt{pass@1} von 0,7025 und für den \texttt{pass@5} von 0,8375 erreicht.\vspace{0.2cm}
 
-Die Ergebnisse der Optimierung durch die Auswahl des Frameworks werden in den Diagrammen der Abbildung \ref{img:pass_at_k_results_by_framework} dargestellt.
+Die Ergebnisse des Vergleichs der beiden Frameworks \texttt{langchain} und \texttt{DSPy} werden in den Diagrammen der Abbildung \ref{img:pass_at_k_results_by_framework} dargestellt. Jedes Diagramm zeigt die Ergebnisse eines Modells für den \texttt{pass@1} und für den \texttt{pass@5} mit beiden Frameworks.\vspace{0.2cm}
 
 \begin{figure}[!ht]
 	\includegraphics[width=0.5\textwidth]{content/chapter_evaluation/images/framework_evaluation_codellama.eps}
@@ -218,7 +217,7 @@ Die Ergebnisse der Optimierung durch die Auswahl des Frameworks werden in den Di
 	\label{img:pass_at_k_results_by_framework}
 \end{figure}
 
-Die Werte aus der Abbildung \ref{img:pass_at_k_results_by_framework} sind in der Tabelle \ref{tab:pass_at_k_results_by_framework} detailliert aufgeführt. Zusätzlich ist der Tabelle die Differenz angegeben, welche zwischen den Ergebnissen der Frameworks \texttt{langchain} und \texttt{DSPy} festgehalten wurden. Die Differenz wurde nach der Formel $DPSy - langchain = Diff$ berechnet.
+Die Werte aus der Abbildung \ref{img:pass_at_k_results_by_framework} sind in der Tabelle \ref{tab:pass_at_k_results_by_framework} detailliert aufgeführt. Zusätzlich ist der Tabelle die Differenz angegeben, welche zwischen den Ergebnissen der Frameworks \texttt{langchain} und \texttt{DSPy} festgehalten wurden. Die Differenz wurde nach der Formel $DPSy - langchain = Diff$ berechnet. Somit zeigt eine negative Differenz an, dass das Framework \texttt{langchain} bessere Werte erzielte, während eine positive Differenz anzeigt, dass das \texttt{DSPy}-Framework die besseren Ergebnisse erzielt hat.
 
 \begin{table}[!ht]
 	\begin{tabular}{|l|ll|ll|ll|ll|}
@@ -227,10 +226,10 @@ Die Werte aus der Abbildung \ref{img:pass_at_k_results_by_framework} sind in der
 		%\hline
 		\textbf{k} & \textbf{1} & \textbf{5} & \textbf{1} & \textbf{5} & \textbf{1} & \textbf{5} & \textbf{1} & \textbf{5} \\
 		\hline
-		\textbf{Langchain}  & 0,005 & 0,025 & 0,43 & 0,6375  & 0,1975 & 0,3   & 0,22 & 0,4 \\
-		\textbf{DSPy}       & 0,1425 & 0,4  & 0,335 & 0,6125 & 0,7125 & 0,825 & 05375 & 0,725 \\
+		\textbf{Langchain}  & 0,005  & 0,025 & 0,43   & 0,6375 & 0,1975 & 0,3   & 0,22   & 0,4 \\
+		\textbf{DSPy}       & 0,1425 & 0,4   & 0,335  & 0,6125 & 0,7125 & 0,825 & 0,5375 & 0,725 \\
 		\hline
-		\textbf{Diff} & 0,1375 & 0,375  & -0,095 & -0,025    & 0,515 & 0,525    & 0,3175 & 0,325 \\
+		\textbf{Diff}       & 0,1375 & 0,375 & -0,095 & -0,025 & 0,515  & 0,525 & 0,3175 & 0,325 \\
 		\hline
 		\hline
 	\end{tabular}

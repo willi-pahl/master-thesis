@@ -74,16 +74,28 @@ Ein Hugging Face Modell kann, heruntergeladen werden. Soll das Modell auch nach 
 
 \newpage
 \section{Abfragen lokaler Modelle}
-Um die Modelle abzufragen, kommt der Code, welcher in Listing \ref{lst:call_ollama_model} zu sehen ist, zum Einsatz.
+Um die Modelle abzufragen, kommt der Code, welcher in Listing \ref{lst:call_ollama_model} zu sehen ist, zum Einsatz. Hier wird die Abfrage mit dem \texttt{langchain}-Framework gezeigt.\vspace{0.2cm}
 
 \lstinputlisting[
 	language=python,
-	caption={Abfragen der Ollama Modelle},
-	label=lst:call_ollama_model
+	caption={Abfragen der Ollama Modelle mit \texttt{langchain}},
+	label=lst:call_ollama_model_langchain
 ]{codes/src/execute/execute_ollama_langchain.py}
 
 \newpage
+
+Für die Optimierung mit dem \texttt{DSPy}-Frameowrk wurde der Code, welcher in Listing \ref{lst:call_ollama_model_dspy} gezeigt wird angewandt.
+
+\lstinputlisting[
+	language=python,
+	caption={Abfragen der Ollama Modelle mit \texttt{DSPy}},
+	label=lst:call_ollama_model_dspy
+]{codes/src/execute/execute_ollama_dspy.py}
+
+
+\newpage
 \section{Abfrage cloudbasierter Modelle}
+Das Listig \ref{lst:execution_gemini_models} zeigt die Umsetzung der Abfrage von den Gemini Modellen mit Python. Um die Abfragen durchzuführen sind neben dem Projektnamen und des Standortes, noch ein gültiger GCP Account erforderlich.
 
 \lstinputlisting[
 	language=python,
@@ -91,48 +103,25 @@ Um die Modelle abzufragen, kommt der Code, welcher in Listing \ref{lst:call_olla
 	label=lst:execution_gemini_models
 ]{codes/src/execute/execute_google_gemini.py}
 
+\newpage
+
+Ähnlich wie die Gemini Modelle, werden auch die ChatGPT Modelle von OpenAI abgefragt. Auch hier ist ein gültiger Account und ein API Key notwendig. Das Listing \ref{lst:execution_openai_models} zeigt die Abfrage mittels Python.
+
 \lstinputlisting[
 	language=python,
 	caption={Ausführen der Prompts für OpenAI Modelle.},
 	label=lst:execution_openai_models
 ]{codes/src/execute/execute_openai_gpt.py}
 
-
-\subsection{Evaluation der Antworten von den Modellen}
+\newpage
+\section{Evaluation der Antworten von den Modellen}
 Das Listing \ref{lst:evaluation_search_generated_code} zeigt beispielhaft eine Suche nach Codezeilen in einer Antwort eines Modells. Die Methode \texttt{search\_generated\_code} muss auf jedes Modell angepasst sein.
 
-\begin{lstlisting}[
-	language=python,
-	caption={Evaluation der Modellantworten: Suche nach Codeausschnitten},
-	label=lst:evaluation_search_generated_code
-]
-def search_generated_code(content: str) -> str:
-    """
-    Search the generated code in string, it is one line of file.
-    :param content (str): Answer from LLM.
-    :returns str: Generated code.
-    """
-    for index in [i for i in range(0, 10)]:
-        if content.startswith('{"result_' + str(index) + '":"'):
-            generated_code: str = content.split(
-                '{"result_' + str(index) + '":"')[1]
-            generated_code = generated_code[:-2]
-            generated_code = generated_code.strip()
-
-        if len(generated_code.split("```php")) > 1:
-            generated_code = generated_code.split("```php")[1]
-            generated_code = generated_code.split("```")[0]
-
-        if generated_code.startswith("<?php"):
-            generated_code = generated_code.split("<?php")[1]
-            generated_code = generated_code.split("?>")[0]
-
-        if len(generated_code.split(r"\n}\n")) > 0:
-            generated_code = generated_code.split(r"\n}\n")[0] + "\n}\n"
-
-        return generated_code
-    return ""
-\end{lstlisting}
+\lstinputlisting[
+language=python,
+caption={Evaluation der Modellantworten: Suche nach Codeausschnitten},
+label=lst:evaluation_search_generated_code
+]{codes/src/evaluation/evaluation.py}
 
 
 \newpage

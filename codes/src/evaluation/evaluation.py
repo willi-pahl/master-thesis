@@ -41,7 +41,9 @@ def search_generated_code(content: str) -> str:
     """
     for index in [i for i in range(0, 5)]:
         if content.startswith('{"result_' + str(index) + '":"'):
-            generated_code: str = content.split('{"result_' + str(index) + '":"')[1]
+            generated_code: str = content.split(
+                '{"result_' + str(index) + '":"'
+            )[1]
             generated_code = generated_code[:-2]
             generated_code = generated_code.strip()
 
@@ -58,7 +60,9 @@ def search_generated_code(content: str) -> str:
                 generated_code = generated_code.split("?>")[0]
 
             if len(generated_code.split(r"\n}\n")) > 0:
-                generated_code = generated_code.split(r"\n}\n")[0] + "\n}\n"
+                generated_code = (
+                    generated_code.split(r"\n}\n")[0] + "\n}\n"
+                )
 
             return generated_code
 

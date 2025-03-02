@@ -20,7 +20,9 @@ ALLOWED_LLMS: list[dict] = [
 ]
 
 
-def run_model(problem: str, client: OpenAI, model_name: str) -> str:
+def run_model(
+        problem: str, client: OpenAI, model_name: str
+    ) -> str:
     """
     Run OpoenAI models.
 
@@ -79,7 +81,13 @@ def execute_prompt(
     client = connect_client()
     answers: list[str] = []
     while current_count < max_count:
-        answers.append(run_model(problem=prompt, client=client, model_name=model_name))
+        answers.append(
+            run_model(
+                problem=prompt,
+                client=client,
+                model_name=model_name
+            )
+        )
         current_count += 1
 
     return answers
